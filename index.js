@@ -1,5 +1,6 @@
 
-function laCajaDePandora(numero1,numero2){
+function laCajaDePandora(num1,num2){
     // proximamente escribiremos codigo aqui
-    return numero1+numero2;
-
+    console.log('Aguante el pity')
+    return num1+num2;
+}
