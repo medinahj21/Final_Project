@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 function FormUser() {
+  const { setUserFirestore, user } = useAuth();
   const [userInput, setUserInput] = useState({
     name: "",
     typeDoc: "",
@@ -25,8 +28,15 @@ function FormUser() {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUserFirestore(userInput);
+  };
+
+//   if (!user) return <Navigate to={"/"} />;
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="name">
         Nombre:{" "}
         <input
@@ -64,7 +74,7 @@ function FormUser() {
         Años:{" "}
         <input
           type="number"
-          value={userInput.document}
+          value={userInput.years}
           name="years"
           id="years"
           placeholder="your years"
@@ -75,7 +85,7 @@ function FormUser() {
         Fecha de nacimiento:{" "}
         <input
           type="date"
-          value={userInput.document}
+          value={userInput.birthDate}
           name="birthDate"
           id="birthDate"
           placeholder="your birthDate"
@@ -86,7 +96,7 @@ function FormUser() {
         Número de teléfono:{" "}
         <input
           type="number"
-          value={userInput.document}
+          value={userInput.cell}
           name="cell"
           id="cell"
           placeholder="your cell"
@@ -97,10 +107,21 @@ function FormUser() {
         Número del contacto de emergencia:{" "}
         <input
           type="number"
-          value={userInput.document}
+          value={userInput.emergencyContact}
           name="emergencyContact"
           id="emergencyContact"
           placeholder="Emergency contact"
+          onChange={changeHandler}
+        />
+      </label>
+      <label htmlFor="emergencyRel">
+        Parentesco del contacto de emergencia:{" "}
+        <input
+          type="text"
+          value={userInput.emergencyRel}
+          name="emergencyRel"
+          id="emergencyRel"
+          placeholder="Emergency relationship"
           onChange={changeHandler}
         />
       </label>
@@ -108,7 +129,7 @@ function FormUser() {
         Nombre del contacto de emergencia:{" "}
         <input
           type="text"
-          value={userInput.document}
+          value={userInput.emergencyName}
           name="emergencyName"
           id="emergencyName"
           placeholder="Emergency name"
@@ -119,7 +140,7 @@ function FormUser() {
         Tipo de sangre:{" "}
         <input
           type="text"
-          value={userInput.document}
+          value={userInput.bloodType}
           name="bloodType"
           id="bloodType"
           placeholder="bloodType"
@@ -130,7 +151,7 @@ function FormUser() {
         seguro de salud:{" "}
         <input
           type="text"
-          value={userInput.document}
+          value={userInput.health}
           name="health"
           id="health"
           placeholder="health"
@@ -141,7 +162,7 @@ function FormUser() {
         Condiciones especiales de salud:{" "}
         <input
           type="text"
-          value={userInput.document}
+          value={userInput.specialConditions}
           name="specialConditions"
           id="specialConditions"
           placeholder="specialConditions"

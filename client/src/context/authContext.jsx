@@ -6,7 +6,8 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth } from "../firebase.config";
+import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore";
+import { auth, firestore } from "../firebase.config";
 
 export const authContext = createContext();
 
@@ -37,8 +38,44 @@ export function AuthProvider({ children }) {
     return () => unSuscribe();
   }, []);
 
+  const setUserFirestore = async (userInfo) => {
+    const docRef = doc(firestore, `usuarios/${user.uid}`);
+    await setDoc(docRef, { ...userInfo, uid: user.uid, isAdmin: false });
+  };
+
+  const getInfoUser = async () => {
+    const docuRef = doc(firestore, `usuarios/${user.uid}`);
+    const consult = await getDoc(docuRef);
+
+    if (consult.exists()) {
+      const infoDocu = consult.data();
+      return infoDocu;
+    } else {
+      const notExist = <p>Not found</p>;
+      return notExist;
+    }
+  };
+
+  const getAllInfoUser = async () => {
+    const querySnapshot = await getDocs(collection(firestore, "usuarios"));
+    const docs = querySnapshot.docs.map(doc => doc.data())
+    console.log(querySnapshot);
+    return docs
+  };
+
   return (
-    <authContext.Provider value={{ signup, login, user, logout, loading }}>
+    <authContext.Provider
+      value={{
+        signup,
+        login,
+        user,
+        logout,
+        loading,
+        setUserFirestore,
+        getInfoUser,
+        getAllInfoUser,
+      }}
+    >
       {children}
     </authContext.Provider>
   );

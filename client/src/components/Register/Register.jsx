@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 import LoginGoogle from "./LoginGoogle";
 
 function Register() {
+  const navigate = useNavigate();
   const { signup, user } = useAuth();
 
   const [credentials, setCredentials] = useState({
@@ -25,13 +26,12 @@ function Register() {
     e.preventDefault();
     await signup(credentials.email, credentials.password);
 
-    // const docRef = doc(firestore, `usuarios/${user.user.uid}`);
-    // await setDoc(docRef, { email: credentials.email, id: user.user.uid });
-
     setCredentials({
       email: "",
       password: "",
     });
+    
+    navigate("/form-user");
   };
 
   if (user) return <Navigate to={"/"} />;
@@ -62,7 +62,7 @@ function Register() {
             onChange={changeHandler}
           />
         </label>
-        <button>Registrarse</button>
+        <button type="submit">Registrarse</button>
       </form>
       <LoginGoogle />
     </div>

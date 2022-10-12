@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import LOGO from "../../images/LogoPNG.png";
@@ -30,7 +29,7 @@ function Nav() {
           </div>
         )}
         <div className="nav__links">
-          {user ? <Link to={"/dashboard"}>Dashboard {' '}|</Link> : <></>}
+          {user ? <Link to={"/dashboard"}>Dashboard |</Link> : <></>}
           <a href="oferta">Oferta</a>
           <a href="calendario">Calendario</a>
           <a href="Nosotros">Nosotros</a>
