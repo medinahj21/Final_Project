@@ -13,17 +13,17 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        date_birth:{
-            type:DataTypes.DATE,
-            allowNull: true,
-        },
         debt_value:{
-            type:DataTypes.STRING,
+            type:DataTypes.NUMBER,
             allowNull: false,
         },
         payment_date:{
             type:DataTypes.DATE,
             allowNull: false,
+        },
+        shirt_number:{
+            type: DataTypes.NUMBER,
+            allowNull: true
         }
     },{
         timestamps:false 

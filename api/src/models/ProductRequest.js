@@ -9,10 +9,6 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true
         },
-        date_request: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     },{
         timestamps:false 
     });

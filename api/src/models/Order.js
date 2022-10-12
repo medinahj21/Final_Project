@@ -21,10 +21,6 @@ module.exports = (sequelize) => {
             type:DataTypes.TEXT,
             allowNull: false,
         },
-        creation_date: { //Se podria usar TimeStamp
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
         payment_deadline: {
           type: DataTypes.DATE,
           allowNull: false,
@@ -41,7 +37,5 @@ module.exports = (sequelize) => {
           type: DataTypes.DATE,
           allowNull: false,
         },
-    },{
-        timestamps:false 
     });
 };

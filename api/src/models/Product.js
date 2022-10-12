@@ -25,7 +25,6 @@ module.exports = (sequelize) => {
           type: DataTypes.STRING,
           allowNull: true,
         },
-        // REVISION -------
         modifiers:{
           type: DataTypes.ARRAY(DataTypes.STRING),
           allowNull: true,
@@ -34,8 +33,7 @@ module.exports = (sequelize) => {
           type: DataTypes.ARRAY(DataTypes.STRING),
           allowNull: true,
         },
-        // ------
-        is_order: { //Si es por encargo o no, si no es hay stock
+        is_order: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
         },
@@ -43,16 +41,12 @@ module.exports = (sequelize) => {
           type: DataTypes.NUMBER,
           allowNull: true,
         },
-        payment_mode: { //revisar
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
         state: {
           type: DataTypes.STRING,
           allowNull:false,
         },
-        payment_deadline: {
-          type: DataTypes.DATE,
+        payment_term: {
+          type: DataTypes.NUMBER,
           allowNull: false,
         }
     },{

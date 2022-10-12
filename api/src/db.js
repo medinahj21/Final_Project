@@ -64,20 +64,20 @@ const { Admin, Event, Group, Order, Player, Product, ProductRequest, RoleRequest
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Player.belongsTo(Group) // <=== Habria que hacer tabla intermedia???
+Player.belongsTo(Group,{foreignKey:"groupId"}) 
 Group.hasMany(Player)
 
 Player.hasMany(Order)
-Order.belongsTo(Player)
+Order.belongsTo(Player,{foreignKey:"playerId"})
 
 Player.hasMany(ProductRequest)
-ProductRequest.belongsTo(Player)
+ProductRequest.belongsTo(Player,{foreignKey:"playerId"})
 
 Player.belongsToMany(Event, {through: "player-event"})
 Event.belongsToMany(Player, {through: "player-event"})
 
 Group.hasOne(RoleRequest)
-RoleRequest.hasOne(Group)
+RoleRequest.belongsTo(Group,{foreignKey:"groupId"})
 
 Group.belongsToMany(Admin, {through: "group-admin"})
 Admin.belongsToMany(Group, {through: "group-admin"})
@@ -86,7 +86,7 @@ Product.belongsToMany(Order, {through: "product-order"})
 Order.belongsToMany(Product, {through: "product-order"})
 
 Product.hasMany(ProductRequest)
-ProductRequest.hasOne(Product)
+ProductRequest.belongsTo(Product,{foreignKey:"productId"})
 
 Admin.belongsToMany(Event, {through: "admin-event"})
 Event.belongsToMany(Admin, {through: "admin-event"})

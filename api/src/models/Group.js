@@ -14,15 +14,15 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         location:{
-            type:DataTypes.STRING,
-            allowNull: false,
+            type:DataTypes.TEXT,
+            allowNull: true,
         },
         schedule:{
             type:DataTypes.STRING,
             allowNull: false,
         },
         description:{
-            type:DataTypes.DATE,
+            type:DataTypes.TEXT,
             allowNull: false,
         },
         image:{
@@ -44,7 +44,11 @@ module.exports = (sequelize) => {
         acept_newPlayers: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
-        }
+        },
+        genre:{
+          type: DataTypes.ENUM('Male', 'Female', 'Mix'),
+          allowNull: true,
+        },       
     },{
         timestamps:false 
     });

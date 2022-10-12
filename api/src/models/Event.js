@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     state:{
-      type: DataTypes.ENUM('', '', ''), //COMPLETAR
+      type: DataTypes.ENUM('Pending', 'Finished', 'Postponed', 'Canceled'), 
       allowNull: true,
     },
   },{
