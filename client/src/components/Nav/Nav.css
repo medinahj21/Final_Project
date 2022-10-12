@@ -1,0 +1,33 @@
+.nav__container {
+    width: 100vw;
+    height: 12vh;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav__logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav__logo img {
+    width: 80px;
+    height: 80px;
+    margin-left: 4rem;
+}
+
+.nav__container-links {
+    margin-right: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.nav__login,
+.nav__links {
+    display: flex;
+    gap: 1rem;
+}
