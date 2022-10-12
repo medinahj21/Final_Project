@@ -1,7 +1,9 @@
-import React from "react";
-import { useEffect } from "react";
+import React from 'react'
 
-
-function Comp(){
-    
+function MyComponent() {
+  return (
+    <div>MyComponent</div>
+  )
 }
+
+export default MyComponent
