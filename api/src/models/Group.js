@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
           allowNull: true,
         },
         inscription_cost:{
-          type: DataTypes.NUMBER,
+          type: DataTypes.INTEGER,
           allowNull: false,
         },
         contact:{
