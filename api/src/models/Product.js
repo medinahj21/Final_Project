@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         price:{
-            type:DataTypes.NUMBER,
+            type:DataTypes.INTEGER,
             allowNull: false,
         },
         description:{
@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
           allowNull:false,
         },
         stock:{
-          type: DataTypes.NUMBER,
+          type: DataTypes.INTEGER,
           allowNull: true,
         },
         state: {
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
           allowNull:false,
         },
         payment_term: {
-          type: DataTypes.NUMBER,
+          type: DataTypes.INTEGER,
           allowNull: false,
         }
     },{

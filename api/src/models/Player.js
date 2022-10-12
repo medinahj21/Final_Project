@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         debt_value:{
-            type:DataTypes.NUMBER,
+            type:DataTypes.INTEGER,
             allowNull: false,
         },
         payment_date:{
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         shirt_number:{
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: true
         }
     },{
