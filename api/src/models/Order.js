@@ -1,0 +1,47 @@
+const { DataTypes } = require('sequelize');
+
+
+module.exports = (sequelize) => {
+    sequelize.define('order', {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
+            primaryKey: true
+        },
+        concept: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        value:{
+            type:DataTypes.NUMBER,
+            allowNull: false,
+        },
+        description:{
+            type:DataTypes.TEXT,
+            allowNull: false,
+        },
+        creation_date: { //Se podria usar TimeStamp
+          type: DataTypes.DATE,
+          allowNull: false,
+        },
+        payment_deadline: {
+          type: DataTypes.DATE,
+          allowNull: false,
+        },
+        payment_mode: {
+          type: DataTypes.STRING,
+          allowNull: true,
+        },        
+        order_state:{
+          type: DataTypes.ENUM('Pending', 'Deleted', 'Paid'),
+          allowNull: true,
+        },
+        payment_date: {
+          type: DataTypes.DATE,
+          allowNull: false,
+        },
+    },{
+        timestamps:false 
+    });
+};
