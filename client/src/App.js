@@ -1,15 +1,25 @@
-import logo from './images/volley_ball.png';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+
+import Home from "./components/Home/Home";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Register from "./components/Register/Register";
+import Login from "./components/Register/Login";
+import FormUser from "./components/Register/FormUser";
+import "./App.css";
+
+
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          This site is currently under construction...
-        </p>        
-      </header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="check-in" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="form-user" element={<FormUser />} />
+      </Routes>
     </div>
   );
 }
