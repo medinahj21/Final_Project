@@ -88,7 +88,7 @@ module.exports = (sequelize) => {
             } 
          }
         },
-        acept_newPlayers: {
+        accept_newPlayers: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
         },
