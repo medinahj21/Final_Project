@@ -1,10 +1,22 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import LOGO from "../../images/LogoPNG.png";
 import { useAuth } from "../../context/authContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../../redux/actions/admin";
 
 function Nav() {
-  const { logout, user, userDB } = useAuth();
+  const { logout, user } = useAuth();
+
+  const dispatch = useDispatch();
+  const userDB = useSelector((state) => state.allUsers);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  console.log(userDB);
 
   return (
     <nav className="nav__container">
@@ -30,7 +42,9 @@ function Nav() {
         )}
         <div className="nav__links">
           {user && userDB ? (
-            <Link to={userDB.isAdmin ? "/dashboard-admin" : "/dashboard-player"}>
+            <Link
+              to={userDB.isAdmin ? "/dashboard-admin" : "/dashboard-player"}
+            >
               Dashboard |
             </Link>
           ) : (
