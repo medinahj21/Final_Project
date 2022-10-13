@@ -1,10 +1,8 @@
-const { Router } = require('express');
-const { loadDb } = require('../controllers/utils')
+const { Router } =  require('express')
+const {create} = require('../controllers/utils')
+const router = Router()
 
-const router = Router();
+router.post('/', create)
 
-router.get('/', async (req, res) =>{
-    res.send('home')
-});
 
 module.exports = router;
