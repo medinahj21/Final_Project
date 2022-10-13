@@ -20,7 +20,9 @@ const asyncPostProduct = async (req, res)=> {
         payment_term: req.body.payment_term
     }
 
-    validateProduct(newProduct);
+    let error= validateProduct(newProduct);
+    if(error) res.status(400).json(error)
+    
   
     const existingProducts = await getProductsFromDB();
     if(
