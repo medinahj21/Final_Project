@@ -25,6 +25,20 @@ const create = async (req, res, next) => {
 
 }
 
+
+
+const playersFromDB= async () => {
+    try {
+      const myPlayers= await Player.findAll();
+      if (myPlayers) return myPlayers;
+      else return false;
+      
+    } catch (error) {
+      console.log({error: error.message})
+    } 
+  }
+
 module.exports = {
-    create
+    create,
+    playersFromDB
 }

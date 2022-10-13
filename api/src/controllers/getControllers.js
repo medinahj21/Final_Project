@@ -1,15 +1,4 @@
-const { Player }= require ("../db");
-
-const playersFromDB= async () => {
-    try {
-      const myPlayers= await Player.findAll();
-      if (myPlayers) return myPlayers;
-      else return false;
-      
-    } catch (error) {
-      console.log({error: error.message})
-    } 
-  }
+const playersFromDB= require("./utils");
 
 const asyncGetPlayers= async (req, res)=> {
     try {
