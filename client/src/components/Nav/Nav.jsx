@@ -30,7 +30,7 @@ function Nav() {
         )}
         <div className="nav__links">
           {user && userDB ? (
-            <Link to={user.isAdmin ? "/dashboard-admin" : "/dashboard-player"}>
+            <Link to={userDB.isAdmin ? "/dashboard-admin" : "/dashboard-player"}>
               Dashboard |
             </Link>
           ) : (
