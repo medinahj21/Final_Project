@@ -11,11 +11,11 @@ router.get("/", asyncGetProducts)
 
 router.get("/:id", asyncGetProductById)
 
-router.post("/", asyncPostProduct)
+router.post("/create", asyncPostProduct)
 
-router.delete('/', asyncDeleteProduct)
+router.delete('/delete/:id', asyncDeleteProduct)
 
-router.put('/', asyncUpdateProduct)
+router.put('/update/:id', asyncUpdateProduct)
 
 
 

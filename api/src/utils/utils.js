@@ -37,7 +37,7 @@ const validateProduct = (prod) => {
     return {error: "Product's name must in string format"}
   } else if (prod.price && !validateNumbers(prod.price)){
     return {error: "The price must be number"}
-  } else if (!validateNumbers(prod.stock)){
+  } else if (typeof prod.stock !== "number" && prod.stock !== null){
     return {error: "The stock field must be a number"}
   } else if (!validateNumbers(prod.payment_term)){
     return {error: "The payment_term field must be a number"}
