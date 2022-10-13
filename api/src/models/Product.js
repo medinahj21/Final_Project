@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
           allowNull: true,
         },
         state: {
-          type: DataTypes.STRING,
+          type: DataTypes.BOOLEAN,
           allowNull:false,
         },
         payment_term: {
