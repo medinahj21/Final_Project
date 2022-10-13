@@ -6,7 +6,9 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+
 import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore";
+
 import { auth, firestore } from "../firebase.config";
 
 export const authContext = createContext();
@@ -20,15 +22,8 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [userDB, setUserDB] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const signup = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
-
-  const login = async (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
-
-  const logout = () => signOut(auth);
 
   useEffect(() => {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -38,31 +33,46 @@ export function AuthProvider({ children }) {
     return () => unSuscribe();
   }, []);
 
+  const signup = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
+  const login = async (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
+
+  const logout = () => signOut(auth);
+
   const setUserFirestore = async (userInfo) => {
     const docRef = doc(firestore, `usuarios/${user.uid}`);
-    await setDoc(docRef, { ...userInfo, uid: user.uid, isAdmin: false });
-  };
-
-  const getInfoUser = async () => {
-    const docuRef = doc(firestore, `usuarios/${user.uid}`);
-    const consult = await getDoc(docuRef);
-
-    if (consult.exists()) {
-      const infoDocu = consult.data();
-      return infoDocu;
-    } else {
-      const notExist = <p>Not found</p>;
-      return notExist;
-    }
+    await setDoc(docRef, {
+      ...userInfo,
+      uid: user.uid,
+      isAdmin: false,
+      email: user.email,
+    });
   };
 
   const getAllInfoUser = async () => {
     const querySnapshot = await getDocs(collection(firestore, "usuarios"));
-    const docs = querySnapshot.docs.map(doc => doc.data())
+    const docs = querySnapshot.docs.map((doc) => doc.data());
     console.log(querySnapshot);
-    return docs
+    return docs;
   };
 
+  const getInfoUser = async () => {
+    try {
+      const docuRef = doc(firestore, `usuarios/${user.uid}`);
+      const consult = await getDoc(docuRef);
+
+      if (consult.exists()) {
+        const infoDocu = consult.data();
+        setUserDB(infoDocu);
+      } else {
+        setUserDB(null);
+      }
+    } catch (error) {
+      console.log("Failed to retrieve data from database");
+    }
+  };
   return (
     <authContext.Provider
       value={{
@@ -74,6 +84,7 @@ export function AuthProvider({ children }) {
         setUserFirestore,
         getInfoUser,
         getAllInfoUser,
+        userDB,
       }}
     >
       {children}
