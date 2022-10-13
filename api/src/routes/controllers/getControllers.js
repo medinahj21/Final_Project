@@ -30,7 +30,7 @@ const asyncGetProducts = async (req, res) => {
       searchedProduct.length !== 0
         ? res.status(200).json(searchedProduct)
         : res.status(404).send("Product not found");
-    } else return res.status(200).send(products);
+    } else return res.status(200).json(products);
   } catch (error) {
     console.log(error);
   }
