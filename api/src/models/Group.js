@@ -12,6 +12,15 @@ module.exports = (sequelize) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate:{
+              notEmpty:{
+               msg:"empty strings are not allowed"
+              },
+              len:{
+                args: [4,30],
+                msg:"name should be among 4 and 30"
+              } 
+           }
         },
         location:{
             type:DataTypes.TEXT,
@@ -20,6 +29,15 @@ module.exports = (sequelize) => {
         schedule:{
             type:DataTypes.STRING,
             allowNull: false,
+            validate:{
+              notEmpty:{
+               msg:"empty strings are not allowed"
+              },
+              len:{
+                args: [4,30],
+                msg:"name should be between 4 and 30"
+              } 
+           }
         },
         description:{
             type:DataTypes.TEXT,
@@ -28,6 +46,15 @@ module.exports = (sequelize) => {
         image:{
           type: DataTypes.STRING,
           allowNull: true,
+          validate:{
+            notEmpty:{
+             msg:"empty strings are not allowed"
+            },
+            len:{
+              args: [4,30],
+              msg:"image should be between 4 and 30"
+            } 
+         }
         },
         inscription_cost:{
           type: DataTypes.INTEGER,
@@ -36,10 +63,30 @@ module.exports = (sequelize) => {
         contact:{
           type: DataTypes.STRING,
           allowNull: true,
+          validate:{
+            isEmail:{
+             arg:true,
+             msg:"contact should be a valid email"
+            },
+            notEmpty:{
+             arg:true,
+             msg:"empty strings are not allowed"
+            } 
+         }
         },
         whatsapp: {
           type: DataTypes.STRING,
           allowNull: true,
+          validate:{
+            isUrl:{
+             arg:true,
+             msg:"whatsApp should be a link "
+            },
+            notEmpty:{
+             arg:true,
+             msg:"empty strings are not allowed"
+            } 
+         }
         },
         acept_newPlayers: {
           type: DataTypes.BOOLEAN,

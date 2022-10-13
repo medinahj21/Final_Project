@@ -24,7 +24,6 @@ function Login() {
     e.preventDefault();
     try {
       await login(credentials.email, credentials.password);
-
       setCredentials({
         email: "",
         password: "",
