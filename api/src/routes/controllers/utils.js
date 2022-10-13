@@ -1,15 +1,13 @@
-const { Player, Event, Group } = require("../../db");
+const { Player, Event, Group, Admin } = require("../../db");
 const { Sequelize, Model } = require("sequelize");
 
 const create = async (req, res, next) => {
-  const { name, location, description, date } = req.body;
+  const { permissions} = req.body;
+  
 
   try {
-    const newEvent = await Event.create({
-      name,
-      location,
-      description,
-      date,
+    const newAd = await Group.create({
+     
     });
 
     res.json({ message: "successful process" });

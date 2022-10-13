@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
               len:{
                 args: [4,30],
                 msg:"name should be among 4 and 30"
-              } 
+              },
            }
         },
         location:{
@@ -94,7 +94,7 @@ module.exports = (sequelize) => {
         },
         genre:{
           type: DataTypes.ENUM('Male', 'Female', 'Mix'),
-          allowNull: true,
+          allowNull: false,
         },       
     },{
         timestamps:false 
