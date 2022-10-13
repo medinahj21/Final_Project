@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 function FormUser() {
-  const { setUserFirestore, user } = useAuth();
+  const navigate = useNavigate();
+  const { setUserFirestore } = useAuth();
   const [userInput, setUserInput] = useState({
     name: "",
     typeDoc: "",
@@ -31,9 +32,10 @@ function FormUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserFirestore(userInput);
+    navigate("/dashboard");
   };
 
-//   if (!user) return <Navigate to={"/"} />;
+  //   if (!user) return <Navigate to={"/"} />;
 
   return (
     <form onSubmit={handleSubmit}>
