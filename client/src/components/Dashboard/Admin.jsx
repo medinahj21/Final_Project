@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 function Admin() {
-  const { getAllInfoUser } = useAuth();
+  const { getAllInfoUser, userDB } = useAuth();
   const [dbUser, setDbUser] = useState(null);
 
   useEffect(() => {
@@ -13,6 +14,11 @@ function Admin() {
     fetchUserDb();
   }, [getAllInfoUser]);
   console.log(dbUser);
+
+  if (!userDB) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div>
       {dbUser?.map((user) => {

@@ -29,7 +29,13 @@ function Nav() {
           </div>
         )}
         <div className="nav__links">
-          {user && userDB ? <Link to={"/dashboard"}>Dashboard |</Link> : <></>}
+          {user && userDB ? (
+            <Link to={user.isAdmin ? "/dashboard-admin" : "/dashboard-player"}>
+              Dashboard |
+            </Link>
+          ) : (
+            <></>
+          )}
           <a href="oferta">Oferta</a>
           <a href="calendario">Calendario</a>
           <a href="Nosotros">Nosotros</a>

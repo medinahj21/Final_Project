@@ -4,8 +4,9 @@ import { useAuth } from "../../context/authContext";
 function Dashboard() {
   const { user, userDB } = useAuth();
 
-
   if (!user || !userDB) return <Navigate to={"/"} />;
+
+  console.log(userDB.isAdmin);
 
   return (
     <div>
@@ -16,6 +17,7 @@ function Dashboard() {
       <p>{userDB.emergencyContact}</p>
       <p>{userDB.health}</p>
       <p>{userDB.specialConditions}</p>
+      <p>{userDB.years}</p>
     </div>
   );
 }
