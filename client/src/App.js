@@ -5,8 +5,9 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/Register/Register";
 import Login from "./components/Register/Login";
 import FormUser from "./components/Register/FormUser";
-import "./App.css";
 import Admin from "./components/Dashboard/Admin";
+
+import "./App.css";
 
 function App() {
   return (

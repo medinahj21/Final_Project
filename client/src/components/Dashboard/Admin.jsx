@@ -11,13 +11,15 @@ function Admin() {
       setDbUser(userDB);
     };
     fetchUserDb();
-  }, []);
+  }, [getAllInfoUser]);
   console.log(dbUser);
-  return <div>
-    {dbUser?.map(user => {
-        return <h2>{user.name}</h2>
-    } )}
-  </div>;
+  return (
+    <div>
+      {dbUser?.map((user) => {
+        return <h2>{user.name}</h2>;
+      })}
+    </div>
+  );
 }
 
 export default Admin;
