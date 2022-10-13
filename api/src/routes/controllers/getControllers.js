@@ -36,7 +36,26 @@ const asyncGetProducts = async (req, res) => {
   }
 };
 
+
+const asyncGetProductById= async (req, res)=> {
+    try {
+      const id = req.params.id;
+      const myProduct= await getProductsFromDB();
+      if (id && myProduct) {
+        const wantedProduct= myProduct.filter(p => p.id.toString()===id.toString()); 
+        wantedProduct.length ? res.json(wantedProduct) : res.status(404).json({
+          error: "Product doesn't exist"
+        })
+      }          
+    } catch (error) {
+      console.log(error)
+      console.log({error: error.message})    
+    }
+    
+  }
+
 module.exports = {
     asyncGetProducts,
-    getProductsFromDB
+    getProductsFromDB,
+    asyncGetProductById
 };
