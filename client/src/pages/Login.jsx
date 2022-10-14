@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import LoginGoogle from "./LoginGoogle";
+import { loginWhitEmailAndPassword } from "../redux/actions/auth";
 
-function Register() {
-  const navigate = useNavigate();
-  const { signup, user } = useAuth();
+import LoginGoogle from "../components/Register/LoginGoogle";
+
+
+function Login() {
+  const { email } = useSelector((state) => state.authReducer);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -24,21 +26,23 @@ function Register() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await signup(credentials.email, credentials.password);
-
-    setCredentials({
-      email: "",
-      password: "",
-    });
-    
-    navigate("/form-user");
+    try {
+      loginWhitEmailAndPassword(credentials.email, credentials.password);
+      setCredentials({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      //manejo de errores
+      console.log(error);
+    }
   };
 
-  if (user) return <Navigate to={"/"} />;
+  if (email) return <Navigate to={"/"} />;
 
   return (
     <div>
-      <h2>Registrarse</h2>
+      <h2>Iniciar Sesión</h2>
       <form onSubmit={submitHandler}>
         <label htmlFor="email">
           Email:{" "}
@@ -62,11 +66,11 @@ function Register() {
             onChange={changeHandler}
           />
         </label>
-        <button type="submit">Registrarse</button>
+        <button>Iniciar Sesión</button>
       </form>
       <LoginGoogle />
     </div>
   );
 }
 
-export default Register;
+export default Login;
