@@ -40,9 +40,6 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.NOW,
       allowNull: false,
     },
-    perr:{
-      type: DataTypes.STRING
-    },
     start:{
       type: DataTypes.TIME,
       allowNull: false,
