@@ -13,27 +13,23 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: {
-          arg: true,
-          msg: "name can only contain letters"
-        },
         notEmpty: {
           arg: true,
           msg: "empty strings are not allowed"
         },
         len: {
-          args: [3, 30],
-          msg: "Name should be among 3 and 30 characters"
+          args: [3, 50],
+          msg: "Name should be among 3 and 50 characters"
         }
       }
     },
     location: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT, //necesitamos que acepte todos los caracteres necesarios
       allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     repetitive: {
       type: DataTypes.BOOLEAN,
@@ -41,6 +37,15 @@ module.exports = (sequelize) => {
     },
     date: {
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
+    },
+    start:{
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    end:{
+      type: DataTypes.TIME,
       allowNull: false,
     },
     state: {
