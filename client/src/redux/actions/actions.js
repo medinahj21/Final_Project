@@ -1,15 +1,22 @@
+// auth const
+export const LOGIN_USER_FIREBASE = "LOGIN_USER_FIREBASE";
+export const LOGOUT_USER_FIREBASE = "LOGOUT_USER_FIREBASE";
+export const PLAYER__FORM__FIREBASE = "PLAYER__FORM__FIREBASE";
+export const ALL_PLAYER__FORM__FIREBASE = "ALL_PLAYER__FORM__FIREBASE";
+export const RESET_REDUX_STATE = "RESET_REDUX_STATE";
+
+//------------------------------------------------------------------------------------------------------
+//GET_PLAYER_DETAIL
+//GET_USER_DETAIL
 
 export const GET_USERS = "GET_USERS";
 export const GET_USER_DETAIL = "GET_USER_DETAIL";
-//GET_PLAYER_DETAIL
-//GET_USER_DETAIL
 export const GET_PLAYERS = "GET_PLAYERS";
 export const GET_GROUPS = "GET_GROUPS";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
 export const GET_GROUP_DETAIL = "GET_GROUP_DETAIL";
-
 
 //GET ORDER?----> Mostrar la orden de acuerdo al jugador o traer la orden por separado??
 export const CREATE_USER = "CREATE_USER";
@@ -23,11 +30,6 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_GROUP = "DELETE_GROUP";
 export const UPDATE_ORDER = "UPDATE_ORDER";
-
-
-
-
-
 
 /* export const GET_TYPES = "GET_TYPES";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE";

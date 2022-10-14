@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
-import "./Nav.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout } from "../../redux/actions/auth";
+
 import LOGO from "../../images/LogoPNG.png";
-import { useAuth } from "../../context/authContext";
+import "./Nav.css";
 
 function Nav() {
-  const { logout, user, userDB } = useAuth();
+  const dispatch = useDispatch();
+
+  const { email, userInfoFirestore } = useSelector(
+    (state) => state.authReducer
+  );
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <nav className="nav__container">
@@ -12,30 +23,32 @@ function Nav() {
         <img src={LOGO} alt="logo" />
       </div>
       <div className="nav__container-links">
-        {!user ? (
+        {email === "" || !email ? (
           <div className="nav__login">
             <Link to={"/check-in"}>Registrarse</Link>
             <Link to={"/login"}>Iniciar Sesión</Link>
           </div>
         ) : (
           <div>
-            <button
-              onClick={() => {
-                logout();
-              }}
-            >
-              Cerrar Sesión
-            </button>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
           </div>
         )}
+
         <div className="nav__links">
-          {user && userDB ? (
-            <Link to={userDB.isAdmin ? "/dashboard-admin" : "/dashboard-player"}>
+          {!userInfoFirestore ? (
+            <></>
+          ) : (
+            <Link
+              to={
+                userInfoFirestore.isAdmin
+                  ? "/dashboard-admin"
+                  : "/dashboard-player"
+              }
+            >
               Dashboard |
             </Link>
-          ) : (
-            <></>
           )}
+
           <a href="oferta">Oferta</a>
           <a href="calendario">Calendario</a>
           <a href="Nosotros">Nosotros</a>
