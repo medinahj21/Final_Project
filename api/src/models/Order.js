@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
             type:DataTypes.TEXT,
             allowNull: false,
         },
-        payment_deadline: {
+        payment_term: {
           type: DataTypes.DATE,
           allowNull: false,
         },
@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         },
         payment_date: {
           type: DataTypes.DATE,
-          allowNull: false,
+          allowNull: true,
         },
     });
 };

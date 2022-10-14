@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             primaryKey: true,
         },
         personal_info: {
-            type: DataTypes.STRING,
+            type: DataTypes.JSON,//para el bulk
             allowNull: false,
             validate: {
                 notNull: {
