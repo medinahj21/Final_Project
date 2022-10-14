@@ -107,9 +107,5 @@ module.exports = {
   asyncUpdateProduct,
   putGroups,
   editEvent,
-<<<<<<< HEAD
+  putOrders,
 }
-=======
-  putOrders
-};
->>>>>>> 8c058f2396b5cdcb3e42d480dfc2518443424b91
