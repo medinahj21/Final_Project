@@ -94,9 +94,9 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { name, location, description, date, repetitive, state } = req.body;
+  const { name, location, description, date, repetitive, state, start, end } = req.body;
   try {
-    if(!(name&&date&&repetitive!==undefined&&state)){
+    if(!(name&&state&&start&&end)){
       res.status(400).json({error: "missing info"});
     }
     await Event.create({
@@ -106,10 +106,12 @@ const createEvent = async (req, res) => {
       date,
       repetitive,
       state,
+      start,
+      end
     });
     res.json({ message: "successful process" });
   } catch (error) {
-    res.json({error: error.message});
+    res.status(400).json({error_DB: error.message});
   }
 };
 
