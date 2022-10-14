@@ -31,6 +31,8 @@ export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_GROUP = "DELETE_GROUP";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 
+export const EDIT_EVENT = "EDIT_EVENT";
+
 /* export const GET_TYPES = "GET_TYPES";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ALPHABETICAL_ORDER = "ALPHABETICAL_ORDER";

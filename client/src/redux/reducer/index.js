@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 
 import authReducer from "./auth";
+import eventReducer from "./event";
 
 import { RESET_REDUX_STATE } from "../actions/actions";
 
 const appReducer = combineReducers({
   authReducer,
+  eventReducer
 });
 
 export function rootReducer(state, action) {
