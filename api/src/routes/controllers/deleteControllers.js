@@ -1,5 +1,18 @@
-const { Group } = require("../../db");
+const { Player, Event, Group, Product } = require("../../db");
+
 const { Sequelize, Model } = require("sequelize");
+const {validateProduct} = require('../../utils/utils')
+
+
+const asyncDeleteProduct = async (req, res) => {
+    try {
+        await Product.destroy({ where: { id: req.params.id } })
+        return res.status(200).send('The product has been successfully removed')
+        } catch (error) {
+        console.log(error);
+    }
+}
+
 
 const deleteGroups = async (req, res) => {
     const { id } = req.params
@@ -17,6 +30,7 @@ const deleteGroups = async (req, res) => {
                 res.json({message:"group not found"}).status(404)
             }
         }
+
     } catch (error) {
         console.log(error);
     }
@@ -24,5 +38,6 @@ const deleteGroups = async (req, res) => {
 
 
 module.exports = {
+    asyncDeleteProduct,
     deleteGroups
 }
