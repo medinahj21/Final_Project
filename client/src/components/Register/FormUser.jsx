@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
+
+import { setUserFirestore } from "../../utils/firestore";
 
 function FormUser() {
   const navigate = useNavigate();
-  const { setUserFirestore } = useAuth();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    if (user) {
+      return;
+    }
+    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unSuscribe();
+  }, [user]);
+
   const [userInput, setUserInput] = useState({
     name: "",
     typeDoc: "",
@@ -18,6 +33,8 @@ function FormUser() {
     bloodType: "",
     health: "",
     specialConditions: "",
+    uid: "",
+    email: "",
   });
 
   const changeHandler = (e) => {
@@ -31,11 +48,13 @@ function FormUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserFirestore(userInput);
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
     navigate("/dashboard");
   };
 
-  //   if (!user) return <Navigate to={"/"} />;
+  if (!user || user === "") {
+    navigate("/");
+  }
 
   return (
     <form onSubmit={handleSubmit}>
