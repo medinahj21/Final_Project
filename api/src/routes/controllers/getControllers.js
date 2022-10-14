@@ -46,8 +46,8 @@ const asyncGetProductById = async (req, res) => {
       wantedProduct.length
         ? res.json(wantedProduct)
         : res.status(404).json({
-            error: "Product doesn't exist",
-          });
+          error: "Product doesn't exist",
+        });
     }
   } catch (error) {
     console.log(error);
@@ -105,31 +105,81 @@ const getEvent = async (req, res) => {
     if (!id) {
       const allEvents = await Event.findAll({
         include: {
-          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          model: Player,
           attributes: ["id"],
           through: { attributes: [] },
-        },
+        }
       });
-      res.json(allEvents);
+
+      allEvents ?
+        res.send(allEvents).status(200)
+        : res.json({ mesagge: "there is not event" });
+
     } else {
       const event = await Event.findByPk(id, {
         include: {
-          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          model: Player,
           attributes: ["id"],
           through: { attributes: [] },
         },
       });
-      !event ? res.status(404).json({error: "Event not found"}) : res.json(event);
+
+      !event ?
+        res.status(404).json({ error: "Event not found" })
+        : res.send(event).status(200);
     }
   } catch (error) {
-    res.json({error_DB: error.message});
+    res.json({ error_DB: error.message });
   }
 };
 
+const getOrder = async (req, res) => {
+  const { id } = req.params
+  const { name } = req.query
+
+  try {
+    if (id) {
+      const infoOrder = await Order.findByPk(id, {
+        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }]
+      })
+
+      infoOrder !== null ?
+        res.status(200).send(infoOrder)
+        : res.json({ message: "order not found" }).status(404)
+
+    } else if (name) {
+
+      const infoOrder = await Order.findOne({
+        where: {
+          name: name.toLowerCase()
+        },
+        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }]
+      })
+
+      infoOrder ?
+        res.status(200).send(infoOrder)
+        : res.json({ message: "order not found" }).status(404)
+
+    } else {
+
+      const infoOrder = await Order.findAll({
+        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }]
+      })
+      infoOrder.length > 0 ?
+        res.status(200).send(infoOrder)
+        : res.json({ message: "there is not  order now" }).status(404)
+
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 module.exports = {
   asyncGetProducts,
   getProductsFromDB,
   asyncGetProductById,
   getGroups,
   getEvent,
+  getOrder
 };
