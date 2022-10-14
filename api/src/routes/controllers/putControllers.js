@@ -71,13 +71,19 @@ const putGroups = async (req, res) => {
 };
 
 const editEvent = async (req, res) => {
-  const { key, property, value } = req.body;
+  const { id } = req.params;
+  const { property, value } = req.body;
   try {
-    const event = await Event.findByPk(key);
-    event[property] = value;
-    res.json(event);
+    if (!(property && value)) {
+      res.status(400).json({ error: "missing data" });
+    } else {
+      const event = await Event.findByPk(id);
+      event[property] = value;
+      await event.save();
+      res.json({ message: "Event updated" });
+    }
   } catch (error) {
-    res.json(error);
+    res.status(400).json({ error_DB: error.message });
   }
 };
 

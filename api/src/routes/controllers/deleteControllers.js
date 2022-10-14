@@ -38,17 +38,16 @@ const deleteGroups = async (req, res) => {
 const deleteEvent = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!id) { res.status(400).json({error: "missing id"})
-    } else { 
+    if (!id) {
+      res.status(400).json({ error: "missing id" });
+    } else {
       await Event.destroy({
-        where: {
-          id,
-        },
+        where: { id },
       });
       res.json({ message: "Event deleted" });
     }
   } catch (error) {
-    res.status(400).json({error_DB: error.message});
+    res.status(400).json({ error_DB: error.message });
   }
 };
 
