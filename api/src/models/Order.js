@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         },
         payment_date: {
           type: DataTypes.DATE,
-          allowNull: false,
+          allowNull: true,
         },
     });
 };
