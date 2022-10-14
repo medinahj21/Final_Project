@@ -7,11 +7,10 @@ const { deleteGroups } = require("../controllers/deleteControllers");
 
 const router = Router();
 
-router.get("/", getGroups)
-router.get("/:id", getGroups)
+router.get("/", getGroups);
+router.get("/:id", getGroups);
 router.post("/create", postGroups);
 router.put("/update/:id", putGroups);
 router.delete("/delete/:id", deleteGroups);
-
 
 module.exports = router;
