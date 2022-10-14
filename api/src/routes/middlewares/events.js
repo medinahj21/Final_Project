@@ -9,7 +9,7 @@ const router = Router();
 router.post("/create", createEvent);
 router.delete("/delete/:id", deleteEvent);
 router.put("/update/:id", editEvent);
-router.get("/event", getEvent);
-router.get("/event/:id", getEvent);
+router.get("/", getEvent);
+router.get("/:id", getEvent);
 
 module.exports = router;

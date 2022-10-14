@@ -99,17 +99,30 @@ const getGroups = async (req, res) => {
 };
 
 const getEvent = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const allEvents = await Event.findAll({
-      include: {
-        model: Player, // Como hacer para incluir todos los jugadores convocados??
-        attributes: ["id"],
-        through: { attributes: [] },
-      },
-    });
-    res.json(allEvents);
+    if (!id) {
+      const allEvents = await Event.findAll({
+        include: {
+          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          attributes: ["id"],
+          through: { attributes: [] },
+        },
+      });
+      res.json(allEvents);
+    } else {
+      const event = await Event.findByPk(id, {
+        include: {
+          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          attributes: ["id"],
+          through: { attributes: [] },
+        },
+      });
+      !event ? res.status(404).json({error: "Event not found"}) : res.json(event);
+    }
   } catch (error) {
-    res.json(error);
+    res.json({error_DB: error.message});
   }
 };
 
