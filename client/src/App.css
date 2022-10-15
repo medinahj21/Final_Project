@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;1,300&display=swap');
 
 :root {
-  --color-bg: rgba(96, 68, 28, 0.843);
-  --color-bg-variant: rgba(85, 29, 174, 0.783);
+  /* --color-bg: rgb(24, 26, 58); */
+  --color-bg: rgb(32, 39, 78);
+  --color-bg-variant: rgb(217, 135, 35);
   --color-bg-contrast: rgb(104, 205, 50);
 
-  --color-light: rgba(255, 255, 255, 0.183);
+  --color-light: rgba(255, 255, 255, 0.625);
   ;
   --color-white: #fff;
   --color-black: #000;
 
-  --font-size-h1: 5rem;
+  --font-size-h1: 4rem;
   --font-size-h2: 2.5rem;
   --font-size-h3: 1.5rem;
   --font-size-p: 1.2rem;
@@ -37,6 +38,17 @@ html {
 a {
   text-decoration: none;
   text-align: center;
+  color: var(--color-light);
+}
+
+a:hover {
+  color: var(--color-bg-variant);
+}
+
+button {
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
 }
 
 ul {
