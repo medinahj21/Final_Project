@@ -6,7 +6,6 @@ import { loginWhitEmailAndPassword } from "../redux/actions/auth";
 
 import LoginGoogle from "../components/Register/LoginGoogle";
 
-
 function Login() {
   const { email } = useSelector((state) => state.authReducer);
 
