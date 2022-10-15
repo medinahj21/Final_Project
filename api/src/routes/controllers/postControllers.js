@@ -1,80 +1,51 @@
-const {
-  Player,
-  RoleRequest,
-  Group,
-  Admin,
-  Event,
-  Order,
-  Product,
-  ProductRequest,
-} = require("../../db");
+
+const { Player, RoleRequest, Group, Admin, Event, Order, Product, ProductRequest } = require("../../db");
 const { Sequelize, Model } = require("sequelize");
-const { validateProduct } = require("../../utils/utils");
-const { getProductsFromDB } = require("../controllers/getControllers");
+const {validateProduct} = require("../../utils/utils");
+const { getProductsFromDB }= require("../controllers/getControllers")
 
-const asyncPostProduct = async (req, res) => {
-  try {
-    const newProduct = {
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      modifiers: req.body.modifiers,
-      filter_tags: req.body.filter_tags,
-      is_order: req.body.is_order,
-      stock: req.body.stock,
-      state: req.body.state,
-      payment_term: req.body.payment_term,
-    };
 
-    let error = validateProduct(newProduct);
-    if (error) res.status(400).json(error);
-
-    const existingProducts = await getProductsFromDB();
-    if (
-      existingProducts.find(
-        ({ name }) => name.toLowerCase() === newProduct.name.toLowerCase()
-      )
-    ) {
-      return res.status(400).json({ msg: "Product name already exists" });
+const asyncPostProduct = async (req, res)=> {
+    try {
+      const newProduct ={
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        image: req.body.image,
+        modifiers: req.body.modifiers,
+        filter_tags: req.body.filter_tags,
+        is_order: req.body.is_order,
+        stock: req.body.stock,
+        state: req.body.state,
+        payment_term: req.body.payment_term
     }
 
-    const createdProduct = await Product.create(newProduct);
+    let error= validateProduct(newProduct);
+    if(error) res.status(400).json(error)
+    
+  
+    const existingProducts = await getProductsFromDB();
+    if(
+      existingProducts.find(({name})=> name.toLowerCase() === newProduct.name.toLowerCase())  
+    ){
+      return res.status(400).json({msg: "Product name already exists"})
+    }
+
+    const createdProduct= await Product.create(newProduct);
     return res.status(200).json(createdProduct);
-  } catch (error) {
-    console.log(error);
-    console.log({ error: error.message });
-  }
-};
+
+    }catch(error){
+        console.log(error)
+        console.log({error: error.message})
+
+
+    }
+
+}
 
 const postGroups = async (req, res) => {
-  const {
-    name,
-    location,
-    schedule,
-    description,
-    image,
-    inscription_cost,
-    contact,
-    whatsapp,
-    accept_newPlayers,
-    genre,
-    adminId,
-  } = req.body;
-  try {
-    if (
-      !name ||
-      !schedule ||
-      !description ||
-      !inscription_cost ||
-      !accept_newPlayers ||
-      !genre ||
-      !adminId
-    ) {
-      res.status(404).json({ message: "missing information" });
-    } else {
-      const newGroup = await Group.create({
-        name: name.toLowerCase(),
+    const {
+        name,
         location,
         schedule,
         description,
@@ -84,12 +55,30 @@ const postGroups = async (req, res) => {
         whatsapp,
         accept_newPlayers,
         genre,
-      });
-      const validateAdmin = await newGroup.addAdmin(adminId);
-      validateAdmin && res.status(200).send("group created susscessful");
-    }
-  } catch (error) {
-    console.log(error);
+        adminId
+    } = req.body
+    try {
+        if (!name || !schedule || !description || !inscription_cost || !accept_newPlayers || !genre || !adminId) {
+            res.status(404).json({ message: "missing information" })
+        } else {
+        
+            const newGroup = await Group.create({
+                name:name.toLowerCase(),
+                location,
+                schedule,
+                description,
+                image,
+                inscription_cost,
+                contact,
+                whatsapp,
+                accept_newPlayers,
+                genre,
+            })
+            const validateAdmin = await newGroup.addAdmin(adminId) 
+            validateAdmin &&  res.status(200).send("group created susscessful")
+        }
+    } catch (error) {
+        console.log(error);
   }
 };
 
@@ -114,7 +103,7 @@ const createEvent = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
-  }
+}
 };
 
 const postOrders = async (req, res) => {
@@ -150,7 +139,7 @@ const postOrders = async (req, res) => {
   }
 }
 module.exports = {
-  asyncPostProduct,
+    asyncPostProduct,
   postGroups,
   createEvent,
   postOrders

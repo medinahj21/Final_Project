@@ -20,7 +20,6 @@ const asyncGetProducts = async (req, res) => {
   try {
     let { name } = req.query;
     let products = await getProductsFromDB();
-    console.log(products);
     if (name) {
       const searchedProduct = await Product.findAll({
         where: { name: { [Op.iLike]: `%${name}%` } },

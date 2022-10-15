@@ -29,7 +29,7 @@ const chargeDummyData = async () => {
     };
   });
 
-  console.log (adminsData);
+  
 
   const bulkAdmin = adminsData.map((obj) => {
     return {
@@ -53,7 +53,7 @@ const chargeDummyData = async () => {
 
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);

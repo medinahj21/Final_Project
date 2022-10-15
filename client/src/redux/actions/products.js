@@ -5,6 +5,7 @@ import {
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
+  CLEAN_PRODUCTS,
 } from "./actions";
 
 export const getProducts = () => {
@@ -60,7 +61,7 @@ export const createProduct = (payload) => {
       );
       return dispatch({
         type: CREATE_PRODUCT,
-        payload: response.data
+        payload: response.data,
       });
     } catch (error) {
       console.log(error);
@@ -72,7 +73,10 @@ export const createProduct = (payload) => {
 export const updateProduct = (id, payload) => {
   return async (dispatch) => {
     try {
-      let response = await axios.put(`http://localhost:3001/products/update/${id}`, payload);
+      let response = await axios.put(
+        `http://localhost:3001/products/update/${id}`,
+        payload
+      );
       return dispatch({
         type: UPDATE_PRODUCT,
         payload: response.data,
@@ -83,6 +87,10 @@ export const updateProduct = (id, payload) => {
   };
 };
 
-
-
-
+export const cleanProducts = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: CLEAN_PRODUCTS,
+    });
+  };
+};

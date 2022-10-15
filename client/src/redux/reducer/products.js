@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
+  CLEAN_PRODUCTS,
 } from "../actions/actions";
 
 const initialState = {
@@ -49,6 +50,12 @@ export default function productsReducer(state = initialState, action) {
     case UPDATE_PRODUCT:
       return {
         ...state,
+      };
+
+    case CLEAN_PRODUCTS:
+      return {
+        ...state,
+        allProducts: [],
       };
 
     default:
