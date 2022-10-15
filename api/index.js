@@ -12,6 +12,7 @@ const ordersData = require("./Datos_de_prueba/Ordenes.json");
 const adminsData = require("./Datos_de_prueba/Admins.json");
 
 const chargeDummyData = async () => {
+
   const bulkGroup = groupsData.map((obj) => {
     return {
       ...obj,
@@ -21,14 +22,27 @@ const chargeDummyData = async () => {
 
   const bulkPlayers = playersData.map((obj) => {
     return {
-      personal_info: { ...obj },
+      personal_info: { 
+        name: obj["Nombre completo"],
+        birthDate: obj["Fecha nacimiento"],
+        cel: obj["Celular (personal)"],
+        bloodType: obj.Rh,
+        email: `${obj["Nombre completo"].split(" ")[1]}@wolves.com`,
+        document: obj["Número documento"],
+        emergencyContact: obj["Celular (contacto emergencia)"],
+        emergencyName: obj["Nombre contacto emergencia"],
+        emergencyRel: obj.Parentesco,
+        health: obj.Eps,
+        isAdmin: false,
+        specialConditions: "",
+        years: obj.Edad,
+        uid: Math.floor(Math.random()*5000)+obj["Número documento"]
+       },
       debt_value: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
       payment_date: obj["Marca temporal"],
       shirt_number: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
-
-  console.log (adminsData);
 
   const bulkAdmin = adminsData.map((obj) => {
     return {

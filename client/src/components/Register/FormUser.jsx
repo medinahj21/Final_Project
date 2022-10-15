@@ -48,7 +48,10 @@ function FormUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    //mando a DB (user+ user.uid(token))
+    //guardo UUID de la DB
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });//sumo UUID 
+    
     navigate("/dashboard");
   };
 
