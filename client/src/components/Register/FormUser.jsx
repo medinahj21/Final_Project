@@ -5,10 +5,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
+import { useDispatch } from "react-redux";
+import { createPlayer } from "../../redux/actions/player";
 
 function FormUser() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -48,10 +52,8 @@ function FormUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //mando a DB (user+ user.uid(token))
-    //guardo UUID de la DB
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });//sumo UUID 
-    
+    dispatch(createPlayer( {personalInfo:{ ...userInput, uid: user.uid, email: user.email } } ));
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email }); 
     navigate("/dashboard");
   };
 

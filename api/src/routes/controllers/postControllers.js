@@ -100,7 +100,7 @@ const createEvent = async (req, res) => {
     if (!(name && state && start && end)) {
       res.status(400).json({ error: "missing info" });
     } else {
-     const newEvent = await Event.create({
+      const newEvent = await Event.create({
         name,
         location,
         description,
@@ -110,7 +110,9 @@ const createEvent = async (req, res) => {
         start,
         end,
       });
-      newEvent ? res.json({ message: "successful process" }) : res.json({message:"event not created"});
+      newEvent
+        ? res.json({ message: "successful process" })
+        : res.json({ message: "event not created" });
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
@@ -119,39 +121,65 @@ const createEvent = async (req, res) => {
 
 const postOrders = async (req, res) => {
   const {
-      value,
-      concept,
-      description,
-      order_state, //==> revisar obligatoriedad
-      payment_date,
-      payment_mode,//==> revisar obligatoriedad
-      payment_term,
-      product
-  } = req.body
+    value,
+    concept,
+    description,
+    order_state, //==> revisar obligatoriedad
+    payment_date,
+    payment_mode, //==> revisar obligatoriedad
+    payment_term,
+    product,
+  } = req.body;
 
   try {
-      if (!value || !concept || !description || !payment_date || !payment_term || !product) {
-          res.status(404).json({ message: "missing information" })
-      } else {
-          const newOrder = await Order.create({
-              value,
-              concept,
-              description,
-              order_state,
-              payment_date,
-              payment_mode,
-              payment_term,
-          })
-          const validateOrder = await newOrder.addProduct(product)
-          validateOrder && res.status(200).send("order created successfully")
-      }
+    if (
+      !value ||
+      !concept ||
+      !description ||
+      !payment_date ||
+      !payment_term ||
+      !product
+    ) {
+      res.status(404).json({ message: "missing information" });
+    } else {
+      const newOrder = await Order.create({
+        value,
+        concept,
+        description,
+        order_state,
+        payment_date,
+        payment_mode,
+        payment_term,
+      });
+      const validateOrder = await newOrder.addProduct(product);
+      validateOrder && res.status(200).send("order created successfully");
+    }
   } catch (error) {
-      console.log(error);
+    console.log(error);
+  }
+};
+
+const postPlayers = async (req,res)=>{
+  const { personalInfo, debtValue, paymentDate, shirtNumber } = req.body;
+
+  try {
+    if(!(personalInfo)) res.status(400).json({error: "missing info"})
+    else{
+      const newPlayer = await Player.create({
+        personalInfo, debtValue, paymentDate, shirtNumber
+      })
+      res.json(newPlayer)
+    }
+    
+  } catch (error) {
+    res.status(500).json({error_DB: error.message})
   }
 }
+
 module.exports = {
   asyncPostProduct,
   postGroups,
   createEvent,
-  postOrders
-}
+  postOrders,
+  postPlayers
+};
