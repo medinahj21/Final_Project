@@ -1,3 +1,6 @@
 [
-  {"name":"hombre"}
-  , "mujer", "unisex", "camisa"]
+  {"id": 1, "name":"hombre"}, 
+  {"id": 2, "name":"mujer"},
+  {"id": 3, "name":"unisex"},
+  {"id": 4, "name": "camisa"}
+]

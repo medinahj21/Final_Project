@@ -6,6 +6,7 @@ import {
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
+  GET_FILTER_TAGS,
 } from "./actions";
 
 export const getProducts = () => {
@@ -92,5 +93,12 @@ export const cleanProducts = () => {
     dispatch({
       type: CLEAN_PRODUCTS,
     });
+  };
+};
+
+export const getFilterTags = () => {
+  return async (dispatch) => {
+    const filterTags = await axios("http://localhost:3001/tags/");
+    dispatch({ type: GET_FILTER_TAGS, payload: filterTags.data });
   };
 };

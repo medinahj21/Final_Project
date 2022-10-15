@@ -71,7 +71,7 @@ const {
   Product,
   ProductRequest,
   RoleRequest,
-  Filter,
+  FilterTags,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
@@ -103,8 +103,8 @@ ProductRequest.belongsTo(Product, { foreignKey: "productId" });
 Admin.belongsToMany(Event, { through: "admin-event" });
 Event.belongsToMany(Admin, { through: "admin-event" });
 
-Filter.belongsToMany(Filter, { through: "product-filter" });
-Product.belongsToMany(Filter, { through: "product-filter" });
+FilterTags.belongsToMany(Product, { through: "product-filter" });
+Product.belongsToMany(FilterTags, { through: "product-filter" }); 
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

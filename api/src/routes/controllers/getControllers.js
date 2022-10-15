@@ -1,4 +1,12 @@
-const { Player, Event, Group, Product, Order, Admin, Filter } = require("../../db");
+const {
+  Player,
+  Event,
+  Group,
+  Product,
+  Order,
+  Admin,
+  FilterTags,
+} = require("../../db");
 const { Sequelize, Model, Op } = require("sequelize");
 
 const getProductsFromDB = async () => {
@@ -36,10 +44,10 @@ const asyncGetProducts = async (req, res) => {
 
 const getFilterTags = async (req, res) => {
   try {
-    let filterTags= await Filter.findAll();
+    let filterTags = await FilterTags.findAll();
     res.json(filterTags);
   } catch (error) {
-    res.status(500).send({error: error.message})
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -182,6 +190,8 @@ const getOrder = async (req, res) => {
     console.log(error);
   }
 };
+
+
 module.exports = {
   asyncGetProducts,
   getProductsFromDB,

@@ -2,7 +2,7 @@ const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const { PORT } = process.env;
 
-const { Event, Product, Group, Player, Order, Admin, Filter } = require("./src/db");
+const { Event, Product, Group, Player, Order, Admin, FilterTags } = require("./src/db");
 
 const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
@@ -13,6 +13,13 @@ const adminsData = require("./Datos_de_prueba/Admins.json");
 const filtersData= require("./Datos_de_prueba/Filtros.json");
 
 const chargeDummyData = async () => {
+
+  const bulkProducts = productsData.map((obj)=>{
+    return{
+      ...obj,
+      FilterTags: [1,2]
+    }
+  })
 
   const bulkGroup = groupsData.map((obj) => {
     return {
@@ -52,14 +59,17 @@ const chargeDummyData = async () => {
     };
   });
 
+  //console.log(bulkProducts);
+
   try {
     await Event.bulkCreate(eventsData);
-    await Product.bulkCreate(productsData);
+    await FilterTags.bulkCreate(filtersData);
+    await Product.bulkCreate(bulkProducts);
     await Group.bulkCreate(bulkGroup);
     //await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
     await Admin.bulkCreate(bulkAdmin);
-    //await Filter.bulkCreate(filtersData);
+    
   } catch (error) {
     console.log(error.message);
   }
