@@ -20,6 +20,7 @@ const chargeDummyData = async () => {
     };
   });
 
+
   const bulkPlayers = playersData.map((obj) => {
     return {
       personal_info: { 
@@ -58,13 +59,15 @@ const chargeDummyData = async () => {
     await Player.bulkCreate(bulkPlayers);
     await Order.bulkCreate(ordersData);
     await Admin.bulkCreate(bulkAdmin);
+
   } catch (error) {
     console.log(error.message);
   }
 };
 
+
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
