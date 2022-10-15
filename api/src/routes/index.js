@@ -1,17 +1,20 @@
 const { Router } = require("express");
+
 const router = Router();
-const products = require("../routes/middlewares/products");
 
-const groups = require("./middlewares/groups");
-//const admin = require("./middlewares/home");
+const product = require("./middlewares/products");
+const group = require("./middlewares/groups");
 const event = require("./middlewares/events");
+const order = require("./middlewares/orders");
+const player = require("./middlewares/players");
+const admin = require("./middlewares/admins");
 
-router.use("/groups", groups);
-router.use("/products", products);
+router.use("/products", product);
+router.use("/groups", group);
 router.use("/events", event);
+router.use("/orders", order);
+router.use("/players", player);
+router.use("/admins", admin);
 
-//router.use("/admin", admin); //AndresV - ¿no entiendo bien por qué esta linea?
-
-//router.use("/home", home);
 
 module.exports = router;

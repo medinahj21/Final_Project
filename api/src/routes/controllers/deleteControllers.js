@@ -1,8 +1,5 @@
 const { Player, Event, Group, Product } = require("../../db");
 
-const { Sequelize, Model } = require("sequelize");
-const { validateProduct } = require("../../utils/utils");
-
 const asyncDeleteProduct = async (req, res) => {
   try {
     await Product.destroy({ where: { id: req.params.id } });
