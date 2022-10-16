@@ -20,6 +20,7 @@ export const GET_GROUPS = "GET_GROUPS";
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
 export const GET_GROUP_DETAIL = "GET_GROUP_DETAIL";
+export const MODIFY_PRODUCTS = "MODIFIY_PRODUCTS";
 
 //GET ORDER?----> Mostrar la orden de acuerdo al jugador o traer la orden por separado??
 export const CREATE_USER = "CREATE_USER";

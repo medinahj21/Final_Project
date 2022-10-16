@@ -6,6 +6,7 @@ import {
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
+  MODIFY_PRODUCTS,
 } from "../actions/actions";
 
 const initialState = {
@@ -65,6 +66,12 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         filterTags: action.payload,
       };
+
+    case MODIFY_PRODUCTS:
+      return {
+        ...state,
+        allProducts: action.payload,
+      }
 
     default:
       return state;
