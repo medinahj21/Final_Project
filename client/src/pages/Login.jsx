@@ -6,7 +6,6 @@ import { loginWhitEmailAndPassword } from "../redux/actions/auth";
 
 import LoginGoogle from "../components/Register/LoginGoogle";
 
-
 function Login() {
   const { email } = useSelector((state) => state.authReducer);
 
@@ -48,8 +47,8 @@ function Login() {
           Email:{" "}
           <input
             type="email"
-            value={credentials.email}
             name="email"
+            value={credentials.email}
             id="email"
             placeholder="youremail@company.dtl"
             onChange={changeHandler}

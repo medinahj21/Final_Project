@@ -19,9 +19,9 @@ function Nav() {
 
   return (
     <nav className="nav__container">
-      <div className="nav__logo">
+      <Link to={'/'} className="nav__logo">
         <img src={LOGO} alt="logo" />
-      </div>
+      </Link>
       <div className="nav__container-links">
         {email === "" || !email ? (
           <div className="nav__login">

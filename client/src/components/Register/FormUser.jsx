@@ -5,10 +5,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
+import { useSelector } from "react-redux";
 
 function FormUser() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (user) {
@@ -52,9 +54,9 @@ function FormUser() {
     navigate("/dashboard");
   };
 
-  if (!user || user === "") {
-    navigate("/");
-  }
+  if (!user || user === "") navigate("/");
+
+  if (userInfoFirestore) navigate("/");
 
   return (
     <form onSubmit={handleSubmit}>
