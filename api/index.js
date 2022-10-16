@@ -72,7 +72,7 @@ const chargeDummyData = async () => {
       createdProduct.addFilterTags(p.FilterTags);
     })
   } catch (error) {
-    console.log("este es el error------>",error.message )
+    console.log(error.message )
   }
 };
 
