@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import "./FormUser.css";
 
 function FormUser() {
+  const navigate = useNavigate();
   const [user, setUser] = useState();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
@@ -54,12 +55,12 @@ function FormUser() {
 
     setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
 
-    // return redirect("/");
+    return navigate("/");
   };
 
-  // if (!user || user === "") navigate("/");
+  if (!user || user === "") navigate("/");
 
-  // if (userInfoFirestore) navigate("/");
+  if (userInfoFirestore) navigate("/");
 
   return (
     <div className="form__container">

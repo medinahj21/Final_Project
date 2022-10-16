@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate, redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import LoginGoogle from "../components/Register/LoginGoogle";
 import { registerWhitEmailAndPassword } from "../redux/actions/auth";
