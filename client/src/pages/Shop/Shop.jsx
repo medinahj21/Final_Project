@@ -12,7 +12,7 @@ import {
 
 import "../Shop/Shop.css";
 import CreateProduct from "./CreateProduct";
-import handleFilter from "./utils/filters";
+import { handleFilter } from "./utils/filters";
 import ShowProducts from "./ShowProducts";
 import Prueba from "./Prueba";
 import Modifiers from "./Modifiers";

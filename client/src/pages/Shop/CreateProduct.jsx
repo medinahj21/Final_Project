@@ -5,6 +5,13 @@ import { useDispatch } from "react-redux";
 import { createProduct, getFilterTags } from "../../redux/actions/products";
 import Modifiers from "./Modifiers";
 import Tags from "./Tags";
+import {
+  validateName,
+  validateURL,
+  validatePrice,
+  validateDescription,
+  validatePaymentTerm,
+} from "./utils/filters";
 
 export default function CreateProduct() {
   const dispatch = useDispatch();
@@ -80,6 +87,62 @@ export default function CreateProduct() {
     }
   };
 
+  const [errors, setErrors]= useState({});
+
+  const handleValidations = (e) => {
+
+    if (e.target.name === "name") {
+      if (!validateName(e.target.value)) {
+        setErrors({...errors, name:"Nombre inválido, solo se permite hasta un máximo de 30 caracteres alfanumericos"})
+      }else {
+        let aux= errors;
+        delete aux[e.target.name];
+        setErrors(aux);
+
+      }
+    }
+
+    if (e.target.name === "image") {
+      if (!validateURL(e.target.value)) {
+        setErrors({...errors, image:"Debe introducir una url con extension válida de imagen"})
+      }else {
+        let aux= errors;
+        delete aux[e.target.name];
+        setErrors(aux);
+    }
+  }
+
+    if (e.target.name === "price") {
+      if (!validatePrice(e.target.value)) {
+        setErrors({...errors, price: "Debe introducir solo valores numericos a partir de 5000" });
+      }else {
+        let aux= errors;
+        delete aux[e.target.name];
+        setErrors(aux);
+      }
+    }
+
+    if (e.target.name === "description") {
+      if (!validateDescription(e.target.value)) {
+        setErrors({...errors, description:"Este campo debe tener un mínimo de 5 caracteres y un máximo de 200 caracteres"});
+      }else {
+        let aux= errors;
+        delete aux[e.target.name];
+        setErrors(aux);
+      }
+    }
+
+    if (e.target.name === "paymentTerm") {
+      if (!validatePaymentTerm(e.target.value)) {
+        setErrors({...errors, paymentTerm:"Debe introducir solo valores numericos. Valor máximo 180" });
+      }else {
+        let aux= errors;
+        delete aux[e.target.name];
+        setErrors(aux);
+      }
+    }
+  };
+
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -91,8 +154,10 @@ export default function CreateProduct() {
             value={newProduct.name}
             onChange={(e) => {
               handleSetNewProductProperties(e);
+              handleValidations(e);
             }}
           ></input>
+          {errors.name && <p className="errors">{errors.name}</p>}
         </div>
         <hr />
         <div>
@@ -103,8 +168,10 @@ export default function CreateProduct() {
             value={newProduct.image}
             onChange={(e) => {
               handleSetNewProductProperties(e);
+              handleValidations(e);              
             }}
           ></input>
+          {errors.image && <p className="errors">{errors.image}</p>}
         </div>
         <hr />
         <div>
@@ -115,8 +182,10 @@ export default function CreateProduct() {
             value={newProduct.price}
             onChange={(e) => {
               handleSetNewProductProperties(e);
+              handleValidations(e);
             }}
           ></input>
+          {errors.price && <p className="errors">{errors.price}</p>}
         </div>
         <hr />
         <div>
@@ -127,8 +196,10 @@ export default function CreateProduct() {
             value={newProduct.description}
             onChange={(e) => {
               handleSetNewProductProperties(e);
+              handleValidations(e);
             }}
           ></input>
+          {errors.description && <p className="errors">{errors.description}</p>}
         </div>
         <hr />
         <div>
@@ -143,8 +214,10 @@ export default function CreateProduct() {
             value={newProduct.paymentTerm}
             onChange={(e) => {
               handleSetNewProductProperties(e);
+              handleValidations(e);
             }}
           ></input>
+          {errors.paymentTerm && <p className="errors">{errors.paymentTerm}</p>}
         </div>
         <hr />
         <div>
