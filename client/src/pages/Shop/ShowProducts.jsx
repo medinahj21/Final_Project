@@ -4,7 +4,6 @@ import React from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 export default function ShowProducts({dataFiltered}) {
-console.log(dataFiltered);
   return (
     <div className="grid-container">
       {dataFiltered?.map((p) => {

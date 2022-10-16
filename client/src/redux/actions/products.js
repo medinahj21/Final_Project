@@ -57,6 +57,7 @@ export const getProductDetail = (id) => {
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
+      console.log("payload:",JSON.stringify(payload))
       let response = await axios.post(
         "http://localhost:3001/products/create",
         payload

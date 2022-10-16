@@ -6,6 +6,8 @@ import { loginWhitEmailAndPassword } from "../redux/actions/auth";
 
 import LoginGoogle from "../components/Register/LoginGoogle";
 
+import "./Register.css";
+
 function Login() {
   const { email } = useSelector((state) => state.authReducer);
 
@@ -40,9 +42,9 @@ function Login() {
   if (email) return <Navigate to={"/"} />;
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={submitHandler}>
+    <div className="register__container">
+      <h2 className="register__title">Iniciar Sesión</h2>
+      <form onSubmit={submitHandler} className="register__form">
         <label htmlFor="email">
           Email:{" "}
           <input
@@ -66,8 +68,8 @@ function Login() {
           />
         </label>
         <button>Iniciar Sesión</button>
+        <LoginGoogle />
       </form>
-      <LoginGoogle />
     </div>
   );
 }

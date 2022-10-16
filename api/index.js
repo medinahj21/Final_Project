@@ -14,13 +14,6 @@ const filtersData= require("./Datos_de_prueba/Filtros.json");
 
 const chargeDummyData = async () => {
 
-  const bulkProducts = productsData.map((obj)=>{
-    return{
-      ...obj,
-      FilterTags: [1,2]
-    }
-  })
-
   const bulkGroup = groupsData.map((obj) => {
     return {
       ...obj,
@@ -64,7 +57,7 @@ const chargeDummyData = async () => {
   try {
     await Event.bulkCreate(eventsData);
     await FilterTags.bulkCreate(filtersData);
-    await Product.bulkCreate(bulkProducts);
+    //await Product.bulkCreate(bulkProducts);
     await Group.bulkCreate(bulkGroup);
     //await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
@@ -72,6 +65,14 @@ const chargeDummyData = async () => {
     
   } catch (error) {
     console.log(error.message);
+  }
+  try {
+    productsData.forEach(async(p)=>{
+      const createdProduct = await Product.create(p);
+      createdProduct.addFilterTags(p.FilterTags);
+    })
+  } catch (error) {
+    console.log("este es el error------>",error.message )
   }
 };
 

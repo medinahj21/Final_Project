@@ -12,9 +12,12 @@ const { Sequelize, Model, Op } = require("sequelize");
 const getProductsFromDB = async () => {
   try {
     const allProducts = await Product.findAll({
-      include: {
-        model: Order,
-      },
+      include: [{
+        model: FilterTags,
+        attributes: ["id", "name"],
+        through: { attributes: [] }
+      }],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
     });
     console.log(allProducts);
     if (allProducts) return allProducts;
