@@ -14,6 +14,8 @@ import "../Shop/Shop.css";
 import CreateProduct from "./CreateProduct";
 import handleFilter from "./utils/filters";
 import ShowProducts from "./ShowProducts";
+import Prueba from "./Prueba";
+import Modifiers from "./Modifiers";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
@@ -146,7 +148,7 @@ function Shop() {
         </button>
       )}
 
-      <div></div>
+      
     </div>
   );
 }
