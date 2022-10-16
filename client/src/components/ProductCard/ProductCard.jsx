@@ -7,11 +7,12 @@ function ProductCard({ id, name, price, image }) {
       <div className="card">
         <div className="card-image">
           <Link className="Link" to={`/products/${id}`}>
-            <img className="pic" src={image} alt="Img not found" />
+            <h3>{name}</h3>
+            <img className="pic" src={image} alt="Img not found"  height={300}/>
           </Link>
         </div>
         <div className="card-info">
-          <h3>{name}</h3>
+          
           <p>$ {price}</p>
         </div>
       </div>

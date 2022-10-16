@@ -1,11 +1,10 @@
-const handleFilter = (allProducts, tags, allTags ) => {    
+const handleFilter = (allProducts, tags, allTags ) => { 
+    console.log(tags)   
     let dataFiltered = [...allProducts];
     tags.forEach((tag) => {
-      dataFiltered = dataFiltered.filter((p) => {
-        return p.filter_tags.includes(allTags.find((t) => t.id === tag).name);
-      });
+      dataFiltered = dataFiltered.filter((p) =>  p.filterTags.find((t)=> t.id=== Number(tag))  );
     });
-    
+    console.log(dataFiltered) 
     
     return dataFiltered;
   };
