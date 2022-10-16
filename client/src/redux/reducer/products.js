@@ -59,6 +59,7 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         allProducts: [],
+        products: [],
       };
 
     case GET_FILTER_TAGS:

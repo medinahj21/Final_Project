@@ -20,8 +20,6 @@ function Shop() {
   const [tags, setTags] = useState([]);
   const [dataFiltered, setDataFiltered] = useState([]);
 
-  //setDataFiltered(handleFilter(allProducts, tags, allTags));
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,6 +40,8 @@ function Shop() {
 
   const handleClean = () => {
     dispatch(cleanProducts());
+    setDataFiltered([]);
+    setTags([]);
   };
 
   const handleTags = (e) => {
@@ -63,20 +63,6 @@ function Shop() {
     let aux2 = handleFilter(allProducts, aux, allTags);
     setDataFiltered(aux2);
   };
-
-  /* const handleFilter = () => {    
-    let dataFiltered = [...allProducts];
-    tags.forEach((tag) => {
-      dataFiltered = dataFiltered.filter((p) => {
-        return p.filter_tags.includes(allTags.find((t) => t.id === tag).name);
-      });
-    });
-    dispatch(modifyProducts(dataFiltered))
-    
-  }; */
-
-  //let dataFil= allProducts.length > 0 && handleFilter(allProducts, tags, allTags)
-  //console.log(handleFilter(allProducts, tags, allTags));
 
   return (
     <div>
