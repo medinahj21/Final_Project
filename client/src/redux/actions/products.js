@@ -7,6 +7,7 @@ import {
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
+  MODIFY_PRODUCTS,
 } from "./actions";
 
 export const getProducts = () => {
@@ -101,5 +102,14 @@ export const getFilterTags = () => {
   return async (dispatch) => {
     const filterTags = await axios("http://localhost:3001/tags/");
     dispatch({ type: GET_FILTER_TAGS, payload: filterTags.data });
+  };
+};
+
+export const modifyProducts = (payload) => {
+  return async (dispatch) => {
+    dispatch({
+      type: MODIFY_PRODUCTS,
+      payload,
+    });
   };
 };
