@@ -47,6 +47,7 @@ export default function productsReducer(state = initialState, action) {
     case CREATE_PRODUCT:
       return {
         ...state,
+        products: [...state.products, action.payload]
       };
 
     case UPDATE_PRODUCT:

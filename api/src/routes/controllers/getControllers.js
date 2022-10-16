@@ -16,9 +16,9 @@ const getProductsFromDB = async () => {
         model: Order,
       },
     });
-    console.log(allProducts);
+    
     if (allProducts) return allProducts;
-    console.log("No products available");
+    res.send("No products available");
   } catch (error) {
     console.log(error);
   }

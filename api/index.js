@@ -64,7 +64,7 @@ const chargeDummyData = async () => {
   try {
     await Event.bulkCreate(eventsData);
     await FilterTags.bulkCreate(filtersData);
-    await Product.bulkCreate(bulkProducts);
+    //await Product.bulkCreate(bulkProducts);
     await Group.bulkCreate(bulkGroup);
     //await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);

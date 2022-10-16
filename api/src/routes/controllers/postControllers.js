@@ -22,14 +22,11 @@ const asyncPostProduct = async (req, res) => {
       description: req.body.description,
       image: req.body.image,
       modifiers: req.body.modifiers,
-      filter_tags: req.body.filter_tags,
-      is_order: req.body.is_order,
+      isOrder: req.body.isOrder,
       stock: req.body.stock,
       state: req.body.state,
-      payment_term: req.body.payment_term,
+      paymentTerm: req.body.paymentTerm,
     };
-
-     
 
     let error = validateProduct(newProduct);
     if (error) res.status(400).json(error);
@@ -47,8 +44,7 @@ const asyncPostProduct = async (req, res) => {
     if(FilterTags) createdProduct.addFilterTags(FilterTags);
     return res.status(200).json(createdProduct);
   } catch (error) {
-    console.log(error);
-    console.log({ error: error.message });
+    res.status(500).json({ error_DB: error.message });
   }
 };
 
