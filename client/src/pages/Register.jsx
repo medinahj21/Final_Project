@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, redirect } from "react-router-dom";
 
 import LoginGoogle from "../components/Register/LoginGoogle";
 import { registerWhitEmailAndPassword } from "../redux/actions/auth";
 
+import "./Register.css";
+
 function Register() {
-  const navigate = useNavigate();
   const { email } = useSelector((state) => state.authReducer);
   const [credentials, setCredentials] = useState({
     email: "",
@@ -32,15 +33,18 @@ function Register() {
       password: "",
     });
 
-    navigate("/form-user");
+    return <Navigate to={"/form-user"} replace={true} />;
   };
 
   if (email && email !== "") return <Navigate to={"/"} />;
 
   return (
-    <div>
-      <h2>Registrarse</h2>
-      <form onSubmit={submitHandler}>
+    <div className="register__container">
+      <Link to="/" className="register__backbtn">
+        Home
+      </Link>
+      <h2 className="register__title">Registrarse</h2>
+      <form onSubmit={submitHandler} className="register__form">
         <label htmlFor="email">
           Email:{" "}
           <input
@@ -64,8 +68,8 @@ function Register() {
           />
         </label>
         <button type="submit">Registrarse</button>
+        <LoginGoogle />
       </form>
-      <LoginGoogle />
     </div>
   );
 }
