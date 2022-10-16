@@ -60,7 +60,7 @@ function FormUser() {
 
     dispatch(createPlayer( {personalInfo:{ ...userInput, uid: user.uid, email: user.email } } ));
     setUserFirestore({ ...userInput, uid: user.uid, email: user.email }); 
-    navigate("/dashboard");
+    navigate("/");
   };
 
   if (!user || user === "") navigate("/");
