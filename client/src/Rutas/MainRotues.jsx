@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import FormUser from "../components/Register/FormUser";
 import Player from "../pages/Player";
 import Admin from "../pages/Admin";
+import Shop from "../pages/Shop/Shop";
 import ProtectedRoute from "./ProtectedRoutes";
 
 function MainRoutes() {
@@ -19,6 +20,7 @@ function MainRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="check-in" element={<Register />} />
       <Route path="form-user" element={<FormUser />} />
+      <Route path="/products" element={<Shop />}/>
       <Route
         path="dashboard-player"
         element={

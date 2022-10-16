@@ -5,7 +5,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
-import { useSelector } from "react-redux";
+
+import { useDispatch,useSelector } from "react-redux";
+import { createPlayer } from "../../redux/actions/player";
+
 
 import "./FormUser.css";
 
@@ -13,6 +16,8 @@ function FormUser() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -53,9 +58,9 @@ function FormUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-
-    return navigate("/");
+    dispatch(createPlayer( {personalInfo:{ ...userInput, uid: user.uid, email: user.email } } ));
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email }); 
+    navigate("/dashboard");
   };
 
   if (!user || user === "") navigate("/");
