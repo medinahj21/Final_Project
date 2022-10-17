@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
         },
-        personal_info: {
+        personalInfo: {
             type: DataTypes.JSON,//para el bulk
             allowNull: false,
             validate: {
@@ -22,32 +22,32 @@ module.exports = (sequelize) => {
                 }
             }
         },
-        debt_value: {
+        debtValue: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
+            allowNull: true,
+            /* validate: {
                 notNull: {
                     msg: "not null debt_value "
                 },
                 notEmpty: {
                     arg: true,
                     msg: "empty strings are not allowed"
-                }
-            }
+                } 
+            }*/
         },
-        payment_date: {
+        paymentDate: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
-        shirt_number: {
+        shirtNumber: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            validate:{
+            /* validate:{
                 min:{
                     args:0,
                     msg:"shirt_number must be greater than or equal to 0"
                 }
-            }
+            } */
         }
     }, {
         timestamps: false

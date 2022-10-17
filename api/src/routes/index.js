@@ -8,8 +8,11 @@ const event = require("./middlewares/events");
 const order = require("./middlewares/orders");
 const player = require("./middlewares/players");
 const admin = require("./middlewares/admins");
+const tags = require("./middlewares/tags");
+
 
 router.use("/products", product);
+router.use("/tags", tags);
 router.use("/groups", group);
 router.use("/events", event);
 router.use("/orders", order);
