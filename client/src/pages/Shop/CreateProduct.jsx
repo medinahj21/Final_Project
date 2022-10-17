@@ -13,6 +13,8 @@ import {
   validatePaymentTerm,
 } from "./utils/filters";
 
+import "./CreateProduct.css";
+
 export default function CreateProduct() {
   const dispatch = useDispatch();
 
@@ -143,6 +145,31 @@ export default function CreateProduct() {
     }
   };
 
+  
+
+  const handleOnClick = (e) => {
+    //Aqui hago el llamado al widget de la cloudinary y que suba la imagen
+    const widger_cloudinary = window.cloudinary.createUploadWidget({
+        cloudName: 'dmcrq99gc', //El nombre de mi cuenta en cloudinary
+        uploadPreset: 'prueba' //Nombre de la "nube"
+    }, (err, result) => {
+        if (result.event === 'success') {
+            //setImage(result.info.url); //Si se subio orrectectamente guardo el url en un estado
+            setNewProduct({   //Guardo en el valor en el input correspondiente
+                ...newProduct,
+                image: result.info.url 
+            })
+        } else if (err) {
+            console.log(err);
+        }
+    })
+
+    widger_cloudinary.open() //Para que se abra el widget 
+}
+
+console.log(newProduct);
+
+
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -162,7 +189,9 @@ export default function CreateProduct() {
         <hr />
         <div>
           <label> Imagen: </label>
-          <input
+          <img src={newProduct.image} alt="Previsualización"/>
+          <div className="load-image" onClick= {(e)=> handleOnClick(e)}>Cargar Imagen...</div>
+          {/* <input
             type="text"
             name="image"
             value={newProduct.image}
@@ -170,7 +199,7 @@ export default function CreateProduct() {
               handleSetNewProductProperties(e);
               handleValidations(e);              
             }}
-          ></input>
+          ></input> */}
           {errors.image && <p className="errors">{errors.image}</p>}
         </div>
         <hr />

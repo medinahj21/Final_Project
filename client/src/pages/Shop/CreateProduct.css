@@ -1,0 +1,16 @@
+.errors {
+    color: rgb(250, 234, 10);
+}
+
+.load-image {
+    border: 2px solid gray;
+    background-color: rgb(146, 146, 241);
+    cursor: pointer;
+    width: 75px;
+    box-shadow: var(--box-shadow);
+}
+
+.load-image:hover{
+    background-color: rgb(233, 182, 106);
+
+}

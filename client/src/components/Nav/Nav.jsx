@@ -54,6 +54,7 @@ function Nav() {
           <a href="calendario">Calendario</a>
           <a href="Nosotros">Nosotros</a>
           <a href="contanto">Contacto</a>
+          <a href="products">Tienda</a>
         </div>
       </div>
     </nav>

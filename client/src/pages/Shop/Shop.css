@@ -15,4 +15,35 @@
   background-color: gray;
 }
 
+.show-products {
+  background: linear-gradient(to right, rgb(153, 153, 180), rgb(179, 95, 228)) 
+}
+
+.create-products {
+  background: linear-gradient(to right, rgb(153, 153, 180), rgb(179, 95, 228))
+}
+
+.clean-product {
+  background: linear-gradient(to right, rgb(153, 153, 180), rgb(179, 95, 228))
+}
+
+.filter-field {
+  background-color: rgb(240, 223, 131);
+}
+
+.home-button {
+  color:black;
+  background: linear-gradient(to right, rgb(153, 153, 180), rgb(179, 95, 228));
+}
+.back {
+  color: black;
+}
+
+
+.bg-shop {
+  background: linear-gradient(to right, rgb(62, 62, 240), rgb(39, 25, 71));
+}
+
+
+
 

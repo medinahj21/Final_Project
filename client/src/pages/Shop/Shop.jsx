@@ -67,13 +67,13 @@ function Shop() {
   };
 
   return (
-    <div>
+    <div className="bg-shop">
       <div>
         <button className="show-products" onClick={(e) => handleAllProducts(e)}>
           TODOS LOS PRODUCTOS
         </button>
         <div>
-          <button
+          <button className="create-products"
             onClick={(e) => {
               setCreationDiv(true);
             }}
@@ -82,9 +82,9 @@ function Shop() {
           </button>
         </div>
         <div className="order-filter">
-          <select defaultValue="title" onChange={(e) => handleTags(e)}>
+          <select className="filter-field" defaultValue="title" onChange={(e) => handleTags(e)}>
             <option value="title" disabled={true}>
-              Filtar por: Genero
+              Filtar por:
             </option>
             {allTags?.map((tag) => {
               return (
@@ -109,7 +109,7 @@ function Shop() {
           ) : (
             <p>No has seleccionado etiquetas</p>
           )}
-          <select defaultValue="title2">
+          <select className="filter-field" defaultValue="title2">
             <option value="title2" disabled={true}>
               Filtar por: Precio
             </option>
@@ -122,7 +122,7 @@ function Shop() {
         </div>
       </div>
       <div>
-        <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
+        <button className="clean-product" onClick={(e) => handleClean(e)}>LIMPIAR</button>
       </div>
       {creationDiv ? (
         <div>
@@ -147,7 +147,9 @@ function Shop() {
           CREAR PRODUCTO
         </button>
       )}
-
+        <button className="home-button">
+          <a className="back" href="/">IR A INICIO</a>
+        </button>
       
     </div>
   );
