@@ -1,6 +1,7 @@
 import React from "react";
 
-function Labels({ handleTags, filterTags, tags, deleteTag }) {
+function Labels({ handleTags, filterTags, tags, deleteTag}) {
+
   return (
     <div>
       <label> Etiquetas </label>

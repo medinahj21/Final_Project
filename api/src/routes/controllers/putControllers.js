@@ -8,18 +8,16 @@ const asyncUpdateProduct = async (req, res) => {
     description,
     image,
     modifiers,
-    filter_tags,
-    is_order,
+    isOrder,
     stock,
     state,
-    payment_term,
+    paymentTerm,
   } = req.body;
   const { id } = req.params;
 
   try {
-    const result = await Product.findOne({
-            where: { id: id }
-    });
+    const result = await Product.findByPk(id);
+
     if (result) {
             await Product.update({
           name,
@@ -27,11 +25,10 @@ const asyncUpdateProduct = async (req, res) => {
           description,
           image,
           modifiers,
-          filter_tags,
-          is_order,
+          isOrder,
           stock,
           state,
-          payment_term,
+          paymentTerm,
           }, {
           where: {
             id: id
@@ -41,7 +38,7 @@ const asyncUpdateProduct = async (req, res) => {
           return res.status(400).json({ error: 'Product not found' });
         }  
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 }
 

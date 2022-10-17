@@ -3,28 +3,35 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { createProduct, getFilterTags } from "../../redux/actions/products";
+import { useParams } from "react-router-dom";
+import { createProduct, getFilterTags, updateProduct } from "../../redux/actions/products";
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
-export default function CreateProduct() {
+export default function CreateProduct({isCreate}) {
+
+  const {id}= useParams();
+
+  const initialState = useSelector((state) => state.productsReducer.productDetail)[0];
+  const {name , image, price, description, filterTags, initialIsOrder, state, paymentTerm,stock} = {...initialState}
+
   const dispatch = useDispatch();
-  const filterTags = useSelector((state) => state.productsReducer.filterTags);
-  const [tags, setTags] = useState([]);
+  const allFilterTags = useSelector((state) => state.productsReducer.filterTags);
+  const [tags, setTags] = useState(initialState?filterTags.map((obj)=>obj.id): []);
   const [isOrder, setIsOrder] = useState(true);
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
+    name: initialState?name :"",
+    price: initialState?price: 0,
+    description: initialState?description: "",
+    image: initialState?image: "",
     modifiers: [],
-    FilterTags: [],
-    isOrder: true,
-    stock: 0,
-    state: true,
-    paymentTerm: 0,
+    FilterTags: initialState?filterTags.map((obj)=>obj.id): [],
+    isOrder: initialState?initialIsOrder: true,
+    stock: initialState?stock: 0,
+    state: initialState?state: true,
+    paymentTerm: initialState?paymentTerm: 0,
   });
 
   useEffect(() => {
@@ -76,8 +83,9 @@ export default function CreateProduct() {
     e.preventDefault();
 
     try {
+    if(isCreate){
       let response = await dispatch(createProduct(newProduct));
-    if (response.type) {
+      if (response.type) {
       setNewProduct({
         name: "",
         price: 0,
@@ -93,7 +101,11 @@ export default function CreateProduct() {
       setTags([]);
       setIsOrder(true);
 
-      alert("¿Usuario creado?");
+      alert("producto creado");
+    }}
+    else{
+      dispatch(updateProduct(id,newProduct))
+      alert("Producto modificado")
     }
       
     } catch (error) {
@@ -120,7 +132,7 @@ export default function CreateProduct() {
       <hr />
       <Labels
         handleTags={handleTags}
-        filterTags={filterTags}
+        filterTags={allFilterTags}
         tags={tags}
         deleteTag={deleteTag}
       />
@@ -134,8 +146,9 @@ export default function CreateProduct() {
       <hr />
 
       <button type="submit" onClick={confirmHandler}>
-        Confirmar creación de producto
+        Confirmar producto
       </button>
+      <p>{JSON.stringify(newProduct)}</p>
     </form>
   );
 }

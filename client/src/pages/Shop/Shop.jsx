@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cleanProductDetail,
   cleanProducts,
   getFilterTags,
   getProducts,
@@ -8,7 +9,7 @@ import {
 
 import "../Shop/Shop.css";
 import CreateProduct from "./CreateProduct";
-import handleFilter from "./utils/filters";
+import {handleFilter} from "./utils/filters";
 import ShowProducts from "./ShowProducts";
 import SearchbarProduct from "./SearchbarProduct";
 
@@ -22,6 +23,7 @@ function Shop() {
   useEffect(() => {
     async function getTags() {
       await dispatch(getFilterTags());
+      await dispatch(cleanProductDetail());
     }
     getTags();
   }, [dispatch]);
@@ -82,7 +84,7 @@ function Shop() {
       {creationDiv ? (
         <div>
           <h1>Crear producto</h1>
-          <CreateProduct />
+          <CreateProduct isCreate={true}/>
           <button
             onClick={() => {
               setCreationDiv(false);
