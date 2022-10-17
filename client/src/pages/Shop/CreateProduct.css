@@ -4,17 +4,48 @@
     display: flex;
     flex-direction: column;
     width: 90vw;
+    height: 80vh;
     margin: 0 auto;
-    gap: .5rem;
     border-radius: 20px;
-    justify-content: center;
     background-color: #fff;
     overflow-y: scroll;
+}
+
+
+.form__product::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.form__product::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.form__product::-webkit-scrollbar-button:increment,
+.form__product::-webkit-scrollbar-button {
+    display: none;
+}
+
+.form__product::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.form__product::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 20px;
+    border: 2px solid var(--color-bg)
+}
+
+.form__product::-webkit-scrollbar-track {
+    border-radius: 10px;
 }
 
 .form__product button {
     width: fit-content;
     align-self: center;
+}
+
+.form__product .close__button {
+    align-self: flex-end;
 }
 
 .form__product input {
@@ -36,9 +67,14 @@
     font-weight: bold;
 }
 
+/* 
 .product__input-error {
     font-weight: bold;
     color: rgb(255, 0, 0);
+} */
+
+.create__product-title {
+    text-align: center;
 }
 
 /*------------------------------PRODUCT PROPERTIES COMPONENT-------------------------------*/
