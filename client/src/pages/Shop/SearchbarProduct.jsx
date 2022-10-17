@@ -2,15 +2,17 @@ import React from "react";
 
 import "./SearchbarProduct.css";
 
-function SearchbarProduct({
-  handleAllProducts,
-  setCreationDiv,
-  handleTags,
-  allTags,
-  tags,
-  deleteTag,
-  handleClean,
-}) {
+function SearchbarProduct(props) {
+  const {
+    handleAllProducts,
+    setCreationDiv,
+    handleTags,
+    allTags,
+    tags,
+    deleteTag,
+    handleClean,
+  } = props;
+
   return (
     <div className="search__container">
       <button onClick={(e) => handleAllProducts(e)}>TODOS LOS PRODUCTOS</button>
@@ -30,7 +32,7 @@ function SearchbarProduct({
       </select>
       <select defaultValue="title" onChange={(e) => handleTags(e)}>
         <option value="title" disabled={true}>
-          Filtar por: Genero
+          Filtar por:
         </option>
         {allTags?.map((tag) => {
           return (

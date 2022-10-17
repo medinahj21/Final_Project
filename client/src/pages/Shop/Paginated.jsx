@@ -7,13 +7,11 @@ function Paginated({ recipesPerPage, allRecipes, paginatedHandler }) {
     return state.productsReducer.prevPage;
   });
 
-  console.log(prevPage);
-
   const prevPag = (num) => {
     paginatedHandler(num);
   };
 
-  const pageNum = [];
+  const pageNum = []; 
 
   for (let i = 0; i < Math.ceil(allRecipes.length / recipesPerPage); i++) {
     pageNum.push(i + 1);

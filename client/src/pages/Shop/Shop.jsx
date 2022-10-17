@@ -4,6 +4,7 @@ import {
   cleanProducts,
   getFilterTags,
   getProducts,
+  setPageNumPrev,
 } from "../../redux/actions/products";
 
 import "../Shop/Shop.css";
@@ -46,6 +47,7 @@ function Shop() {
     dispatch(cleanProducts());
     setDataFiltered([]);
     setTags([]);
+    dispatch(setPageNumPrev(1));
   };
 
   const handleTags = (e) => {
@@ -58,6 +60,7 @@ function Shop() {
       allTags
     );
     setDataFiltered(aux);
+    dispatch(setPageNumPrev(1));
   };
 
   const deleteTag = (e) => {
