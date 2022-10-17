@@ -108,6 +108,7 @@ export default function CreateProduct() {
       <ProductProperties
         newProduct={newProduct}
         handleSetNewProductProperties={handleSetNewProductProperties}
+        setNewProduct={setNewProduct}
       />
 
       <hr />

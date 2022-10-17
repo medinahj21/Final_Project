@@ -1,6 +1,33 @@
 import React from "react";
 
-function ProductProperties({ newProduct, handleSetNewProductProperties }) {
+function ProductProperties({
+  newProduct,
+  handleSetNewProductProperties,
+  setNewProduct,
+}) {
+  const handleOnClick = (e) => {
+    //Aqui hago el llamado al widget de la cloudinary y que suba la imagen
+    const widger_cloudinary = window.cloudinary.createUploadWidget(
+      {
+        cloudName: "dmcrq99gc", //El nombre de mi cuenta en cloudinary
+        uploadPreset: "prueba", //Nombre de la "nube"
+      },
+      (err, result) => {
+        if (result.event === "success") {
+          setNewProduct({
+            //Guardo en el valor en el input correspondiente
+            ...newProduct,
+            image: result.info.url,
+          });
+        } else if (err) {
+          console.log(err);
+        }
+      }
+    );
+
+    widger_cloudinary.open(); //Para que se abra el widget
+  };
+
   return (
     <>
       <div>
@@ -17,14 +44,7 @@ function ProductProperties({ newProduct, handleSetNewProductProperties }) {
       <hr />
       <div>
         <label> Imagen: </label>
-        <input
-          type="text"
-          name="image"
-          value={newProduct.image}
-          onChange={(e) => {
-            handleSetNewProductProperties(e);
-          }}
-        ></input>
+        <div onClick={handleOnClick}>Cargar image</div>
       </div>
       <hr />
       <div>
