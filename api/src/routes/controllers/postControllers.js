@@ -10,39 +10,48 @@ const {
   FilterTags,
 } = require("../../db");
 const { Sequelize, Model } = require("sequelize");
-const { validateProduct } = require("../../utils/utils");
 const { getProductsFromDB } = require("../controllers/getControllers");
 
 const asyncPostProduct = async (req, res) => {
-  const {FilterTags} = req.body;
+  const {
+    name,
+    price,
+    description,
+    image,
+    modifiers,
+    isOrder,
+    stock,
+    state,
+    paymentTerm,
+    FilterTags,
+  } = req.body;
+
   try {
-    const newProduct = {
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      modifiers: req.body.modifiers,
-      isOrder: req.body.isOrder,
-      stock: req.body.stock,
-      state: req.body.state,
-      paymentTerm: req.body.paymentTerm,
-    };
-
-    let error = validateProduct(newProduct);
-    if (error) res.status(400).json(error);
-
     const existingProducts = await getProductsFromDB();
     if (
-      existingProducts.find(
-        ({ name }) => name.toLowerCase() === newProduct.name.toLowerCase()
-      )
+      existingProducts.find((p) => p.name.toLowerCase() === name.toLowerCase())
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
+    if (!name || !price || !description) {
+      res.status(404).json({ message: "missing required fields" });
+    } else {
+      const newProduct = await Product.create({
+        name: name.toLowerCase(),
+        price,
+        description,
+        image,
+        modifiers,
+        isOrder,
+        stock,
+        state,
+        paymentTerm,
+        FilterTags,
+      });
 
-    const createdProduct = await Product.create(newProduct);
-    if(FilterTags) createdProduct.addFilterTags(FilterTags);
-    return res.status(200).json(createdProduct);
+      if (FilterTags) newProduct.addFilterTags(FilterTags);
+      return res.status(200).json(newProduct);
+    }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
   }
