@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
-
+import groupReducer from "./group";
 import authReducer from "./auth";
 
 import { RESET_REDUX_STATE } from "../actions/actions";
 
 const appReducer = combineReducers({
-  authReducer,
+  authReducer, 
+  groupReducer,
 });
 
 export function rootReducer(state, action) {

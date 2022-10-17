@@ -8,6 +8,8 @@ import FormUser from "../components/Register/FormUser";
 import Player from "../pages/Player";
 import Admin from "../pages/Admin";
 import ProtectedRoute from "./ProtectedRoutes";
+import Groups from "../pages/Groups/Groups";
+import GroupDetail from "../components/GroupDetail/GroupDetail";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
@@ -19,6 +21,8 @@ function MainRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="check-in" element={<Register />} />
       <Route path="form-user" element={<FormUser />} />
+      <Route path="/groups" element={<Groups/>}/>
+      <Route path="/group/detail/:id" element={<GroupDetail/>}/>
       <Route
         path="dashboard-player"
         element={

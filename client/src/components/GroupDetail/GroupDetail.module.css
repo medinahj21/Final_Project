@@ -1,0 +1,22 @@
+.containerDetail{
+    text-align: center;
+    padding: 10px;
+    display: flex;
+}
+
+.containerDetail h1{
+    margin-bottom: 0;
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+}
+
+.subItems {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+

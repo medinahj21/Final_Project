@@ -30,6 +30,7 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_GROUP = "DELETE_GROUP";
 export const UPDATE_ORDER = "UPDATE_ORDER";
+export const UPDATE_GROUP = "UPDATE_GROUP";
 
 /* export const GET_TYPES = "GET_TYPES";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE";

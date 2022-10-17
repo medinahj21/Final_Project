@@ -1,0 +1,23 @@
+.bodyForm {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+}
+
+.container {
+    background-color: white;
+    width: 800px;
+    height: 630px;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+.cardContainer{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
