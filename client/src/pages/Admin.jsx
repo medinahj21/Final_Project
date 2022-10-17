@@ -51,12 +51,6 @@ function Admin() {
           src={userInfoFirestore.image || FOTO}
           alt="foto de usuario"
         />
-        <Link to={"/"}>
-          <button className="navbar__btn">Inicio</button>
-        </Link>
-        <Link to={"/products"}>
-          <button className="navbar__btn">Tienda</button>
-        </Link>
         <button
           className={
             clickChoice.isPerfil
@@ -77,6 +71,12 @@ function Admin() {
         >
           Socios
         </button>
+        <Link to={"/"}>
+          <button className="navbar__btn">Inicio</button>
+        </Link>
+        <Link to={"/products"}>
+          <button className="navbar__btn">Tienda</button>
+        </Link>
       </div>
       <div className="admin__content">
         <h1 className="admin__title">Bienvenido: {userInfoFirestore?.email}</h1>
