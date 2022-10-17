@@ -33,6 +33,15 @@ function Shop() {
   const allProducts = useSelector((state) => state.productsReducer.allProducts);
   const allTags = useSelector((state) => state.productsReducer.filterTags);
 
+  useEffect(() => {
+    if (allProducts) {
+      console.log(allProducts);
+      setDataFiltered(allProducts);
+      return;
+    }
+    dispatch(getProducts());
+  }, [dispatch, allProducts]);
+
   const handleAllProducts = (e) => {
     dispatch(getProducts());
     setDataFiltered(allProducts);
