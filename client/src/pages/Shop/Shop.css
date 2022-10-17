@@ -1,18 +1,7 @@
-.grid-container {
-  padding-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 5px 5px;
-  grid-auto-flow: row;
-  grid-area: auto;
-  
+.shop__container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.519)
 }
-
-.card-container {
-  border: 2px solid blue;
-  border-radius: 12px;
-  background-color: gray;
-}
-
-

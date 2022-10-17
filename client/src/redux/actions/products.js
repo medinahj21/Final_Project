@@ -8,6 +8,7 @@ import {
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   MODIFY_PRODUCTS,
+  CLEAN_PRODUCT_DETAIL,
 } from "./actions";
 
 export const getProducts = () => {
@@ -57,7 +58,6 @@ export const getProductDetail = (id) => {
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
-      console.log("payload:",JSON.stringify(payload))
       let response = await axios.post(
         "http://localhost:3001/products/create",
         payload
@@ -110,6 +110,14 @@ export const modifyProducts = (payload) => {
     dispatch({
       type: MODIFY_PRODUCTS,
       payload,
+    });
+  };
+};
+
+export const cleanProductDetail = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: CLEAN_PRODUCT_DETAIL,
     });
   };
 };

@@ -1,14 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import React, { Fragment, useState, useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 
-export default function ShowProducts({dataFiltered}) {
+export default function ShowProducts({ dataFiltered }) {
   return (
-    <div className="grid-container">
+    <div>
       {dataFiltered?.map((p) => {
         return (
-          <div className="card-container" key={p.id}>
+          <div key={p.id}>
             <ProductCard
               id={p.id}
               image={p.image}
