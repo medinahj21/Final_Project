@@ -15,6 +15,10 @@
     position: fixed;
 }
 
+.admin__title {
+    margin: 0;
+}
+
 .navbar__image {
     position: relative;
     top: -25%;
@@ -24,8 +28,22 @@
 }
 
 .navbar__btn {
-    width: 80%;
+    width: 90%;
+    height: 4rem;
+    border: transparent;
+    background-color: #fff;
     margin: 0 auto;
+    transition: all .5s ease-in-out;
+}
+
+.navbar__btn-clicked {
+    width: 100%;
+    border: transparent;
+    box-shadow: none;
+    background-color: #fff;
+    margin: 0 auto;
+    border-radius: 1rem 0 0 1rem;
+    transition: all .5s ease-in-out;
 }
 
 .admin__content {

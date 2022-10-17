@@ -57,16 +57,29 @@ function Admin() {
         <Link to={"/products"}>
           <button className="navbar__btn">Tienda</button>
         </Link>
-        <button className="navbar__btn" onClick={() => handleChance("perfil")}>
+        <button
+          className={
+            clickChoice.isPerfil
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
+          }
+          onClick={() => handleChance("perfil")}
+        >
           Perfil
         </button>
-        <button className="navbar__btn" onClick={() => handleChance("socios")}>
+        <button
+          className={
+            clickChoice.isSocios
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
+          }
+          onClick={() => handleChance("socios")}
+        >
           Socios
         </button>
       </div>
       <div className="admin__content">
-        <Link to={"/"}>Home</Link>
-        <h1>Bienvenido: {userInfoFirestore?.email}</h1>
+        <h1 className="admin__title">Bienvenido: {userInfoFirestore?.email}</h1>
         {clickChoice.isPerfil && (
           <div>
             <p>Edad: {userInfoFirestore.years}</p>
