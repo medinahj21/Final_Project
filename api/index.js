@@ -29,7 +29,7 @@ const chargeDummyData = async () => {
     };
   });
 
-  console.log (adminsData);
+  // console.log (adminsData);
 
   const bulkAdmin = adminsData.map((obj) => {
     return {

@@ -1,16 +1,7 @@
-const {
-  Player,
-  RoleRequest,
-  Group,
-  Admin,
-  Event,
-  Order,
-  Product,
-  ProductRequest,
-} = require("../../db");
+const { Group, Event, Order, Product} = require("../../db");
 const { Sequelize, Model } = require("sequelize");
 const { validateProduct } = require("../../utils/utils");
-const { getProductsFromDB } = require("../controllers/getControllers");
+const { dbProducts } = require("../controllers/getControllers");
 
 const asyncPostProduct = async (req, res) => {
   try {
@@ -28,9 +19,9 @@ const asyncPostProduct = async (req, res) => {
     };
 
     let error = validateProduct(newProduct);
-    if (error) res.status(400).json(error);
+    if (error) res.status(400).json({message:error});
 
-    const existingProducts = await getProductsFromDB();
+    const existingProducts = await dbProducts();
     if (
       existingProducts.find(
         ({ name }) => name.toLowerCase() === newProduct.name.toLowerCase()
@@ -71,7 +62,7 @@ const postGroups = async (req, res) => {
       !genre ||
       !adminId
     ) {
-      res.status(404).json({ message: "missing information" });
+      res.status(412).json({ message: "missing information" });
     } else {
       const newGroup = await Group.create({
         name: name.toLowerCase(),
@@ -98,7 +89,7 @@ const createEvent = async (req, res) => {
     req.body;
   try {
     if (!(name && state && start && end)) {
-      res.status(400).json({ error: "missing info" });
+      res.status(400).json({ error: "information is missing" });
     } else {
      const newEvent = await Event.create({
         name,
@@ -131,7 +122,7 @@ const postOrders = async (req, res) => {
 
   try {
       if (!value || !concept || !description || !payment_date || !payment_term || !product) {
-          res.status(404).json({ message: "missing information" })
+          res.status(412).json({ message: "information is missing" })
       } else {
           const newOrder = await Order.create({
               value,

@@ -45,8 +45,6 @@ const validateProduct = (prod) => {
     return {error: "Product description must be an string and must be shorter than 150 characters"}
   } else if (prod.modifiers.length ===0){
     return {error: "Product modifiers must be provided"}
-
-
 }
 }
 
