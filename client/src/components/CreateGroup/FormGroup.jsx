@@ -54,7 +54,8 @@ export default function FormGroup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(actions.createGroup(groupInputs)) 
-        dispatch(actions.getGroups())     
+        dispatch(actions.getGroups())
+        alert('Product has been created successfully')    
     }
 
     return (

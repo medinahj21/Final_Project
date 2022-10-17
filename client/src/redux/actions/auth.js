@@ -63,3 +63,6 @@ export function getUserFirestore(uid) {
 export const getAllInfoUsers = (docs) => {
   return { type: ALL_PLAYER__FORM__FIREBASE, payload: docs };
 };
+
+
+//action envie al back

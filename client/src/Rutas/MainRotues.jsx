@@ -7,7 +7,9 @@ import Register from "../pages/Register";
 import FormUser from "../components/Register/FormUser";
 import Player from "../pages/Player";
 import Admin from "../pages/Admin";
+import Shop from "../pages/Shop/Shop";
 import ProtectedRoute from "./ProtectedRoutes";
+import ProductDetail from "../pages/Shop/ProductDetail";
 import Groups from "../pages/Groups/Groups";
 import GroupDetail from "../components/GroupDetail/GroupDetail";
 
@@ -21,6 +23,8 @@ function MainRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="check-in" element={<Register />} />
       <Route path="form-user" element={<FormUser />} />
+      <Route path="/products" element={<Shop />}/>
+      <Route path="/products/:id" element={<ProductDetail />}/>
       <Route path="/groups" element={<Groups/>}/>
       <Route path="/group/detail/:id" element={<GroupDetail/>}/>
       <Route

@@ -23,7 +23,7 @@ export default function Groups() {
     const filterByGenre = (e) => {
         let value = e.target.value;
         console.log(value);
-        value === 'all' ? setAllGroups(allGroups) :
+        value === 'all' ? setAllGroups(groups) :
             setAllGroups([...groups].filter(e => e.genre === value))
     }
 
