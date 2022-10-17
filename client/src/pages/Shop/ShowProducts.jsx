@@ -35,7 +35,7 @@ export default function ShowProducts({ dataFiltered }) {
   };
 
   return (
-    <div className="showproduct__container">
+    <div>
       <Paginated
         productPerPage={productPerPage}
         allProducts={dataFiltered}

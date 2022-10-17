@@ -3,33 +3,57 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { createProduct, getFilterTags } from "../../redux/actions/products";
+import { useParams } from "react-router-dom";
+import {
+  createProduct,
+  getFilterTags,
+  updateProduct,
+} from "../../redux/actions/products";
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
-
 import { validate } from "./utils/validate";
-
 import "./CreateProduct.css";
 
-export default function CreateProduct({ setCreationDiv }) {
+export default function CreateProduct({ isCreate, setCreationDiv }) {
+  const { id } = useParams();
+
+  const initialState = useSelector(
+    (state) => state.productsReducer.productDetail
+  )[0];
+  const {
+    name,
+    image,
+    price,
+    description,
+    filterTags,
+    initialIsOrder,
+    state,
+    paymentTerm,
+    stock,
+  } = { ...initialState };
+
   const dispatch = useDispatch();
-  const filterTags = useSelector((state) => state.productsReducer.filterTags);
-  const [tags, setTags] = useState([]);
+  const allFilterTags = useSelector(
+    (state) => state.productsReducer.filterTags
+  );
+  const [tags, setTags] = useState(
+    initialState ? filterTags.map((obj) => obj.id) : []
+  );
   const [isOrder, setIsOrder] = useState(true);
   const [error, setError] = useState("");
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
+    name: initialState ? name : "",
+    price: initialState ? price : 0,
+    description: initialState ? description : "",
+    image: initialState ? image : "",
     modifiers: [],
-    FilterTags: [],
-    isOrder: true,
-    stock: 0,
-    state: true,
-    paymentTerm: 0,
+    FilterTags: initialState ? filterTags.map((obj) => obj.id) : [],
+    isOrder: initialState ? initialIsOrder : true,
+    stock: initialState ? stock : 0,
+    state: initialState ? state : true,
+    paymentTerm: initialState ? paymentTerm : 0,
   });
 
   useEffect(() => {
@@ -81,30 +105,37 @@ export default function CreateProduct({ setCreationDiv }) {
   const confirmHandler = async (e) => {
     e.preventDefault();
     const error = validate(newProduct);
-    
+
     if (error !== "") {
       setError(error);
       return;
     }
     try {
-      let response = await dispatch(createProduct(newProduct));
-      if (response?.type) {
-        setNewProduct({
-          name: "",
-          price: 0,
-          description: "",
-          image: "",
-          modifiers: [],
-          FilterTags: [],
-          isOrder: true,
-          stock: 0,
-          state: true,
-          paymentTerm: 0,
-        });
-        setTags([]);
-        setIsOrder(true);
-        setCreationDiv(false);
-        alert("¿Usuario creado?");
+      if (isCreate) {
+        let response = await dispatch(createProduct(newProduct));
+
+        if (response.type) {
+          setNewProduct({
+            name: "",
+            price: 0,
+            description: "",
+            image: "",
+            modifiers: [],
+            FilterTags: [],
+            isOrder: true,
+            stock: 0,
+            state: true,
+            paymentTerm: 0,
+          });
+          setTags([]);
+          setIsOrder(true);
+          setCreationDiv(false);
+
+          alert("producto creado");
+        }
+      } else {
+        dispatch(updateProduct(id, newProduct));
+        alert("Producto modificado");
       }
     } catch (error) {
       console.log(error);
@@ -133,7 +164,7 @@ export default function CreateProduct({ setCreationDiv }) {
       />
       <Labels
         handleTags={handleTags}
-        filterTags={filterTags}
+        filterTags={allFilterTags}
         tags={tags}
         deleteTag={deleteTag}
       />
@@ -144,7 +175,7 @@ export default function CreateProduct({ setCreationDiv }) {
         onHandlerNewProd={handleSetNewProductProperties}
       />
       <button type="submit" onClick={confirmHandler}>
-        Confirmar creación de producto
+        Confirmar producto
       </button>
     </form>
   );

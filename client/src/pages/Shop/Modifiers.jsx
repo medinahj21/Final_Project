@@ -1,11 +1,16 @@
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Modifiers({
   setNewProduct,
   newProduct,
   handleSetNewProductProperties,
 }) {
+  const initialState = useSelector(
+    (state) => state.productsReducer.productDetail
+  )[0];
+
   const [addModifier, setAddModifier] = useState(false);
   const [newModifierType, setNewModifierType] = useState("");
   const [newModifierProperty, setNewModifierProperty] = useState("");
@@ -13,7 +18,9 @@ function Modifiers({
   const [newModifierValue, setNewModifierValue] = useState("");
   const [newModifier, setNeWModifier] = useState([]);
   const [disableAddModifier, setDisableAddModifier] = useState(true);
-  const [modifiers, setModifiers] = useState([]);
+  const [modifiers, setModifiers] = useState(
+    initialState ? [...initialState.modifiers] : []
+  );
 
   const newModifierHanlder = (e) => {
     e.preventDefault();
@@ -62,12 +69,67 @@ function Modifiers({
     setDisableAddModifier(false);
     setNeWModifier({ [newModifierProperty]: "" });
   };
+
+  const handleDeleteModifier = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    let aux = modifiers;
+    aux.splice(e.target.value, 1);
+    setModifiers(aux);
+    setNewProduct({
+      ...newProduct,
+      modifiers: aux,
+    });
+  };
+
   return (
     <>
       <label> Modificadores: </label>
+
+      {modifiers?.map((obj, index) => {
+        if (Object.values(obj)[0] === "") {
+          return (
+            <div key={index}>
+              <label>{Object.keys(obj)[0]}:</label>
+              <input placeholder={Object.keys(obj)[0]}></input>
+              <button value={index} onClick={(e) => handleDeleteModifier(e)}>
+                Eliminar
+              </button>
+            </div>
+          );
+        } else {
+          return (
+            <div key={index}>
+              <label>{Object.keys(obj)[0]}:</label>
+              <select
+                name={Object.keys(obj)[0]}
+                id={index}
+                value={0}
+                readOnly={true}
+              >
+                <option value={0} disabled={true}>
+                  {"selecciona una"}
+                </option>
+                {Object.values(obj)[0]?.map(
+                  (option, i) => (
+                    <option value={option} key={i}>
+                      {option}
+                    </option>
+                  ) //cambiar a input type radio
+                )}
+              </select>
+              <button value={index} onClick={(e) => handleDeleteModifier(e)}>
+                Eliminar
+              </button>
+            </div>
+          );
+        }
+      })}
+
       <div>
         <button onClick={newModifierHanlder}> Nuevo modificador ➕</button>
       </div>
+
       {addModifier ? (
         <label>
           {" "}
