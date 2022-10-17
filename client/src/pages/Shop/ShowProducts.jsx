@@ -25,7 +25,6 @@ export default function ShowProducts({ dataFiltered }) {
       setCurrentPage(prevPage);
     }
   }, [currentPage, prevPage]);
-  console.log(currentPage);
 
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);

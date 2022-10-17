@@ -12,6 +12,7 @@ import CreateProduct from "./CreateProduct";
 import handleFilter from "./utils/filters";
 import ShowProducts from "./ShowProducts";
 import SearchbarProduct from "./SearchbarProduct";
+import Modal from "../../components/UI/Modal";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
@@ -83,10 +84,13 @@ function Shop() {
         handleClean={handleClean}
       />
       {creationDiv ? (
-        <div className="create__container-product">
-          <h1 className="create__product-title">Crear producto</h1>
-          <CreateProduct setCreationDiv={setCreationDiv} />
-        </div>
+        <Modal>
+          {" "}
+          <div>
+            <h1 className="create__product-title">Crear producto</h1>
+            <CreateProduct setCreationDiv={setCreationDiv} />{" "}
+          </div>
+        </Modal>
       ) : (
         <></>
       )}
