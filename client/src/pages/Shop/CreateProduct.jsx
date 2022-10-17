@@ -143,40 +143,44 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
   };
 
   return (
-    <form className="form__product">
-      <button
-        onClick={() => {
-          setCreationDiv(false);
-        }}
-      >
-        Cerrar
-      </button>
-      {error === "" ? <></> : <p className="product__input-error">{error}</p>}
-      <ProductProperties
-        newProduct={newProduct}
-        handleSetNewProductProperties={handleSetNewProductProperties}
-        setNewProduct={setNewProduct}
-      />
-      <Modifiers
-        setNewProduct={setNewProduct}
-        newProduct={newProduct}
-        handleSetNewProductProperties={handleSetNewProductProperties}
-      />
-      <Labels
-        handleTags={handleTags}
-        filterTags={allFilterTags}
-        tags={tags}
-        deleteTag={deleteTag}
-      />
-      <ProductStock
-        onHandler={OrderOrStockHanlde}
-        isOrder={isOrder}
-        newProduct={newProduct}
-        onHandlerNewProd={handleSetNewProductProperties}
-      />
-      <button type="submit" onClick={confirmHandler}>
-        Confirmar producto
-      </button>
-    </form>
+    <div className="form__product-container">
+      <form className="form__product">
+        <button
+          className="close__button"
+          onClick={() => {
+            setCreationDiv(false);
+          }}
+        >
+          X
+        </button>
+        <h1 className="create__product-title">Crear producto</h1>
+        {error === "" ? <></> : <p className="product__input-error">{error}</p>}
+        <ProductProperties
+          newProduct={newProduct}
+          handleSetNewProductProperties={handleSetNewProductProperties}
+          setNewProduct={setNewProduct}
+        />
+        <Modifiers
+          setNewProduct={setNewProduct}
+          newProduct={newProduct}
+          handleSetNewProductProperties={handleSetNewProductProperties}
+        />
+        <Labels
+          handleTags={handleTags}
+          filterTags={allFilterTags}
+          tags={tags}
+          deleteTag={deleteTag}
+        />
+        <ProductStock
+          onHandler={OrderOrStockHanlde}
+          isOrder={isOrder}
+          newProduct={newProduct}
+          onHandlerNewProd={handleSetNewProductProperties}
+        />
+        <button type="submit" onClick={confirmHandler}>
+          Confirmar producto
+        </button>
+      </form>
+    </div>
   );
 }
