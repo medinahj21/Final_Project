@@ -1,6 +1,7 @@
 .shop__container {
   display: flex;
-  width: 100vw;
+  flex-direction: column;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.519);
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.519)
 }

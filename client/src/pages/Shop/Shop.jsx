@@ -10,6 +10,7 @@ import "../Shop/Shop.css";
 import CreateProduct from "./CreateProduct";
 import handleFilter from "./utils/filters";
 import ShowProducts from "./ShowProducts";
+import SearchbarProduct from "./SearchbarProduct";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
@@ -61,59 +62,15 @@ function Shop() {
 
   return (
     <div className="shop__container">
-      <div>
-        <button onClick={(e) => handleAllProducts(e)}>
-          TODOS LOS PRODUCTOS
-        </button>
-        <div>
-          <button
-            onClick={(e) => {
-              setCreationDiv(true);
-            }}
-          >
-            FORMULARIO DE CREACION DEL PRODUCTO
-          </button>
-        </div>
-        <div>
-          <select defaultValue="title" onChange={(e) => handleTags(e)}>
-            <option value="title" disabled={true}>
-              Filtar por: Genero
-            </option>
-            {allTags?.map((tag) => {
-              return (
-                <option value={tag.id} key={tag.id}>
-                  {tag.name}
-                </option>
-              );
-            })}
-          </select>
-          {tags.length > 0 ? (
-            <div>
-              <ul>
-                {tags?.map((tagId) => {
-                  return (
-                    <li key={tagId} value={tagId} onClick={(e) => deleteTag(e)}>
-                      {allTags.find((t) => t.id === Number(tagId)).name} ❌
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <p>No has seleccionado etiquetas</p>
-          )}
-          <select defaultValue="title2">
-            <option value="title2" disabled={true}>
-              Filtar por: Precio
-            </option>
-            <option>Mas económico</option>
-            <option>Mas costoso</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
-      </div>
+      <SearchbarProduct
+        handleAllProducts={handleAllProducts}
+        setCreationDiv={setCreationDiv}
+        handleTags={handleTags}
+        allTags={allTags}
+        tags={tags}
+        deleteTag={deleteTag}
+        handleClean={handleClean}
+      />
       {creationDiv ? (
         <div>
           <h1>Crear producto</h1>
