@@ -7,7 +7,7 @@ const create = async (req, res, next) => {
 
   try {
     const newAd = await Group.create({
-     
+    
     });
 
     res.json({ message: "successful process" });

@@ -1,9 +1,10 @@
 .nav__container {
     width: 100vw;
     height: 12vh;
-    background-color: #ddd;
+    background-color: var(--color-bg);
     display: flex;
     justify-content: space-between;
+    position: fixed;
 }
 
 .nav__logo {
@@ -16,6 +17,9 @@
     width: 80px;
     height: 80px;
     margin-left: 4rem;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow);
 }
 
 .nav__container-links {

@@ -2,12 +2,15 @@ import { combineReducers } from "redux";
 
 import authReducer from "./auth";
 import eventReducer from "./event";
-
+import playerReducer from "./player"
+import productsReducer from "./products";
 import { RESET_REDUX_STATE } from "../actions/actions";
 
 const appReducer = combineReducers({
   authReducer,
-  eventReducer
+  eventReducer,
+  playerReducer,
+  productsReducer
 });
 
 export function rootReducer(state, action) {

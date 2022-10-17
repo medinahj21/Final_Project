@@ -1,14 +1,25 @@
-const { Player, Event, Group, Product, Order, Admin } = require("../../db");
+const {
+  Player,
+  Event,
+  Group,
+  Product,
+  Order,
+  Admin,
+  FilterTags,
+} = require("../../db");
 const { Sequelize, Model, Op } = require("sequelize");
 
 const getProductsFromDB = async () => {
   try {
     const allProducts = await Product.findAll({
-      include: {
-        model: Order,
-      },
+      include: [{
+        model: FilterTags,
+        attributes: ["id", "name"],
+        through: { attributes: [] }
+      }],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
     });
-    console.log(allProducts);
+    
     if (allProducts) return allProducts;
     console.log("No products available");
   } catch (error) {
@@ -20,7 +31,6 @@ const asyncGetProducts = async (req, res) => {
   try {
     let { name } = req.query;
     let products = await getProductsFromDB();
-    console.log(products);
     if (name) {
       const searchedProduct = await Product.findAll({
         where: { name: { [Op.iLike]: `%${name}%` } },
@@ -32,6 +42,15 @@ const asyncGetProducts = async (req, res) => {
     } else return res.status(200).json(products);
   } catch (error) {
     console.log(error);
+  }
+};
+
+const getFilterTags = async (req, res) => {
+  try {
+    let filterTags = await FilterTags.findAll();
+    res.json(filterTags);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -105,26 +124,76 @@ const getEvent = async (req, res) => {
     if (!id) {
       const allEvents = await Event.findAll({
         include: {
-          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          model: Player,
           attributes: ["id"],
           through: { attributes: [] },
         },
       });
-      res.json(allEvents);
+
+      allEvents
+        ? res.send(allEvents).status(200)
+        : res.json({ mesagge: "there is not event" });
     } else {
       const event = await Event.findByPk(id, {
         include: {
-          model: Player, // Como hacer para incluir todos los jugadores convocados??
+          model: Player,
           attributes: ["id"],
           through: { attributes: [] },
         },
       });
-      !event ? res.status(404).json({error: "Event not found"}) : res.json(event);
+
+      !event
+        ? res.status(404).json({ error: "Event not found" })
+        : res.send(event).status(200);
     }
   } catch (error) {
-    res.json({error_DB: error.message});
+    res.json({ error_DB: error.message });
   }
 };
+
+const getOrder = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.query;
+
+  try {
+    if (id) {
+      const infoOrder = await Order.findByPk(id, {
+        include: [
+          { model: Product, attributes: ["name"], through: { attributes: [] } },
+        ],
+      });
+
+      infoOrder !== null
+        ? res.status(200).send(infoOrder)
+        : res.json({ message: "order not found" }).status(404);
+    } else if (name) {
+      const infoOrder = await Order.findOne({
+        where: {
+          name: name.toLowerCase(),
+        },
+        include: [
+          { model: Product, attributes: ["name"], through: { attributes: [] } },
+        ],
+      });
+
+      infoOrder
+        ? res.status(200).send(infoOrder)
+        : res.json({ message: "order not found" }).status(404);
+    } else {
+      const infoOrder = await Order.findAll({
+        include: [
+          { model: Product, attributes: ["name"], through: { attributes: [] } },
+        ],
+      });
+      infoOrder.length > 0
+        ? res.status(200).send(infoOrder)
+        : res.json({ message: "there is not  order now" }).status(404);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 module.exports = {
   asyncGetProducts,
@@ -132,4 +201,6 @@ module.exports = {
   asyncGetProductById,
   getGroups,
   getEvent,
+  getOrder,
+  getFilterTags,
 };
