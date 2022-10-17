@@ -9,7 +9,9 @@ import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
-export default function CreateProduct() {
+import "./CreateProduct.css";
+
+export default function CreateProduct({ setCreationDiv }) {
   const dispatch = useDispatch();
   const filterTags = useSelector((state) => state.productsReducer.filterTags);
   const [tags, setTags] = useState([]);
@@ -77,62 +79,60 @@ export default function CreateProduct() {
 
     try {
       let response = await dispatch(createProduct(newProduct));
-    if (response.type) {
-      setNewProduct({
-        name: "",
-        price: 0,
-        description: "",
-        image: "",
-        modifiers: [],
-        FilterTags: [],
-        isOrder: true,
-        stock: 0,
-        state: true,
-        paymentTerm: 0,
-      });
-      setTags([]);
-      setIsOrder(true);
-
-      alert("¿Usuario creado?");
-    }
-      
+      if (response.type) {
+        setNewProduct({
+          name: "",
+          price: 0,
+          description: "",
+          image: "",
+          modifiers: [],
+          FilterTags: [],
+          isOrder: true,
+          stock: 0,
+          state: true,
+          paymentTerm: 0,
+        });
+        setTags([]);
+        setIsOrder(true);
+        setCreationDiv(false);
+        alert("¿Usuario creado?");
+      }
     } catch (error) {
-      alert(`Parece que algo ha malido sal`)
+      console.log(error);
     }
-
-    
   };
 
   return (
-    <form>
+    <form className="form__product">
+      <button
+        onClick={() => {
+          setCreationDiv(false);
+        }}
+      >
+        Cerrar
+      </button>
       <ProductProperties
         newProduct={newProduct}
         handleSetNewProductProperties={handleSetNewProductProperties}
         setNewProduct={setNewProduct}
       />
-
-      <hr />
       <Modifiers
         setNewProduct={setNewProduct}
         newProduct={newProduct}
         handleSetNewProductProperties={handleSetNewProductProperties}
       />
-      <hr />
       <Labels
         handleTags={handleTags}
         filterTags={filterTags}
         tags={tags}
         deleteTag={deleteTag}
       />
-      <hr />
       <ProductStock
         onHandler={OrderOrStockHanlde}
         isOrder={isOrder}
         newProduct={newProduct}
         onHandlerNewProd={handleSetNewProductProperties}
       />
-      <hr />
-
       <button type="submit" onClick={confirmHandler}>
         Confirmar creación de producto
       </button>

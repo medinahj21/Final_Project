@@ -80,16 +80,9 @@ function Shop() {
         handleClean={handleClean}
       />
       {creationDiv ? (
-        <div>
-          <h1>Crear producto</h1>
-          <CreateProduct />
-          <button
-            onClick={() => {
-              setCreationDiv(false);
-            }}
-          >
-            Cerrar
-          </button>
+        <div className="create__container-product">
+          <h1 className="create__product-title">Crear producto</h1>
+          <CreateProduct setCreationDiv={setCreationDiv} />
         </div>
       ) : (
         <></>
