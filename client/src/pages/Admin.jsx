@@ -9,12 +9,15 @@ import { getAllInfoUsers } from "../redux/actions/auth";
 
 import FOTO from "../images/icono-marco-fotos-foto.webp";
 import "./Admin.css";
+import InfoCard from "../components/UI/InfoCard";
 
 function Admin() {
   const dispatch = useDispatch();
   const [clickChoice, setClickChoice] = useState({
     isPerfil: true,
     isSocios: false,
+    isPagos: false,
+    isGrupos: false,
   });
 
   useEffect(() => {
@@ -33,12 +36,32 @@ function Admin() {
       setClickChoice({
         isPerfil: true,
         isSocios: false,
+        isPagos: false,
+        isGrupos: false,
       });
     }
     if (value === "socios") {
       setClickChoice({
         isPerfil: false,
         isSocios: true,
+        isPagos: false,
+        isGrupos: false,
+      });
+    }
+    if (value === "pagos") {
+      setClickChoice({
+        isPerfil: false,
+        isSocios: false,
+        isPagos: true,
+        isGrupos: false,
+      });
+    }
+    if (value === "grupos") {
+      setClickChoice({
+        isPerfil: false,
+        isSocios: false,
+        isPagos: false,
+        isGrupos: true,
       });
     }
   };
@@ -63,6 +86,16 @@ function Admin() {
         </button>
         <button
           className={
+            clickChoice.isPagos
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
+          }
+          onClick={() => handleChance("pagos")}
+        >
+          Administracion de pagos
+        </button>
+        <button
+          className={
             clickChoice.isSocios
               ? "navbar__btn navbar__btn-clicked"
               : "navbar__btn"
@@ -70,6 +103,16 @@ function Admin() {
           onClick={() => handleChance("socios")}
         >
           Socios
+        </button>
+        <button
+          className={
+            clickChoice.isGrupos
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
+          }
+          onClick={() => handleChance("grupos")}
+        >
+          Grupos
         </button>
         <Link to={"/"}>
           <button className="navbar__btn">Inicio</button>
@@ -81,41 +124,19 @@ function Admin() {
       <div className="admin__content">
         <h1 className="admin__title">Bienvenido: {userInfoFirestore?.email}</h1>
         {clickChoice.isPerfil && (
-          <div>
-            <p>Edad: {userInfoFirestore.years}</p>
-            <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>
-            <p>Tipo de sangre: {userInfoFirestore.bloodType}</p>
-            <p>Número de teléfono: {userInfoFirestore.cell}</p>
-            <p>Tipo de documento: {userInfoFirestore.typeDoc}</p>
-            <p>Documento: {userInfoFirestore.document}</p>
-            <p>Email: {userInfoFirestore.email}</p>
-            <h3>Contacto de emergencia: {userInfoFirestore.emergencyName}</h3>
-            <p>Número de teléfono: {userInfoFirestore.emergencyContact}</p>
-            <p>Parentesco: {userInfoFirestore.emergencyRel}</p>
-            <p>Seguro de salud: {userInfoFirestore.health}</p>
-          </div>
+          <InfoCard userInfoFirestore={userInfoFirestore} />
         )}
         {clickChoice.isSocios && (
-          <div>
+          <div className="cards__container">
             {allUserFirestore ? (
               allUserFirestore.map((user) => {
                 return !user.isAdmin ? (
-                  <div key={userInfoFirestore.document + Math.random()}>
-                    <h2>Nomnbre: {user.name}</h2>
-                    <p>Edad: {user.years}</p>
-                    <p>Fecha de nacimiento: {user.birthDate}</p>
-                    <p>Tipo de sangre: {user.bloodType}</p>
-                    <p>Número de teléfono: {user.cell}</p>
-                    <p>Tipo de documento: {user.typeDoc}</p>
-                    <p>Documento: {user.document}</p>
-                    <p>Email: {user.email}</p>
-                    <h3>Contacto de emergencia: {user.emergencyName}</h3>
-                    <p>Número de teléfono: {user.emergencyContact}</p>
-                    <p>Parentesco: {user.emergencyRel}</p>
-                    <p>Seguro de salud: {user.health}</p>
-                  </div>
+                  <InfoCard
+                    key={userInfoFirestore.document + Math.random()}
+                    userInfoFirestore={user}
+                  />
                 ) : (
-                  <p>Cargando usuarios</p>
+                  <></>
                 );
               })
             ) : (
