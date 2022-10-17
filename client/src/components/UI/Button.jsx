@@ -1,14 +1,15 @@
 import React from "react";
+import "./Admin.css";
 
-function Button(onClickHandler) {
-  const { hanlder, value } = onClickHandler;
+function Button(clickChoice, handleChance) {
   return (
     <button
-      onClick={(e) => {
-        hanlder(e, value);
-      }}
+      className={
+        clickChoice.isGrupo ? "navbar__btn navbar__btn-clicked" : "navbar__btn"
+      }
+      onClick={() => handleChance("grupo")}
     >
-      CREAR PRODUCTO
+      Mi grupo
     </button>
   );
 }
