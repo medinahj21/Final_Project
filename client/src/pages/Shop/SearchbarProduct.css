@@ -9,6 +9,7 @@
 
 .search__container button,
 .search__container select {
+    cursor: pointer;
     height: fit-content;
     padding: .2rem;
     border-radius: 7px;

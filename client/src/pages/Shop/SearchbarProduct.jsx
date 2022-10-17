@@ -1,26 +1,43 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import "./SearchbarProduct.css";
 
-function SearchbarProduct({
-  handleAllProducts,
-  setCreationDiv,
-  handleTags,
-  allTags,
-  tags,
-  deleteTag,
-  handleClean,
-}) {
+function SearchbarProduct(props) {
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
+  const {
+    handleAllProducts,
+    setCreationDiv,
+    handleTags,
+    allTags,
+    tags,
+    deleteTag,
+    handleClean,
+  } = props;
+
   return (
     <div className="search__container">
-      <button onClick={(e) => handleAllProducts(e)}>TODOS LOS PRODUCTOS</button>
-      <button
-        onClick={(e) => {
-          setCreationDiv(true);
-        }}
+      <Link
+        to={
+          userInfoFirestore?.isAdmin ? "/dashboard-admin" : "/dashboard-player"
+        }
       >
-        FORMULARIO DE CREACION DEL PRODUCTO
-      </button>
+        Volver
+      </Link>
+      <button onClick={(e) => handleAllProducts(e)}>TODOS LOS PRODUCTOS</button>
+      {userInfoFirestore?.isAdmin ? (
+        <button
+          onClick={(e) => {
+            setCreationDiv(true);
+          }}
+        >
+          CREAR PRODUCTO
+        </button>
+      ) : (
+        <></>
+      )}
       <select defaultValue="title2">
         <option value="title2" disabled={true}>
           Filtar por: Precio
@@ -30,7 +47,7 @@ function SearchbarProduct({
       </select>
       <select defaultValue="title" onChange={(e) => handleTags(e)}>
         <option value="title" disabled={true}>
-          Filtar por: Genero
+          Filtar por:
         </option>
         {allTags?.map((tag) => {
           return (
