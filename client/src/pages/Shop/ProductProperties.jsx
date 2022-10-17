@@ -1,5 +1,7 @@
 import React from "react";
 
+import FOTO from "../../images/icono-marco-fotos-foto.webp";
+
 function ProductProperties({
   newProduct,
   handleSetNewProductProperties,
@@ -48,6 +50,7 @@ function ProductProperties({
         <div className="product__charge-image" onClick={handleOnClick}>
           Cargar imagen
         </div>
+        <img className="product__image-create" src={newProduct.image || FOTO} alt="" />
       </label>
       <label>
         {" "}
