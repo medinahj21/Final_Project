@@ -30,8 +30,9 @@ function ProductProperties({
 
   return (
     <>
-      <div>
-        <label> Nombre producto: </label>
+      <label>
+        {" "}
+        Nombre producto:
         <input
           type="text"
           name="name"
@@ -40,15 +41,17 @@ function ProductProperties({
             handleSetNewProductProperties(e);
           }}
         ></input>
-      </div>
-      <hr />
-      <div>
-        <label> Imagen: </label>
-        <div onClick={handleOnClick}>Cargar image</div>
-      </div>
-      <hr />
-      <div>
-        <label> Precio: </label>
+      </label>
+      <label>
+        {" "}
+        Imagen:
+        <div className="product__charge-image" onClick={handleOnClick}>
+          Cargar imagen
+        </div>
+      </label>
+      <label>
+        {" "}
+        Precio:
         <input
           type="number"
           name="price"
@@ -57,10 +60,10 @@ function ProductProperties({
             handleSetNewProductProperties(e);
           }}
         ></input>
-      </div>
-      <hr />
-      <div>
-        <label> Descripción: </label>
+      </label>
+      <label>
+        {" "}
+        Descripción:
         <input
           type="text"
           name="description"
@@ -69,7 +72,7 @@ function ProductProperties({
             handleSetNewProductProperties(e);
           }}
         ></input>
-      </div>
+      </label>
     </>
   );
 }

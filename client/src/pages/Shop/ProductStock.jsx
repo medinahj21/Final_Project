@@ -2,19 +2,22 @@ import React from "react";
 
 function ProductStock({ onHandler, isOrder, newProduct, onHandlerNewProd }) {
   return (
-    <div>
-      <label> Producto bajo pedido o bajo stock </label>
-      <select onChange={onHandler}>
-        <option value={-1} disabled={true}>
-          {"tipo de producto"}
-        </option>
-        <option value={true}>{"bajo pedido"}</option>
-        <option value={false}>{"bajo stock"}</option>
-      </select>
-      <div>
-        {isOrder === "false" ? (
-          <div>
-            <label>Existencias</label>
+    <>
+      <label>
+        {" "}
+        Producto bajo pedido o bajo stock:
+        <select onChange={onHandler}>
+          <option value={-1} disabled={true}>
+            {"tipo de producto"}
+          </option>
+          <option value={true}>{"bajo pedido"}</option>
+          <option value={false}>{"bajo stock"}</option>
+        </select>
+      </label>
+      {isOrder === "false" ? (
+        <>
+          <label>
+            Existencias:
             <input
               type="number"
               name="stock"
@@ -23,12 +26,12 @@ function ProductStock({ onHandler, isOrder, newProduct, onHandlerNewProd }) {
                 onHandlerNewProd(e);
               }}
             ></input>
-          </div>
-        ) : (
-          <p></p>
-        )}
-      </div>
-    </div>
+          </label>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

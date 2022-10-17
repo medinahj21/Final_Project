@@ -7,6 +7,7 @@ import { firestore } from "../firebase/firebase.config";
 
 import { getAllInfoUsers } from "../redux/actions/auth";
 
+import FOTO from "../images/icono-marco-fotos-foto.webp";
 import "./Admin.css";
 
 function Admin() {
@@ -45,9 +46,19 @@ function Admin() {
   return (
     <div className="dashboard__container">
       <div className="admin__navbar">
-        <Link to={"/products"}>Tienda</Link>
-        <button onClick={() => handleChance("perfil")}>Perfil</button>
-        <button onClick={() => handleChance("socios")}>Socios</button>
+        <img className="navbar__image" src={userInfoFirestore.image || FOTO} alt="foto de usuario" />
+        <Link to={"/"}>
+          <button className="navbar__btn">Inicio</button>
+        </Link>
+        <Link to={"/products"}>
+          <button className="navbar__btn">Tienda</button>
+        </Link>
+        <button className="navbar__btn" onClick={() => handleChance("perfil")}>
+          Perfil
+        </button>
+        <button className="navbar__btn" onClick={() => handleChance("socios")}>
+          Socios
+        </button>
       </div>
       <div className="admin__content">
         <Link to={"/"}>Home</Link>
