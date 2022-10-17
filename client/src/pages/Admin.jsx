@@ -43,7 +43,7 @@ function Admin() {
   };
 
   return (
-    <div className="admin__container">
+    <div className="dashboard__container">
       <div className="admin__navbar">
         <Link to={"/products"}>Tienda</Link>
         <button onClick={() => handleChance("perfil")}>Perfil</button>
