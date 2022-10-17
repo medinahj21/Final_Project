@@ -19,7 +19,7 @@ const getProductsFromDB = async () => {
       }],
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
-    console.log(allProducts);
+    
     if (allProducts) return allProducts;
     console.log("No products available");
   } catch (error) {
