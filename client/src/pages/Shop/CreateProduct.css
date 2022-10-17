@@ -79,6 +79,11 @@
     cursor: pointer;
 }
 
+.product__image-create {
+    width: 200px;
+    border-radius: 25%;
+}
+
 /*------------------------------MODIFIERS COMPONENT-------------------------------*/
 
 .modifier__container-btn {

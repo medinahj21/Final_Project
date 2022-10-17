@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import "./Paginated.css";
 
-function Paginated({ recipesPerPage, allRecipes, paginatedHandler }) {
+function Paginated({ productPerPage, allProducts, paginatedHandler }) {
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
   });
@@ -13,7 +13,7 @@ function Paginated({ recipesPerPage, allRecipes, paginatedHandler }) {
 
   const pageNum = []; 
 
-  for (let i = 0; i < Math.ceil(allRecipes.length / recipesPerPage); i++) {
+  for (let i = 0; i < Math.ceil(allProducts.length / productPerPage); i++) {
     pageNum.push(i + 1);
   }
 
