@@ -9,6 +9,7 @@ import {
   GET_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
+  RETURN_PAGE,
 } from "./actions";
 
 export const getProducts = () => {
@@ -119,5 +120,12 @@ export const cleanProductDetail = () => {
     dispatch({
       type: CLEAN_PRODUCT_DETAIL,
     });
+  };
+};
+
+export const setPageNumPrev = (prevNum) => {
+  return {
+    type: RETURN_PAGE,
+    payload: prevNum,
   };
 };

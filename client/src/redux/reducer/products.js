@@ -8,6 +8,7 @@ import {
   GET_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
+  RETURN_PAGE,
 } from "../actions/actions";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   filterTags: [],
   productDetail: {},
   error: null,
+  prevPage: 1,
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -49,7 +51,7 @@ export default function productsReducer(state = initialState, action) {
     case CREATE_PRODUCT:
       return {
         ...state,
-        products: [...state.products, action.payload]
+        products: [...state.products, action.payload],
       };
 
     case UPDATE_PRODUCT:
@@ -74,13 +76,19 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         allProducts: action.payload,
-      }
-    
+      };
+
     case CLEAN_PRODUCT_DETAIL:
       return {
         ...state,
         productDetail: {},
-      }
+      };
+
+    case RETURN_PAGE:
+      return {
+        ...state,
+        prevPage: action.payload,
+      };
 
     default:
       return state;
