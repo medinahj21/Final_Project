@@ -7,13 +7,14 @@ import {
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   MODIFY_PRODUCTS,
+  CLEAN_PRODUCT_DETAIL,
 } from "../actions/actions";
 
 const initialState = {
   allProducts: [],
   products: [],
   filterTags: [],
-  productDetail: "",
+  productDetail: {},
   error: null,
 };
 
@@ -73,6 +74,12 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         allProducts: action.payload,
+      }
+    
+    case CLEAN_PRODUCT_DETAIL:
+      return {
+        ...state,
+        productDetail: {},
       }
 
     default:

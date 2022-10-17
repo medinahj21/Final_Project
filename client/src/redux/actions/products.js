@@ -8,6 +8,7 @@ import {
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   MODIFY_PRODUCTS,
+  CLEAN_PRODUCT_DETAIL,
 } from "./actions";
 
 export const getProducts = () => {
@@ -109,6 +110,14 @@ export const modifyProducts = (payload) => {
     dispatch({
       type: MODIFY_PRODUCTS,
       payload,
+    });
+  };
+};
+
+export const cleanProductDetail = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: CLEAN_PRODUCT_DETAIL,
     });
   };
 };

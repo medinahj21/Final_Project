@@ -1,21 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import ProductCard from "../../components/ProductCard/ProductCard";
 import {
   cleanProducts,
   getFilterTags,
   getProducts,
-  modifyProducts,
 } from "../../redux/actions/products";
 
 import "../Shop/Shop.css";
 import CreateProduct from "./CreateProduct";
 import handleFilter from "./utils/filters";
 import ShowProducts from "./ShowProducts";
-import Prueba from "./Prueba";
-import Modifiers from "./Modifiers";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function ProductCard({ id, name, price, image }) {
+
   return (
     <div className="card-container">
       <div className="card">
