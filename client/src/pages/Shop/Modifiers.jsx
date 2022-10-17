@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
-export default function Modifiers({ callback, modifiers }) {
+function Modifiers({
+  setNewProduct,
+  newProduct,
+  handleSetNewProductProperties,
+}) {
   const [addModifier, setAddModifier] = useState(false);
   const [newModifierType, setNewModifierType] = useState("");
   const [newModifierProperty, setNewModifierProperty] = useState("");
@@ -9,21 +13,61 @@ export default function Modifiers({ callback, modifiers }) {
   const [newModifierValue, setNewModifierValue] = useState("");
   const [newModifier, setNeWModifier] = useState([]);
   const [disableAddModifier, setDisableAddModifier] = useState(true);
+  const [modifiers, setModifiers] = useState([]);
 
+  const newModifierHanlder = (e) => {
+    e.preventDefault();
+    setAddModifier(true);
+  };
+
+  const newOptionHanlder = (e) => {
+    e.preventDefault();
+    setNeWModifier({
+      [newModifierProperty]: [
+        ...newModifier[newModifierProperty],
+        newModifierValue,
+      ],
+    });
+    setDisableAddModifier(false);
+    setNewModifierValue("");
+  };
+
+  const addNewModifierHanlder = () => {
+    setAddModifier(false);
+    setModifiers([...modifiers, newModifier]);
+    setNeWModifier({});
+    setNewModifierType("");
+    setDisableAddModifier(true);
+    setNewProduct({
+      ...newProduct,
+      modifiers: [...modifiers, newModifier],
+    });
+  };
+
+  const resetNewModifierHanlder = () => {
+    setNeWModifier({});
+    setNewModifierType("");
+    setNewModifierProperty("");
+    setDisableAddModifier(true);
+  };
+
+  const nameAndOptionsHandler = (e) => {
+    e.preventDefault();
+    setEnableOptions(true);
+    setNeWModifier({ [newModifierProperty]: [] });
+  };
+
+  const prevViewModifierHanlder = (e) => {
+    e.preventDefault();
+    setDisableAddModifier(false);
+    setNeWModifier({ [newModifierProperty]: "" });
+  };
   return (
-    <div>
+    <>
       <div>
         <label> Modificadores: </label>
         <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setAddModifier(true);
-            }}
-          >
-            {" "}
-            Nuevo modificador ➕
-          </button>
+          <button onClick={newModifierHanlder}> Nuevo modificador ➕</button>
         </div>
         {addModifier ? (
           <div>
@@ -49,17 +93,10 @@ export default function Modifiers({ callback, modifiers }) {
             <label> Nombre: </label>
             <input
               onChange={(e) => {
-                e.preventDefault();
                 setNewModifierProperty(e.target.value);
               }}
             ></input>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setEnableOptions(true);
-                setNeWModifier({ [newModifierProperty]: [] });
-              }}
-            >
+            <button onClick={nameAndOptionsHandler}>
               Confirmar nombre y agregar opciones
             </button>
             {enableOptions ? (
@@ -68,26 +105,10 @@ export default function Modifiers({ callback, modifiers }) {
                 <input
                   value={newModifierValue}
                   onChange={(e) => {
-                    e.preventDefault();
                     setNewModifierValue(e.target.value);
                   }}
                 ></input>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setNeWModifier({
-                      [newModifierProperty]: [
-                        ...newModifier[newModifierProperty],
-                        newModifierValue,
-                      ],
-                    });
-                    setDisableAddModifier(false);
-                    setNewModifierValue("");
-                  }}
-                >
-                  {" "}
-                  agregar opción{" "}
-                </button>
+                <button onClick={newOptionHanlder}> agregar opción </button>
                 <p>
                   {" "}
                   nuevo modificador vista previa: {JSON.stringify(newModifier)}
@@ -103,17 +124,10 @@ export default function Modifiers({ callback, modifiers }) {
             <label> Nombre: </label>
             <input
               onChange={(e) => {
-                e.preventDefault();
                 setNewModifierProperty(e.target.value);
               }}
             ></input>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setDisableAddModifier(false);
-                setNeWModifier({ [newModifierProperty]: "" });
-              }}
-            >
+            <button onClick={prevViewModifierHanlder}>
               ver vista previa de modificador de texto
             </button>
             <p>
@@ -128,27 +142,12 @@ export default function Modifiers({ callback, modifiers }) {
           <div>
             <button
               disabled={disableAddModifier}
-              onClick={(e) => {
-                e.preventDefault();
-                setAddModifier(false);
-                callback([...modifiers, newModifier]);
-                setNeWModifier({});
-                setNewModifierType("");
-                setDisableAddModifier(true);
-              }}
+              onClick={addNewModifierHanlder}
             >
               {" "}
               Añadir nuevo modificador{" "}
             </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setNeWModifier({});
-                setNewModifierType("");
-                setNewModifierProperty("");
-                setDisableAddModifier(true);
-              }}
-            >
+            <button onClick={resetNewModifierHanlder}>
               Resetear nuevo modificador
             </button>
           </div>
@@ -157,6 +156,20 @@ export default function Modifiers({ callback, modifiers }) {
         )}
         <p>Modificadores producto:{JSON.stringify(modifiers)}</p>
       </div>
-    </div>
+      <hr />
+      <div>
+        <label> Días de plazo para el pago: </label>
+        <input
+          type="number"
+          name="paymentTerm"
+          value={newProduct.payment_term}
+          onChange={(e) => {
+            handleSetNewProductProperties(e);
+          }}
+        ></input>
+      </div>
+    </>
   );
 }
+
+export default Modifiers;

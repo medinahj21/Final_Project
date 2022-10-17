@@ -29,7 +29,6 @@ function Shop() {
   const allTags = useSelector((state) => state.productsReducer.filterTags);
 
   const handleAllProducts = (e) => {
-    e.preventDefault(e);
     dispatch(getProducts());
     setDataFiltered(allProducts);
   };
@@ -61,9 +60,9 @@ function Shop() {
   };
 
   return (
-    <div>
+    <div className="shop__container">
       <div>
-        <button className="show-products" onClick={(e) => handleAllProducts(e)}>
+        <button onClick={(e) => handleAllProducts(e)}>
           TODOS LOS PRODUCTOS
         </button>
         <div>
@@ -72,10 +71,10 @@ function Shop() {
               setCreationDiv(true);
             }}
           >
-            CREAR PRODUCTO
+            FORMULARIO DE CREACION DEL PRODUCTO
           </button>
         </div>
-        <div className="order-filter">
+        <div>
           <select defaultValue="title" onChange={(e) => handleTags(e)}>
             <option value="title" disabled={true}>
               Filtar por: Genero
@@ -111,9 +110,6 @@ function Shop() {
             <option>Mas costoso</option>
           </select>
         </div>
-        <div className="container">
-          <ShowProducts dataFiltered={dataFiltered} />
-        </div>
       </div>
       <div>
         <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
@@ -121,9 +117,7 @@ function Shop() {
       {creationDiv ? (
         <div>
           <h1>Crear producto</h1>
-          <div>
-            <CreateProduct />
-          </div>
+          <CreateProduct />
           <button
             onClick={() => {
               setCreationDiv(false);
@@ -133,16 +127,9 @@ function Shop() {
           </button>
         </div>
       ) : (
-        <button
-          onClick={(e) => {
-            setCreationDiv(true);
-          }}
-        >
-          CREAR PRODUCTO
-        </button>
+        <></>
       )}
-
-      
+      <ShowProducts dataFiltered={dataFiltered} />
     </div>
   );
 }

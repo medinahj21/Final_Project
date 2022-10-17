@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
 
 import {
@@ -13,8 +13,6 @@ const googleProvider = new GoogleAuthProvider();
 
 function LoginGoogle() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const { email, nickName } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -22,9 +20,6 @@ function LoginGoogle() {
         const email = currentUser.email;
         const nickname = currentUser.displayName;
         dispatch(login(email, nickname));
-        setLoading(true);
-      } else {
-        setLoading(false);
       }
     });
 
@@ -36,11 +31,6 @@ function LoginGoogle() {
       <button onClick={() => signInWithRedirect(auth, googleProvider)}>
         Acceder con google
       </button>
-      {!loading ? (
-        <h3>Cargando...</h3>
-      ) : (
-        <h2>Bienvenid@: {nickName ? nickName : email}</h2>
-      )}
     </>
   );
 }
