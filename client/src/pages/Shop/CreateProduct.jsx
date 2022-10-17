@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createProduct, getFilterTags } from "../../redux/actions/products";
 import Labels from "./Labels";
@@ -71,9 +72,35 @@ export default function CreateProduct() {
     });
   };
 
-  const confirmHandler = (e) => {
+  const confirmHandler = async (e) => {
     e.preventDefault();
-    dispatch(createProduct(newProduct));
+
+    try {
+      let response = await dispatch(createProduct(newProduct));
+    if (response.type) {
+      setNewProduct({
+        name: "",
+        price: 0,
+        description: "",
+        image: "",
+        modifiers: [],
+        FilterTags: [],
+        isOrder: true,
+        stock: 0,
+        state: true,
+        paymentTerm: 0,
+      });
+      setTags([]);
+      setIsOrder(true);
+
+      alert("¿Usuario creado?");
+    }
+      
+    } catch (error) {
+      alert(`Parece que algo ha malido sal`)
+    }
+
+    
   };
 
   return (
@@ -106,8 +133,7 @@ export default function CreateProduct() {
       <hr />
 
       <button type="submit" onClick={confirmHandler}>
-        {" "}
-        Confirmar creación de producto{" "}
+        Confirmar creación de producto
       </button>
     </form>
   );

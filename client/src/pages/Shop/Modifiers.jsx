@@ -162,7 +162,7 @@ function Modifiers({
         <input
           type="number"
           name="paymentTerm"
-          value={newProduct.payment_term}
+          value={newProduct.paymentTerm}
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}

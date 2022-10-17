@@ -4,7 +4,7 @@ function ProductStock({ onHandler, isOrder, newProduct, onHandlerNewProd }) {
   return (
     <div>
       <label> Producto bajo pedido o bajo stock </label>
-      <select value={-1} onChange={onHandler}>
+      <select onChange={onHandler}>
         <option value={-1} disabled={true}>
           {"tipo de producto"}
         </option>
