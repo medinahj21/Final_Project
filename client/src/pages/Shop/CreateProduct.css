@@ -53,6 +53,11 @@
     font-weight: bold;
 }
 
+.product__input-error {
+    font-weight: bold;
+    color: rgb(255, 0, 0);
+}
+
 /* 
 .form__backbtn {
     position: absolute;

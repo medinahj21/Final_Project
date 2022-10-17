@@ -46,7 +46,7 @@ function ProductProperties({
         {" "}
         Imagen:
         <div className="product__charge-image" onClick={handleOnClick}>
-          Cargar image
+          Cargar imagen
         </div>
       </label>
       <label>

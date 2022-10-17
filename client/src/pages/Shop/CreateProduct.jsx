@@ -9,6 +9,8 @@ import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
+import { validate } from "./utils/validate";
+
 import "./CreateProduct.css";
 
 export default function CreateProduct({ setCreationDiv }) {
@@ -16,6 +18,7 @@ export default function CreateProduct({ setCreationDiv }) {
   const filterTags = useSelector((state) => state.productsReducer.filterTags);
   const [tags, setTags] = useState([]);
   const [isOrder, setIsOrder] = useState(true);
+  const [error, setError] = useState("");
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: 0,
@@ -63,6 +66,7 @@ export default function CreateProduct({ setCreationDiv }) {
         ? e.target.value
         : Number(e.target.value),
     });
+    validate(newProduct);
   };
 
   const OrderOrStockHanlde = (e) => {
@@ -76,10 +80,15 @@ export default function CreateProduct({ setCreationDiv }) {
 
   const confirmHandler = async (e) => {
     e.preventDefault();
-
+    const error = validate(newProduct);
+    
+    if (error !== "") {
+      setError(error);
+      return;
+    }
     try {
       let response = await dispatch(createProduct(newProduct));
-      if (response.type) {
+      if (response?.type) {
         setNewProduct({
           name: "",
           price: 0,
@@ -111,6 +120,7 @@ export default function CreateProduct({ setCreationDiv }) {
       >
         Cerrar
       </button>
+      {error === "" ? <></> : <p className="product__input-error">{error}</p>}
       <ProductProperties
         newProduct={newProduct}
         handleSetNewProductProperties={handleSetNewProductProperties}
