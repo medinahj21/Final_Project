@@ -46,7 +46,11 @@ function Admin() {
   return (
     <div className="dashboard__container">
       <div className="admin__navbar">
-        <img className="navbar__image" src={userInfoFirestore.image || FOTO} alt="foto de usuario" />
+        <img
+          className="navbar__image"
+          src={userInfoFirestore.image || FOTO}
+          alt="foto de usuario"
+        />
         <Link to={"/"}>
           <button className="navbar__btn">Inicio</button>
         </Link>
@@ -65,7 +69,6 @@ function Admin() {
         <h1>Bienvenido: {userInfoFirestore?.email}</h1>
         {clickChoice.isPerfil && (
           <div>
-            <h1>Bienvenid@: {userInfoFirestore.name}</h1>
             <p>Edad: {userInfoFirestore.years}</p>
             <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>
             <p>Tipo de sangre: {userInfoFirestore.bloodType}</p>
