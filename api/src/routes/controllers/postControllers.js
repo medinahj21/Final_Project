@@ -1,40 +1,59 @@
-const { Group, Event, Order, Product} = require("../../db");
+const {
+  Player,
+  RoleRequest,
+  Group,
+  Admin,
+  Event,
+  Order,
+  Product,
+  ProductRequest,
+  FilterTags,
+} = require("../../db");
 const { Sequelize, Model } = require("sequelize");
-const { validateProduct } = require("../../utils/utils");
-const { dbProducts } = require("../controllers/getControllers");
+const { getProductsFromDB } = require("../controllers/getControllers");
 
 const asyncPostProduct = async (req, res) => {
+  const {
+    name,
+    price,
+    description,
+    image,
+    modifiers,
+    isOrder,
+    stock,
+    state,
+    paymentTerm,
+    FilterTags,
+  } = req.body;
+
   try {
-    const newProduct = {
-      name: req.body.name,
-      price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      modifiers: req.body.modifiers,
-      filter_tags: req.body.filter_tags,
-      is_order: req.body.is_order,
-      stock: req.body.stock,
-      state: req.body.state,
-      payment_term: req.body.payment_term,
-    };
-
-    let error = validateProduct(newProduct);
-    if (error) res.status(400).json({message:error});
-
-    const existingProducts = await dbProducts();
+    const existingProducts = await getProductsFromDB();
     if (
-      existingProducts.find(
-        ({ name }) => name.toLowerCase() === newProduct.name.toLowerCase()
-      )
+      existingProducts.find((p) => p.name.toLowerCase() === name.toLowerCase())
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
+    if (!name || !price || !description) {
+      res.status(404).json({ message: "missing required fields" });
+    } else {
+      const newProduct = await Product.create({
+        name: name.toLowerCase(),
+        price,
+        description,
+        image,
+        modifiers,
+        isOrder,
+        stock,
+        state,
+        paymentTerm,
+        FilterTags,
+      });
 
-    const createdProduct = await Product.create(newProduct);
-    return res.status(200).json(createdProduct);
+      if (FilterTags) newProduct.addFilterTags(FilterTags);
+      return res.status(200).json(newProduct);
+    }
   } catch (error) {
-    console.log(error);
-    console.log({ error: error.message });
+    res.status(500).json({ error_DB: error.message });
   }
 };
 
@@ -91,7 +110,7 @@ const createEvent = async (req, res) => {
     if (!(name && state && start && end)) {
       res.status(400).json({ error: "information is missing" });
     } else {
-     const newEvent = await Event.create({
+      const newEvent = await Event.create({
         name,
         location,
         description,
@@ -101,7 +120,9 @@ const createEvent = async (req, res) => {
         start,
         end,
       });
-      newEvent ? res.json({ message: "successful process" }) : res.json({message:"event not created"});
+      newEvent
+        ? res.json({ message: "successful process" })
+        : res.json({ message: "event not created" });
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
@@ -110,15 +131,15 @@ const createEvent = async (req, res) => {
 
 const postOrders = async (req, res) => {
   const {
-      value,
-      concept,
-      description,
-      order_state, //==> revisar obligatoriedad
-      payment_date,
-      payment_mode,//==> revisar obligatoriedad
-      payment_term,
-      product
-  } = req.body
+    value,
+    concept,
+    description,
+    order_state, //==> revisar obligatoriedad
+    payment_date,
+    payment_mode, //==> revisar obligatoriedad
+    payment_term,
+    product,
+  } = req.body;
 
   try {
       if (!value || !concept || !description || !payment_date || !payment_term || !product) {
@@ -137,12 +158,43 @@ const postOrders = async (req, res) => {
           validateOrder && res.status(200).send("order created successfully")
       }
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
-}
+};
+
+const postPlayers = async (req, res) => {
+  const { personalInfo, debtValue, paymentDate, shirtNumber } = req.body;
+
+  try {
+    if (!personalInfo) res.status(400).json({ error: "missing info" });
+    else {
+      const newPlayer = await Player.create({
+        personalInfo,
+        debtValue,
+        paymentDate,
+        shirtNumber,
+      });
+      res.json(newPlayer);
+    }
+  } catch (error) {
+    res.status(500).json({ error_DB: error.message });
+  }
+};
+
+const postFilterTag = async (req, res) => {
+  const { name } = req.body;
+  try {
+    const newTag = await FilterTags.create({ name });
+    res.json(newTag);
+  } catch (error) {
+    res.status(500).json({ error_DB: error.message });
+  }
+};
 module.exports = {
   asyncPostProduct,
   postGroups,
   createEvent,
-  postOrders
-}
+  postOrders,
+  postPlayers,
+  postFilterTag,
+};

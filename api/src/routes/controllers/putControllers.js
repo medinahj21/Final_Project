@@ -9,46 +9,40 @@ const asyncUpdateProduct = async (req, res) => {
     description,
     image,
     modifiers,
-    filter_tags,
-    is_order,
+    isOrder,
     stock,
     state,
-    payment_term,
+    paymentTerm,
   } = req.body;
   const { id } = req.params;
 
   try {
-    const result = await Product.findOne({
-      where: { id: id },
-    });
+    const result = await Product.findByPk(id);
+
     if (result) {
-      await Product.update(
-        {
+            await Product.update({
           name,
           price,
           description,
           image,
           modifiers,
-          filter_tags,
-          is_order,
+          isOrder,
           stock,
           state,
-          payment_term,
-        },
-        {
+          paymentTerm,
+          }, {
           where: {
-            id: id,
-          },
-        }
-      );
-      res.status(200).json({ message: "Updated successfully" });
+            id: id
+        }})
+          res.status(200).json({ message: 'Updated successfully' })
     } else {
-      return res.status(404).json({ error: "Product not found" });
-    }
+          return res.status(400).json({ error: 'Product not found' });
+        }  
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
-};
+}
+
 
 const putGroups = async (req, res) => {
   const { id } = req.params;
@@ -69,7 +63,7 @@ const putGroups = async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
-};
+}
 
 const editEvent = async (req, res) => {
   const { id } = req.params;
@@ -88,7 +82,7 @@ const editEvent = async (req, res) => {
   } catch (error) {
     res.json({ error_DB: error.message });
   }
-};
+}
 
 
 const putOrders = async (req, res) => {
@@ -119,5 +113,5 @@ module.exports = {
   asyncUpdateProduct,
   putGroups,
   editEvent,
-  putOrders
-};
+  putOrders,
+}

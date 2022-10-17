@@ -1,15 +1,27 @@
-const { Op } = require("sequelize");
-const { Player, Event, Group, Product, Order, Admin } = require("../../db");
+const {
+  Player,
+  Event,
+  Group,
+  Product,
+  Order,
+  Admin,
+  FilterTags,
+} = require("../../db");
+const { Sequelize, Model, Op } = require("sequelize");
 const rgExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
 
 const dbProducts = async () => {
   try {
     const allProducts = await Product.findAll({
-      include: {
-        model: Order,
-      },
+      include: [{
+        model: FilterTags,
+        attributes: ["id", "name"],
+        through: { attributes: [] }
+      }],
+      attributes: { exclude: ["createdAt", "updatedAt"] },
     });
+    
     if (allProducts) return allProducts;
     else { console.log("No products available") };
   } catch (error) {
@@ -20,7 +32,8 @@ const dbProducts = async () => {
 const asyncGetProducts = async (req, res) => {
   let { name } = req.query;
   try {
-    const products = await dbProducts();
+    let { name } = req.query;
+    let products = await getProductsFromDB();
     if (name) {
       const searchedProduct = await Product.findAll({
         where: { name: { [Op.iLike]: `%${name}%` } },
@@ -32,6 +45,15 @@ const asyncGetProducts = async (req, res) => {
     } else res.status(200).send(products);
   } catch (error) {
     console.log(error);
+  }
+};
+
+const getFilterTags = async (req, res) => {
+  try {
+    let filterTags = await FilterTags.findAll();
+    res.json(filterTags);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -113,13 +135,12 @@ const getEvent = async (req, res) => {
           model: Player,
           attributes: ["id"],
           through: { attributes: [] },
-        }
+        },
       });
 
       allEvents ?
         res.status(200).send(allEvents)
         : res.json({ mesagge: "there is not event" });
-
     } else {
       const event = await Event.findByPk(id, {
         include: {
@@ -129,8 +150,8 @@ const getEvent = async (req, res) => {
         },
       });
 
-      !event ?
-        res.status(404).json({ error: "Event not found" })
+      !event
+        ? res.status(404).json({ error: "Event not found" })
         : res.send(event).status(200);
     }
   } catch (error) {
@@ -166,12 +187,15 @@ const getOrder = async (req, res) => {
     res.json(`new error:${error}`)
     console.log(`new error:${error}`)
   }
-}
+};
+
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
   dbProducts,
   getGroups,
   getEvent,
-  getOrder
+  getOrder,
+  getFilterTags,
 };

@@ -16,10 +16,11 @@ function Nav() {
   const handleLogout = () => {
     dispatch(logout());
   };
+  console.log(userInfoFirestore);
 
   return (
     <nav className="nav__container">
-      <Link to={'/'} className="nav__logo">
+      <Link to={"/"} className="nav__logo">
         <img src={LOGO} alt="logo" />
       </Link>
       <div className="nav__container-links">
@@ -35,8 +36,8 @@ function Nav() {
         )}
 
         <div className="nav__links">
-          {!userInfoFirestore ? (
-            <></>
+          {!userInfoFirestore || userInfoFirestore.name === "" ? (
+            <>{email ? <Link to={"/form-user"}>Alta jugador |</Link> : <></>}</>
           ) : (
             <Link
               to={

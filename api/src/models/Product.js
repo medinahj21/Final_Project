@@ -29,11 +29,7 @@ module.exports = (sequelize) => {
           type: DataTypes.ARRAY(DataTypes.JSON),
           allowNull: true,
         },
-        filter_tags:{
-          type: DataTypes.ARRAY(DataTypes.STRING),
-          allowNull: true,
-        },
-        is_order: {
+        isOrder: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
         },
@@ -45,7 +41,7 @@ module.exports = (sequelize) => {
           type: DataTypes.BOOLEAN,
           allowNull:false,
         },
-        payment_term: {
+        paymentTerm: {
           type: DataTypes.INTEGER,
           allowNull: false,
         }

@@ -5,7 +5,7 @@
         
         "value": 40000,
         "description": "Octubre",
-        "payment_deadline": "10\/21\/2022",
+        "payment_term": "10\/21\/2022",
         "payment_mode": "Efectivo",
         "order_state": "Pending"
     },
@@ -15,7 +15,7 @@
         
         "value": 40000,
         "description": "Agosto",
-        "payment_deadline": "09\/21\/2022",
+        "payment_term": "09\/21\/2022",
         "payment_mode": "Transferencia",
         "order_state": "Paid",
         "payment_date": "09\/15\/2022"
@@ -26,7 +26,7 @@
         
         "value": 35000,
         "description": "Octubre",
-        "payment_deadline": "10\/28\/2022",
+        "payment_term": "10\/28\/2022",
         "payment_mode": "PayU",
         "order_state": "Pending"
     },
@@ -36,7 +36,7 @@
         
         "value": 45000,
         "description": "Agosto",
-        "payment_deadline": "09\/30\/2022",
+        "payment_term": "09\/30\/2022",
         "payment_mode": "Efectivo",
         "order_state": "Deleted"
     },
@@ -46,7 +46,7 @@
         
         "value": 77000,
         "description": "Camisa mujer, Licra ",
-        "payment_deadline": "11\/04\/2022",
+        "payment_term": "11\/04\/2022",
         "payment_mode": "PayU",
         "order_state": "Paid",
         "payment_date": "10\/14\/2022"
@@ -57,7 +57,7 @@
         
         "value": 217000,
         "description": "Uniforme presentación completo, Tula wolves, Termo wolves",
-        "payment_deadline": "11\/04\/2022",
+        "payment_term": "11\/04\/2022",
         "payment_mode": "Transferencia",
         "order_state": "Pending"
     },
@@ -67,7 +67,7 @@
         
         "value": 40000,
         "description": "Camisa hombre",
-        "payment_deadline": "11\/04\/2022",
+        "payment_term": "11\/04\/2022",
         "payment_mode": "PayU",
         "order_state": "Paid",
         "payment_date": "10\/14\/2022"
