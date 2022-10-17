@@ -10,7 +10,7 @@
     background-color: var(--color-bg);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 2rem;
     position: fixed;
 }
@@ -20,11 +20,10 @@
 }
 
 .navbar__image {
-    position: relative;
-    top: -20%;
-    border-radius: 50%;
-    max-width: 130px;
-    margin: 0 auto;
+    width: 150px;
+    border-radius: 20px;
+    align-self: center;
+    box-shadow: var(--box-shadow);
 }
 
 .navbar__btn {
@@ -48,5 +47,11 @@
 
 .admin__content {
     margin-left: 16vw;
+}
 
+.cards__container {
+    display: flex;
+    flex-direction: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 }

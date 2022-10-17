@@ -63,7 +63,7 @@
     background-color: var(--color-bg);
 }
 
-.card__image {
+.card__image-product {
     max-width: 100%;
     border-radius: 2rem;
     box-shadow: var(--box-shadow);
