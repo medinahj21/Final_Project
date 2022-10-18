@@ -7,23 +7,27 @@ const {
   Admin,
   FilterTags,
 } = require("../../db");
-const { Sequelize, Model, Op } = require("sequelize");
-const rgExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+const { Op } = require("sequelize");
+const rgExp =
+  /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
-
-const dbProducts = async () => {
+const getProductsFromDB = async () => {
   try {
     const allProducts = await Product.findAll({
-      include: [{
-        model: FilterTags,
-        attributes: ["id", "name"],
-        through: { attributes: [] }
-      }],
+      include: [
+        {
+          model: FilterTags,
+          attributes: ["id", "name"],
+          through: { attributes: [] },
+        },
+      ],
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
-    
+
     if (allProducts) return allProducts;
-    else { console.log("No products available") };
+    else {
+      console.log("No products available");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +36,6 @@ const dbProducts = async () => {
 const asyncGetProducts = async (req, res) => {
   let { name } = req.query;
   try {
-    let { name } = req.query;
     let products = await getProductsFromDB();
     if (name) {
       const searchedProduct = await Product.findAll({
@@ -42,7 +45,9 @@ const asyncGetProducts = async (req, res) => {
       searchedProduct.length !== 0
         ? res.status(200).send(searchedProduct)
         : res.status(404).json({ message: " Product not found " });
-    } else res.status(200).send(products);
+    } else {
+      res.status(200).send(products);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -51,16 +56,16 @@ const asyncGetProducts = async (req, res) => {
 const getFilterTags = async (req, res) => {
   try {
     let filterTags = await FilterTags.findAll();
-    res.json(filterTags);
+    filterTags ? res.send(filterTags) : res.json({ mesagge: "is empty" });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
 };
 
 const asyncGetProductById = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
   try {
-    const myProduct = await dbProducts();
+    const myProduct = await getProductsFromDB();
 
     if (rgExp.test(id) && myProduct) {
       const searchProduct = myProduct.filter(
@@ -68,19 +73,15 @@ const asyncGetProductById = async (req, res) => {
       );
       searchProduct.length
         ? res.send(searchProduct)
-        : res.status(404).json({
-          mesagge: "this product was not found",
-        });
-        
+        : res.status(404).json({ mesagge: "this product was not found" });
     } else {
-      res.status(400).json({ message: "something has gone wrong" })
+      res.status(400).json({ message: "something has gone wrong" });
     }
   } catch (error) {
     res.json({ error: error.message });
     console.log(error);
   }
 };
-
 
 const getGroups = async (req, res) => {
   const { id } = req.params;
@@ -116,6 +117,7 @@ const getGroups = async (req, res) => {
           { model: Admin, attributes: ["id"], through: { attributes: [] } },
         ],
       });
+      
       infoGroup.length > 0
         ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "there is not  group now" });
@@ -138,8 +140,8 @@ const getEvent = async (req, res) => {
         },
       });
 
-      allEvents ?
-        res.status(200).send(allEvents)
+      allEvents
+        ? res.status(200).send(allEvents)
         : res.json({ mesagge: "there is not event" });
     } else {
       const event = await Event.findByPk(id, {
@@ -161,39 +163,45 @@ const getEvent = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
-  const { id } = req.params
-  
+  const { id } = req.params;
+
   try {
     if (id) {
       if (rgExp.test(id)) {
         const infoOrder = await Order.findByPk(id, {
-          include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }]
-        })
+          include: [
+            {
+              model: Product,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+          ],
+        });
 
         infoOrder !== null
           ? res.status(200).send(infoOrder)
-          : res.status(404).json({ message: "order not found" })
-
-      } else res.status(406).json({ mesagge: "id no valid" })
+          : res.status(404).json({ message: "order not found" });
+      } else res.status(406).json({ mesagge: "id no valid" });
     } else {
       const infoOrder = await Order.findAll({
-        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }]
-      })
-      infoOrder.length ?
-        res.status(200).send(infoOrder)
-        : res.status(404).json({ message: "there is not  order now" })
+        include: [
+          { model: Product, attributes: ["name"], through: { attributes: [] } },
+        ],
+      });
+      infoOrder.length
+        ? res.status(200).send(infoOrder)
+        : res.status(404).json({ message: "there is not  order now" });
     }
   } catch (error) {
-    res.json(`new error:${error}`)
-    console.log(`new error:${error}`)
+    res.json(`new error:${error}`);
+    console.log(`new error:${error}`);
   }
 };
-
 
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
-  dbProducts,
+  getProductsFromDB,
   getGroups,
   getEvent,
   getOrder,

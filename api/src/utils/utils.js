@@ -43,13 +43,7 @@ const validateProduct = (prod) => {
     return {error: "The payment_term field must be a number"}
   } else if (!validateDescription(prod.description)){
     return {error: "Product description must be an string and must be shorter than 150 characters"}
-<<<<<<< HEAD
-  } else if (prod.modifiers.length ===0){
-    return {error: "Product modifiers must be provided"}
-}
-=======
   } 
->>>>>>> 77e30853d0743d82e9b56117304c69b0cb482d3d
 }
 
 module.exports = {

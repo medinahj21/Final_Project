@@ -142,21 +142,28 @@ const postOrders = async (req, res) => {
   } = req.body;
 
   try {
-      if (!value || !concept || !description || !payment_date || !payment_term || !product) {
-          res.status(412).json({ message: "information is missing" })
-      } else {
-          const newOrder = await Order.create({
-              value,
-              concept,
-              description,
-              order_state,
-              payment_date,
-              payment_mode,
-              payment_term,
-          })
-          const validateOrder = await newOrder.addProduct(product)
-          validateOrder && res.status(200).send("order created successfully")
-      }
+    if (
+      !value ||
+      !concept ||
+      !description ||
+      !payment_date ||
+      !payment_term ||
+      !product
+    ) {
+      res.status(412).json({ message: "information is missing" });
+    } else {
+      const newOrder = await Order.create({
+        value,
+        concept,
+        description,
+        order_state,
+        payment_date,
+        payment_mode,
+        payment_term,
+      });
+      const validateOrder = await newOrder.addProduct(product);
+      validateOrder && res.status(200).send("order created successfully");
+    }
   } catch (error) {
     console.log(error);
   }

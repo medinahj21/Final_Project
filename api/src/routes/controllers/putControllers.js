@@ -1,6 +1,7 @@
 const { Player, Event, Group, Product, Order } = require("../../db");
 const { Sequelize, Model } = require("sequelize");
-const rgExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+const rgExp =
+  /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
 const asyncUpdateProduct = async (req, res) => {
   const {
@@ -20,7 +21,8 @@ const asyncUpdateProduct = async (req, res) => {
     const result = await Product.findByPk(id);
 
     if (result) {
-            await Product.update({
+      await Product.update(
+        {
           name,
           price,
           description,
@@ -30,19 +32,21 @@ const asyncUpdateProduct = async (req, res) => {
           stock,
           state,
           paymentTerm,
-          }, {
+        },
+        {
           where: {
-            id: id
-        }})
-          res.status(200).json({ message: 'Updated successfully' })
+            id: id,
+          },
+        }
+      );
+      res.status(200).json({ message: "Updated successfully" });
     } else {
-          return res.status(400).json({ error: 'Product not found' });
-        }  
+      return res.status(400).json({ error: "Product not found" });
+    }
   } catch (error) {
     console.log(error.message);
   }
-}
-
+};
 
 const putGroups = async (req, res) => {
   const { id } = req.params;
@@ -50,7 +54,7 @@ const putGroups = async (req, res) => {
     if (rgExp.test(id)) {
       res
         .status(401)
-        .json({ message: "id is require or id is to short, please try again" })
+        .json({ message: "id is require or id is to short, please try again" });
     } else {
       const group = await Group.findByPk(id);
       if (group !== null) {
@@ -63,7 +67,7 @@ const putGroups = async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
-}
+};
 
 const editEvent = async (req, res) => {
   const { id } = req.params;
@@ -71,19 +75,18 @@ const editEvent = async (req, res) => {
     if (rgExp.test(id)) {
       const event = await Event.findByPk(id);
       if (event !== null) {
-        await event.set(req.body).save()
-        res.json({ message: "Event updated successfully" })
+        await event.set(req.body).save();
+        res.json({ message: "Event updated successfully" });
       } else {
-        res.json({ message: "id not found" })
+        res.json({ message: "id not found" });
       }
     } else {
-      res.status(401).json({ message: "id invalid" })
+      res.status(401).json({ message: "id invalid" });
     }
   } catch (error) {
     res.json({ error_DB: error.message });
   }
-}
-
+};
 
 const putOrders = async (req, res) => {
   const { id } = req.params;
@@ -102,16 +105,16 @@ const putOrders = async (req, res) => {
           res.status(404).json({ message: "order not found, try again" });
         }
       } else {
-        res.status(401).json({ message: "id invalid" })
+        res.status(401).json({ message: "id invalid" });
       }
     }
   } catch (error) {
     res.status(400).send(error.message);
   }
-}
+};
 module.exports = {
   asyncUpdateProduct,
   putGroups,
   editEvent,
   putOrders,
-}
+};

@@ -6,10 +6,10 @@ const { putGroups } = require("../controllers/putControllers");
 const { deleteGroups } = require("../controllers/deleteControllers");
 
 router
-    .get("/", getGroups)
-    .get("/:id", getGroups)
-    .post("/create", postGroups)
-    .put("/update/:id", putGroups)
-    .delete("/delete/:id", deleteGroups)
+  .get("/", getGroups)
+  .get("/:id", getGroups)
+  .post("/create", postGroups)
+  .put("/update/:id", putGroups)
+  .delete("/delete/:id", deleteGroups);
 
 module.exports = router;

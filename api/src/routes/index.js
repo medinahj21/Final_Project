@@ -9,12 +9,12 @@ const tags = require("./middlewares/tags");
 const product = require("./middlewares/products");
 
 router
-.use("/admins", admin)
-.use("/groups", group)
-.use("/events", event)
-.use("/orders", order)
-.use("/players", player)
-.use("/products", product)
-.use("/tags", tags);
+  .use("/admins", admin)
+  .use("/groups", group)
+  .use("/events", event)
+  .use("/orders", order)
+  .use("/players", player)
+  .use("/products", product)
+  .use("/tags", tags);
 
 module.exports = router;

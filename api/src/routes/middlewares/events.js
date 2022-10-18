@@ -6,9 +6,9 @@ const { editEvent } = require("../controllers/putControllers");
 const { deleteEvent } = require("../controllers/deleteControllers");
 
 router
-    .get("/:id", getEvent)
-    .post("/create", createEvent)
-    .put("/update/:id", editEvent)
-    .delete("/delete/:id", deleteEvent);
+  .get("/:id", getEvent)
+  .post("/create", createEvent)
+  .put("/update/:id", editEvent)
+  .delete("/delete/:id", deleteEvent);
 
 module.exports = router;
