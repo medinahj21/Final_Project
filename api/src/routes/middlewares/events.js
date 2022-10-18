@@ -6,6 +6,7 @@ const { editEvent } = require("../controllers/putControllers");
 const { deleteEvent } = require("../controllers/deleteControllers");
 
 router
+  .get("/", getEvent)
   .get("/:id", getEvent)
   .post("/create", createEvent)
   .put("/update/:id", editEvent)

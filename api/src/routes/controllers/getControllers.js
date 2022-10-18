@@ -7,7 +7,7 @@ const {
   Admin,
   FilterTags,
 } = require("../../db");
-const { Op } = require("sequelize");
+const { Sequelize, Model, Op } = require("sequelize");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
@@ -117,7 +117,7 @@ const getGroups = async (req, res) => {
           { model: Admin, attributes: ["id"], through: { attributes: [] } },
         ],
       });
-      
+
       infoGroup.length > 0
         ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "there is not  group now" });
@@ -158,7 +158,6 @@ const getEvent = async (req, res) => {
     }
   } catch (error) {
     res.json({ error_DB: error.message });
-    console.log(error);
   }
 };
 
