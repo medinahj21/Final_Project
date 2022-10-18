@@ -1,13 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
-function Player() {
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+import FOTO from "../../images/icono-marco-fotos-foto.webp";
+
+import "./InfoCard.css";
+
+function InfoCard({ userInfoFirestore }) {
   return (
-    <div>
-      <Link to={"/"}>Home</Link>
-      <h1>Bienvenid@: {userInfoFirestore.name}</h1>
+    <div className="card__info">
+      <img className="card__image" src={FOTO} alt="" />
+      <h2>{userInfoFirestore.name}</h2>
       <p>Edad: {userInfoFirestore.years}</p>
       <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>
       <p>Tipo de sangre: {userInfoFirestore.bloodType}</p>
@@ -23,4 +24,4 @@ function Player() {
   );
 }
 
-export default Player;
+export default InfoCard;

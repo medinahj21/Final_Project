@@ -88,13 +88,7 @@ function Shop() {
       {creationDiv ? (
         <Modal>
           {" "}
-          <div>
-            <h1 className="create__product-title">Crear producto</h1>
-            <CreateProduct
-              setCreationDiv={setCreationDiv}
-              isCreate={true}
-            />{" "}
-          </div>
+          <CreateProduct setCreationDiv={setCreationDiv} isCreate={true} />{" "}
         </Modal>
       ) : (
         <></>

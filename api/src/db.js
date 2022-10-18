@@ -30,6 +30,7 @@ let sequelize =
         ssl: true,
       })
 
+
     : new Sequelize(
         `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`,
         { logging: false, native: false }
@@ -104,7 +105,7 @@ Admin.belongsToMany(Event, { through: "admin-event" });
 Event.belongsToMany(Admin, { through: "admin-event" });
 
 FilterTags.belongsToMany(Product, { through: "product-filter" });
-Product.belongsToMany(FilterTags, { through: "product-filter" }); 
+Product.belongsToMany(FilterTags, { through: "product-filter" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
