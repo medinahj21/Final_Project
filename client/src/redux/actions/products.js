@@ -60,7 +60,7 @@ export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        "http://localhost:3001/products/create",
+        "/products/create",
         payload
       );
       return dispatch({
