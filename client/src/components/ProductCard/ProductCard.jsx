@@ -10,7 +10,7 @@ function ProductCard({ id, name, price, image }) {
         <h3 className="card__title">{name}</h3>
       </Link>
       <span className="card__healthscore">price: ${price}</span>
-      <img className="card__image" src={image} alt={name} />
+      <img className="card__image-product" src={image} alt={name} />
       <Link to={`/detail/${id}`}>
         <button className="card__title card__title-recipe">Detail</button>
       </Link>
