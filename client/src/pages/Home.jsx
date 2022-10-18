@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Nav from "../components/Nav/Nav";
-import FOTONIÑOS from "../images/niños.jpg";
-import FOTOJOVENES from "../images/jovenes.jpg";
-import FOTOADULTOS from "../images/adultos.jpg";
+// import FOTONIÑOS from "../images/niños.jpg";
+// import FOTOJOVENES from "../images/jovenes.jpg";
+// import FOTOADULTOS from "../images/adultos.jpg";
 
 import { getUserFirestore } from "../redux/actions/auth";
 
@@ -54,6 +54,7 @@ function Home() {
       <div className="home__container">
         <h1>Club Wolves -Voleyball</h1>
       </div>
+      <div className="home__container-carrousel"></div>
       {/* <div className="home__gruops">
         <div className="home__gruop">
           <h3>Chicos</h3>

@@ -60,7 +60,7 @@ function Admin() {
       {isDesktop ? (
         <DashNabvar setClickChoice={setClickChoice} clickChoice={clickChoice} />
       ) : (
-        <Navphone setClickChoice={setClickChoice} clickChoice={clickChoice} />
+        <Navphone setClickChoice={setClickChoice} isDashboard={true} />
       )}
 
       <div className="admin__content">
