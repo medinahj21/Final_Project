@@ -98,8 +98,8 @@ Order.belongsToMany(Product, { through: "product-order" });
 Product.hasMany(ProductRequest);
 ProductRequest.belongsTo(Product, { foreignKey: "productId" });
 
-Admin.belongsToMany(Event, { through: "admin-event" });
 Event.belongsToMany(Admin, { through: "admin-event" });
+Admin.belongsToMany(Event, { through: "admin-event" });
 
 FilterTags.belongsToMany(Product, { through: "product-filter" });
 Product.belongsToMany(FilterTags, { through: "product-filter" });

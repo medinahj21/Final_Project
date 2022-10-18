@@ -80,7 +80,7 @@ const postGroups = async (req, res) => {
       !schedule ||
       !description ||
       !inscription_cost ||
-      !accept_newPlayers 
+      !accept_newPlayers
     ) {
       res.status(412).json({ message: "missing information" });
     } else {
@@ -106,10 +106,19 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { name, location, description, date, repetitive, state, start, end } =
-    req.body;
+  const {
+    name,
+    location,
+    description,
+    date,
+    repetitive,
+    state,
+    start,
+    end,
+    admin,
+  } = req.body;
   try {
-    if (!(name && state && start && end)) {
+    if (!(name && start && end && location && date && admin)) {
       res.status(400).json({ error: "information is missing" });
     } else {
       const newEvent = await Event.create({
@@ -122,9 +131,8 @@ const createEvent = async (req, res) => {
         start,
         end,
       });
-      newEvent
-        ? res.json({ message: "successful process" })
-        : res.json({ message: "event not created" });
+      const addAdmin = await newEvent.addAdmin(admin);
+      addAdmin && res.status(200).send("the event has been created");
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
