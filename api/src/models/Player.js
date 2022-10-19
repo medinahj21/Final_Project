@@ -4,13 +4,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('player', {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
         },
         personalInfo: {
-            type: DataTypes.JSON,//para el bulk
+            type: DataTypes.JSON,
             allowNull: false,
             validate: {
                 notNull: {
