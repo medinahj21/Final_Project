@@ -7,9 +7,10 @@ import { firestore } from "../firebase/firebase.config";
 import { getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
-import "./Admin.css";
+import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
+import DebtCard from "../components/Dashboard/DebtCard";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -63,10 +64,12 @@ function Admin() {
         <Navphone setClickChoice={setClickChoice} isDashboard={true} />
       )}
 
-      <div className="admin__content">
-        <h1 className="admin__title">Bienvenid@: {userInfoFirestore?.email}</h1>
+      <div className="dashboard__content">
         {clickChoice.isPerfil && (
-          <InfoCard userInfoFirestore={userInfoFirestore} />
+          <>
+            <InfoCard userInfoFirestore={userInfoFirestore} />
+            <DebtCard />
+          </>
         )}
         {clickChoice.isSocios && (
           <div className="cards__container">
@@ -74,6 +77,7 @@ function Admin() {
               allUserFirestore.map((user) => {
                 return !user.isAdmin ? (
                   <InfoCard
+                    className={"infoAdmin"}
                     key={userInfoFirestore.document + Math.random()}
                     userInfoFirestore={user}
                   />

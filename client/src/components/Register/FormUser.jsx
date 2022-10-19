@@ -60,12 +60,12 @@ function FormUser() {
     dispatch(
       createPlayer(
         { personalInfo: { ...userInput, uid: user.uid, email: user.email } },
-        { id: user.uid }
+        // { id: user.uid }
       )
     );
 
     setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-    
+
     navigate("/");
   };
 
