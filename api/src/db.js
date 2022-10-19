@@ -25,14 +25,20 @@ let sequelize =
           // Ref.: https://github.com/brianc/node-postgres/issues/2009
           rejectUnauthorized: false,
         },
-        keepAlive: true,
-      },
-      ssl: true,
-    })
-    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`, {
-      logging: false,
-      native: false,
-    });
+        dialectOptions: {
+          ssl: {
+            require: true,
+            // Ref.: https://github.com/brianc/node-postgres/issues/2009
+            rejectUnauthorized: false,
+          },
+          keepAlive: true,
+        },
+        ssl: true,
+      })
+    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`, {
+        logging: false,
+        native: false,
+      });
 
 const basename = path.basename(__filename);
 

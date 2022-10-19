@@ -1,0 +1,72 @@
+.containerDetail {
+    text-align: start;
+    padding: 10px;
+    display: flex;
+}
+.containerDetail h1 {
+    margin-bottom: 0;
+}
+
+.containerDetail input {
+    width: 300px;
+    height: 30px;
+    border-radius: 8px;
+    border: 0.5 solid;
+    outline: none;
+    cursor: default;
+}
+
+.containerDetail textarea {
+    max-height: 200px;
+    width: 300px;
+    padding: 5px;
+    resize: none;
+    border: none;
+    border-radius: 8px;
+    cursor: default;
+    outline: none;
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+}
+
+.containerItems {
+    width: 70%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.smallInputs, .largeInputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.subItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.subItems span {
+    margin: 10px;
+    margin-left: 0;
+}
+
+.inscribe {
+    margin: 10px;
+}
+
