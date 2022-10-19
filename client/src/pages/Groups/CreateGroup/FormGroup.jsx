@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import s from './FormGroup.module.css'
 import * as actions from '../../../redux/actions/actionsGroup'
+import UploadImage from '../../../components/UploadImage/UploadImage'
 
 export default function FormGroup() {
     const dispatch = useDispatch();
@@ -24,7 +25,8 @@ export default function FormGroup() {
         setGroupInputs((prevState) => {
             return {
                 ...prevState,
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
+                image: image
             }
         })
         console.log(groupInputs)
@@ -50,24 +52,17 @@ export default function FormGroup() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(actions.createGroup(groupInputs)) 
+        dispatch(actions.createGroup(groupInputs))
         dispatch(actions.getGroups())
-        alert('Product has been created successfully')    
+        alert('Product has been created successfully')
     }
 
     return (
         <form className={s.form} onSubmit={handleSubmit}>
-            <label htmlFor="image">
-                Imagen:{" "}
-                <div className={s.image} >
-                    <img src={image} alt="Imagen del grupo" name='image' onChange={handleChange}></img>
-                </div>
-                
-                <div onClick={(e) => handleOnClick(e)}>Subir</div>
-            </label>
+            <UploadImage image={image} setImage={setImage}/>
             <label htmlFor="name">
                 Nombre:{" "}
-                <input type="text" name="name" onChange={handleChange}/>
+                <input type="text" name="name" onChange={handleChange} />
             </label>
             <label htmlFor="location">
                 Locación:{" "}
@@ -79,7 +74,7 @@ export default function FormGroup() {
             </label>
             <label htmlFor="description">
                 Descripción:{" "}
-                <textarea  name="description" onChange={handleChange} />
+                <textarea name="description" onChange={handleChange} />
             </label>
             <label htmlFor="inscription_cost">
                 Costo de inscripción:{" "}
@@ -112,7 +107,7 @@ export default function FormGroup() {
             </label>
             <label htmlFor="adminId">
                 AdminID: {" "}
-                <input type="text" name="adminId" onChange={handleChange}/>
+                <input type="text" name="adminId" onChange={handleChange} />
             </label>
             <button type='submit'>Crear</button>
         </form>

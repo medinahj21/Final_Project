@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import s from '../UpdateGroup/UpdateGroup.module.css'
 import * as actions from '../../../redux/actions/actionsGroup';
@@ -8,6 +8,10 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
     const dispatch = useDispatch();
 
     const [inputUpdate, setInputUpdate] = useState(groupDetail);
+
+    useEffect(() => {
+        setInputUpdate(groupDetail)
+    }, [groupDetail])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -38,11 +42,9 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
     return (
         <div className={s.containerDetail}>
             <section className={''}>
-                <img src={groupDetail.image} className={s.image} alt="" />
+                <img src={groupDetail.image} className={s.image} alt="grupos" />
                 {update ? <div>Subir</div> : ''}
-
             </section>
-
             <section className={s.containerItems}>
                 <div className={s.buttonEdit} onClick={() => handleUpdate()}>{update ? 'Cancelar' : 'Editar'}</div>
                 <h1>{groupDetail.name}</h1>
@@ -51,7 +53,16 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
                     <div className={s.smallInputs}>
                         <div className={s.subItems}>
                             <span>Genero:</span>
-                            <input type="text" name='genre' value={inputUpdate.genre} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} onChange={handleChange} />
+                            {update ?
+                                <select name='genre' value={inputUpdate.genre} onChange={handleChange}>
+                                    <option value="">Escoge una opción</option>
+                                    <option value="Male">Masculino</option>
+                                    <option value="Female">Femenino</option>
+                                    <option value="Mix">Mixto</option>
+                                </select>
+                                :
+                                <input type="text" name='genre' value={inputUpdate.genre} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} onChange={handleChange} />
+                            }
                         </div>
                         <div className={s.subItems}>
                             <span>Horario: </span>
@@ -75,15 +86,31 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
                         </div>
                         <div className={s.subItems}>
                             <span>Acepta nuevos: </span>
-                            <input type="text" value={inputUpdate.accept_newPlayers} name="accept_newPlayers" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
+                            {update ?
+                                <select name="accept_newPlayers" onChange={handleChange}>
+                                    <option value="" disabled='true'>Escoge una opción</option>
+                                    <option value="true">True</option>
+                                    <option value="false">False</option>
+                                </select>
+                                :
+                                <input type="text" value={inputUpdate.accept_newPlayers} name="accept_newPlayers" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
+                            }
                         </div>
                         <div className={s.subItems}>
                             <span>Admin: </span>
-                            <input type="text" value={inputUpdate.accept_newPlayers} name="adminId" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
+                            <input type="text" value={inputUpdate.adminId} name="adminId" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
                         </div>
                         <div className={s.subItems}>
                             <span>Categoria: </span>
-                            <input type="text" value={inputUpdate.category} name="adminId" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
+                            {update ?
+                                <select name="category" value={inputUpdate.category} onChange={handleChange}>
+                                    <option value="">Escoge una opcion</option>
+                                    <option value="Mixto">Mixto</option>
+                                    <option value="Juvenil">Juvenil</option>
+                                    <option value="Adultos">Adultos</option>
+                                </select> :
+                                <input type="text" value={inputUpdate.category} name="category" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
+                            }
                         </div>
                     </div>
                     <div className={s.largeInputs}>

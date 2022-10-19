@@ -15,12 +15,12 @@ export default function Groups() {
     useEffect(() => {
         dispatch(actions.getGroups())
     }, [dispatch]);
-    
+
     useEffect(() => {
         setAllGroups(groups)
         setCategory([... new Set(category)])
     }, [groups])
-    
+
 
     const filterByGenre = (e) => {
         let value = e.target.value;
@@ -29,7 +29,9 @@ export default function Groups() {
 
     const filterByCategory = (e) => {
         let value = e.target.value;
-        setAllGroups(allGroups.length ? [...groups].filter(e => e.category === value): groups.filter(e => e.category === value))
+        if (value === 'all') return setAllGroups([...groups])
+        if (!allGroups.length) return setAllGroups([...groups])
+        setAllGroups([...allGroups].filter((e) => e.category === value))
     }
 
     return (
@@ -43,25 +45,25 @@ export default function Groups() {
                     <div className={s.items}>
                         <span className={s.subtitles}>Genre: </span>
                         <select name="filterByGenre" id="" onChange={(e) => filterByGenre(e)}>
-                            <option key={0} value={'all'}>All</option>
-                            <option key={1} value={'Male'}>Male</option>
-                            <option key={2} value={'Female'}>Female</option>
-                            <option key={3} value={'Mix'}>Mix</option>
+                            <option key={'all'} value={'all'}>All</option>
+                            <option key={'Male'} value={'Male'}>Male</option>
+                            <option key={'Female'} value={'Female'}>Female</option>
+                            <option key={'Mix'} value={'Mix'}>Mix</option>
                         </select>
                     </div>
                     <div className={s.items}>
                         <span className={s.subtitles}>Categorías: </span>
                         <select name="filterByGenre" id="" onChange={(e) => filterByCategory(e)}>
-                            {category.map((e, i) => {
-                                return <option key={i}>{e}</option>
-                            })}
-                            
+                            <option key={'todos'} value='all' >Todos</option>
+                            <option key={'Mixto'} value='Mixto'>Mixto</option>
+                            <option key={'Juvenil'} value='Juvenil'>Juvenil</option>
+                            <option key={'Adultos'} value='Adultos'>Adultos</option>
                         </select>
                     </div>
                 </div>
                 <div className={s.cardContainer}>
-                    {allGroups?.map(e => {
-                        return <CardGroup
+                    {allGroups?.map((e, i) => {
+                        return <CardGroup key={i}
                             name={e.name}
                             schedule={e.schedule}
                             price={e.inscription_cost}
