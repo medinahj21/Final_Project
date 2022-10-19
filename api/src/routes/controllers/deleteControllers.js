@@ -64,8 +64,28 @@ const deleteEvent = async (req, res) => {
   }
 };
 
+const deletePlayers = async (req, res) =>{
+  const { id } = req.params;
+  try {
+    if (!id) {
+      res.status(411).json({ error: "id is missing" });
+    } else {
+      if (rgExp.test(id)) {
+        await Player.destroy({
+          where: { id },
+        });
+        res.json({ message: "Player has been deleted successfully" });
+      } else {
+        res.status(400).json({ message: "Bad request" });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error_DB: error.message });
+  }
+}
 module.exports = {
   asyncDeleteProduct,
   deleteGroups,
   deleteEvent,
+  deletePlayers
 };
