@@ -6,7 +6,7 @@ import "./InfoCard.css";
 
 function InfoCard({ userInfoFirestore }) {
   return (
-    <div className="card__info">
+    <div className={"card__info"}>
       <img className="card__image" src={FOTO} alt="" />
       <h2>{userInfoFirestore.name}</h2>
       <p>Edad: {userInfoFirestore.years}</p>

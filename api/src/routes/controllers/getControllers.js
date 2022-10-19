@@ -197,6 +197,29 @@ const getOrder = async (req, res) => {
   }
 };
 
+const getPlayers = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (id) {
+      if (rgExp.test(id)) {
+        const player = await Player.findByPk(id);
+        player
+          ? res.status(200).json(player)
+          : res.status(404).json({ message: "player not found" });
+      } else res.status(406).json({ mesagge: "invalid id" });
+    } else {
+      const players = await Order.findAll();
+      players.length
+        ? res.status(200).send(players)
+        : res.status(404).json({ message: "player not found" });
+    }
+  } catch (error) {
+    res.json(`new error:${error}`);
+    console.log(`new error:${error}`);
+  }
+};
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -205,4 +228,5 @@ module.exports = {
   getEvent,
   getOrder,
   getFilterTags,
+  getPlayers,
 };
