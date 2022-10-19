@@ -64,8 +64,8 @@ const chargeDummyData = async () => {
 
   try {
     // await Event.bulkCreate(eventsData);
-    // await FilterTags.bulkCreate(filtersData);
-    await Product.bulkCreate(bulkProducts);
+    await FilterTags.bulkCreate(filtersData);
+    //await Product.bulkCreate(bulkProducts);
     // await Group.bulkCreate(bulkGroup);
     // await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
@@ -74,14 +74,14 @@ const chargeDummyData = async () => {
   } catch (error) {
     console.log(error.message);
   }
-  //   try {
-  //     productsData.forEach(async(p)=>{
-  //       const createdProduct = await Product.create(p);
-  //       createdProduct.addFilterTags(p.FilterTags);
-  //     })
-  //   } catch (error) {
-  //     console.log(error.message )
-  //   }
+    try {
+      productsData.forEach(async(p)=>{
+        const createdProduct = await Product.create(p);
+        createdProduct.addFilterTags(p.FilterTags);
+      })
+    } catch (error) {
+      console.log(error.message )
+    }
 };
 
 // Syncing all the models at once.
