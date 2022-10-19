@@ -80,8 +80,10 @@ const {
 Player.belongsTo(Group, { foreignKey: "groupId" });
 Group.hasMany(Player);
 
-Player.hasMany(Order);
-Order.belongsTo(Player, { foreignKey: "playerId" });
+
+
+Player.hasMany(Order, { foreignKey: "order_id" });
+Order.belongsTo(Player);
 
 Player.hasMany(ProductRequest);
 ProductRequest.belongsTo(Player, { foreignKey: "playerId" });
@@ -101,8 +103,8 @@ Order.belongsToMany(Product, { through: "product-order" });
 Product.hasMany(ProductRequest);
 ProductRequest.belongsTo(Product, { foreignKey: "productId" });
 
-Admin.belongsToMany(Event, { through: "admin-event" });
 Event.belongsToMany(Admin, { through: "admin-event" });
+Admin.belongsToMany(Event, { through: "admin-event" });
 
 FilterTags.belongsToMany(Product, { through: "product-filter" });
 Product.belongsToMany(FilterTags, { through: "product-filter" });
