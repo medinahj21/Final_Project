@@ -45,7 +45,7 @@ export const getProductsByName = (name) => {
 export const getProductDetail = (id) => {
   return async (dispatch) => {
     try {
-      let productById = await axios.get(`http://localhost:3001/products/${id}`);
+      let productById = await axios.get(`${axios.defaults.baseURL}/products/${id}`);
       return dispatch({
         type: GET_PRODUCT_DETAIL,
         payload: productById.data,
@@ -59,8 +59,9 @@ export const getProductDetail = (id) => {
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
+      console.log("RUTA:", axios.defaults.baseURL)
       let response = await axios.post(
-        "/products/create",
+        `${axios.defaults.baseURL}/products/create`,
         payload
       );
       return dispatch({
@@ -78,7 +79,7 @@ export const updateProduct = (id, payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.put(
-        `http://localhost:3001/products/update/${id}`,
+        `${axios.defaults.baseURL}/products/update/${id}`,
         payload
       );
       return dispatch({

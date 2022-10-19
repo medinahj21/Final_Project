@@ -111,9 +111,12 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
       return;
     }
     try {
+      
       if (isCreate) {
+        console.log("PRUEBA DISPATCH....");
         let response = await dispatch(createProduct(newProduct));
-        console.log(response);
+        
+        
 
         /* if (response.type) {
           setNewProduct({
