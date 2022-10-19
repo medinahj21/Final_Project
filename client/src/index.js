@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-
 import { BrowserRouter } from "react-router-dom";
-import "./index.css";
 import dotenv from "dotenv";
+import "./index.css";
+
 
 import axios from "axios";
+//require('dotenv').config()
 dotenv.config();
+
+console.log(process.env);
 
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
