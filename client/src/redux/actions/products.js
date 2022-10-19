@@ -15,7 +15,9 @@ import {
 export const getProducts = () => {
   return async (dispatch) => {
     try {
+      
       let allProducts = await axios.get(`${axios.defaults.baseURL}/products`);
+      console.log(allProducts)
       return dispatch({
         type: GET_PRODUCTS,
         payload: allProducts.data,
