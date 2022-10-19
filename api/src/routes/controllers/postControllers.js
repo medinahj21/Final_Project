@@ -60,40 +60,42 @@ const asyncPostProduct = async (req, res) => {
 const postGroups = async (req, res) => {
   const {
     name,
+    image,
+    genre,
+    contact,
+    adminId,
+    category,
     location,
     schedule,
-    description,
-    image,
-    inscription_cost,
-    contact,
     whatsapp,
+    description,
+    inscription_cost,
     accept_newPlayers,
-    genre,
-    adminId,
   } = req.body;
   try {
     if (
       !name ||
+      !genre ||
+      !adminId ||
       !schedule ||
       !description ||
       !inscription_cost ||
-      !accept_newPlayers ||
-      !genre ||
-      !adminId
+      !accept_newPlayers
     ) {
-      res.status(404).json({ message: "missing information" });
+      res.status(412).json({ message: "missing information" });
     } else {
       const newGroup = await Group.create({
         name: name.toLowerCase(),
-        location,
-        schedule,
-        description,
-        image,
-        inscription_cost,
-        contact,
-        whatsapp,
-        accept_newPlayers,
         genre,
+        image,
+        contact,
+        category,
+        schedule,
+        location,
+        whatsapp,
+        description,
+        inscription_cost,
+        accept_newPlayers,
       });
       const validateAdmin = await newGroup.addAdmin(adminId);
       validateAdmin && res.status(200).send("group created susscessful");
@@ -104,11 +106,20 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { name, location, description, date, repetitive, state, start, end } =
-    req.body;
+  const {
+    name,
+    location,
+    description,
+    date,
+    repetitive,
+    state,
+    start,
+    end,
+    admin,
+  } = req.body;
   try {
-    if (!(name && state && start && end)) {
-      res.status(400).json({ error: "missing info" });
+    if (!(name && start && end && location && date && admin)) {
+      res.status(400).json({ error: "information is missing" });
     } else {
       const newEvent = await Event.create({
         name,
@@ -120,9 +131,8 @@ const createEvent = async (req, res) => {
         start,
         end,
       });
-      newEvent
-        ? res.json({ message: "successful process" })
-        : res.json({ message: "event not created" });
+      const addAdmin = await newEvent.addAdmin(admin);
+      addAdmin && res.status(200).send("the event has been created");
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
@@ -150,7 +160,7 @@ const postOrders = async (req, res) => {
       !payment_term ||
       !product
     ) {
-      res.status(404).json({ message: "missing information" });
+      res.status(412).json({ message: "information is missing" });
     } else {
       const newOrder = await Order.create({
         value,

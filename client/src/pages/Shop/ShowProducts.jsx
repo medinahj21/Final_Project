@@ -15,10 +15,13 @@ export default function ShowProducts({ dataFiltered }) {
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
-  const recipePerPeage = 3;
-  const lastRecipeIndex = currentPage * recipePerPeage;
-  const fisrtRecipeIndex = lastRecipeIndex - recipePerPeage;
-  const currentRecipe = dataFiltered.slice(fisrtRecipeIndex, lastRecipeIndex);
+  const productPerPage = 3;
+  const lastProductIndex = currentPage * productPerPage;
+  const firstProductIndex = lastProductIndex - productPerPage;
+  const currentProduct = dataFiltered.slice(
+    firstProductIndex,
+    lastProductIndex
+  );
 
   useEffect(() => {
     if (prevPage !== currentPage) {
@@ -32,14 +35,14 @@ export default function ShowProducts({ dataFiltered }) {
   };
 
   return (
-    <div className="showproduct__container">
+    <div>
       <Paginated
-        recipesPerPage={recipePerPeage}
-        allRecipes={dataFiltered}
+        productPerPage={productPerPage}
+        allProducts={dataFiltered}
         paginatedHandler={paginatedHandler}
       />
       <div className="card__container">
-        {currentRecipe?.map((p) => {
+        {currentProduct?.map((p) => {
           return (
             <ProductCard
               key={p.id}

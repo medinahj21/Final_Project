@@ -12,7 +12,8 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": false,
-        "genre": "Male"
+        "genre": "Male",
+        "category": ""
     },
     {
         "Marca temporal": "10\/13\/2022 13:59:50",
@@ -27,7 +28,8 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Female"
+        "genre": "Female",
+        "category": ""
     },
     {
         "Marca temporal": "10\/13\/2022 14:02:16",
@@ -42,7 +44,8 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Mix"
+        "genre": "Mix",
+        "category": ""
     },
     {
         "Marca temporal": "10\/13\/2022 14:04:14",
@@ -57,7 +60,8 @@
         "contact": "info@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": false,
-        "genre": "Male"
+        "genre": "Male",
+        "category": ""
     },
     {
         "Marca temporal": "10\/13\/2022 14:06:56",
@@ -72,6 +76,7 @@
         "contact": "info@wolves.com",
         "whatsapp": "http:www.link.com",
         "accept_newPlayers": true,
-        "genre": "Male"
+        "genre": "Male",
+        "category": ""
     }
 ]
