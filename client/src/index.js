@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import dotenv from "dotenv";
+//import dotenv from "dotenv";
 import "./index.css";
 
 
 import axios from "axios";
 //const dotenv = require('dotenv-webpack');
-dotenv.config();
+//dotenv.config();
 
 console.log(process.env);
 
