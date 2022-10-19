@@ -30,7 +30,7 @@ const chargeDummyData = async () => {
 
   const bulkPlayers = playersData.map((obj) => {
     return {
-      personal_info: {
+      personalInfo: {
         name: obj["Nombre completo"],
         birthDate: obj["Fecha nacimiento"],
         cel: obj["Celular (personal)"],
@@ -46,9 +46,9 @@ const chargeDummyData = async () => {
         years: obj.Edad,
         uid: Math.floor(Math.random() * 5000) + obj["Número documento"],
       },
-      debt_value: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
-      payment_date: obj["Marca temporal"],
-      shirt_number: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
+      debtValue: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
+      paymentDate: obj["Marca temporal"],
+      shirtNumber: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
 
@@ -62,18 +62,18 @@ const chargeDummyData = async () => {
 
   //console.log(bulkProducts);
 
-  // try {
-  //   await Event.bulkCreate(eventsData);
-  //   await FilterTags.bulkCreate(filtersData);
-  //   //await Product.bulkCreate(bulkProducts);
-  //   await Group.bulkCreate(bulkGroup);
-  //   //await Player.bulkCreate(bulkPlayers);
-  //   //await Order.bulkCreate(ordersData);
-  //   await Admin.bulkCreate(bulkAdmin);
+  try {
+    // await Event.bulkCreate(eventsData);
+    // await FilterTags.bulkCreate(filtersData);
+    //await Product.bulkCreate(bulkProducts);
+    // await Group.bulkCreate(bulkGroup);
+    await Player.bulkCreate(bulkPlayers);
+    //await Order.bulkCreate(ordersData);
+    // await Admin.bulkCreate(bulkAdmin);
 
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
+  } catch (error) {
+    console.log(error.message);
+  }
   //   try {
   //     productsData.forEach(async(p)=>{
   //       const createdProduct = await Product.create(p);
