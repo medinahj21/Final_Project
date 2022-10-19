@@ -210,7 +210,7 @@ const getPlayers = async (req, res) => {
       } else res.status(406).json({ mesagge: "invalid id" });
     } else {
       const players = await Player.findAll();
-      players.length
+      players.length<0
         ? res.status(200).send(players)
         : res.status(404).json({ message: "players not found" });
     }
