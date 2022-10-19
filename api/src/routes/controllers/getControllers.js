@@ -286,19 +286,21 @@ const getRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
     if (rgExp.test(id)) {
-      const role = await RoleRequest.findByPk(id,{
-        include:{
-          model:Player
-        }
+      const role = await RoleRequest.findByPk(id, {
+        include: [
+          { model: Player },
+          { model: Group }
+        ]
       });
       !role ? res.status(400).json({ message: "roleRequestis empty" }) : res.send(role);
     } else {
       const role = await RoleRequest.findAll({
-        include:{
-          model:Player
-        }
-      }) 
-      !role? res.status(400).json({ message: "bad request" }): res.send(role);
+        include: [
+          { model: Player },
+          { model: Group }
+        ]
+      })
+      !role ? res.status(400).json({ message: "bad request" }) : res.send(role);
     }
   } catch (error) { console.log(error) }
 }
