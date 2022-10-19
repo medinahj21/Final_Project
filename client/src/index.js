@@ -12,7 +12,7 @@ import axios from "axios";
 
 console.log(process.env);
 
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = "https://club-app-deploy.herokuapp.com/" || "http://localhost:3001";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
