@@ -1,4 +1,4 @@
-const { Player, Event, Group, Product } = require("../../db");
+const { Player, Event, Group, Product, RoleRequest } = require("../../db");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
@@ -83,9 +83,32 @@ const deletePlayers = async (req, res) =>{
     res.status(400).json({ error_DB: error.message });
   }
 }
+
+
+const deleteRoleRequest = async (req,res) =>{
+  const { id } = req.params;
+  try {
+    if (!id) {
+      res.status(411).json({ error: " missing information" });
+    } else {
+      if (rgExp.test(id)) {
+        await RoleRequest.destroy({ where: { id }});
+        res.json({ message: "rolerequest has been deleted successfully" });
+      } else {
+        res.status(400).json({ message: "Bad request" });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error_DB: error.message });
+  }
+}
+
+
+
 module.exports = {
   asyncDeleteProduct,
   deleteGroups,
   deleteEvent,
-  deletePlayers
+  deletePlayers,
+  deleteRoleRequest
 };
