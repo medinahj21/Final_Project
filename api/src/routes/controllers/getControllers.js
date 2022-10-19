@@ -282,6 +282,7 @@ const getAdmins = async (req, res) => {
 };
 
 
+
 const getRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
@@ -304,7 +305,6 @@ const getRoleRequest = async (req, res) => {
 }
 
 
-
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -316,5 +316,6 @@ module.exports = {
   getPlayers,
   getAdmins,
   getRoleRequest
+
 };
 

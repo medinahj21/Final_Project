@@ -77,6 +77,7 @@ const {
 Order.belongsTo(Player);                                 /**ready*/
 Player.hasMany(Order);
 
+
 Player.belongsTo(Group);                                     /**ready*/
 Group.hasMany(Player);
 

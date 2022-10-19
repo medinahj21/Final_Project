@@ -52,7 +52,9 @@ const putGroups = async (req, res) => {
   console.log("==>", id);
   try {
     if (!rgExp.test(id)) {
+
       res.status(401).json({ message: "id is require or id is to short, please try again" });
+
     } else {
       const group = await Group.findByPk(id);
       if (group !== null) {
