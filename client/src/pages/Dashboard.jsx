@@ -75,6 +75,7 @@ function Admin() {
         {clickChoice.isSocios && (
           <div className="cards__container">
             <UserDB />
+          
             {/* {allUserFirestore ? (
               allUserFirestore.map((user) => {
                 return !user.isAdmin ? (
