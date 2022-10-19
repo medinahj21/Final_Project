@@ -54,18 +54,18 @@ const chargeDummyData = async () => {
 
   //console.log(bulkProducts);
 
-  try {
-    await Event.bulkCreate(eventsData);
-    await FilterTags.bulkCreate(filtersData);
-    //await Product.bulkCreate(bulkProducts);
-    await Group.bulkCreate(bulkGroup);
-    //await Player.bulkCreate(bulkPlayers);
-    //await Order.bulkCreate(ordersData);
-    await Admin.bulkCreate(bulkAdmin);
+  // try {
+  //   await Event.bulkCreate(eventsData);
+  //   await FilterTags.bulkCreate(filtersData);
+  //   //await Product.bulkCreate(bulkProducts);
+  //   await Group.bulkCreate(bulkGroup);
+  //   //await Player.bulkCreate(bulkPlayers);
+  //   //await Order.bulkCreate(ordersData);
+  //   await Admin.bulkCreate(bulkAdmin);
     
-  } catch (error) {
-    console.log(error.message);
-  }
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
   try {
     productsData.forEach(async(p)=>{
       const createdProduct = await Product.create(p);
@@ -77,7 +77,7 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
