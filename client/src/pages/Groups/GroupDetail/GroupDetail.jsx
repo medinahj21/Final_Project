@@ -11,7 +11,7 @@ export default function GroupDetail() {
 
     const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
 
-    const [dataToUpdate, setdataToUpdate] = useState(null)
+    const [update, setUpdate] = useState(false)
 
     useEffect(() => {
         dispatch(actions.getGroupDetail(id))
@@ -25,6 +25,7 @@ export default function GroupDetail() {
         <UpdateGroup 
             id={id} 
             groupDetail={groupDetail} 
-            dataToUpdate={dataToUpdate}/>
+            update={update}
+            setUpdate={setUpdate}/>
     )
 }

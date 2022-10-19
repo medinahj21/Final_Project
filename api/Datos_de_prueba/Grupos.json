@@ -13,7 +13,7 @@
         "whatsapp": "link.com",
         "accept_newPlayers": false,
         "genre": "Male",
-        "category": ""
+        "category": "Adultos"
     },
     {
         "Marca temporal": "10\/13\/2022 13:59:50",
@@ -29,7 +29,7 @@
         "whatsapp": "link.com",
         "accept_newPlayers": true,
         "genre": "Female",
-        "category": ""
+        "category": "Juvenil"
     },
     {
         "Marca temporal": "10\/13\/2022 14:02:16",
@@ -45,7 +45,7 @@
         "whatsapp": "link.com",
         "accept_newPlayers": true,
         "genre": "Mix",
-        "category": ""
+        "category": "Juvenil"
     },
     {
         "Marca temporal": "10\/13\/2022 14:04:14",
@@ -61,7 +61,7 @@
         "whatsapp": "link.com",
         "accept_newPlayers": false,
         "genre": "Male",
-        "category": ""
+        "category": "Adultos"
     },
     {
         "Marca temporal": "10\/13\/2022 14:06:56",
@@ -77,6 +77,6 @@
         "whatsapp": "http:www.link.com",
         "accept_newPlayers": true,
         "genre": "Male",
-        "category": ""
+        "category": "Todos"
     }
 ]

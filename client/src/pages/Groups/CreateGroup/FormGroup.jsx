@@ -67,7 +67,7 @@ export default function FormGroup() {
             </label>
             <label htmlFor="name">
                 Nombre:{" "}
-                <input type="text" name="name" onChange={handleChange} />
+                <input type="text" name="name" onChange={handleChange}/>
             </label>
             <label htmlFor="location">
                 Locación:{" "}

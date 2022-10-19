@@ -11,25 +11,30 @@ export default function Groups() {
     const groups = useSelector((state) => state.groupReducer.groups);
 
     const [allGroups, setAllGroups] = useState([]);
-
+    const [category, setCategory] = useState(groups.map((e) => e.category))
     useEffect(() => {
         dispatch(actions.getGroups())
     }, [dispatch]);
-
+    
     useEffect(() => {
         setAllGroups(groups)
+        setCategory([... new Set(category)])
     }, [groups])
+    
 
     const filterByGenre = (e) => {
         let value = e.target.value;
-        console.log(value);
-        value === 'all' ? setAllGroups(groups) :
-            setAllGroups([...groups].filter(e => e.genre === value))
+        value === 'all' ? setAllGroups(groups) : setAllGroups([...allGroups].filter(e => e.genre === value));
+    }
+
+    const filterByCategory = (e) => {
+        let value = e.target.value;
+        setAllGroups(allGroups.length ? [...allGroups].filter(e => e.category === value): groups.filter(e => e.category === value))
     }
 
     return (
         <div className={s.bodyForm}>
-            
+
 
             <FormGroup />
             <div className={s.container}>
@@ -46,12 +51,11 @@ export default function Groups() {
                     </div>
                     <div className={s.items}>
                         <span className={s.subtitles}>Categorías: </span>
-                        <select name="filterByGenre" id="">
-                            <option key={0} value={'Mix'}>Todos</option>
-                            <option key={1} value={'all'}>Sub 12</option>
-                            <option key={2} value={'Male'}>Sub 14</option>
-                            <option key={3} value={'Female'}>Sub 16</option>
-                            <option key={4} value={'Mix'}>Sub 18</option>
+                        <select name="filterByGenre" id="" onChange={(e) => filterByCategory(e)}>
+                            {category.map((e, i) => {
+                                return <option key={i}>{e}</option>
+                            })}
+                            
                         </select>
                     </div>
                 </div>

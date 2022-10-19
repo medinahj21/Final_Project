@@ -43,7 +43,7 @@ export const createGroup = (datos) => {
 
 export const updateGroup = (id, datos) => {
     return async (dispatch) => {
-        return axios.post(`${URL}/update/${id}`, datos)
+        return axios.put(`${URL}/update/${id}`, datos)
             .then(res => res.data)
             .then(data => {
                 console.log(data);
