@@ -5,6 +5,7 @@ const { postPlayers } = require("../controllers/postControllers");
 const { updatePlayers } = require("../controllers/putControllers");
 const { deletePlayers } = require("../controllers/deleteControllers");
 
+
 router
   .get("/", getPlayers)
   .get("/:id", getPlayers)
