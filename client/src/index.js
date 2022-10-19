@@ -7,8 +7,8 @@ import "./index.css";
 
 
 import axios from "axios";
-const dotenv = require('dotenv-webpack');
-dotenv.config();
+//const dotenv = require('dotenv-webpack');
+//dotenv.config();
 
 console.log(process.env);
 
