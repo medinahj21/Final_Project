@@ -197,6 +197,39 @@ const getOrder = async (req, res) => {
   }
 };
 
+const getPlayers = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!id) {
+      const allPlayers = await Player.findAll({
+        include: {
+          model: Order,
+          attributes: ["id"],
+          through: { attributes: [] },
+        },
+      });
+      console.log(">>>>", allPlayers);
+
+      allPlayers
+        ? res.status(200).send(allPlayers)
+        : res.json({ mesagge: "there is not Player" });
+    } else {
+      const player = await Player.findByPk(id, {
+        include: {
+          model: Order,
+          attributes: ["id"],
+          through: { attributes: [] },
+        },
+      });
+
+      !player
+        ? res.status(404).json({ error: "Player not found" })
+        : res.send(player).status(200);
+    }
+  } catch (error) {
+    res.json({ error_DB: error.message });
+  }
+};
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -205,4 +238,5 @@ module.exports = {
   getEvent,
   getOrder,
   getFilterTags,
+  getPlayers,
 };

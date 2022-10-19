@@ -51,7 +51,7 @@ const asyncUpdateProduct = async (req, res) => {
 const putGroups = async (req, res) => {
   const { id } = req.params;
   try {
-    if (rgExp.test(id)) {
+    if (!rgExp.test(id)) {
       res
         .status(401)
         .json({ message: "id is require or id is to short, please try again" });
