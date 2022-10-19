@@ -11,6 +11,7 @@ import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
+import Request from "../components/Dashboard/Request";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -41,6 +42,7 @@ function Admin() {
     isGrupos: false,
     isGrupo: false,
     isCalendario: false,
+    isRequest: false,
   });
 
   const { allUserFirestore, userInfoFirestore } = useSelector(
@@ -69,6 +71,11 @@ function Admin() {
           <>
             <InfoCard userInfoFirestore={userInfoFirestore} />
             <DebtCard />
+          </>
+        )}
+        {clickChoice.isRequest && (
+          <>
+           <Request />
           </>
         )}
         {clickChoice.isSocios && (
