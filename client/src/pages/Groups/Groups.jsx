@@ -24,12 +24,12 @@ export default function Groups() {
 
     const filterByGenre = (e) => {
         let value = e.target.value;
-        value === 'all' ? setAllGroups(groups) : setAllGroups([...allGroups].filter(e => e.genre === value));
+        value === 'all' ? setAllGroups(groups) : setAllGroups([...groups].filter(e => e.genre === value));
     }
 
     const filterByCategory = (e) => {
         let value = e.target.value;
-        setAllGroups(allGroups.length ? [...allGroups].filter(e => e.category === value): groups.filter(e => e.category === value))
+        setAllGroups(allGroups.length ? [...groups].filter(e => e.category === value): groups.filter(e => e.category === value))
     }
 
     return (
