@@ -51,7 +51,7 @@ const chargeDummyData = async () => {
       shirt_number: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
-  
+
 
   const bulkAdmin = adminsData.map((obj) => {
     return {
