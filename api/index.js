@@ -67,7 +67,7 @@ const chargeDummyData = async () => {
     // await FilterTags.bulkCreate(filtersData);
     //await Product.bulkCreate(bulkProducts);
     // await Group.bulkCreate(bulkGroup);
-    await Player.bulkCreate(bulkPlayers);
+    // await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
     // await Admin.bulkCreate(bulkAdmin);
 
@@ -85,7 +85,7 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);

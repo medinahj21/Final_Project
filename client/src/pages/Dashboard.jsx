@@ -11,6 +11,7 @@ import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
+import UserDB from "../components/Dashboard/UserDB";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -73,7 +74,8 @@ function Admin() {
         )}
         {clickChoice.isSocios && (
           <div className="cards__container">
-            {allUserFirestore ? (
+            <UserDB />
+            {/* {allUserFirestore ? (
               allUserFirestore.map((user) => {
                 return !user.isAdmin ? (
                   <InfoCard
@@ -87,7 +89,7 @@ function Admin() {
               })
             ) : (
               <></>
-            )}
+            )} */}
           </div>
         )}
       </div>

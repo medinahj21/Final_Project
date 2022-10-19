@@ -10,7 +10,8 @@ export const createPlayer = (personalInfo) => {
 
 export const getPlayersFromDB = () => {
   return async(dispatch)=>{
-    let players = await axios.get(`${axios.defaults.baseURL}/players`).data;
-    dispatch({type: GET_PLAYERS_FROM_DB, payload: players})
+    let players = await axios.get(`${axios.defaults.baseURL}/players`); 
+    console.log(players)
+    dispatch({type: GET_PLAYERS_FROM_DB, payload: players.data})
   }
 }
