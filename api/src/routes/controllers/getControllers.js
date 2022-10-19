@@ -209,10 +209,10 @@ const getPlayers = async (req, res) => {
           : res.status(404).json({ message: "player not found" });
       } else res.status(406).json({ mesagge: "invalid id" });
     } else {
-      const players = await Order.findAll();
+      const players = await Player.findAll();
       players.length
         ? res.status(200).send(players)
-        : res.status(404).json({ message: "player not found" });
+        : res.status(404).json({ message: "players not found" });
     }
   } catch (error) {
     res.json(`new error:${error}`);
