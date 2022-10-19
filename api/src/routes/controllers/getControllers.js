@@ -278,6 +278,7 @@ const getAdmins = async (req, res) => {
   }
 };
 
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -287,5 +288,7 @@ module.exports = {
   getOrder,
   getFilterTags,
   getPlayers,
+
   getAdmins
+
 };
