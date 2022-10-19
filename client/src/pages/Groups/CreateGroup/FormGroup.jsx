@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch} from 'react-redux'
-import s from '../CreateGroup/FormGroup.module.css'
-import * as actions from '../../redux/actions/actionsGroup'
+import s from './FormGroup.module.css'
+import * as actions from '../../../redux/actions/actionsGroup'
 
 export default function FormGroup() {
     const dispatch = useDispatch();
@@ -19,9 +19,7 @@ export default function FormGroup() {
         genre: "",
         adminId: [],
     })
-
     const [image, setImage] = useState(null)
-
     const handleChange = (e) => {
         setGroupInputs((prevState) => {
             return {
@@ -47,7 +45,6 @@ export default function FormGroup() {
                 console.log(err);
             }
         })
-
         widger_cloudinary.open()
     }
 
@@ -65,7 +62,7 @@ export default function FormGroup() {
                 <div className={s.image} >
                     <img src={image} alt="Imagen del grupo" name='image' onChange={handleChange}></img>
                 </div>
-                {/* <input type="text" name="image" onChange={handleChange} /> */}
+                
                 <div onClick={(e) => handleOnClick(e)}>Subir</div>
             </label>
             <label htmlFor="name">
@@ -82,7 +79,7 @@ export default function FormGroup() {
             </label>
             <label htmlFor="description">
                 Descripción:{" "}
-                <input type="text" name="description" onChange={handleChange} />
+                <textarea  name="description" onChange={handleChange} />
             </label>
             <label htmlFor="inscription_cost">
                 Costo de inscripción:{" "}

@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
             },
             len:{
               args: [4,100],
-              msg:"image should be between 4 and 30"
+              msg:"image should be between 4 and 100"
             } 
          }
         },

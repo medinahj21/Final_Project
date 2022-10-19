@@ -11,7 +11,7 @@ import Shop from "../pages/Shop/Shop";
 import ProtectedRoute from "./ProtectedRoutes";
 import ProductDetail from "../pages/Shop/ProductDetail";
 import Groups from "../pages/Groups/Groups";
-import GroupDetail from "../components/GroupDetail/GroupDetail";
+import GroupDetail from "../pages/Groups/GroupDetail/GroupDetail";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);

@@ -1,4 +1,4 @@
-import { GET_GROUPS, GET_GROUP_DETAIL, DELETE_GROUP, CREATE_GROUP, } from "./actions.js";
+import { GET_GROUPS, GET_GROUP_DETAIL, CLEAN_GROUP_DETAIL} from "./actions.js";
 
 import axios from 'axios'
 
@@ -60,4 +60,12 @@ export const deleteGroup = (id, datos) => {
             })
     }
 }
+
+export const cleanGroupDetail = () => {
+    return async (dispatch) => {
+      dispatch({
+        type: CLEAN_GROUP_DETAIL,
+      });
+    };
+  };
 

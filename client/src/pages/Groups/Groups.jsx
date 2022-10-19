@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardGroup from '../../components/CardGroup/CardGroup'
-import FormGroup from '../../components/CreateGroup/FormGroup'
+import FormGroup from '../../pages/Groups/CreateGroup/FormGroup'
 import s from '../Groups/Groups.module.css'
 import * as actions from '../../redux/actions/actionsGroup';
 
@@ -18,7 +18,7 @@ export default function Groups() {
 
     useEffect(() => {
         setAllGroups(groups)
-    }, { groups })
+    }, [groups])
 
     const filterByGenre = (e) => {
         let value = e.target.value;
@@ -29,8 +29,7 @@ export default function Groups() {
 
     return (
         <div className={s.bodyForm}>
-            <div className={s.filters}>
-            </div>
+            
 
             <FormGroup />
             <div className={s.container}>
@@ -43,6 +42,16 @@ export default function Groups() {
                             <option key={1} value={'Male'}>Male</option>
                             <option key={2} value={'Female'}>Female</option>
                             <option key={3} value={'Mix'}>Mix</option>
+                        </select>
+                    </div>
+                    <div className={s.items}>
+                        <span className={s.subtitles}>Categorías: </span>
+                        <select name="filterByGenre" id="">
+                            <option key={0} value={'Mix'}>Todos</option>
+                            <option key={1} value={'all'}>Sub 12</option>
+                            <option key={2} value={'Male'}>Sub 14</option>
+                            <option key={3} value={'Female'}>Sub 16</option>
+                            <option key={4} value={'Mix'}>Sub 18</option>
                         </select>
                     </div>
                 </div>
