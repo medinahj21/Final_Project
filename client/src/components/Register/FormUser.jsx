@@ -54,19 +54,25 @@ function FormUser() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(
-      createPlayer(
-        { personalInfo: { ...userInput, uid: user.uid, email: user.email } },
-        // { id: user.uid }
-      )
-    );
+    
+      let response = await dispatch(
+        createPlayer(
+          { personalInfo: { ...userInput, uid: user.uid, email: user.email } }
 
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-
-    navigate("/");
+        )
+      );
+      console.log(response) 
+      if (!response.error){
+        setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+        navigate("/");
+      }
+      else{
+        alert(response.error)
+      }
+      
   };
 
   if (!user || user === "") navigate("/");
@@ -213,6 +219,8 @@ function FormUser() {
           />
         </label>
         <button>Enviar</button>
+        
+        <p>{/* JSON.stringify({ personalInfo: { ...userInput, uid: user?.uid, email: user?.email } }) */}</p>
       </form>
     </div>
   );
