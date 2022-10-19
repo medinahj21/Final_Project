@@ -77,8 +77,10 @@ const {
 Player.belongsTo(Group, { foreignKey: "groupId" });
 Group.hasMany(Player);
 
-Player.hasMany(Order);
-Order.belongsTo(Player, { foreignKey: "playerId" });
+
+
+Player.hasMany(Order, { foreignKey: "order_id" });
+Order.belongsTo(Player);
 
 Player.hasMany(ProductRequest);
 ProductRequest.belongsTo(Player, { foreignKey: "playerId" });

@@ -197,6 +197,88 @@ const getOrder = async (req, res) => {
   }
 };
 
+const getPlayers = async (req, res) => {
+  const { name } = req.query;
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const player = await Player.findByPk(id
+      //   , {
+      //   include: [
+      //     { model: Order, attributes: ["id"], through: { attributes: [] } },
+      //     { model: Group, attributes: ["id"], through: { attributes: [] } },
+      //   ],
+      // }
+      );
+      !player
+        ? res.status(400).json({ message: " player is empty" })
+        : res.send(player);
+    } else if (name) {
+      const player = await Player.findAll({
+        where: {
+          "personalInfo.name":name
+        }
+        // ,
+        // include: [
+        //   { model: Order, attributes: ["id"], through: { attributes: [] } },
+        //   { model: Group, attributes: ["id"], through: { attributes: [] } },
+        // ],
+      });
+      !player
+        ? res.status(400).json({ message: "player is empty" })
+        : res.send(player);
+    } else {
+      const allPlayers = await Player.findAll();
+      !allPlayers
+        ? res.status(400).json({ message: " empty" })
+        : res.send(allPlayers);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getAdmins = async (req, res) => {
+  const { name } = req.query;
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const admin = await Admin.findByPk(id
+      //   , {
+      //   include: [
+      //     { model: Order, attributes: ["id"], through: { attributes: [] } },
+      //     { model: Group, attributes: ["id"], through: { attributes: [] } },
+      //   ],
+      // }
+      );
+      !admin
+        ? res.status(400).json({ message: " admin is empty" })
+        : res.send(admin);
+    } else if (name) {
+      const admin = await Admin.findAll({
+        where: {
+          "personalInfo.name":name
+        }
+        // ,
+        // include: [
+        //   { model: Order, attributes: ["id"], through: { attributes: [] } },
+        //   { model: Group, attributes: ["id"], through: { attributes: [] } },
+        // ],
+      });
+      !admin
+        ? res.status(400).json({ message: "admin is empty" })
+        : res.send(admin);
+    } else {
+      const admins = await Admin.findAll();
+      !admins
+        ? res.status(400).json({ message: " empty" })
+        : res.send(admins);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -205,4 +287,8 @@ module.exports = {
   getEvent,
   getOrder,
   getFilterTags,
+  getPlayers,
+
+  getAdmins
+
 };
