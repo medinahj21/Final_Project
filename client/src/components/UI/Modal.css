@@ -1,12 +1,25 @@
-.container__modal {
+.overlay {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 40px;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.775);
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    background-color: rgba(0, 0, 0, .5);
+    color: black;
 }
+
+
+.container__modal {
+    min-width: 250px;
+    min-height: 100px;
+    background-color: #fff;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px;
+}
+

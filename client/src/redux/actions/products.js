@@ -62,7 +62,7 @@ export const getProductDetail = (id) => {
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
-      console.log("RUTA:", axios.defaults.baseURL);
+     
       let response = await axios.post(
         `${axios.defaults.baseURL}/products/create`,
         payload

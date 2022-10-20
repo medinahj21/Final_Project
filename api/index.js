@@ -12,11 +12,11 @@ const {
   FilterTags,
 } = require("./src/db");
 
-// const eventsData = require("./Datos_de_prueba/Eventos.json");
+const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
 const playersData = require("./Datos_de_prueba/datosJugadores.json");
-// const ordersData = require("./Datos_de_prueba/Ordenes.json");
+const ordersData = require("./Datos_de_prueba/Ordenes.json");
 const adminsData = require("./Datos_de_prueba/Admins.json");
 const filtersData = require("./Datos_de_prueba/Filtros.json");
 
@@ -65,7 +65,7 @@ const chargeDummyData = async () => {
     // await Event.bulkCreate(eventsData);
     await FilterTags.bulkCreate(filtersData);
     await Group.bulkCreate(bulkGroup);
-    //await Player.bulkCreate(bulkPlayers);
+    // await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
     // await Admin.bulkCreate(bulkAdmin);
   } catch (error) {
@@ -82,7 +82,7 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: true, alter: false }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
