@@ -11,6 +11,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import ProductDetail from "../pages/Shop/ProductDetail";
 import Groups from "../pages/Groups/Groups";
 import GroupDetail from "../pages/Groups/GroupDetail/GroupDetail";
+import Calendario from "../pages/Calendario/Calendario";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
@@ -26,6 +27,8 @@ function MainRoutes() {
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/groups" element={<Groups/>}/>
       <Route path="/group/detail/:id" element={<GroupDetail/>}/>
+      <Route path="/calendario" element={<Calendario/>}/>
+      
       <Route
         path="dashboard-player"
         element={

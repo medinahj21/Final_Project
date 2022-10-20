@@ -59,7 +59,7 @@ export default function FormGroup() {
 
     return (
         <form className={s.form} onSubmit={handleSubmit}>
-            <UploadImage image={image} setImage={setImage}/>
+            <UploadImage image={image} setImage={setImage} />
             <label htmlFor="name">
                 Nombre:{" "}
                 <input type="text" name="name" onChange={handleChange} />
@@ -91,9 +91,18 @@ export default function FormGroup() {
             <label htmlFor="accept_newPlayers">
                 Acepta nuevos: {" "}
                 <select name="accept_newPlayers" id="" onChange={handleChange}>
-                    <option value="">Escoga una opción</option>
+                    <option selected disabled='true'>Escoga una opción</option>
                     <option value="true">True</option>
                     <option value="false">False</option>
+                </select>
+            </label>
+            <label htmlFor="category">
+                Categoria: {" "}
+                <select name="category" onChange={handleChange}>
+                    <option selected disabled='true'>Escoge una opcion</option>
+                    <option value="Mixto">Mixto</option>
+                    <option value="Juvenil">Juvenil</option>
+                    <option value="Adultos">Adultos</option>
                 </select>
             </label>
             <label htmlFor="genre" >

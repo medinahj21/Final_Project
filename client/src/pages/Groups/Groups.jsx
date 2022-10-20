@@ -24,26 +24,39 @@ export default function Groups() {
 
     const filterByGenre = (e) => {
         let value = e.target.value;
-        value === 'all' ? setAllGroups(groups) : setAllGroups([...groups].filter(e => e.genre === value));
+        if (value === 'all'){
+            setAllGroups(groups);   
+        } else {
+            let filtered = [...allGroups].filter(e => e.genre === value);
+            console.log(filtered);
+            if (filtered.length === 0) {
+                filtered = [...groups].filter(e => e.genre === value)
+            }
+            setAllGroups(filtered)
+        }
     }
 
     const filterByCategory = (e) => {
         let value = e.target.value;
-        if (value === 'all') return setAllGroups([...groups])
-        if (!allGroups.length) return setAllGroups([...groups])
-        setAllGroups([...allGroups].filter((e) => e.category === value))
+        if (value === 'all'){
+            setAllGroups(groups);   
+        } else {
+            let filtered = [...allGroups].filter(e => e.category === value);
+            if (!filtered.length) {
+                filtered = [...groups].filter(e => e.category === value)
+            }
+            setAllGroups(filtered)
+        }
     }
 
     return (
         <div className={s.bodyForm}>
-
-
             <FormGroup />
             <div className={s.container}>
                 <div className={s.containerItems}>
                     <label className={s.subtitles}>Filtrar por: </label><br />
                     <div className={s.items}>
-                        <span className={s.subtitles}>Genre: </span>
+                        <span className={s.subtitles}>Generos: </span>
                         <select name="filterByGenre" id="" onChange={(e) => filterByGenre(e)}>
                             <option key={'all'} value={'all'}>All</option>
                             <option key={'Male'} value={'Male'}>Male</option>
@@ -54,7 +67,7 @@ export default function Groups() {
                     <div className={s.items}>
                         <span className={s.subtitles}>Categorías: </span>
                         <select name="filterByGenre" id="" onChange={(e) => filterByCategory(e)}>
-                            <option key={'todos'} value='all' >Todos</option>
+                            <option key={'todos'} value='all' >All</option>
                             <option key={'Mixto'} value='Mixto'>Mixto</option>
                             <option key={'Juvenil'} value='Juvenil'>Juvenil</option>
                             <option key={'Adultos'} value='Adultos'>Adultos</option>

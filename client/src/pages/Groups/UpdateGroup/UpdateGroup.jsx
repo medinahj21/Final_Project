@@ -55,7 +55,7 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
                             <span>Genero:</span>
                             {update ?
                                 <select name='genre' value={inputUpdate.genre} onChange={handleChange}>
-                                    <option value="">Escoge una opción</option>
+                                    <option value="" >Escoge una opción</option>
                                     <option value="Male">Masculino</option>
                                     <option value="Female">Femenino</option>
                                     <option value="Mix">Mixto</option>
@@ -69,15 +69,11 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
                             <input type="text" readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} name="schedule" value={inputUpdate.schedule} onChange={handleChange} />
                         </div>
                         <div className={s.subItems}>
-                            <span>Email: </span>
-                            <input type="email" name="email" id="" value={inputUpdate.contact} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} onChange={handleChange} />
-                        </div>
-                        <div className={s.subItems}>
                             <span>Costo inscripción: </span>
                             <input type="text" value={inputUpdate.inscription_cost} name="inscription_cost" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
                         </div>
                         <div className={s.subItems}>
-                            <span>Contacto: </span>
+                            <span>Email: </span>
                             <input type="text" value={inputUpdate.contact} name="contact" onChange={handleChange} readOnly={update ? false : 'readonly'} tabIndex={update ? "-1" : "0"} />
                         </div>
                         <div className={s.subItems}>
@@ -88,7 +84,7 @@ export default function UpdateGroup({ id, groupDetail, update, setUpdate }) {
                             <span>Acepta nuevos: </span>
                             {update ?
                                 <select name="accept_newPlayers" onChange={handleChange}>
-                                    <option value="" disabled='true'>Escoge una opción</option>
+                                    <option value="" selected disabled='true'>Escoge una opción</option>
                                     <option value="true">True</option>
                                     <option value="false">False</option>
                                 </select>
