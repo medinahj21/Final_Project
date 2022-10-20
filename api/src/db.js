@@ -111,6 +111,9 @@ FilterTags.belongsToMany(Product, { through: "product-filter" });
 Player.hasOne(RoleRequest);                                         /*ready**/
 RoleRequest.belongsTo(Player);         
 
+Group.hasOne(RoleRequest);                                         /*ready**/
+RoleRequest.belongsTo(Group);         
+
 
 
 

@@ -239,14 +239,15 @@ const postFilterTag = async (req, res) => {
 
 
 const postRoleRequest = async (req,res) =>{
-  const { new_role, playerId } = req.body;
+  const { new_role, playerId , groupId} = req.body;
   try {
     if(!new_role){
       res.status(500).json({ error_DB: error.message });
     }else{
       const newRoll = await RoleRequest.create({
         new_role,
-        playerId
+        playerId,
+        groupId
       })
       
       newRoll ? res.json({message:"procces successfully"})
