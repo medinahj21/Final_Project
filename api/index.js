@@ -13,7 +13,7 @@ const { PORT } = process.env;
 // } = require("./src/db");
 
 // const eventsData = require("./Datos_de_prueba/Eventos.json");
-// const productsData = require("./Datos_de_prueba/Productos.json");
+const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
 const playersData = require("./Datos_de_prueba/datosJugadores.json");
 // const ordersData = require("./Datos_de_prueba/Ordenes.json");
@@ -65,7 +65,6 @@ const chargeDummyData = async () => {
   try {
     // await Event.bulkCreate(eventsData);
     await FilterTags.bulkCreate(filtersData);
-    //await Product.bulkCreate(bulkProducts);
     // await Group.bulkCreate(bulkGroup);
     // await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);

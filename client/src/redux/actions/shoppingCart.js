@@ -3,8 +3,11 @@ import {
   INCREMENT_QUANT_PRODUCT,
   DECREMENT_QUANT_PRODUCT,
   REMOVE_PRODUCT,
+  UPDATE_PLAYER_SHOPPING_CART,
   CLEAR_CART,
 } from "./actions";
+
+import axios from "axios";
 
 export const addToCart = (product) => {
   return (dispatch) => {
@@ -39,6 +42,23 @@ export const removeProductFromCart = (id) => {
       type: REMOVE_PRODUCT,
       payload: id,
     });
+  };
+};
+
+export const updatePlayerCart = (id, payload) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.put(
+        `${axios.defaults.baseURL}/products/update/${id}`,
+        payload
+      );
+      return dispatch({
+        type: UPDATE_PLAYER_SHOPPING_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log({ error: error.message });
+    }
   };
 };
 

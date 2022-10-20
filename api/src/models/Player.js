@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       shoppingCart: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: true
       }
     },
