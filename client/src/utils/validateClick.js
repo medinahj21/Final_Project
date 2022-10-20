@@ -5,6 +5,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isGrupo: false,
       isCalendario: false,
+      isRequest: false,
     });
   }
   if (value === "socios") {
@@ -13,6 +14,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: true,
       isGrupo: false,
       isCalendario: false,
+      isRequest: false,
     });
   }
   if (value === "grupo") {
@@ -21,6 +23,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isGrupo: true,
       isCalendario: false,
+      isRequest: false,
     });
   }
   if (value === "calendario") {
@@ -37,6 +40,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isPagos: false,
       isGrupos: false,
+      isRequest: false,
     });
   }
 
@@ -46,6 +50,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isPagos: true,
       isGrupos: false,
+      isRequest: false,
     });
   }
 
@@ -55,6 +60,7 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isPagos: false,
       isGrupos: true,
+      isRequest: false,
     });
   }
 
@@ -64,7 +70,19 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isPagos: false,
       isGrupos: false,
-      isCalendario: true
+      isCalendario: true,
+      isRequest: false,
+    });
+  }
+
+  if (value === "request") {
+    setClickChoice({
+      isPerfil: false,
+      isSocios: false,
+      isPagos: false,
+      isGrupos: false,
+      isCalendario: false,
+      isRequest: true,
     });
   }
 };

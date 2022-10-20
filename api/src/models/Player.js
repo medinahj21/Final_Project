@@ -1,12 +1,11 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, STRING } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
     "player",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
       },
@@ -26,15 +25,6 @@ module.exports = (sequelize) => {
       debtValue: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        /* validate: {
-                notNull: {
-                    msg: "not null debt_value "
-                },
-                notEmpty: {
-                    arg: true,
-                    msg: "empty strings are not allowed"
-                } 
-            }*/
       },
       paymentDate: {
         type: DataTypes.DATE,
@@ -43,12 +33,10 @@ module.exports = (sequelize) => {
       shirtNumber: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        /* validate:{
-                min:{
-                    args:0,
-                    msg:"shirt_number must be greater than or equal to 0"
-                }
-            } */
+      },
+      shoppingCart: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true
       }
     },
     {
