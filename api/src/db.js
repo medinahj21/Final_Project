@@ -32,7 +32,7 @@ let sequelize =
       })
 
     : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`,
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`,
         { logging: false, native: false }
       );
 
