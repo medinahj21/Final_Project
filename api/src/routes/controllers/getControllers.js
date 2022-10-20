@@ -202,31 +202,6 @@ const getOrder = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-const getPlayers = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    if (id) {
-      if (rgExp.test(id)) {
-        const player = await Player.findByPk(id);
-        player
-          ? res.status(200).json(player)
-          : res.status(404).json({ message: "player not found" });
-      } else res.status(406).json({ mesagge: "invalid id" });
-    } else {
-      const players = await Player.findAll();
-      players.length
-        ? res.status(200).send(players)
-        : res.status(404).json({ message: "players not found" });
-    }
-  } catch (error) {
-    res.json(`new error:${error}`);
-    console.log(`new error:${error}`);
-  }
-};
-
-=======
 
 const getPlayers = async (req, res) => {
   const { name } = req.query;
@@ -331,7 +306,6 @@ const getRoleRequest = async (req, res) => {
 }
 
 
->>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -341,10 +315,7 @@ module.exports = {
   getOrder,
   getFilterTags,
   getPlayers,
-<<<<<<< HEAD
-=======
   getAdmins,
   getRoleRequest
->>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 };
 

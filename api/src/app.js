@@ -4,28 +4,18 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index");
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 require("./db.js");
 
 const server = express();
 const cors = require("cors");
 
 server.name = "API";
-<<<<<<< HEAD
 
 server.use(cors());
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 
-=======
-
-server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));
->>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {

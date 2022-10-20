@@ -11,7 +11,9 @@ import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
-import Request from "../components/Dashboard/Request";
+// import Request from "../components/Dashboard/Request";
+import UserDB from "../components/Dashboard/UserDB";
+import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -70,12 +72,13 @@ function Admin() {
         {clickChoice.isPerfil && (
           <>
             <InfoCard userInfoFirestore={userInfoFirestore} />
+            <UpdateCredentials />
             <DebtCard />
           </>
         )}
         {clickChoice.isRequest && (
           <>
-           <Request />
+            <UserDB />
           </>
         )}
         {clickChoice.isSocios && (
