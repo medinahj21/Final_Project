@@ -38,3 +38,32 @@
 .home__gruop .home__group-content img {
     width: 500px;
 }
+
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {
+    .home__container {
+        background: fixed url(../images/Fondo-app.jpg);
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home__container h1 {
+        font-size: var(--font-size-h1-md);
+    }
+
+}
+
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 600px) {
+    .home__container h1 {
+        font-size: var(--font-size-h1-sm);
+    }
+}

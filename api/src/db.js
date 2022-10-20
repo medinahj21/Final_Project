@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
@@ -36,10 +37,11 @@ let sequelize =
           ssl: true,
         },
       })
-    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`, {
-        logging: false,
-        native: false,
-      });
+
+    : new Sequelize(
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`,
+        { logging: false, native: false }
+      );
 
 const basename = path.basename(__filename);
 
