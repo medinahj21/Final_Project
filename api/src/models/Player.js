@@ -1,54 +1,46 @@
-const { DataTypes } = require('sequelize');
-
+const { DataTypes, STRING } = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define('player', {
-        id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,
+  sequelize.define(
+    "player",
+    {
+      id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+      },
+      personalInfo: {
+        type: DataTypes.JSON, //para el bulk
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "not null personal_info ",
+          },
+          notEmpty: {
+            arg: true,
+            msg: "empty strings are not allowed",
+          },
         },
-        personalInfo: {
-            type: DataTypes.JSON,
-            allowNull: false,
-            validate: {
-                notNull: {
-                    msg: "not null personal_info "
-                },
-                notEmpty: {
-                    arg: true,
-                    msg: "empty strings are not allowed"
-                }
-            }
-        },
-        debtValue: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            /* validate: {
-                notNull: {
-                    msg: "not null debt_value "
-                },
-                notEmpty: {
-                    arg: true,
-                    msg: "empty strings are not allowed"
-                } 
-            }*/
-        },
-        paymentDate: {
-            type: DataTypes.DATE,
-            allowNull: true,
-        },
-        shirtNumber: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            /* validate:{
-                min:{
-                    args:0,
-                    msg:"shirt_number must be greater than or equal to 0"
-                }
-            } */
-        }
-    }, {
-        timestamps: false
-    });
+      },
+      debtValue: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      paymentDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      shirtNumber: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      shoppingCart: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true
+      }
+    },
+    {
+      timestamps: false,
+    }
+  );
 };
