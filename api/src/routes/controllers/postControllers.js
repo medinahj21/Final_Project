@@ -97,10 +97,17 @@ const postGroups = async (req, res) => {
         inscription_cost,
         accept_newPlayers,
       });
-      const validateAdmin = await newGroup.addAdmin(adminId);
-      validateAdmin && res.status(200).send("group created susscessful");
+
+      if (adminId?.length){
+        const validateAdmin = await newGroup.addAdmin(adminId);
+        validateAdmin && res.status(200).send("group created susscessful");
+      }else{
+        res.status(200).json({newGroup})
+      }
+      
     }
   } catch (error) {
+    res.status(500).json({error_DB: error.message})
     console.log(error);
   }
 };

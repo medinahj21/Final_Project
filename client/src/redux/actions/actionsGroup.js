@@ -9,7 +9,7 @@ export const getGroups = () => {
         return axios.get(URL)
             .then(res => res.data)
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 dispatch({
                     type: GET_GROUPS,
                     payload: data,
@@ -32,12 +32,13 @@ export const getGroupDetail = (id) => {
 }
 
 export const createGroup = (datos) => {
-    return async (dispatch) => { 
-        return axios.post(`${URL}/create`, datos)
-            .then(res => res.data)
-            .then(data => {
-                console.log(data);
-            })
+    return async () => { 
+        try {
+            var response =  await axios.post(`${URL}/create`, datos);
+            return response.data            
+        } catch (error) {
+            return {error: error.response.data.message}
+        }
     }
 }
 
