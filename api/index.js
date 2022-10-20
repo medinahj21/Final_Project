@@ -12,12 +12,12 @@ const { PORT } = process.env;
    FilterTags,
  } = require("./src/db");
 
-// const eventsData = require("./Datos_de_prueba/Eventos.json");
+const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
-//const playersData = require("./Datos_de_prueba/datosJugadores.json");
-// const ordersData = require("./Datos_de_prueba/Ordenes.json");
-// const adminsData = require("./Datos_de_prueba/Admins.json");
+const playersData = require("./Datos_de_prueba/datosJugadores.json");
+const ordersData = require("./Datos_de_prueba/Ordenes.json");
+const adminsData = require("./Datos_de_prueba/Admins.json");
 const filtersData = require("./Datos_de_prueba/Filtros.json");
 
 const chargeDummyData = async () => {
