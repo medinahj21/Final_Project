@@ -8,6 +8,7 @@ export const RESET_REDUX_STATE = "RESET_REDUX_STATE";
 //------------------------------------------------------------------------------------------------------
 //GET_PLAYER_DETAIL
 export const CREATE_PLAYER = "CREATE_PLAYER";
+export const GET_PLAYERS_FROM_DB = "GET_PLAYERS_FROM_DB";
 
 //GET_USER_DETAIL
 

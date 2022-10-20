@@ -15,7 +15,9 @@ import {
 export const getProducts = () => {
   return async (dispatch) => {
     try {
-      let allProducts = await axios.get("http://localhost:3001/products");
+      
+      let allProducts = await axios.get(`${axios.defaults.baseURL}/products`);
+      console.log(allProducts)
       return dispatch({
         type: GET_PRODUCTS,
         payload: allProducts.data,
@@ -30,7 +32,7 @@ export const getProductsByName = (name) => {
   return async (dispatch) => {
     try {
       let productByName = await axios.get(
-        `http://localhost:3001/products?name=${name}`
+        `${axios.defaults.baseURL}/products?name=${name}`
       );
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
@@ -102,7 +104,7 @@ export const cleanProducts = () => {
 
 export const getFilterTags = () => {
   return async (dispatch) => {
-    const filterTags = await axios("http://localhost:3001/tags/");
+    const filterTags = await axios(`${axios.defaults.baseURL}/tags/`);
     dispatch({ type: GET_FILTER_TAGS, payload: filterTags.data });
   };
 };

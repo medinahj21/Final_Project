@@ -114,11 +114,9 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
       
       if (isCreate) {
         console.log("PRUEBA DISPATCH....");
-        let response = await dispatch(createProduct(newProduct));
-        
-        
+        let response = await dispatch(createProduct(newProduct));        
 
-        /* if (response.type) {
+        if (response.type) {
           setNewProduct({
             name: "",
             price: 0,
@@ -136,7 +134,7 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
           setCreationDiv(false);
 
           alert("producto creado");
-        } */
+        }
       } else {
         dispatch(updateProduct(id, newProduct));
         alert("Producto modificado");
