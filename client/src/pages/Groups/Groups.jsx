@@ -28,7 +28,6 @@ export default function Groups() {
             setAllGroups(groups);   
         } else {
             let filtered = [...allGroups].filter(e => e.genre === value);
-            console.log(filtered);
             if (filtered.length === 0) {
                 filtered = [...groups].filter(e => e.genre === value)
             }
@@ -75,7 +74,7 @@ export default function Groups() {
                     </div>
                 </div>
                 <div className={s.cardContainer}>
-                    {allGroups?.map((e, i) => {
+                    {allGroups.length ? allGroups?.map((e, i) => {
                         return <CardGroup key={i}
                             name={e.name}
                             schedule={e.schedule}
@@ -84,7 +83,9 @@ export default function Groups() {
                             img={e.image}
                             genre={e.genre}
                         />
-                    })}
+                    }):
+                    <span>No hay coincidencias</span>
+                    }
                 </div>
 
             </div>

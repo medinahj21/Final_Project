@@ -9,7 +9,6 @@ export const getGroups = () => {
         return axios.get(URL)
             .then(res => res.data)
             .then(data => {
-                console.log(data);
                 dispatch({
                     type: GET_GROUPS,
                     payload: data,

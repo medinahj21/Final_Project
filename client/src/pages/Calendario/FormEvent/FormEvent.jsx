@@ -35,7 +35,7 @@ export default function FormCalendario() {
         </div>
         <div className={s.item}>
           <label htmlFor="state">Estado:</label>
-          <select name="state" onChange={handleChange} value='s'>
+          <select name="state" onChange={handleChange}>
             <option value="s" selected={true} disabled={true} >Selecciona una opción</option>
             <option value="Pending">Pendiente</option>
             <option value="Canceled">Cancelado</option>
@@ -65,7 +65,7 @@ export default function FormCalendario() {
         {isRepetitive ?
           <div className={s.item}>
             <label htmlFor="dias">Días</label>
-            <select name="dias" onChange={handleChange} value='s'>
+            <select name="dias" onChange={handleChange}>
               <option selected value="s" disabled={true}>Selecciona una opción</option>
               <option value="lunes">Lunes</option>
               <option value="martes">Martes</option>
