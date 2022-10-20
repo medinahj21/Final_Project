@@ -5,43 +5,38 @@ import axios from "axios";
 const URL = "http://localhost:3001/groups";
 
 export const getGroups = () => {
-    return async (dispatch) => {
-        return axios.get(URL)
-            .then(res => res.data)
-            .then(data => {
-                //console.log(data);
-                dispatch({
-                    type: GET_GROUPS,
-                    payload: data,
-                })
-            })
-    }
-}
-
-export const getGroupDetail = (id) => {
   return async (dispatch) => {
     return axios
-      .get(`${URL}/${id}`)
+      .get(URL)
       .then((res) => res.data)
       .then((data) => {
+        //console.log(data);
         dispatch({
-          type: GET_GROUP_DETAIL,
+          type: GET_GROUPS,
           payload: data,
         });
       });
   };
 };
 
+export const getGroupDetail = (id) => {
+  console.log(id);
+  return async (dispatch) => {
+    const valueAxios = await axios.get(`${URL}/${id}`);
+    return   dispatch({ type: GET_GROUP_DETAIL, payload: valueAxios.data });
+  };
+};
+
 export const createGroup = (datos) => {
-    return async () => { 
-        try {
-            var response =  await axios.post(`${URL}/create`, datos);
-            return response.data            
-        } catch (error) {
-            return {error: error.response.data.message}
-        }
+  return async () => {
+    try {
+      var response = await axios.post(`${URL}/create`, datos);
+      return response.data;
+    } catch (error) {
+      return { error: error.response.data.message };
     }
-}
+  };
+};
 
 export const updateGroup = (id, datos) => {
   return async (dispatch) => {
