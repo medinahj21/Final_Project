@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard";
 import Shop from "../pages/Shop/Shop";
 import ProtectedRoute from "./ProtectedRoutes";
 import ProductDetail from "../pages/Shop/ProductDetail";
+import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
@@ -21,6 +22,8 @@ function MainRoutes() {
       <Route path="check-in" element={<Register />} />
       <Route path="form-user" element={<FormUser />} />
       <Route path="/products" element={<Shop />} />
+      {/*Prueba del Cart*/}
+      <Route path= "/cart" element={<ShoppingCart/>} />
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route
         path="dashboard-player"

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./ProductCard.css";
 
-function ProductCard({ id, name, price, image }) {
+function ProductCard({ id, name, price, image, handleAddToCart }) {
   return (
     <div className="card__content card__hover-effect">
       <Link to={`/products/${id}`}>
@@ -14,6 +14,7 @@ function ProductCard({ id, name, price, image }) {
       <Link to={`/detail/${id}`}>
         <button className="card__title card__title-recipe">Detail</button>
       </Link>
+      <button className="card__title card__title-recipe" onClick={()=> handleAddToCart(id)}>Agregar al carrito</button>
     </div>
     // <div>
     //   <div>

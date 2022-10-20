@@ -5,6 +5,7 @@ import "./ShowProducts.css";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Paginated from "./Paginated";
+import { addToCart, clearCart, incrementProductInCart } from "../../redux/actions/shoppingCart";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
@@ -12,6 +13,18 @@ export default function ShowProducts({ dataFiltered }) {
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
   });
+
+  const allProducts= useSelector((state)=> {
+    return state.productsReducer.allProducts;
+  })
+
+  const productsInCart= useSelector((state)=> state.shoppingCartReducer.cart);
+
+/*   const userCart= useSelector((state)=> {
+    return state.shoppingReducer.cart;
+  }) */
+
+
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
@@ -34,6 +47,22 @@ export default function ShowProducts({ dataFiltered }) {
     dispatch(setPageNumPrev(pageNum));
   };
 
+  const handleAddToCart= (id)=>{
+    let itemToAdd= allProducts.find(product=> product.id === id);
+    let productToAdd = productsInCart.find((prod) => prod.product.id === id); 
+    if (productToAdd){
+      dispatch(incrementProductInCart(id));
+    }else{
+      dispatch(addToCart(itemToAdd));
+    }
+    
+
+  }
+
+  const handleClearCart= ()=>{
+    dispatch(clearCart())
+  }
+
   return (
     <div>
       <Paginated
@@ -50,10 +79,12 @@ export default function ShowProducts({ dataFiltered }) {
               image={p.image}
               name={p.name}
               price={p.price}
+              handleAddToCart={handleAddToCart}
             />
           );
         })}
       </div>
+      <button onClick= {()=> handleClearCart()}>LIMPIAR CART</button>
     </div>
   );
 }
