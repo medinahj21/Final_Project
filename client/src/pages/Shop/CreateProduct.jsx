@@ -111,8 +111,9 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
       return;
     }
     try {
+      
       if (isCreate) {
-        let response = await dispatch(createProduct(newProduct));
+        let response = await dispatch(createProduct(newProduct));        
 
         if (response.type) {
           setNewProduct({

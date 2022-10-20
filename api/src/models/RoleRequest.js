@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true
         },
-        new_role: {
+        newRole: {
             type: DataTypes.STRING,
             allowNull: false,
         },

@@ -2,23 +2,23 @@ const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const { PORT } = process.env;
 
-const {
-  Event,
-  Product,
-  Group,
-  Player,
-  Order,
-  Admin,
-  FilterTags,
-} = require("./src/db");
+// const {
+//   Event,
+//   Product,
+//   Group,
+//   Player,
+//   Order,
+//   Admin,
+//   FilterTags,
+// } = require("./src/db");
 
-const eventsData = require("./Datos_de_prueba/Eventos.json");
-const productsData = require("./Datos_de_prueba/Productos.json");
+// const eventsData = require("./Datos_de_prueba/Eventos.json");
+// const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
 const playersData = require("./Datos_de_prueba/datosJugadores.json");
-const ordersData = require("./Datos_de_prueba/Ordenes.json");
+// const ordersData = require("./Datos_de_prueba/Ordenes.json");
 const adminsData = require("./Datos_de_prueba/Admins.json");
-const filtersData = require("./Datos_de_prueba/Filtros.json");
+// const filtersData = require("./Datos_de_prueba/Filtros.json");
 
 const chargeDummyData = async () => {
   const bulkGroup = groupsData.map((obj) => {
@@ -30,7 +30,7 @@ const chargeDummyData = async () => {
 
   const bulkPlayers = playersData.map((obj) => {
     return {
-      personal_info: {
+      personalInfo: {
         name: obj["Nombre completo"],
         birthDate: obj["Fecha nacimiento"],
         cel: obj["Celular (personal)"],
@@ -46,11 +46,12 @@ const chargeDummyData = async () => {
         years: obj.Edad,
         uid: Math.floor(Math.random() * 5000) + obj["Número documento"],
       },
-      debt_value: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
-      payment_date: obj["Marca temporal"],
-      shirt_number: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
+      debtValue: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
+      paymentDate: obj["Marca temporal"],
+      shirtNumber: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
+
 
   const bulkAdmin = adminsData.map((obj) => {
     return {
@@ -62,28 +63,29 @@ const chargeDummyData = async () => {
   //console.log(bulkProducts);
 
   try {
-    await Event.bulkCreate(eventsData);
+    // await Event.bulkCreate(eventsData);
     await FilterTags.bulkCreate(filtersData);
     //await Product.bulkCreate(bulkProducts);
-    await Group.bulkCreate(bulkGroup);
-    await Player.bulkCreate(bulkPlayers);
+    // await Group.bulkCreate(bulkGroup);
+    // await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
-    await Admin.bulkCreate(bulkAdmin);
+    // await Admin.bulkCreate(bulkAdmin);
+
   } catch (error) {
     console.log(error.message);
   }
-  try {
-    productsData.forEach(async (p) => {
-      const createdProduct = await Product.create(p);
-      createdProduct.addFilterTags(p.FilterTags);
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
+    try {
+      productsData.forEach(async(p)=>{
+        const createdProduct = await Product.create(p);
+        createdProduct.addFilterTags(p.FilterTags);
+      })
+    } catch (error) {
+      console.log(error.message )
+    }
 };
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true, alter: false }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);

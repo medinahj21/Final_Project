@@ -202,7 +202,6 @@ const getOrder = async (req, res) => {
   }
 };
 
-
 const getPlayers = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -217,7 +216,7 @@ const getPlayers = async (req, res) => {
         ],
       }
       );
-      !player ? res.status(400).json({ message: " player is empty" }) : res.send(player);
+      !player ? res.status(404).json({ message: "players not found" }): res.send(player);
     } else if (name) {
       const player = await Player.findAll({
         where: { "personalInfo.name": name },
@@ -228,7 +227,7 @@ const getPlayers = async (req, res) => {
           { model: RoleRequest }
         ],
       });
-      !player ? res.status(400).json({ message: "player is empty" }) : res.send(player);
+      !player ? res.status(400).json({ message: "players is empty" }) : res.send(player);
     } else {
       const allPlayers = await Player.findAll(
         {

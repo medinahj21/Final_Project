@@ -191,6 +191,7 @@ const postPlayers = async (req, res) => {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
     else {
       const newPlayer = await Player.create({
+        id: personalInfo.uid,
         personalInfo,
         debtValue,
         paymentDate,
