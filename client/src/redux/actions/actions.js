@@ -15,21 +15,26 @@ export const GET_PLAYERS_FROM_DB = "GET_PLAYERS_FROM_DB";
 export const GET_USERS = "GET_USERS";
 export const GET_USER_DETAIL = "GET_USER_DETAIL";
 export const GET_PLAYERS = "GET_PLAYERS";
-export const GET_GROUPS = "GET_GROUPS";
 
 export const GET_EVENTS = "GET_EVENTS";
-export const GET_GROUP_DETAIL = "GET_GROUP_DETAIL";
 
 //GET ORDER?----> Mostrar la orden de acuerdo al jugador o traer la orden por separado??
 export const CREATE_USER = "CREATE_USER";
 export const CREATE_EVENT = "CREATE_EVENT";
-export const CREATE_GROUP = "CREATE_GROUP";
 export const CREATE_ORDER = "CREATE_ORDER";
 
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_EVENT = "DELETE_EVENT";
-export const DELETE_GROUP = "DELETE_GROUP";
 export const UPDATE_ORDER = "UPDATE_ORDER";
+
+//GROUPS
+export const GET_GROUPS = "GET_GROUPS";
+export const GET_GROUP_DETAIL = "GET_GROUP_DETAIL";
+export const CREATE_GROUP = "CREATE_GROUP";
+export const UPDATE_GROUP = "UPDATE_GROUP";
+export const DELETE_GROUP = "DELETE_GROUP";
+export const CLEAN_GROUP_DETAIL = "CLEAN_GROUP_DETAIL";
+
 
 // PRODUCTS
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
@@ -43,3 +48,4 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const MODIFY_PRODUCTS = "MODIFIY_PRODUCTS";
 export const CLEAN_PRODUCT_DETAIL = "CLEAN_PRODUCT_DETAIL";
 export const RETURN_PAGE = "RETURN_PAGE";
+

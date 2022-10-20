@@ -1,0 +1,12 @@
+.containerUploadImage {
+    display: flex;
+    flex-direction: column;
+}
+.containerUploadImage button {
+    width: 60px;
+}
+
+.image {
+    width: 250px;
+    height: 250px;
+}

@@ -6,6 +6,7 @@ const {
   Order,
   Admin,
   FilterTags,
+  RoleRequest
 } = require("../../db");
 const { Sequelize, Model, Op } = require("sequelize");
 const rgExp =
@@ -92,64 +93,68 @@ const getGroups = async (req, res) => {
       const infoGroup = await Group.findByPk(id, {
         include: [
           { model: Admin, attributes: ["id"], through: { attributes: [] } },
+          { model: Player },
         ],
       });
 
-      infoGroup !== null
-        ? res.status(200).send(infoGroup)
+      infoGroup !== null ? res.status(200).send(infoGroup)
         : res.json({ message: "group no found" }).status(404);
     } else if (name) {
       const infoGroup = await Group.findOne({
-        where: {
-          name: name.toLowerCase(),
-        },
+        where: { name: name.toLowerCase() },
         include: [
           { model: Admin, attributes: ["id"], through: { attributes: [] } },
+          { model: Player },
         ],
       });
 
-      infoGroup
-        ? res.status(200).send(infoGroup)
+      infoGroup ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "group not found" });
     } else {
       const infoGroup = await Group.findAll({
         include: [
           { model: Admin, attributes: ["id"], through: { attributes: [] } },
+          { model: Player },
         ],
       });
 
-      infoGroup.length > 0
-        ? res.status(200).send(infoGroup)
+      infoGroup ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "there is not  group now" });
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) { console.log(error) }
 };
 
 const getEvent = async (req, res) => {
   const { id } = req.params;
-
   try {
     if (!id) {
       const allEvents = await Event.findAll({
-        include: {
-          model: Player,
-          attributes: ["id"],
-          through: { attributes: [] },
-        },
+        include: [
+          {
+            model: Player,
+            attributes: ["id"],
+            through: { attributes: [] },
+          },
+          {
+            model: Admin,
+            attributes: ["id"],
+            through: { attributes: [] },
+          },
+        ]
       });
 
-      allEvents
-        ? res.status(200).send(allEvents)
+      allEvents ? res.status(200).send(allEvents)
         : res.json({ mesagge: "there is not event" });
     } else {
       const event = await Event.findByPk(id, {
-        include: {
-          model: Player,
-          attributes: ["id"],
-          through: { attributes: [] },
-        },
+        include: [
+          {
+            model: Player,
+            attributes: ["id"],
+            through: { attributes: [] },
+          },
+          { model: Admin }
+        ]
       });
 
       !event
@@ -161,9 +166,9 @@ const getEvent = async (req, res) => {
   }
 };
 
+
 const getOrder = async (req, res) => {
   const { id } = req.params;
-
   try {
     if (id) {
       if (rgExp.test(id)) {
@@ -174,21 +179,21 @@ const getOrder = async (req, res) => {
               attributes: ["name"],
               through: { attributes: [] },
             },
+            { model: Player }
           ],
         });
 
-        infoOrder !== null
-          ? res.status(200).send(infoOrder)
+        infoOrder !== null ? res.status(200).send(infoOrder)
           : res.status(404).json({ message: "order not found" });
-      } else res.status(406).json({ mesagge: "id no valid" });
+      } else res.status(406).json({ mesagge: "no valid" });
     } else {
       const infoOrder = await Order.findAll({
         include: [
-          { model: Product, attributes: ["name"], through: { attributes: [] } },
+          { model: Player },
+          { model: Product },
         ],
       });
-      infoOrder.length
-        ? res.status(200).send(infoOrder)
+      infoOrder.length ? res.status(200).send(infoOrder)
         : res.status(404).json({ message: "there is not  order now" });
     }
   } catch (error) {
@@ -197,6 +202,7 @@ const getOrder = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const getPlayers = async (req, res) => {
   const { id } = req.params;
 
@@ -220,6 +226,112 @@ const getPlayers = async (req, res) => {
   }
 };
 
+=======
+
+const getPlayers = async (req, res) => {
+  const { name } = req.query;
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const player = await Player.findByPk(id, {
+        include: [
+          { model: Order },
+          { model: Group },
+          { model: Event },
+          { model: RoleRequest }
+        ],
+      }
+      );
+      !player ? res.status(400).json({ message: " player is empty" }) : res.send(player);
+    } else if (name) {
+      const player = await Player.findAll({
+        where: { "personalInfo.name": name },
+        include: [
+          { model: Order },
+          { model: Group },
+          { model: Event },
+          { model: RoleRequest }
+        ],
+      });
+      !player ? res.status(400).json({ message: "player is empty" }) : res.send(player);
+    } else {
+      const allPlayers = await Player.findAll(
+        {
+          include: [
+            { model: Order },
+            { model: Group },
+            { model: Event },
+            { model: RoleRequest }
+          ]
+        }
+      );
+      !allPlayers ? res.status(400).json({ message: " empty" }) : res.send(allPlayers);
+    }
+  } catch (error) { console.log(error) }
+};
+
+
+const getAdmins = async (req, res) => {
+  const { name } = req.query;
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const admin = await Admin.findByPk(id, {
+        include: [
+          { model: Group, attributes: ["id"], through: { attributes: [] } },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
+        ],
+      }
+      );
+      !admin ? res.status(400).json({ message: " admin is empty" }) : res.send(admin);
+
+    } else if (name) {
+      const admin = await Admin.findAll({
+        where: { personal_info: { "Nombre completo": name } },
+        include: [
+          { model: Group, attributes: ["id"], through: { attributes: [] } },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
+        ],
+      });
+      !admin ? res.status(400).json({ message: "admin is empty" }) : res.send(admin);
+    } else {
+      const admins = await Admin.findAll({
+        include: [
+          { model: Group, attributes: ["id"], through: { attributes: [] } },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
+        ],
+      });
+      !admins ? res.status(400).json({ message: " empty" }) : res.send(admins);
+    }
+  } catch (error) { console.log(error) }
+};
+
+
+const getRoleRequest = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const role = await RoleRequest.findByPk(id, {
+        include: [
+          { model: Player },
+          { model: Group }
+        ]
+      });
+      !role ? res.status(400).json({ message: "roleRequestis empty" }) : res.send(role);
+    } else {
+      const role = await RoleRequest.findAll({
+        include: [
+          { model: Player },
+          { model: Group }
+        ]
+      })
+      !role ? res.status(400).json({ message: "bad request" }) : res.send(role);
+    }
+  } catch (error) { console.log(error) }
+}
+
+
+>>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -229,4 +341,10 @@ module.exports = {
   getOrder,
   getFilterTags,
   getPlayers,
+<<<<<<< HEAD
+=======
+  getAdmins,
+  getRoleRequest
+>>>>>>> 8a64a0f5ca50c2b0b89c380456bc45de8489acd0
 };
+

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-
+import groupReducer from "./group";
 import authReducer from "./auth";
 import playerReducer from "./player"
 import productsReducer from "./products";
@@ -8,7 +8,8 @@ import productsReducer from "./products";
 import { RESET_REDUX_STATE } from "../actions/actions";
 
 const appReducer = combineReducers({
-  authReducer,
+  authReducer, 
+  groupReducer,
   playerReducer,
   productsReducer
 });
