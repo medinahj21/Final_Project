@@ -1,17 +1,15 @@
-const { Router } = require("express");
+const router = require("express").Router();
 
-const { getGroups } = require("../controllers/getControllers");
-const { postGroups } = require("../controllers/postControllers");
-const { putGroups } = require("../controllers/putControllers");
-const { deleteGroups } = require("../controllers/deleteControllers");
+const { getAdmins } = require("../controllers/getControllers");
+const { postAdmins } = require("../controllers/postControllers");
+const { updateAdmins } = require("../controllers/putControllers");
+// const { deleteAdmins } = require("../controllers/deleteControllers");
 
-const router = Router();
-
-router.get("/", getGroups)
-router.get("/:id", getGroups)
-router.post("/create", postGroups);
-router.put("/update/:id", putGroups);
-router.delete("/delete/:id", deleteGroups);
-
+router
+.get("/", getAdmins)
+.get("/:id", getAdmins)
+.post("/create", postAdmins)
+.put("/update/:id", updateAdmins);
+// .delete("/delete/:id", deleteAdmins);
 
 module.exports = router;

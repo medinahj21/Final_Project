@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.db136e5d.css",
+    "main.js": "/static/js/main.1d92a132.js",
+    "static/media/banner-3.jpg": "/static/media/banner-3.ca13c37ede444c6d5ef5.jpg",
+    "static/media/niños.jpg": "/static/media/niños.7325fafe7207c23f6ab6.jpg",
+    "static/media/adultos.jpg": "/static/media/adultos.b387fcfd4772569ecb83.jpg",
+    "static/media/LogoPNG.png": "/static/media/LogoPNG.340f05991ae1f79f1981.png",
+    "static/media/jovenes.jpg": "/static/media/jovenes.7b5abea16de1c96d6dd0.jpg",
+    "static/media/icono-marco-fotos-foto.webp": "/static/media/icono-marco-fotos-foto.c3b77473cff68066d94d.webp",
+    "index.html": "/index.html",
+    "main.db136e5d.css.map": "/static/css/main.db136e5d.css.map",
+    "main.1d92a132.js.map": "/static/js/main.1d92a132.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.db136e5d.css",
+    "static/js/main.1d92a132.js"
+  ]
+}

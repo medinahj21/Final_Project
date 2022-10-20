@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
@@ -34,7 +35,6 @@ let sequelize =
         `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`,
         { logging: false, native: false }
       );
-
 
 const basename = path.basename(__filename);
 
@@ -75,36 +75,43 @@ const {
 } = sequelize.models;
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
-Player.belongsTo(Group, { foreignKey: "groupId" });
+
+Order.belongsTo(Player);                                 /**ready*/
+Player.hasMany(Order);
+
+
+Player.belongsTo(Group);                                     /**ready*/
 Group.hasMany(Player);
 
-Player.hasMany(Order);
-Order.belongsTo(Player, { foreignKey: "playerId" });
-
-Player.hasMany(ProductRequest);
-ProductRequest.belongsTo(Player, { foreignKey: "playerId" });
-
-Player.belongsToMany(Event, { through: "player-event" });
+Player.belongsToMany(Event, { through: "player-event" });      /**ready*/
 Event.belongsToMany(Player, { through: "player-event" });
 
-Group.hasOne(RoleRequest);
-RoleRequest.belongsTo(Group, { foreignKey: "groupId" });
-
-Group.belongsToMany(Admin, { through: "group-admin" });
+Group.belongsToMany(Admin, { through: "group-admin" });          /*ready**/
 Admin.belongsToMany(Group, { through: "group-admin" });
 
-Product.belongsToMany(Order, { through: "product-order" });
-Order.belongsToMany(Product, { through: "product-order" });
+Order.belongsToMany(Product, { through: "product-order" });         /*ready**/
+Product.belongsToMany(Order, { through: "product-order" });         
 
-Product.hasMany(ProductRequest);
-ProductRequest.belongsTo(Product, { foreignKey: "productId" });
-
+Event.belongsToMany(Admin, { through: "admin-event" });             /*ready**/
 Admin.belongsToMany(Event, { through: "admin-event" });
-Event.belongsToMany(Admin, { through: "admin-event" });
 
+Product.belongsToMany(FilterTags, { through: "product-filter" });   /*ready**/
 FilterTags.belongsToMany(Product, { through: "product-filter" });
-Product.belongsToMany(FilterTags, { through: "product-filter" }); 
+
+// Product.hasMany(ProductRequest);
+// ProductRequest.belongsTo(Product, { foreignKey: "productId" });   /*Pending**/
+
+// Player.hasMany(ProductRequest);
+// ProductRequest.belongsTo(Player, { foreignKey: "playerId" });     /*Pending**/
+
+Player.hasOne(RoleRequest);                                         /*ready**/
+RoleRequest.belongsTo(Player);         
+
+Group.hasOne(RoleRequest);                                         /*ready**/
+RoleRequest.belongsTo(Group);         
+
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
