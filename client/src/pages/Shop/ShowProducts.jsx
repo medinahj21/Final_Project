@@ -9,9 +9,9 @@ import {
   addToCart,
   clearCart,
   incrementProductInCart,
-  updatePlayerCart,
 } from "../../redux/actions/shoppingCart";
-import { getPlayersFromDB, getPlayerDetail } from "../../redux/actions/player";
+import { updatePlayerCart } from "../../redux/actions/player";
+import { getPlayerDetail } from "../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
@@ -26,7 +26,6 @@ export default function ShowProducts({ dataFiltered }) {
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  const playerDetail = useSelector((state) => state.playerReducer.playerDetail);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
