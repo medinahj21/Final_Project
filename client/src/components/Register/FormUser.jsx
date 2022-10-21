@@ -14,9 +14,11 @@ import "./FormUser.css";
 import Modal from "../UI/Modal";
 
 function FormUser({ setShowAlta }) {
-  // const notifyError = (error) => toast.error(error);
+  // const notifyError = (error) => toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT,});
   const notify = () =>
-    toast.success("Registro exitoso, vamos a darnos de alta !");
+    toast.success("Registro exitoso, vamos a darnos de alta !", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
 
   const [user, setUser] = useState();
 

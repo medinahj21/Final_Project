@@ -83,6 +83,11 @@
     text-decoration: underline;
 }
 
+.debts__cards{
+    display: flex;
+    justify-content: center;
+}
+
 /* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
 @media screen and (max-width: 1424px) {
@@ -110,6 +115,11 @@
     .dashboard__content {
         margin-left: 0;
         padding: 0;
+    }
+
+    .debts__cards{
+        flex-direction: column;
+        align-items: center;
     }
     
 }

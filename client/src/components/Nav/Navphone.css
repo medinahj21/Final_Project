@@ -3,8 +3,7 @@
     position: fixed;
     top: 50px;
     left: 50px;
-    z-index: 1;
-
+    z-index: 9999;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -22,7 +21,6 @@
     color: tomato;
 }
 
-
 #menuToggle input {
     display: block;
     width: 40px;
@@ -30,12 +28,9 @@
     position: absolute;
     top: -7px;
     left: -5px;
-
     cursor: pointer;
-
     opacity: 0;
     z-index: 2;
-
     -webkit-touch-callout: none;
 }
 
@@ -89,14 +84,14 @@
     margin: -100px 0 0 -50px;
     padding: 50px;
     padding-top: 125px;
-
-    background: var(--color-bg);
     list-style-type: none;
     -webkit-font-smoothing: antialiased;
     transform-origin: 0% 0%;
     transform: translate(-100%, 0);
-
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
+    text-align: center;
+    background-size: 400% 400%;
 }
 
 #menu li {

@@ -15,7 +15,6 @@ const initialState = {
     isPerfil: true,
     isSocios: false,
     isPagos: false,
-    isGrupos: false,
     isGrupo: false,
     isCalendario: false,
     isRequest: false,

@@ -58,19 +58,17 @@ function Navphone({
               <p onClick={() => validateClick("perfil", setClickChoice)}>
                 <li>Perfil</li>
               </p>
-              {userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("pagos", setClickChoice)}>
-                  <li>Administracion de pagos</li>
-                </p>
-              )}
+              <Link to={"/products"}>
+                <li>Tienda</li>
+              </Link>
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("request", setClickChoice)}>
                   <li>Solicitudes</li>
                 </p>
               )}
-              {!userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("grupo", setClickChoice)}>
-                  <li>Mi grupo</li>
+              {userInfoFirestore.isAdmin && (
+                <p onClick={() => validateClick("pagos", setClickChoice)}>
+                  <li>Administracion de pagos</li>
                 </p>
               )}
               {!userInfoFirestore.isAdmin && (
@@ -78,6 +76,9 @@ function Navphone({
                   <li>Pagos</li>
                 </p>
               )}
+              <p onClick={() => validateClick("grupo", setClickChoice)}>
+                <li>Grupos</li>
+              </p>
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("socios", setClickChoice)}>
                   <li>Socios</li>
@@ -86,16 +87,8 @@ function Navphone({
               <p onClick={() => validateClick("calendario", setClickChoice)}>
                 <li>Calendario</li>
               </p>
-              {userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("grupos", setClickChoice)}>
-                  <li>Grupos</li>
-                </p>
-              )}
               <Link to={"/"}>
                 <li>Inicio</li>
-              </Link>
-              <Link to={"/products"}>
-                <li>Tienda</li>
               </Link>
             </>
           ) : (

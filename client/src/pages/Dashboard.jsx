@@ -71,19 +71,22 @@ function Admin() {
             {/* <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} /> */}
             <Perfil userInfoFirestore={userInfoFirestore} />
             <UpdateCredentials />
-            {/* Mapear deudas por mes --> */}
-            <DebtCard month={"octubre"} />
-            <DebtCard month={"noviembre"} />
+            {!userInfoFirestore.isAdmin ? (
+              <>
+                {/* Mapear deudas por mes --> */}
+                <div className="debts__cards">
+                  <DebtCard month={"octubre"} />
+                  <DebtCard month={"noviembre"} />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </>
         )}
         {clickChoice.isRequest && (
           <>
             <UserDB />
-          </>
-        )}
-        {clickChoice.isGrupos && (
-          <>
-            <Groups />
           </>
         )}
         {clickChoice.isGrupo && (
