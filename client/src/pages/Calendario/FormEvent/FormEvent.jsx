@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import s from '../FormEvent/FormEvent.module.css'
 import * as action from '../../../redux/actions/event'
+import Tags from '../../../components/Tag/Tags';
 
 export default function FormCalendario({ handleModal }) {
 
@@ -20,6 +21,13 @@ export default function FormCalendario({ handleModal }) {
     end: "",
   })
 
+  const deleteTag = (e) => {
+    setInputs({
+      ...inputs,
+      date: [...inputs.date.filter((tag) =>tag !== e)]
+    })
+  }
+
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   }
@@ -37,7 +45,6 @@ export default function FormCalendario({ handleModal }) {
       date: [...inputs.date, e.target.value],
     })
   }
-  console.log(inputs);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +65,7 @@ export default function FormCalendario({ handleModal }) {
   return (
     <div className={s.formEventContainer}>
       <section className={s.itemHeaderContainer}>
-        <button type="button" onClick={() => handleModal()}>x</button>
+        <button type="button" onClick={() => handleModal()}>X</button>
         <div className={s.item}>
           <label htmlFor="name">Nombre:</label>
           <input type="text" name='name' onChange={handleChange} />
@@ -120,7 +127,7 @@ export default function FormCalendario({ handleModal }) {
                 <div className={s.containerDays}>
                   {
                     inputs.date?.map((e) => {
-                      return <span>{e}</span>
+                      return <Tags value={e} deleteTag={deleteTag}/>
                     })
                   }
                 </div>
