@@ -9,19 +9,6 @@ import {
 import axios from "axios";
 
 export const getGroups = () => {
-<<<<<<< HEAD
-    return async (dispatch) => {
-        return axios.get(URL)
-            .then(res => res.data)
-            .then(data => {
-                dispatch({
-                    type: GET_GROUPS,
-                    payload: data,
-                })
-            })
-    }
-}
-=======
   return async (dispatch) => {
     return axios
       .get(`${axios.defaults.baseURL}/groups`)
@@ -35,7 +22,6 @@ export const getGroups = () => {
       });
   };
 };
->>>>>>> c4d12b638d1472a48c57adc753a6e35a1cf82263
 
 export const getGroupDetail = (id) => {
   return async (dispatch) => {

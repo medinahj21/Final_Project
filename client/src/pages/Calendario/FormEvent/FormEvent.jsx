@@ -24,7 +24,7 @@ export default function FormCalendario({ handleModal }) {
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
-      date: [...inputs.date.filter((tag) =>tag !== e)]
+      date: [...inputs.date.filter((tag) => tag !== e)]
     })
   }
 
@@ -46,22 +46,28 @@ export default function FormCalendario({ handleModal }) {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(action.createEvent(inputs));
-    handleModal();
-    alert('creado con exito!')
+    let response = dispatch(action.createEvent(inputs));
+    if (response.error) {
+      alert(`algo salio mal: ${response}`)
+    } else {
+      handleModal();
+      setInputs("");
+      alert("Event has been created successfully");
+    }
   }
 
   const handleRepetitive = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
     if (e.target.value === "true") {
       setInputs({ ...inputs, date: [], })
+      setInputs({ ...inputs, [e.target.name]: e.target.value })
       return setIsRepetitive(true)
     }
     setIsRepetitive(false)
   }
-
+  console.log(inputs);
   return (
     <div className={s.formEventContainer}>
       <section className={s.itemHeaderContainer}>
@@ -127,7 +133,7 @@ export default function FormCalendario({ handleModal }) {
                 <div className={s.containerDays}>
                   {
                     inputs.date?.map((e) => {
-                      return <Tags value={e} deleteTag={deleteTag}/>
+                      return <Tags value={e} deleteTag={deleteTag} />
                     })
                   }
                 </div>
