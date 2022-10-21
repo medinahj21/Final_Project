@@ -19,7 +19,8 @@
 }
 
 .home__gruops {
-    width: 100vw;
+    width: 80vw;
+    margin: 0 auto;
     background-color: #ddd;
 }
 
@@ -62,8 +63,11 @@
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-@media screen and (max-width: 600px) {
+
+@media (min-width: 640px) {
     .home__container h1 {
         font-size: var(--font-size-h1-sm);
     }
+
+   
 }
