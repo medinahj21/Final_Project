@@ -9,12 +9,9 @@ import Dashboard from "../pages/Dashboard";
 import Shop from "../pages/Shop/Shop";
 import ProtectedRoute from "./ProtectedRoutes";
 import ProductDetail from "../pages/Shop/ProductDetail";
-<<<<<<< HEAD
 import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
-=======
 import Groups from "../pages/Groups/Groups";
 import GroupDetail from "../pages/Groups/GroupDetail/GroupDetail";
->>>>>>> 0d356e1b584dca9f4c81dc29e544ec1e2bc3afbf
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);

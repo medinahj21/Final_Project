@@ -206,7 +206,7 @@ const getPlayers = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
   try {
-    if (rgExp.test(id)) {
+    if (id) {
       const player = await Player.findByPk(id, {
         include: [
           { model: Order },
@@ -317,4 +317,3 @@ module.exports = {
   getAdmins,
   getRoleRequest
 };
-

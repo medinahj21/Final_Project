@@ -11,7 +11,7 @@ import {
   incrementProductInCart,
   updatePlayerCart,
 } from "../../redux/actions/shoppingCart";
-import { getPlayersFromDB } from "../../redux/actions/player";
+import { getPlayersFromDB, getPlayerDetail } from "../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ export default function ShowProducts({ dataFiltered }) {
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const playerDetail = useSelector((state) => state.playerReducer.playerDetail);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
@@ -39,22 +40,30 @@ export default function ShowProducts({ dataFiltered }) {
 
   useEffect(() => {
     if (prevPage !== currentPage) {
-      setCurrentPage(prevPage)
-    };
-      dispatch(clearCart());
-      dispatch(getPlayersFromDB());
-
-    
+      setCurrentPage(prevPage);
+    }
   }, [currentPage, prevPage]);
 
-  useEffect(()=>{
-    return ()=> dispatch(clearCart())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(clearCart());
+    dispatch(getPlayerDetail());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => dispatch(clearCart());
+  }, [dispatch]);
 
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
   };
+
+  let userId = userInfoFirestore.uid;
+
+  const handleUpdatePlayerCart= (id, products)=>{
+    dispatch(getPlayerDetail(id));
+    dispatch(updatePlayerCart(id, products));
+  }
 
   const handleAddToCart = (id) => {
     let itemToAdd = allProducts.find((product) => product.id === id);
@@ -66,16 +75,10 @@ export default function ShowProducts({ dataFiltered }) {
       dispatch(addToCart(itemToAdd));
     }
 
-    let userId = userInfoFirestore.uid;
-    let playerProducts = productsInCart.map((item) => {
-      return {
-        quant: item.quant,
-        productId: item.product.id,
-      };
-    });
-
-    dispatch(updatePlayerCart(userId, playerProducts));
-  };
+    handleUpdatePlayerCart(userId, productsInCart);
+  }    
+    
+  
 
   const handleClearCart = () => {
     dispatch(clearCart());
