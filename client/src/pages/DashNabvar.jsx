@@ -10,11 +10,6 @@ function DashNabvar({ setClickChoice, clickChoice }) {
 
   return (
     <div className="dashboard__navbar">
-      <img
-        className="navbar__image"
-        src={userInfoFirestore.image || FOTO}
-        alt="foto de usuario"
-      />
       <button
         className={
           clickChoice.isPerfil

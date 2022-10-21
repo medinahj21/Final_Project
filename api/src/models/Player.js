@@ -36,8 +36,8 @@ module.exports = (sequelize) => {
       },
       shoppingCart: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true
-      }
+        allowNull: true,
+      },
     },
     {
       timestamps: false,
