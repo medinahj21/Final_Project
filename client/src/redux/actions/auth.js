@@ -24,6 +24,7 @@ export const logout = () => {
   signOut(auth);
   return {
     type: LOGOUT_USER_FIREBASE,
+    payload: null,
   };
 };
 
@@ -37,6 +38,10 @@ export const registerWhitEmailAndPassword = async (email, password) => {
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
+export const loginWhitGoogle = async (email) => {
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
+};
+
 export function getUserFirestore(uid) {
   return (dispatch) => {
     try {
@@ -46,7 +51,7 @@ export function getUserFirestore(uid) {
           const infoDocu = consult.data();
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: { ...infoDocu},
+            payload: { ...infoDocu },
           });
         } else {
           return dispatch({

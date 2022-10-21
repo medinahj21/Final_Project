@@ -18,9 +18,11 @@ function Login({ setShowLogin }) {
       hideProgressBar: true,
       theme: "colored",
     });
+    
   const notify = () => toast.success("Bienvenid@");
 
   const [forgotPassword, setForgotPassword] = useState(false);
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",

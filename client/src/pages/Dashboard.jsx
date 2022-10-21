@@ -14,6 +14,7 @@ import DebtCard from "../components/Dashboard/DebtCard";
 import UserDB from "../components/Dashboard/UserDB";
 import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
 import Groups from "../components/Groups/Groups";
+import Perfil from "../components/Dashboard/perfil/Perfil";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -67,9 +68,12 @@ function Admin() {
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
           <>
-            <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} />
+            {/* <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} /> */}
+            <Perfil userInfoFirestore={userInfoFirestore} />
             <UpdateCredentials />
-            <DebtCard />
+            {/* Mapear deudas por mes --> */}
+            <DebtCard month={"octubre"} />
+            <DebtCard month={"noviembre"} />
           </>
         )}
         {clickChoice.isRequest && (

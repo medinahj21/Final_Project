@@ -59,7 +59,6 @@ function Home() {
     });
     return () => unSuscribe();
   }, [dispatch]);
-  console.log(setShowAlta);
   return (
     <>
       {!isDesktop ? (
@@ -75,13 +74,12 @@ function Home() {
           setShowAlta={setShowAlta}
         />
       )}
+      {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
       {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
       {showRegister ? <Register setShowRegister={setShowRegister} /> : <></>}
-      {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
       <div className="home__container">
         <h1>Club Wolves - Voleyball</h1>
       </div>
-      <div className="home__container-carrousel"></div>
       <div className="home__gruops">
         {groups?.map((group, i) => {
           const alter = i % 2 === 0 ? "alt" : "";
