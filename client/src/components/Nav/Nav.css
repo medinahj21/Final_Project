@@ -1,10 +1,31 @@
 .nav__container {
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), orange);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
     width: 100vw;
     height: 12vh;
     background-color: var(--color-bg);
     display: flex;
     justify-content: space-between;
     position: fixed;
+    box-shadow: var(--box-shadow);
+    z-index: 999;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .nav__logo {

@@ -19,24 +19,13 @@
 }
 
 .home__gruops {
+    background: fixed url(../images/fondogroups.jpg);
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 1fr;
     width: 100vw;
-    background-color: #ddd;
-}
-
-.home__gruop {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
     margin: 0 auto;
-    border: 1px solid black;
-}
-
-.home__gruop .home__group-content {
-    display: flex;
-}
-
-.home__gruop .home__group-content img {
-    width: 500px;
+    background-color: #ddd;
 }
 
 
@@ -62,8 +51,11 @@
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-@media screen and (max-width: 600px) {
+
+@media (max-width: 640px) {
     .home__container h1 {
         font-size: var(--font-size-h1-sm);
     }
+
+   
 }

@@ -4,6 +4,8 @@ export const LOGOUT_USER_FIREBASE = "LOGOUT_USER_FIREBASE";
 export const PLAYER__FORM__FIREBASE = "PLAYER__FORM__FIREBASE";
 export const ALL_PLAYER__FORM__FIREBASE = "ALL_PLAYER__FORM__FIREBASE";
 export const RESET_REDUX_STATE = "RESET_REDUX_STATE";
+export const CLICK__CHOICE = "CLICK__CHOICE";
+export const GET_CLICK__CHOICE = "GET_CLICK__CHOICE";
 
 //------------------------------------------------------------------------------------------------------
 //GET_PLAYER_DETAIL
@@ -12,7 +14,6 @@ export const GET_PLAYERS_FROM_DB = "GET_PLAYERS_FROM_DB";
 export const GET_PLAYER_DETAIL = "GET_PLAYER_DETAIL";
 
 //GET_USER_DETAIL
-
 export const GET_USERS = "GET_USERS";
 export const GET_USER_DETAIL = "GET_USER_DETAIL";
 export const GET_PLAYERS = "GET_PLAYERS";
@@ -35,6 +36,9 @@ export const CREATE_GROUP = "CREATE_GROUP";
 export const UPDATE_GROUP = "UPDATE_GROUP";
 export const DELETE_GROUP = "DELETE_GROUP";
 export const CLEAN_GROUP_DETAIL = "CLEAN_GROUP_DETAIL";
+export const GET_ROLE_REQUESTS = "GET_ROLE_REQUESTS";
+export const DELETE_ROLE_REQUEST = "DELETE_ROLE_REQUEST";
+export const CLEAN_ROLE_REQUESTS = "CLEAN_ROLE_REQUESTS";
 
 
 // PRODUCTS

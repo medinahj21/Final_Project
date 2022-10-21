@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import FOTO from "../images/icono-marco-fotos-foto.webp";
+// import FOTO from "../images/icono-marco-fotos-foto.webp";
 import { validateClick } from "../utils/validateClick";
 import "./DashNavbar.css";
 
@@ -10,11 +10,6 @@ function DashNabvar({ setClickChoice, clickChoice }) {
 
   return (
     <div className="dashboard__navbar">
-      <img
-        className="navbar__image"
-        src={userInfoFirestore.image || FOTO}
-        alt="foto de usuario"
-      />
       <button
         className={
           clickChoice.isPerfil

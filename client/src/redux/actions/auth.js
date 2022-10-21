@@ -3,6 +3,7 @@ import {
   LOGOUT_USER_FIREBASE,
   PLAYER__FORM__FIREBASE,
   ALL_PLAYER__FORM__FIREBASE,
+  CLICK__CHOICE,
 } from "./actions";
 
 import {
@@ -26,13 +27,13 @@ export const logout = () => {
   };
 };
 
-export const loginWhitEmailAndPassword = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password);
+export const loginWhitEmailAndPassword = async (email, password) => {
+  await signInWithEmailAndPassword(auth, email, password);
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: null } };
 };
 
-export const registerWhitEmailAndPassword = (email, password) => {
-  createUserWithEmailAndPassword(auth, email, password);
+export const registerWhitEmailAndPassword = async (email, password) => {
+  await createUserWithEmailAndPassword(auth, email, password);
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
@@ -64,5 +65,9 @@ export const getAllInfoUsers = (docs) => {
   return { type: ALL_PLAYER__FORM__FIREBASE, payload: docs };
 };
 
+export const clickChoiceHandler = (click) => {
+  console.log(click);
+  return { type: CLICK__CHOICE, payload: click };
+};
 
 //action envie al back

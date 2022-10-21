@@ -6,7 +6,7 @@ const {
   Order,
   Admin,
   FilterTags,
-  RoleRequest
+  RoleRequest,
 } = require("../../db");
 const { Sequelize, Model, Op } = require("sequelize");
 const rgExp =
@@ -89,6 +89,7 @@ const getGroups = async (req, res) => {
   const { name } = req.query;
 
   try {
+    console.log(id, rgExp.test(id));
     if (rgExp.test(id)) {
       const infoGroup = await Group.findByPk(id, {
         include: [
@@ -97,7 +98,8 @@ const getGroups = async (req, res) => {
         ],
       });
 
-      infoGroup !== null ? res.status(200).send(infoGroup)
+      infoGroup !== null
+        ? res.status(200).send(infoGroup)
         : res.json({ message: "group no found" }).status(404);
     } else if (name) {
       const infoGroup = await Group.findOne({
@@ -108,7 +110,8 @@ const getGroups = async (req, res) => {
         ],
       });
 
-      infoGroup ? res.status(200).send(infoGroup)
+      infoGroup
+        ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "group not found" });
     } else {
       const infoGroup = await Group.findAll({
@@ -118,10 +121,13 @@ const getGroups = async (req, res) => {
         ],
       });
 
-      infoGroup ? res.status(200).send(infoGroup)
+      infoGroup
+        ? res.status(200).send(infoGroup)
         : res.status(404).json({ message: "there is not  group now" });
     }
-  } catch (error) { console.log(error) }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getEvent = async (req, res) => {
@@ -140,10 +146,11 @@ const getEvent = async (req, res) => {
             attributes: ["id"],
             through: { attributes: [] },
           },
-        ]
+        ],
       });
 
-      allEvents ? res.status(200).send(allEvents)
+      allEvents
+        ? res.status(200).send(allEvents)
         : res.json({ mesagge: "there is not event" });
     } else {
       const event = await Event.findByPk(id, {
@@ -153,8 +160,8 @@ const getEvent = async (req, res) => {
             attributes: ["id"],
             through: { attributes: [] },
           },
-          { model: Admin }
-        ]
+          { model: Admin },
+        ],
       });
 
       !event
@@ -165,7 +172,6 @@ const getEvent = async (req, res) => {
     res.json({ error_DB: error.message });
   }
 };
-
 
 const getOrder = async (req, res) => {
   const { id } = req.params;
@@ -179,21 +185,20 @@ const getOrder = async (req, res) => {
               attributes: ["name"],
               through: { attributes: [] },
             },
-            { model: Player }
+            { model: Player },
           ],
         });
 
-        infoOrder !== null ? res.status(200).send(infoOrder)
+        infoOrder !== null
+          ? res.status(200).send(infoOrder)
           : res.status(404).json({ message: "order not found" });
       } else res.status(406).json({ mesagge: "no valid" });
     } else {
       const infoOrder = await Order.findAll({
-        include: [
-          { model: Player },
-          { model: Product },
-        ],
+        include: [{ model: Player }, { model: Product }],
       });
-      infoOrder.length ? res.status(200).send(infoOrder)
+      infoOrder.length
+        ? res.status(200).send(infoOrder)
         : res.status(404).json({ message: "there is not  order now" });
     }
   } catch (error) {
@@ -212,11 +217,12 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest }
+          { model: RoleRequest },
         ],
-      }
-      );
-      !player ? res.status(404).json({ message: "players not found" }): res.send(player);
+      });
+      !player
+        ? res.status(404).json({ message: "players not found" })
+        : res.send(player);
     } else if (name) {
       const player = await Player.findAll({
         where: { "personalInfo.name": name },
@@ -224,26 +230,29 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest }
+          { model: RoleRequest },
         ],
       });
-      !player ? res.status(400).json({ message: "players is empty" }) : res.send(player);
+      !player
+        ? res.status(400).json({ message: "players is empty" })
+        : res.send(player);
     } else {
-      const allPlayers = await Player.findAll(
-        {
-          include: [
-            { model: Order },
-            { model: Group },
-            { model: Event },
-            { model: RoleRequest }
-          ]
-        }
-      );
-      !allPlayers ? res.status(400).json({ message: " empty" }) : res.send(allPlayers);
+      const allPlayers = await Player.findAll({
+        include: [
+          { model: Order },
+          { model: Group },
+          { model: Event },
+          { model: RoleRequest },
+        ],
+      });
+      !allPlayers
+        ? res.status(400).json({ message: " empty" })
+        : res.send(allPlayers);
     }
-  } catch (error) { console.log(error) }
+  } catch (error) {
+    console.log(error);
+  }
 };
-
 
 const getAdmins = async (req, res) => {
   const { name } = req.query;
@@ -255,10 +264,10 @@ const getAdmins = async (req, res) => {
           { model: Group, attributes: ["id"], through: { attributes: [] } },
           { model: Event, attributes: ["id"], through: { attributes: [] } },
         ],
-      }
-      );
-      !admin ? res.status(400).json({ message: " admin is empty" }) : res.send(admin);
-
+      });
+      !admin
+        ? res.status(400).json({ message: " admin is empty" })
+        : res.send(admin);
     } else if (name) {
       const admin = await Admin.findAll({
         where: { personal_info: { "Nombre completo": name } },
@@ -267,7 +276,9 @@ const getAdmins = async (req, res) => {
           { model: Event, attributes: ["id"], through: { attributes: [] } },
         ],
       });
-      !admin ? res.status(400).json({ message: "admin is empty" }) : res.send(admin);
+      !admin
+        ? res.status(400).json({ message: "admin is empty" })
+        : res.send(admin);
     } else {
       const admins = await Admin.findAll({
         include: [
@@ -277,33 +288,28 @@ const getAdmins = async (req, res) => {
       });
       !admins ? res.status(400).json({ message: " empty" }) : res.send(admins);
     }
-  } catch (error) { console.log(error) }
+  } catch (error) {
+    console.log(error);
+  }
 };
-
 
 const getRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
-    if (rgExp.test(id)) {
-      const role = await RoleRequest.findByPk(id, {
-        include: [
-          { model: Player },
-          { model: Group }
-        ]
-      });
-      !role ? res.status(400).json({ message: "roleRequestis empty" }) : res.send(role);
+    if (id) {
+      const role = await RoleRequest.findByPk(id);
+      !role
+        ? res.status(404).json({ message: "roleRequestis not found" })
+        : res.send(role);
     } else {
-      const role = await RoleRequest.findAll({
-        include: [
-          { model: Player },
-          { model: Group }
-        ]
-      })
+      const role = await RoleRequest.findAll();
       !role ? res.status(400).json({ message: "bad request" }) : res.send(role);
     }
-  } catch (error) { console.log(error) }
-}
-
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+    console.log(error);
+  }
+};
 
 module.exports = {
   asyncGetProductById,
@@ -315,5 +321,5 @@ module.exports = {
   getFilterTags,
   getPlayers,
   getAdmins,
-  getRoleRequest
+  getRoleRequest,
 };
