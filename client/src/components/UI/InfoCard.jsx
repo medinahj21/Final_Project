@@ -4,14 +4,10 @@ import FOTO from "../../images/siluetasinfondo.png";
 
 import "./InfoCard.css";
 
-function InfoCard({ userInfoFirestore, perfil }) {
+function InfoCard({ userInfoFirestore }) {
   return (
-    <div className={!perfil ? "card__info" : "card__info-perfil"}>
-      <img
-        className={!perfil ? "card__image" : "card__info-image"}
-        src={FOTO}
-        alt=""
-      />
+    <div className="card__info">
+      <img className={"card__image"} src={FOTO} alt="" />
       <h2>{userInfoFirestore.name}</h2>
       <p>Edad: {userInfoFirestore.years}</p>
       <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>

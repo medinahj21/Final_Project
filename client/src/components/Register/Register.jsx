@@ -15,8 +15,15 @@ import FormUser from "./FormUser";
 function Register({ setShowRegister }) {
   const [register, setRegister] = useState(false);
   const notifyError = (error) =>
-    toast.error(error, { draggable: true, hideProgressBar: true });
-  const notify = () => toast.success("Registro exitoso, vamos a darnos de alta !");
+    toast.error(error, {
+      draggable: true,
+      hideProgressBar: true,
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  const notify = () =>
+    toast.success("Registro exitoso, vamos a darnos de alta !", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
 
   const [credentials, setCredentials] = useState({
     email: "",

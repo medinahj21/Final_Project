@@ -15,7 +15,6 @@ const initialState = {
     isPerfil: true,
     isSocios: false,
     isPagos: false,
-    isGrupos: false,
     isGrupo: false,
     isCalendario: false,
     isRequest: false,
@@ -32,7 +31,13 @@ export default function authReducer(state = initialState, action) {
       };
 
     case LOGOUT_USER_FIREBASE:
-      return initialState;
+      return {
+        ...state,
+        userInfoFirestore: action.payload,
+        allUserFirestore: action.payload,
+        email: action.payload,
+        nickName: action.payload,
+      };
 
     case PLAYER__FORM__FIREBASE:
       return {

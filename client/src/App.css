@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;1,300&display=swap');
 
 :root {
+
   /* --color-bg: rgb(24, 26, 58); */
   --color-bg: rgb(32, 39, 78);
   --color-bg-contrast: rgb(104, 205, 50);
@@ -28,7 +29,6 @@
   --box-shadow: 0 0 7px 0 #000;
   --text-shadow: 0 0 7px #000;
 }
-
 
 html {
   font-family: 'Mali', cursive;
