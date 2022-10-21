@@ -4,7 +4,7 @@ import axios from "axios";
 export const createPlayer = (personalInfo) => {
   return async (dispatch) => {
     try {
-      let response = await axios.post(`https://club-app-deploy.herokuapp.com/players/create`, personalInfo);
+      let response = await axios.post(`${axios.defaults.baseURL}/players/create`, personalInfo);
       dispatch({ type: CREATE_PLAYER });
       return response
       
