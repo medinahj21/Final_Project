@@ -7,8 +7,8 @@ export default function Calendario() {
     const [isUpdate, setIsUpdate] = useState(false);
     const [modalOn, setModalOn] = useState(false);
 
-    const openModal = () => {
-        setModalOn(true)
+    const handleModal = () => {
+        setModalOn(!modalOn)
     }
 
     if (modalOn) {
@@ -18,7 +18,8 @@ export default function Calendario() {
                     isCreate={isCreate}
                     setIsCreate={setIsCreate}
                     isUpdate={isUpdate}
-                    setIsUpdate={setIsUpdate} />
+                    setIsUpdate={setIsUpdate} 
+                    handleModal={handleModal}/>
             </Modal>
         )
     }
@@ -26,7 +27,7 @@ export default function Calendario() {
     return (
         <div>
             <h1>Calendario</h1>
-            <button type='button' onClick={openModal}>Crear Evento</button>
+            <button type='button' onClick={handleModal}>Crear Evento</button>
         </div>
     )
 }

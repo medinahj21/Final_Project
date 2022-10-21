@@ -106,6 +106,7 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+  console.log(req.body);
   const {
     name,
     location,
@@ -118,8 +119,8 @@ const createEvent = async (req, res) => {
     state,
     player
   } = req.body;
-  try {
-    if (!(name && start && end && location && date && admin)) {
+  try {                                      //Volver a colocar validación para admin.
+    if (!(name && start && end && location && date)) {
       res.status(400).json({ error: "information is missing" });
     } else {
       const newEvent = await Event.create({
@@ -132,6 +133,7 @@ const createEvent = async (req, res) => {
         start,
         end,
       });
+      console.log('creado con exito');
       const addAdmin = await newEvent.addAdmin(admin);
       const addPlayer = await newEvent.addPlayer(player);
       addAdmin && addPlayer && res.status(200).send("the event has been created");
