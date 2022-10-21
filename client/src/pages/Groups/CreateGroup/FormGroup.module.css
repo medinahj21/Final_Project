@@ -1,0 +1,25 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  .form label {
+    margin: 5px 0;
+  }
+  
+  .image {
+    background-color: red;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  
+  .image img{
+    width: 200px;
+    height: 200px;
+  }

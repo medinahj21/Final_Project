@@ -52,7 +52,9 @@ function DashNabvar({ setClickChoice, clickChoice }) {
       {!userInfoFirestore.isAdmin && (
         <button
           className={
-            clickChoice.isPagos ? "navbar__btn navbar__btn-clicked" : "navbar__btn"
+            clickChoice.isPagos
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
           }
           onClick={() => validateClick("pagos", setClickChoice)}
         >
@@ -69,6 +71,18 @@ function DashNabvar({ setClickChoice, clickChoice }) {
           onClick={() => validateClick("socios", setClickChoice)}
         >
           Socios
+        </button>
+      )}
+      {userInfoFirestore.isAdmin && (
+        <button
+          className={
+            clickChoice.isRequest
+              ? "navbar__btn navbar__btn-clicked"
+              : "navbar__btn"
+          }
+          onClick={() => validateClick("request", setClickChoice)}
+        >
+          Solicitudes
         </button>
       )}
       <button

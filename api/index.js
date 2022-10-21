@@ -2,15 +2,15 @@ const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const { PORT } = process.env;
 
-const {
-  Event,
-  Product,
-  Group,
-  Player,
-  Order,
-  Admin,
-  FilterTags,
-} = require("./src/db");
+ const {
+   Event,
+   Product,
+   Group,
+   Player,
+   Order,
+   Admin,
+   FilterTags,
+ } = require("./src/db");
 
 // const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");

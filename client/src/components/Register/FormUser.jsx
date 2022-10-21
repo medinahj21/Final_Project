@@ -64,7 +64,6 @@ function FormUser() {
 
         )
       );
-      console.log(response) 
       if (!response.error){
         setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
         navigate("/");
