@@ -1,18 +1,3 @@
-/* .overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, .5);
-    color: black;
-} */
-
-
 .container__modal {
     min-width: 250px;
     min-height: 100px;
