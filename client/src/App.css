@@ -32,6 +32,7 @@
 
 html {
   font-family: 'Mali', cursive;
+  scroll-behavior: smooth;
 }
 
 a {

@@ -1,41 +1,51 @@
 import React from "react";
 import { TbArrowBigRightLines } from "react-icons/tb";
 
-import "./Perfil.css";
+import classes from "./Perfil.module.css";
 
 function Perfil({ userInfoFirestore, image }) {
   const IMAGE = image
     ? image
     : "https://img.freepik.com/vector-gratis/silueta-voleibol-diseno-plano_23-2149400509.jpg?w=826&t=st=1666380508~exp=1666381108~hmac=8abfd0b7c72e3d27b94e38985546257c77caa318603a9a228bcb16241dae11b0";
   return (
-    <div className="container__perfil">
-      <div class="wrap animate pop">
-        <div class="overlay">
-          <div class="overlay-content animate slide-left delay-2">
-            <h3 class="animate slide-left pop delay-4 title-perfil">
-              Mi informacion
-              personal <TbArrowBigRightLines />
+    <div className={classes.containerPerfil}>
+      <div className={`${classes.wrap} ${classes.animate} ${classes.pop}`}>
+        <div className={classes.overlay}>
+          <div
+            className={`${classes.overlayContent} ${classes.animate} ${classes.slideLeft} ${classes.delay2}`}
+          >
+            <h3
+              className={`${classes.animate} ${classes.slideLeft} ${classes.pop} ${classes.delay4} ${classes.titlePerfil}`}
+            >
+              Mi informacion personal <TbArrowBigRightLines />
             </h3>
             <p
-              class="animate slide-left pop delay-5"
+              className={`${classes.animate} ${classes.slideLeft} ${classes.pop} ${classes.delay5}`}
               style={{ color: "white", marginBottom: "2.5rem" }}
             >
               {userInfoFirestore.name}
             </p>
           </div>
           <div
-            class="image-content animate slide delay-5"
+            className={`${classes.imageContent} ${classes.animate} ${classes.slide} ${classes.delay5}`}
             style={{
-              background: `url(${IMAGE}) center`,
+              background: ` url(${IMAGE}) center`,
+              backgroundSize: 'cover'
             }}
           ></div>
-          <div class="dots animate">
-            <div class="dot animate slide-up delay-6"></div>
-            <div class="dot animate slide-up delay-7"></div>
-            <div class="dot animate slide-up delay-8"></div>
+          <div className={`${classes.dots} ${classes.animate}`}>
+            <div
+              className={`${classes.dot} ${classes.animate} ${classes.slideUp} ${classes.delay6}`}
+            ></div>
+            <div
+              className={`${classes.dot} ${classes.animate} ${classes.slideUp} ${classes.delay7}`}
+            ></div>
+            <div
+              className={`${classes.dot} ${classes.animate} ${classes.slideUp} ${classes.delay8}`}
+            ></div>
           </div>
         </div>
-        <div class="text">
+        <div className={classes.text}>
           <p>Edad: {userInfoFirestore.years}</p>
           <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>
           <p>Tipo de sangre: {userInfoFirestore.bloodType}</p>
@@ -43,7 +53,7 @@ function Perfil({ userInfoFirestore, image }) {
           <p>Tipo de documento: {userInfoFirestore.typeDoc}</p>
           <p>Documento: {userInfoFirestore.document}</p>
           <p>Email: {userInfoFirestore.email}</p>
-          <h3>Contacto de emergencia: {userInfoFirestore.emergencyName}</h3>
+          <h4>Contacto de emergencia: {userInfoFirestore.emergencyName}</h4>
           <p>Número de teléfono: {userInfoFirestore.emergencyContact}</p>
           <p>Parentesco: {userInfoFirestore.emergencyRel}</p>
           <p>Seguro de salud: {userInfoFirestore.health}</p>
