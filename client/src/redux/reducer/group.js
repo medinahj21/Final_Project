@@ -1,8 +1,9 @@
-import { GET_GROUPS, GET_GROUP_DETAIL, CLEAN_PRODUCT_DETAIL, UPDATE_GROUP } from "../actions/actions";
+import { GET_GROUPS, GET_GROUP_DETAIL, CLEAN_PRODUCT_DETAIL, UPDATE_GROUP, GET_ROLE_REQUESTS, CLEAN_ROLE_REQUESTS } from "../actions/actions";
 
 const initialState = {
     groups: [],
     groupDetail: [],
+    roleRequests: []
 };
 
 
@@ -26,6 +27,16 @@ export default function groupReducer(state = initialState, { type, payload }) {
         case UPDATE_GROUP:
             return {
                 ...state
+            }
+        case GET_ROLE_REQUESTS:
+            return{
+                ...state,
+                roleRequests: payload
+            }
+        case CLEAN_ROLE_REQUESTS:
+            return{
+                ...state,
+                roleRequests: []
             }
         default:
             return state

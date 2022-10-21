@@ -42,7 +42,7 @@ export default function UpdateGroup({
 
   const handleUpdate = () => {
     if (update) {
-      if (window.confirm("Quieres salir de editar?")) setUpdate(!update);
+      if (window.confirm("¿Quieres salir de editar?")) setUpdate(!update);
     } else {
       setUpdate(!update);
     }
@@ -55,13 +55,13 @@ export default function UpdateGroup({
       if(response.error){
         alert("Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D");
         !update && setRequestSent(true);
-      } else  if(response.data){
+      } else  /* if(response.data) */{
         !update && setRequestSent(true);
         alert("Solicitud de inscripción enviada");
       }
-      else{
+      /* else{
         alert ("algo raro pasó")
-      }
+      } */
     }else{
       alert("¿aún no te registras?")
     }
@@ -211,6 +211,7 @@ export default function UpdateGroup({
       <button
         className="update__button"
         onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
+        disabled= {requestSent}
       >
         {update ? "Aceptar" : "Inscribirme"}
       </button>

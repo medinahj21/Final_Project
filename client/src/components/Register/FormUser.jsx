@@ -60,19 +60,19 @@ function FormUser({ setShowAlta }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let response = await dispatch(
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    notify();
+    setShowAlta(true);
+    
+    /* let response = await dispatch(
       createPlayer({
         personalInfo: { ...userInput, uid: user.uid, email: user.email },
       })
     );
     if (!response.error) {
-      setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-      notify();
-      setShowAlta(true);
     } else {
       notifyError(response.error);
-    }
+    } */
   };
 
   return (

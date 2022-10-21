@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       paymentDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       shirtNumber: {
