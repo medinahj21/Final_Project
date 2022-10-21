@@ -1,10 +1,50 @@
 .card__info {
-    background-color: var(--color-bg);
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), orange);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    border-radius: 20px;
     width: 30vw;
     border-radius: 20px;
     padding: 1rem;
     box-shadow: var(--box-shadow);
 }
+
+.card__info-perfil {
+    padding: 1rem;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.card__info-image {
+    float: left;
+    position: relative;
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
 
 .card__info p,
 .card__info h3,
@@ -30,23 +70,23 @@
         border-radius: 20px;
         padding: 1rem;
         box-shadow: var(--box-shadow);
-    
+
     }
-    
+
     .card__info p,
     .card__info h3,
     .card__info h2 {
         text-shadow: var(--text-shadow);
         color: var(--color-white);
     }
-    
+
     .card__image {
         float: right;
         width: 24%;
         border-radius: 20px;
         box-shadow: var(--box-shadow);
     }
-    
+
 }
 
 

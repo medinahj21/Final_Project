@@ -9,14 +9,16 @@
     user-select: none;
 }
 
-#menuToggle a {
+#menuToggle a,
+#menuToggle p {
     text-decoration: none;
     color: #ffffff;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-#menuToggle a:hover {
+#menuToggle a:hover,
+#menuToggle p:hover {
     color: tomato;
 }
 
@@ -105,4 +107,3 @@
 #menuToggle input:checked~ul {
     transform: none;
 }
-

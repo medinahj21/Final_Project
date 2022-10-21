@@ -1,0 +1,60 @@
+.update__container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-shadow: var(--text-shadow);
+    height: 80vh;
+    width: 50vw;
+    margin-top: 3rem;
+    margin-left: 18%;
+    border: 1px solid transparent;
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.339);
+}
+
+.update__container .update__image {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 70vw;
+    transform: translate(-40%, -50%);
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    filter: blur(.3rem);
+}
+
+.update__container .update__button {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.update__container span {
+    font-weight: bolder;
+    font-size: 1.4rem;
+}
+
+.update__container input {
+    user-select: text;
+    color: bisque;
+    font-weight: bolder;
+    border: transparent;
+    background-color: transparent;
+}
+
+.update__container textarea {
+    resize: none;
+    color: white;
+
+    background-color: transparent;
+    border: none;
+}
+
+.update__container iframe {
+    width: 30vw;
+    box-shadow: var(--box-shadow);
+    border: 1px solid transparent;
+    border-radius: 20px;
+}

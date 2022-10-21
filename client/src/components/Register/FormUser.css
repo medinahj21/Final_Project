@@ -1,7 +1,6 @@
 .form__container {
     background-color: rgba(31, 30, 19, 0.866);
     padding: 1rem 0 1rem 0;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +8,8 @@
 }
 
 .form__title {
-    color: #fff;
+    color: rgb(0, 0, 0);
+    text-align: center;
 }
 
 .form__user {
@@ -18,9 +18,39 @@
     flex-direction: column;
     width: 50vw;
     gap: .5rem;
+    height: 80vh;
     border-radius: 20px;
     justify-content: center;
     background-color: #fff;
+    overflow-y: scroll;
+}
+
+
+.form__user::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.form__user::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.form__user::-webkit-scrollbar-button:increment,
+.form__user::-webkit-scrollbar-button {
+    display: none;
+}
+
+.form__user::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.form__user::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 20px;
+    border: 2px solid var(--color-bg)
+}
+
+.form__user::-webkit-scrollbar-track {
+    border-radius: 10px;
 }
 
 .form__container .form__user button {
@@ -36,11 +66,6 @@
 
 .form__user input:focus {
     background-color: rgba(223, 206, 200, 0.501)
-}
-
-.form__user .input__error {
-    background-color: rgba(246, 10, 10, 0.655);
-    color: #fff;
 }
 
 .form__user label {
