@@ -1,22 +1,33 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import {
   createProduct,
   getFilterTags,
   updateProduct,
 } from "../../redux/actions/products";
+import { validate } from "./utils/validate";
+
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
-import { validate } from "./utils/validate";
+
 import "./CreateProduct.css";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function CreateProduct({ isCreate, setCreationDiv }) {
+  const notify = (message) => toast.success(message);
+  const notifyError = (message) =>
+    toast.error(message, {
+      hideProgressBar: true,
+      theme: "colored",
+    });
+
   const { id } = useParams();
 
   const initialState = useSelector(
@@ -42,7 +53,6 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
     initialState ? filterTags.map((obj) => obj.id) : []
   );
   const [isOrder, setIsOrder] = useState(true);
-  const [error, setError] = useState("");
   const [newProduct, setNewProduct] = useState({
     name: initialState ? name : "",
     price: initialState ? price : 0,
@@ -107,11 +117,11 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
     const error = validate(newProduct);
 
     if (error !== "") {
-      setError(error);
+      notifyError(error);
       return;
     }
+
     try {
-      
       if (isCreate) {
         let response = await dispatch(createProduct(newProduct));        
 
@@ -130,21 +140,22 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
           });
           setTags([]);
           setIsOrder(true);
-          setCreationDiv(false);
+          setTimeout(() => setCreationDiv(false), 2000);
 
-          alert("producto creado");
+          notify("Producto creado");
         }
       } else {
         dispatch(updateProduct(id, newProduct));
-        alert("Producto modificado");
+        notify("Producto modificado");
       }
     } catch (error) {
-      console.log(error);
+      notifyError("No se pudo cargar el producto");
     }
   };
 
   return (
     <div className="form__product-container">
+      <ToastContainer />
       <form className="form__product">
         <button
           className="close__button"
@@ -155,7 +166,6 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
           X
         </button>
         <h1 className="create__product-title">Crear producto</h1>
-        {error === "" ? <></> : <p className="product__input-error">{error}</p>}
         <ProductProperties
           newProduct={newProduct}
           handleSetNewProductProperties={handleSetNewProductProperties}

@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createPlayer } from "../../redux/actions/player";
 
-import "./FormUser.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function FormUser() {
-  const navigate = useNavigate();
+import "./FormUser.css";
+import Modal from "../UI/Modal";
+
+function FormUser({ setShowAlta }) {
+  const notifyError = (error) => toast.error(error);
+  const notify = () => toast.success("Registro exitoso, vamos a darnos de alta !");
+
   const [user, setUser] = useState();
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
 
@@ -56,35 +60,26 @@ function FormUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    notify();
+    setShowAlta(true);
     
-      let response = await dispatch(
-        createPlayer(
-          { personalInfo: { ...userInput, uid: user.uid, email: user.email } }
-
-        )
-      );
-      if (!response.error){
-        setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-        navigate("/");
-      }
-      else{
-        alert(response.error)
-      }
-      
+    /* let response = await dispatch(
+      createPlayer({
+        personalInfo: { ...userInput, uid: user.uid, email: user.email },
+      })
+    );
+    if (!response.error) {
+    } else {
+      notifyError(response.error);
+    } */
   };
 
-  if (!user || user === "") navigate("/");
-
-  if (userInfoFirestore) navigate("/");
-
   return (
-    <div className="form__container">
-      <Link to={"/"} className="form__backbtn">
-        Home
-      </Link>
-      <h1 className="form__title">Alta como jugador</h1>
+    <Modal>
       <form onSubmit={handleSubmit} className="form__user">
+        <ToastContainer />
+        <h3 className="form__title">Alta como jugador</h3>
         <label htmlFor="name">
           Nombre:{" "}
           <input
@@ -218,10 +213,12 @@ function FormUser() {
           />
         </label>
         <button>Enviar</button>
-        
-        <p>{/* JSON.stringify({ personalInfo: { ...userInput, uid: user?.uid, email: user?.email } }) */}</p>
+
+        <p>
+          {/* JSON.stringify({ personalInfo: { ...userInput, uid: user?.uid, email: user?.email } }) */}
+        </p>
       </form>
-    </div>
+    </Modal>
   );
 }
 

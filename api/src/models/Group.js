@@ -16,11 +16,7 @@ module.exports = (sequelize) => {
         validate: {
           notEmpty: {
             msg: "empty strings are not allowed",
-          },
-          len: {
-            args: [4, 30],
-            msg: "name should be between 4 and 30",
-          },
+          }
         },
       },
       location: {
@@ -35,8 +31,8 @@ module.exports = (sequelize) => {
             msg: "empty strings are not allowed",
           },
           len: {
-            args: [4, 30],
-            msg: "name should be between 4 and 30",
+            args: [4, 100],
+            msg: "schedule should be between 4 and 100 characters",
           },
         },
       },

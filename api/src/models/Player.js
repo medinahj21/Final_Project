@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       paymentDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       shirtNumber: {
@@ -36,8 +36,8 @@ module.exports = (sequelize) => {
       },
       shoppingCart: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true
-      }
+        allowNull: true,
+      },
     },
     {
       timestamps: false,
