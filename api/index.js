@@ -12,6 +12,7 @@ const {
   FilterTags,
 } = require("./src/db");
 
+
 const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
