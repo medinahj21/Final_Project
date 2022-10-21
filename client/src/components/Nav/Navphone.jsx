@@ -5,12 +5,28 @@ import "./Navphone.css";
 import { logout } from "../../redux/actions/auth";
 import { validateClick } from "../../utils/validateClick";
 
-function Navphone({ setClickChoice, isDashboard }) {
+function Navphone({
+  setClickChoice,
+  isDashboard,
+  setShowRegister,
+  setShowLogin,
+  setShowAlta,
+}) {
   const dispatch = useDispatch();
 
   const { email, userInfoFirestore } = useSelector(
     (state) => state.authReducer
   );
+
+  const handleRegister = () => {
+    setShowRegister(true);
+    setShowLogin(false);
+  };
+
+  const handleLogin = () => {
+    setShowRegister(false);
+    setShowLogin(true);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -27,52 +43,53 @@ function Navphone({ setClickChoice, isDashboard }) {
 
         <ul id="menu">
           {email === "" || !email ? (
-            <>
-              <Link to={"/check-in"}>
-                <li>Registrarse</li>
-              </Link>
-              <Link to={"/login"}>
-                <li>Iniciar Sesión</li>
-              </Link>
-            </>
+            <div className="nav__login">
+              <p onClick={handleRegister}>Registrarse</p>
+              <p onClick={handleLogin}>Iniciar Sesión</p>
+            </div>
           ) : (
-            <a onClick={handleLogout}>
-              <li>Cerrar Sesión</li>
-            </a>
+            <div>
+              <p onClick={handleLogout}>Cerrar Sesión</p>
+            </div>
           )}
 
           {isDashboard ? (
             <>
-              <a onClick={() => validateClick("perfil", setClickChoice)}>
+              <p onClick={() => validateClick("perfil", setClickChoice)}>
                 <li>Perfil</li>
-              </a>
+              </p>
               {userInfoFirestore.isAdmin && (
-                <a onClick={() => validateClick("pagos", setClickChoice)}>
+                <p onClick={() => validateClick("pagos", setClickChoice)}>
                   <li>Administracion de pagos</li>
-                </a>
+                </p>
+              )}
+              {userInfoFirestore.isAdmin && (
+                <p onClick={() => validateClick("request", setClickChoice)}>
+                  <li>Solicitudes</li>
+                </p>
               )}
               {!userInfoFirestore.isAdmin && (
-                <a onClick={() => validateClick("grupo", setClickChoice)}>
+                <p onClick={() => validateClick("grupo", setClickChoice)}>
                   <li>Mi grupo</li>
-                </a>
+                </p>
               )}
               {!userInfoFirestore.isAdmin && (
-                <a onClick={() => validateClick("pagos", setClickChoice)}>
+                <p onClick={() => validateClick("pagos", setClickChoice)}>
                   <li>Pagos</li>
-                </a>
+                </p>
               )}
               {userInfoFirestore.isAdmin && (
-                <a onClick={() => validateClick("socios", setClickChoice)}>
+                <p onClick={() => validateClick("socios", setClickChoice)}>
                   <li>Socios</li>
-                </a>
+                </p>
               )}
-              <a onClick={() => validateClick("calendario", setClickChoice)}>
+              <p onClick={() => validateClick("calendario", setClickChoice)}>
                 <li>Calendario</li>
-              </a>
+              </p>
               {userInfoFirestore.isAdmin && (
-                <a onClick={() => validateClick("grupos", setClickChoice)}>
+                <p onClick={() => validateClick("grupos", setClickChoice)}>
                   <li>Grupos</li>
-                </a>
+                </p>
               )}
               <Link to={"/"}>
                 <li>Inicio</li>
@@ -86,9 +103,7 @@ function Navphone({ setClickChoice, isDashboard }) {
               {!userInfoFirestore || userInfoFirestore.name === "" ? (
                 <>
                   {email ? (
-                    <Link to={"/form-user"}>
-                      <li>Alta jugador</li>
-                    </Link>
+                    <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
                   ) : (
                     <></>
                   )}
@@ -101,21 +116,21 @@ function Navphone({ setClickChoice, isDashboard }) {
                       : "/dashboard-player"
                   }
                 >
-                  <li>Dashboard</li>
+                  Dashboard |
                 </Link>
               )}
-              <a href="!">
+              <p href="!">
                 <li>Oferta</li>
-              </a>
-              <a href="!">
+              </p>
+              <p href="!">
                 <li>calendario</li>
-              </a>
-              <a href="!">
+              </p>
+              <p href="!">
                 <li>Nosotros</li>
-              </a>
-              <a href="!">
+              </p>
+              <p href="!">
                 <li>Contacto</li>
-              </a>
+              </p>
             </>
           )}
         </ul>

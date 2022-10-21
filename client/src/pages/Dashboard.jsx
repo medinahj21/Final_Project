@@ -11,7 +11,10 @@ import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
-import Request from "../components/Dashboard/Request";
+// import Request from "../components/Dashboard/Request";
+import UserDB from "../components/Dashboard/UserDB";
+import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
+import Groups from "../components/Groups/Groups";
 
 function Admin() {
   const [isDesktop, setDesktop] = useState(false);
@@ -69,13 +72,24 @@ function Admin() {
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
           <>
-            <InfoCard userInfoFirestore={userInfoFirestore} />
+            <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} />
+            <UpdateCredentials />
             <DebtCard />
           </>
         )}
         {clickChoice.isRequest && (
           <>
-           <Request />
+            <UserDB />
+          </>
+        )}
+        {clickChoice.isGrupos && (
+          <>
+            <Groups />
+          </>
+        )}
+        {clickChoice.isGrupo && (
+          <>
+            <Groups />
           </>
         )}
         {clickChoice.isSocios && (

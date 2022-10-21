@@ -58,6 +58,7 @@ const asyncPostProduct = async (req, res) => {
 };
 
 const postGroups = async (req, res) => {
+  console.log("backedn", req.body);
   const {
     name,
     image,
@@ -76,7 +77,7 @@ const postGroups = async (req, res) => {
     if (
       !name ||
       !genre ||
-      !adminId ||
+      // !adminId ||
       !schedule ||
       !description ||
       !inscription_cost ||
@@ -97,10 +98,16 @@ const postGroups = async (req, res) => {
         inscription_cost,
         accept_newPlayers,
       });
-      const validateAdmin = await newGroup.addAdmin(adminId);
-      validateAdmin && res.status(200).send("group created susscessful");
+
+      if (adminId?.length) {
+        const validateAdmin = await newGroup.addAdmin(adminId);
+        validateAdmin && res.status(200).send("group created susscessful");
+      } else {
+        res.status(200).json({ newGroup });
+      }
     }
   } catch (error) {
+    res.status(500).json({ error_DB: error.message });
     console.log(error);
   }
 };
@@ -117,7 +124,7 @@ const createEvent = async (req, res) => {
     description,
     repetitive,
     state,
-    player
+    player,
   } = req.body;
   try {                                      //Volver a colocar validación para admin.
     if (!(name && start && end && location && date)) {
@@ -136,7 +143,9 @@ const createEvent = async (req, res) => {
       console.log('creado con exito');
       const addAdmin = await newEvent.addAdmin(admin);
       const addPlayer = await newEvent.addPlayer(player);
-      addAdmin && addPlayer && res.status(200).send("the event has been created");
+      addAdmin &&
+        addPlayer &&
+        res.status(200).send("the event has been created");
     }
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
@@ -153,7 +162,7 @@ const postOrders = async (req, res) => {
     payment_mode, //==> revisar obligatoriedad
     payment_term,
     product,
-    playerId
+    playerId,
   } = req.body;
 
   try {
@@ -175,11 +184,11 @@ const postOrders = async (req, res) => {
         payment_date,
         payment_mode,
         payment_term,
-        playerId
+        playerId,
       });
       const validateOrderProduc = await newOrder.addProduct(product);
       // const validateOrderPlayer = await newOrder.addPlayer(player);
-       validateOrderProduc  &&   res.status(200).send("order created successfully");
+      validateOrderProduc && res.status(200).send("order created successfully");
     }
   } catch (error) {
     console.log(error);
@@ -187,7 +196,8 @@ const postOrders = async (req, res) => {
 };
 
 const postPlayers = async (req, res) => {
-  const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } = req.body;
+  const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
+    req.body;
 
   try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
@@ -198,7 +208,7 @@ const postPlayers = async (req, res) => {
         debtValue,
         paymentDate,
         shirtNumber,
-        groupId
+        groupId,
       });
 
       !newPlayer
@@ -210,14 +220,15 @@ const postPlayers = async (req, res) => {
   }
 };
 const postAdmins = async (req, res) => {
-  const { personal_info, permissions} = req.body;
+  const { personal_info, permissions } = req.body;
 
   try {
-    if (!(personal_info && permissions) ) res.status(400).json({ error: "missing info" });
+    if (!(personal_info && permissions))
+      res.status(400).json({ error: "missing info" });
     else {
       const newAdmin = await Admin.create({
         personal_info,
-        permissions
+        permissions,
       });
 
       !newAdmin
@@ -239,30 +250,28 @@ const postFilterTag = async (req, res) => {
   }
 };
 
-
-
-const postRoleRequest = async (req,res) =>{
-  const { new_role, playerId , groupId} = req.body;
+const postRoleRequest = async (req, res) => {
+  const { id,newRole, userInfo, groupId } = req.body;
   try {
-    if(!new_role){
-      res.status(500).json({ error_DB: error.message });
-    }else{
+    if (!newRole) {
+      res.status(400).json({ error: "No role send" });
+    } else {
       const newRoll = await RoleRequest.create({
-        new_role,
-        playerId,
-        groupId
-      })
-      
-      newRoll ? res.json({message:"procces successfully"})
-      :res.status(400).json({message:"bad request"})
+        id,
+        newRole,
+        userInfo,
+        groupId,
+      });
+
+      newRoll
+        ? res.json({ message: "procces successfully" })
+        : res.status(400).json({ error: "bad request" });
     }
   } catch (error) {
-   console.log(error);
+    res.status(500).json({ error_DB: error.message });
+    console.log(error);
   }
-}
-
-
-
+};
 
 module.exports = {
   asyncPostProduct,
@@ -272,7 +281,5 @@ module.exports = {
   postPlayers,
   postFilterTag,
   postAdmins,
-  postRoleRequest
+  postRoleRequest,
 };
-
-
