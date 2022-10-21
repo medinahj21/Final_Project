@@ -108,6 +108,9 @@ Admin.belongsToMany(Event, { through: "admin-event" });
 FilterTags.belongsToMany(Product, { through: "product-filter" });
 Product.belongsToMany(FilterTags, { through: "product-filter" });
 
+Player.hasOne(RoleRequest); /*ready**/
+RoleRequest.belongsTo(Player);
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

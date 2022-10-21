@@ -5,7 +5,13 @@ import "./ShowProducts.css";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Paginated from "./Paginated";
-import { addToCart, clearCart, incrementProductInCart } from "../../redux/actions/shoppingCart";
+import {
+  addToCart,
+  clearCart,
+  incrementProductInCart,
+  updatePlayerCart,
+} from "../../redux/actions/shoppingCart";
+import { getPlayersFromDB } from "../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
@@ -14,17 +20,12 @@ export default function ShowProducts({ dataFiltered }) {
     return state.productsReducer.prevPage;
   });
 
-  const allProducts= useSelector((state)=> {
+  const allProducts = useSelector((state) => {
     return state.productsReducer.allProducts;
-  })
+  });
 
-  const productsInCart= useSelector((state)=> state.shoppingCartReducer.cart);
-
-/*   const userCart= useSelector((state)=> {
-    return state.shoppingReducer.cart;
-  }) */
-
-
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
@@ -38,30 +39,47 @@ export default function ShowProducts({ dataFiltered }) {
 
   useEffect(() => {
     if (prevPage !== currentPage) {
-      setCurrentPage(prevPage);
-    }
+      setCurrentPage(prevPage)
+    };
+      dispatch(clearCart());
+      dispatch(getPlayersFromDB());
+
+    
   }, [currentPage, prevPage]);
+
+  useEffect(()=>{
+    return ()=> dispatch(clearCart())
+  }, [dispatch])
 
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
   };
 
-  const handleAddToCart= (id)=>{
-    let itemToAdd= allProducts.find(product=> product.id === id);
-    let productToAdd = productsInCart.find((prod) => prod.product.id === id); 
-    if (productToAdd){
+  const handleAddToCart = (id) => {
+    let itemToAdd = allProducts.find((product) => product.id === id);
+    let productToAdd = productsInCart.find((prod) => prod.product.id === id);
+
+    if (productToAdd) {
       dispatch(incrementProductInCart(id));
-    }else{
+    } else {
       dispatch(addToCart(itemToAdd));
     }
-    
 
-  }
+    let userId = userInfoFirestore.uid;
+    let playerProducts = productsInCart.map((item) => {
+      return {
+        quant: item.quant,
+        productId: item.product.id,
+      };
+    });
 
-  const handleClearCart= ()=>{
-    dispatch(clearCart())
-  }
+    dispatch(updatePlayerCart(userId, playerProducts));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   return (
     <div>
@@ -84,7 +102,7 @@ export default function ShowProducts({ dataFiltered }) {
           );
         })}
       </div>
-      <button onClick= {()=> handleClearCart()}>LIMPIAR CART</button>
+      <button onClick={() => handleClearCart()}>LIMPIAR CART</button>
     </div>
   );
 }

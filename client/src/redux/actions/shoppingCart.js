@@ -48,9 +48,12 @@ export const removeProductFromCart = (id) => {
 export const updatePlayerCart = (id, payload) => {
   return async (dispatch) => {
     try {
+      console.log(payload);
+      const shoppingCart= {shoppingCart: payload};
+      console.log("SOPIINGCART:", shoppingCart);
       let response = await axios.put(
-        `${axios.defaults.baseURL}/products/update/${id}`,
-        payload
+        `http://localhost:3001/players/update/${id}`,
+        shoppingCart
       );
       return dispatch({
         type: UPDATE_PLAYER_SHOPPING_CART,

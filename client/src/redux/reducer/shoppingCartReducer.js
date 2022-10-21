@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   INCREMENT_QUANT_PRODUCT,
   DECREMENT_QUANT_PRODUCT,
+  UPDATE_PLAYER_SHOPPING_CART,
   CLEAR_CART,
 } from "./../actions/actions";
 
@@ -35,6 +36,11 @@ export default function shoppingCartReducer(state = initialState, action) {
 
     case DECREMENT_QUANT_PRODUCT:
       return {};
+
+    case UPDATE_PLAYER_SHOPPING_CART:
+      return {
+        ...state,
+      }
 
     case CLEAR_CART:
       return {

@@ -45,7 +45,7 @@ export function getUserFirestore(uid) {
           const infoDocu = consult.data();
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: { ...infoDocu, uid: "private" },
+            payload: { ...infoDocu, },
           });
         } else {
           return dispatch({

@@ -7,8 +7,6 @@ const ShoppingCart = () => {
   const productItems = useSelector((state) => state.shoppingCartReducer.cart);
   console.log("PRODUCT ITEMS:", productItems);
 
-  const [total, setTotal]= useState(0);
-
   const delFromCart = () => {};
 
   const clearCart = () => {};
@@ -24,6 +22,8 @@ const ShoppingCart = () => {
             <h3 key={index}>{prod.product.name}</h3>
             <h3>${prod.product.price}.00</h3>
             <h5>Cantidad: {prod.quant}</h5>
+            <button> - </button>
+            <button> + </button>
             <h4>Subtotal: ${prod.quant * prod.product.price}</h4>
             
             
