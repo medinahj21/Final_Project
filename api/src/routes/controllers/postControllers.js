@@ -249,22 +249,24 @@ const postFilterTag = async (req, res) => {
 };
 
 const postRoleRequest = async (req, res) => {
-  const { new_role, playerId, groupId } = req.body;
+  const { id,newRole, userInfo, groupId } = req.body;
   try {
-    if (!new_role) {
-      res.status(500).json({ error_DB: error.message });
+    if (!newRole) {
+      res.status(400).json({ error: "No role send" });
     } else {
       const newRoll = await RoleRequest.create({
-        new_role,
-        playerId,
+        id,
+        newRole,
+        userInfo,
         groupId,
       });
 
       newRoll
         ? res.json({ message: "procces successfully" })
-        : res.status(400).json({ message: "bad request" });
+        : res.status(400).json({ error: "bad request" });
     }
   } catch (error) {
+    res.status(500).json({ error_DB: error.message });
     console.log(error);
   }
 };

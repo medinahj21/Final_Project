@@ -109,11 +109,11 @@ FilterTags.belongsToMany(Product, { through: "product-filter" });
 // Player.hasMany(ProductRequest);
 // ProductRequest.belongsTo(Player, { foreignKey: "playerId" });     /*Pending**/
 
-Player.hasOne(RoleRequest); /*ready**/
-RoleRequest.belongsTo(Player);
+// Player.hasOne(RoleRequest); 
+// RoleRequest.belongsTo(Player);
 
-Group.hasOne(RoleRequest); /*ready**/
-RoleRequest.belongsTo(Group);
+// Group.hasOne(RoleRequest); /*ready**/
+// RoleRequest.belongsTo(Group);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
