@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../firebase/firebase.config";
 
-import { getAllInfoUsers } from "../redux/actions/auth";
+import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
 import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
-// import Request from "../components/Dashboard/Request";
 import UserDB from "../components/Dashboard/UserDB";
 import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
 import Groups from "../components/Groups/Groups";
@@ -38,19 +37,15 @@ function Admin() {
   }, []);
 
   const dispatch = useDispatch();
-  const [clickChoice, setClickChoice] = useState({
-    isPerfil: true,
-    isSocios: false,
-    isPagos: false,
-    isGrupos: false,
-    isGrupo: false,
-    isCalendario: false,
-    isRequest: false,
-  });
 
-  const { allUserFirestore, userInfoFirestore } = useSelector(
-    (state) => state.authReducer
-  );
+  const { allUserFirestore, userInfoFirestore, clickChoicePersist } =
+    useSelector((state) => state.authReducer);
+
+  const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });
+
+  useEffect(() => {
+    dispatch(clickChoiceHandler(clickChoice));
+  }, [clickChoice, dispatch]);
 
   useEffect(() => {
     if (userInfoFirestore.isAdmin) {

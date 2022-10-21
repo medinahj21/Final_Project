@@ -4,6 +4,8 @@ export const LOGOUT_USER_FIREBASE = "LOGOUT_USER_FIREBASE";
 export const PLAYER__FORM__FIREBASE = "PLAYER__FORM__FIREBASE";
 export const ALL_PLAYER__FORM__FIREBASE = "ALL_PLAYER__FORM__FIREBASE";
 export const RESET_REDUX_STATE = "RESET_REDUX_STATE";
+export const CLICK__CHOICE = "CLICK__CHOICE";
+export const GET_CLICK__CHOICE = "GET_CLICK__CHOICE";
 
 //------------------------------------------------------------------------------------------------------
 //GET_PLAYER_DETAIL

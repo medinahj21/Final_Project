@@ -16,6 +16,16 @@
     z-index: 0;
 }
 
+/* .blog-card.left {
+    width: 700px;
+    position: relative;
+}
+
+.blog-card.right {
+    width: 700px;
+    position: relative;
+} */
+
 .blog-card a {
     color: inherit;
 }
@@ -177,11 +187,15 @@
 
 
 /*''''''*/
-@media (min-width: 640px) {
+@media (min-width: 1040px) {
 
     .blog-card {
+        box-shadow: var(--box-shadow);
+        position: relative;
+        right: 15%;
         flex-direction: row;
-        max-width: 700px;
+        width: 50vw;
+        height: 250px;
     }
 
     .blog-card .meta {
@@ -206,6 +220,8 @@
     }
 
     .blog-card.alt {
+        position: relative;
+        left: 15%;
         flex-direction: row-reverse;
     }
 

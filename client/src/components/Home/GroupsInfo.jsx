@@ -5,10 +5,11 @@ function GroupsInfo({ position, img, name, schedule, genre, price }) {
     background: `url(${img})`,
     backgroundSize: "cover",
   };
+  const positionCard = position === "alt" ? "left" : "right";
 
   return (
     <>
-      <div className={`blog-card ${position}`}>
+      <div className={`blog-card ${position} ${positionCard}`}>
         <div className="meta">
           <div className="photo" style={imageBG}></div>
           <ul className="details">

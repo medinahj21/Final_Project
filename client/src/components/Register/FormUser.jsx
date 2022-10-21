@@ -5,8 +5,7 @@ import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
 
-import { useDispatch } from "react-redux";
-import { createPlayer } from "../../redux/actions/player";
+// import { useDispatch } from "react-redux";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,12 +14,13 @@ import "./FormUser.css";
 import Modal from "../UI/Modal";
 
 function FormUser({ setShowAlta }) {
-  const notifyError = (error) => toast.error(error);
-  const notify = () => toast.success("Registro exitoso, vamos a darnos de alta !");
+  // const notifyError = (error) => toast.error(error);
+  const notify = () =>
+    toast.success("Registro exitoso, vamos a darnos de alta !");
 
   const [user, setUser] = useState();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
@@ -61,18 +61,10 @@ function FormUser({ setShowAlta }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let response = await dispatch(
-      createPlayer({
-        personalInfo: { ...userInput, uid: user.uid, email: user.email },
-      })
-    );
-    if (!response.error) {
-      setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-      notify();
-      setShowAlta(true);
-    } else {
-      notifyError(response.error);
-    }
+    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    notify();
+    setShowAlta(false);
+    // notifyError(response.error);
   };
 
   return (
