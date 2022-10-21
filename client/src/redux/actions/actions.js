@@ -26,10 +26,8 @@ export const DELETE_USER = "DELETE_USER";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 
-<<<<<<< HEAD
 export const EDIT_EVENT = "EDIT_EVENT";
 
-=======
 //GROUPS
 export const GET_GROUPS = "GET_GROUPS";
 export const GET_GROUP_DETAIL = "GET_GROUP_DETAIL";
@@ -43,7 +41,6 @@ export const CLEAN_ROLE_REQUESTS = "CLEAN_ROLE_REQUESTS";
 
 
 // PRODUCTS
->>>>>>> 5b0a33816806c1a6daede4574ca0c2d0ab0502f7
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";

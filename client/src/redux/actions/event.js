@@ -4,6 +4,7 @@ import {
   CREATE_EVENT,
   EDIT_EVENT
 } from "./actions";
+import axios from "axios";
 
 export function getEvents() {
   return async function (dispatch) {
