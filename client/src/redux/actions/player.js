@@ -1,7 +1,7 @@
 import { CREATE_PLAYER, GET_PLAYERS_FROM_DB, GET_PLAYER_DETAIL } from "./actions";
 import axios from "axios";
 
-export const createPlayer = (allInfo) => {
+export const createPlayer = (personalInfo) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(`http://localhost:3001/players/create`, personalInfo);

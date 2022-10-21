@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { incrementProductInCart } from "../../redux/actions/shoppingCart";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
 
-  const productItems = useSelector((state) => state.shoppingCartReducer.cart);
-  console.log("PRODUCT ITEMS:", productItems);
+  const playerItems = useSelector((state) => state.playerReducer.playerDetail);
+  console.log("PLAYER_ITEMS:", playerItems);
+  const productItems= playerItems
 
-  const delFromCart = () => {};
+  const handleIncrementProduct= (id)=>{
+    dispatch(incrementProductInCart(id));
+  }
 
-  const clearCart = () => {};
+  
 
   
   return (
@@ -23,7 +27,7 @@ const ShoppingCart = () => {
             <h3>${prod.product.price}.00</h3>
             <h5>Cantidad: {prod.quant}</h5>
             <button> - </button>
-            <button> + </button>
+            <button onClick={handleIncrementProduct(prod.product.id)}> + </button>
             <h4>Subtotal: ${prod.quant * prod.product.price}</h4>
             
             

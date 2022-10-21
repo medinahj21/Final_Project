@@ -217,7 +217,7 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !player
@@ -230,7 +230,7 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !player
@@ -242,7 +242,7 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !allPlayers

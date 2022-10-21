@@ -38,6 +38,7 @@ export default function shoppingCartReducer(state = initialState, action) {
       return {};
 
     case UPDATE_PLAYER_SHOPPING_CART:
+      
       return {
         ...state,
       }

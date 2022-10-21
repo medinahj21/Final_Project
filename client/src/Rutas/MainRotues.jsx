@@ -10,7 +10,6 @@ import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 import Groups from "../pages/Groups/Groups";
 import GroupDetail from "../pages/Groups/GroupDetail/GroupDetail";
 import Calendario from "../pages/Calendario/Calendario";
-
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 

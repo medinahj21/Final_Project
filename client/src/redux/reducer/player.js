@@ -1,4 +1,4 @@
-import { CREATE_PLAYER, GET_PLAYERS_FROM_DB, GET_PLAYER_DETAIL } from "../actions/actions";
+import { CREATE_PLAYER, GET_PLAYERS_FROM_DB, GET_PLAYER_DETAIL, UPDATE_PLAYER_SHOPPING_CART } from "../actions/actions";
 
 const initialState = {
   players: [],
@@ -19,6 +19,12 @@ export default function playerReducer(state = initialState, action) {
             ...state,
             playerDetail: action.payload,
           }
+
+        case UPDATE_PLAYER_SHOPPING_CART:      
+            return {
+              ...state,
+            }
+
         default:
             return state
 
