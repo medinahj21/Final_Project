@@ -66,34 +66,37 @@ export default function Groups() {
   return (
     <div className="groups__container">
       {isForm ? <FormGroup setIsForm={setIsForm} /> : <></>}
-      <div className="selects__container">
-        {userInfoFirestore.isAdmin ? (
-          <button onClick={() => setIsForm(true)}>Nuevo grupo</button>
-        ) : (
-          <></>
-        )}
-        <SelectGroups
-          filterByGenre={filterByGenre}
-          filterByCategory={filterByCategory}
-        />
-      </div>
+
       {!isShowDetail ? (
-        <div className="groups__card-container">
-          {allGroups?.map((e, i) => {
-            return (
-              <CardGroup
-                key={i}
-                name={e.name}
-                schedule={e.schedule}
-                price={e.inscription_cost}
-                id={e.id}
-                img={e.image}
-                genre={e.genre}
-                idRecoverHandler={idRecoverHandler}
-              />
-            );
-          })}
-        </div>
+        <>
+          <div className="selects__container">
+            {userInfoFirestore.isAdmin ? (
+              <button onClick={() => setIsForm(true)}>Nuevo grupo</button>
+            ) : (
+              <></>
+            )}
+            <SelectGroups
+              filterByGenre={filterByGenre}
+              filterByCategory={filterByCategory}
+            />
+          </div>
+          <div className="groups__card-container">
+            {allGroups?.map((e, i) => {
+              return (
+                <CardGroup
+                  key={i}
+                  name={e.name}
+                  schedule={e.schedule}
+                  price={e.inscription_cost}
+                  id={e.id}
+                  img={e.image}
+                  genre={e.genre}
+                  idRecoverHandler={idRecoverHandler}
+                />
+              );
+            })}
+          </div>
+        </>
       ) : (
         <GroupDetail id={idGroup} setShowDetail={setShowDetail} />
       )}

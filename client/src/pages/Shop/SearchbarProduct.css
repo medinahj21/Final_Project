@@ -1,10 +1,31 @@
 .search__container {
+    padding: 1rem;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), orange);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    box-shadow: var(--box-shadow);
+
     display: flex;
     align-items: center;
-    background-color: var(--color-bg);
     min-height: 10vh;
     color: #fff;
     justify-content: space-around;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .search__container button,

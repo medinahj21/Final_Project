@@ -13,11 +13,18 @@
     box-shadow: var(--box-shadow);
     display: flex;
     justify-content: center;
-    gap: 2rem;
     padding: 1rem;
     border-radius: 20px;
     background-color: var(--color-bg);
     color: #fff;
+    box-shadow: var(--box-shadow);
+}
+
+.groups__container .selects__container select {
+    border-radius: 20px;
+    padding: .2rem;
+    margin-left: 1rem;
+    border: 1px solid transparent;
     box-shadow: var(--box-shadow);
 }
 
