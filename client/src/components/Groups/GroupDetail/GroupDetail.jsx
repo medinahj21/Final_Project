@@ -12,7 +12,6 @@ export default function GroupDetail({ setShowDetail, id }) {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    console.log(id);
     dispatch(actions.getGroupDetail(id));
   }, [dispatch]);
 

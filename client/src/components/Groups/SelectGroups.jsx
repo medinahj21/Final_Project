@@ -3,9 +3,16 @@ import React from "react";
 function SelectGroups({ filterByGenre, filterByCategory }) {
   return (
     <div>
-      <label>Filtrar por: </label>
-      <span>Generos: </span>
-      <select name="filterByGenre" id="" onChange={(e) => filterByGenre(e)}>
+      <label>Filtrar por </label>
+      <select
+        name="filterByGenre"
+        defaultValue={"genre"}
+        id=""
+        onChange={(e) => filterByGenre(e)}
+      >
+        <option value="genre" disabled={true}>
+          Género
+        </option>
         <option key={"all"} value={"all"}>
           Todos
         </option>
@@ -19,12 +26,15 @@ function SelectGroups({ filterByGenre, filterByCategory }) {
           Mix
         </option>
       </select>
-      <span>Categorías: </span>
       <select
+        defaultValue={"category"}
         name="filterByCategory"
         id=""
         onChange={(e) => filterByCategory(e)}
       >
+        <option value={"category"} disabled={true}>
+          Categoria
+        </option>
         <option key={"todos"} value="all">
           Todos
         </option>

@@ -30,6 +30,7 @@ export default function UpdateGroup({
       dispatch(actions.updateGroup(id, inputUpdate));
     }
   };
+
   const handleChange = (e) => {
     setInputUpdate((prevState) => {
       return {
@@ -38,6 +39,7 @@ export default function UpdateGroup({
       };
     });
   };
+
   const handleUpdate = () => {
     if (update) {
       if (window.confirm("Quieres salir de editar?")) setUpdate(!update);
@@ -68,180 +70,150 @@ export default function UpdateGroup({
 
   return (
     <div className="update__container">
-      <button onClick={() => setShowDetail(false)}>Volver</button>
-      <div className={""}>
-        <img className="update__image" src={groupDetail.image} alt="grupos" />
-        {update ? <div>Subir</div> : ""}
-      </div>
-      <section>
-        {userInfoFirestore.isAdmin ? (
-          <div onClick={() => handleUpdate()}>
-            {update ? "Cancelar" : "Editar"}
-          </div>
-        ) : (
-          <></>
-        )}
-        <h1>{groupDetail.name}</h1>
-
-        <div>
-          <div>
-            <div>
-              <span>Genero:</span>
-              {update ? (
-                <select
-                  name="genre"
-                  value={inputUpdate.genre}
-                  onChange={handleChange}
-                >
-                  <option value="">Escoge una opción</option>
-                  <option value="Male">Masculino</option>
-                  <option value="Female">Femenino</option>
-                  <option value="Mix">Mixto</option>
-                </select>
-              ) : (
-                <input
-                  type="text"
-                  name="genre"
-                  value={inputUpdate.genre}
-                  readOnly={update ? false : "readonly"}
-                  tabIndex={update ? "-1" : "0"}
-                  onChange={handleChange}
-                />
-              )}
-            </div>
-            <div>
-              <span>Horario: </span>
-              <input
-                type="text"
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-                name="schedule"
-                value={inputUpdate.schedule}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <span>Costo inscripción: </span>
-              <input
-                type="text"
-                value={inputUpdate.inscription_cost}
-                name="inscription_cost"
-                onChange={handleChange}
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-              />
-            </div>
-            <div>
-              <span>Email: </span>
-              <input
-                type="text"
-                value={inputUpdate.contact}
-                name="contact"
-                onChange={handleChange}
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-              />
-            </div>
-            <div>
-              <span>WhatsApp: </span>
-              <input
-                type="text"
-                value={inputUpdate.whatsapp}
-                name="whatsapp"
-                onChange={handleChange}
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-              />
-            </div>
-            <div>
-              <span>Acepta nuevos: </span>
-              {update ? (
-                <select name="accept_newPlayers" onChange={handleChange}>
-                  <option value="" selected disabled="true">
-                    Escoge una opción
-                  </option>
-                  <option value="true">True</option>
-                  <option value="false">False</option>
-                </select>
-              ) : (
-                <input
-                  type="text"
-                  value={inputUpdate.accept_newPlayers}
-                  name="accept_newPlayers"
-                  onChange={handleChange}
-                  readOnly={update ? false : "readonly"}
-                  tabIndex={update ? "-1" : "0"}
-                />
-              )}
-            </div>
-            <div>
-              <span>Admin: </span>
-              <input
-                type="text"
-                value={inputUpdate.adminId}
-                name="adminId"
-                onChange={handleChange}
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-              />
-            </div>
-            <div>
-              <span>Categoria: </span>
-              {update ? (
-                <select
-                  name="category"
-                  value={inputUpdate.category}
-                  onChange={handleChange}
-                >
-                  <option value="">Escoge una opcion</option>
-                  <option value="Mixto">Mixto</option>
-                  <option value="Juvenil">Juvenil</option>
-                  <option value="Adultos">Adultos</option>
-                </select>
-              ) : (
-                <input
-                  type="text"
-                  value={inputUpdate.category}
-                  name="category"
-                  onChange={handleChange}
-                  readOnly={update ? false : "readonly"}
-                  tabIndex={update ? "-1" : "0"}
-                />
-              )}
-            </div>
-          </div>
-          <div>
-            <div>
-              <span>Descripción:</span>
-              <textarea
-                name="description"
-                id=""
-                cols="30"
-                rows="10"
-                value={inputUpdate.description}
-                readOnly={update ? false : "readonly"}
-                tabIndex={update ? "-1" : "0"}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <span>Locación:</span>
-              <iframe
-                title="Ubicación"
-                width="300"
-                height="200"
-                src={groupDetail.location}
-              ></iframe>
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
-          disabled={requestSent} 
-        >
-          {update ? "Aceptar" : "Inscribirme"}
+      <button className="update__button" onClick={() => setShowDetail(false)}>
+        Volver
+      </button>
+      <img className="update__image" src={groupDetail.image} alt="grupos" />
+      {update ? <div>Subir</div> : ""}
+      {userInfoFirestore.isAdmin ? (
+        <button className="update__button" onClick={() => handleUpdate()}>
+          {update ? "Cancelar" : "Editar"}
         </button>
-      </section>
+      ) : (
+        <></>
+      )}
+      <h1>{groupDetail.name}</h1>
+
+      <span>Genero:</span>
+      {update ? (
+        <select name="genre" value={inputUpdate.genre} onChange={handleChange}>
+          <option value="">Escoge una opción</option>
+          <option value="Male">Masculino</option>
+          <option value="Female">Femenino</option>
+          <option value="Mix">Mixto</option>
+        </select>
+      ) : (
+        <input
+          type="text"
+          name="genre"
+          value={inputUpdate.genre}
+          readOnly={update ? false : "readonly"}
+          tabIndex={update ? "-1" : "0"}
+          onChange={handleChange}
+        />
+      )}
+      <span>Horario: </span>
+      <input
+        type="text"
+        readOnly={update ? false : "readonly"}
+        tabIndex={update ? "-1" : "0"}
+        name="schedule"
+        value={inputUpdate.schedule}
+        onChange={handleChange}
+      />
+      <span>Costo inscripción: </span>
+      <input
+        type="text"
+        value={inputUpdate.inscription_cost}
+        name="inscription_cost"
+        onChange={handleChange}
+        readOnly={update ? false : "readonly"}
+        tabIndex={update ? "-1" : "0"}
+      />
+      <span>Email: </span>
+      <input
+        type="text"
+        value={inputUpdate.contact}
+        name="contact"
+        onChange={handleChange}
+        readOnly={update ? false : "readonly"}
+        tabIndex={update ? "-1" : "0"}
+      />
+      <span>WhatsApp: </span>
+      <input
+        type="text"
+        value={inputUpdate.whatsapp}
+        name="whatsapp"
+        onChange={handleChange}
+        readOnly={update ? false : "readonly"}
+        tabIndex={update ? "-1" : "0"}
+      />
+      <span>Acepta nuevos: </span>
+      {update ? (
+        <select name="accept_newPlayers" onChange={handleChange}>
+          <option value="" selected disabled="true">
+            Escoge una opción
+          </option>
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      ) : (
+        <input
+          type="text"
+          value={inputUpdate.accept_newPlayers}
+          name="accept_newPlayers"
+          onChange={handleChange}
+          readOnly={update ? false : "readonly"}
+          tabIndex={update ? "-1" : "0"}
+        />
+      )}
+      <span>Admin: </span>
+      <input
+        type="text"
+        value={inputUpdate.adminId}
+        name="adminId"
+        onChange={handleChange}
+        readOnly={update ? false : "readonly"}
+        tabIndex={update ? "-1" : "0"}
+      />
+      <span>Categoria: </span>
+      {update ? (
+        <select
+          name="category"
+          value={inputUpdate.category}
+          onChange={handleChange}
+        >
+          <option value="">Escoge una opcion</option>
+          <option value="Mixto">Mixto</option>
+          <option value="Juvenil">Juvenil</option>
+          <option value="Adultos">Adultos</option>
+        </select>
+      ) : (
+        <input
+          type="text"
+          value={inputUpdate.category}
+          name="category"
+          onChange={handleChange}
+          readOnly={update ? false : "readonly"}
+          tabIndex={update ? "-1" : "0"}
+        />
+      )}
+      <div>
+        {/* <span>Descripción:</span> */}
+        <textarea
+          name="description"
+          id=""
+          cols="30"
+          rows="10"
+          value={inputUpdate.description}
+          readOnly={update ? false : "readonly"}
+          tabIndex={update ? "-1" : "0"}
+          onChange={handleChange}
+        />
+        {/* <span>Locación:</span> */}
+        <iframe
+          title="Ubicación"
+          width="300"
+          height="200"
+          src={groupDetail.location}
+        ></iframe>
+      </div>
+      <button
+        className="update__button"
+        onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
+      >
+        {update ? "Aceptar" : "Inscribirme"}
+      </button>
     </div>
   );
 }

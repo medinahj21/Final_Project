@@ -37,7 +37,8 @@ let sequelize =
           ssl: true,
         },
       })
-    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`, {
+    : //cuando use heroku la base de datos es ClubDB
+      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`, {
         logging: false,
         native: false,
       });

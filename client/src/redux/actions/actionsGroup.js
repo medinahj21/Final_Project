@@ -30,7 +30,6 @@ export const getGroups = () => {
 };
 
 export const getGroupDetail = (id) => {
-  console.log(id);
   return async (dispatch) => {
     const valueAxios = await axios.get(`${axios.defaults.baseURL}/groups/${id}`);
     return   dispatch({ type: GET_GROUP_DETAIL, payload: valueAxios.data });
