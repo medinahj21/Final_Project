@@ -3,6 +3,7 @@ import {
   LOGOUT_USER_FIREBASE,
   PLAYER__FORM__FIREBASE,
   ALL_PLAYER__FORM__FIREBASE,
+  CLICK__CHOICE,
 } from "./actions";
 
 import {
@@ -62,6 +63,11 @@ export function getUserFirestore(uid) {
 
 export const getAllInfoUsers = (docs) => {
   return { type: ALL_PLAYER__FORM__FIREBASE, payload: docs };
+};
+
+export const clickChoiceHandler = (click) => {
+  console.log(click);
+  return { type: CLICK__CHOICE, payload: click };
 };
 
 //action envie al back
