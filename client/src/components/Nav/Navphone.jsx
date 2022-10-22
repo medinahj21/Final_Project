@@ -89,7 +89,7 @@ function Navphone({
               </Link>
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("request", setClickChoice)}>
-                  <li>Solicitudes</li>
+                  <li>Inscripciones</li>
                 </p>
               )}
               {userInfoFirestore.isAdmin && (

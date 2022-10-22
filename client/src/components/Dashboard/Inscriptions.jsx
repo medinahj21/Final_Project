@@ -7,7 +7,7 @@ import {
 } from "../../redux/actions/actionsGroup";
 import RoleRequestMiniCard from "./RoleRequestMiniCard";
 
-export default function UserDB() {
+export default function Inscriptions() {
   const dispatch = useDispatch();
   const requests = useSelector((state) => state.groupReducer.roleRequests);
 

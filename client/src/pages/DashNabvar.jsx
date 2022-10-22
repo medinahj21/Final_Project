@@ -75,7 +75,7 @@ function DashNabvar({ setClickChoice, clickChoice }) {
           }
           onClick={() => validateClick("request", setClickChoice)}
         >
-          Solicitudes
+          Inscripciones
         </button>
       )}
       <button

@@ -4,8 +4,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
-
-// import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,14 +24,8 @@ function FormUser({ setShowAlta }) {
 
   const [user, setUser] = useState();
 
-  // const dispatch = useDispatch();
-
   useEffect(() => {
-    console.log(user);
-    if (user) {
-      return;
-    }
-    console.log("asdsa");
+    if (user) {return}
 
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -68,7 +60,7 @@ function FormUser({ setShowAlta }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    //ya sabemos que no tenemos que refrescar la pag :)
     if (userInput.name === "") {
       notifyError("must have a name");
       return;

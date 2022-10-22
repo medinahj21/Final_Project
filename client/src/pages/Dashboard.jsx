@@ -11,7 +11,7 @@ import "./Dashboard.css";
 import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
-import UserDB from "../components/Dashboard/UserDB";
+import Inscriptions from "../components/Dashboard/Inscriptions";
 import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
 import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
@@ -68,7 +68,6 @@ function Admin() {
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
           <>
-            {/* <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} /> */}
             <Perfil userInfoFirestore={userInfoFirestore} />
             <UpdateCredentials />
             {!userInfoFirestore.isAdmin ? (
@@ -86,7 +85,7 @@ function Admin() {
         )}
         {clickChoice.isRequest && (
           <>
-            <UserDB />
+            <Inscriptions />
           </>
         )}
         {clickChoice.isGrupo && (
@@ -97,11 +96,11 @@ function Admin() {
         {clickChoice.isSocios && (
           <div className="cards__container">
             {allUserFirestore ? (
-              allUserFirestore.map((user) => {
+              allUserFirestore.map((user,i) => {
                 return !user.isAdmin ? (
                   <InfoCard
                     className={"infoAdmin"}
-                    key={userInfoFirestore.document + Math.random()}
+                    key={i}
                     userInfoFirestore={user}
                   />
                 ) : (
