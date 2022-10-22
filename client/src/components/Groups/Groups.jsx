@@ -82,7 +82,6 @@ export default function Groups() {
           </div>
           <div className="groups__card-container">
             {allGroups?.map((e, i) => {
-              console.log(e.image);
               return (
                 <CardGroup
                   key={i}
