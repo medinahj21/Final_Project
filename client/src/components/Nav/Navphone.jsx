@@ -2,7 +2,7 @@ import React, { useEffect }from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Navphone.css";
-import { logout,getUserFirestore } from "../../redux/actions/auth";
+import { logout, getUserFirestore } from "../../redux/actions/auth";
 import { validateClick } from "../../utils/validateClick";
 import { onAuthStateChanged} from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
@@ -23,6 +23,7 @@ function Navphone({
     (state) => state.authReducer
   );
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
 
   const handleRegister = () => {
     setShowRegister(true);
@@ -32,6 +33,7 @@ function Navphone({
   const handleLogin = async() => {
     setShowRegister(false);
     setShowLogin(true);
+    
   };
 
   const handleLogout = async() => {
@@ -40,7 +42,7 @@ function Navphone({
     await dispatch(logout());
   };
 
-  /* useEffect(() => {
+   useEffect(() => {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
@@ -54,7 +56,7 @@ function Navphone({
       }
     });
     return () => unSuscribe();
-  }, [dispatch]); */
+  }, [dispatch]);
 
   return (
     <nav role="navigation">

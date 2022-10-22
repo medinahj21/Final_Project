@@ -26,7 +26,7 @@ function Shop() {
 
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
-   const { email, userInfoFirestore } = useSelector(
+   const { userInfoFirestore } = useSelector(
     (state) => state.authReducer
   );
   useEffect(()=>{

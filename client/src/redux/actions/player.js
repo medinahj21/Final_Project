@@ -41,6 +41,7 @@ export const updatePlayerCart = (id, payload) => {
       console.log(payload);
       const shoppingCart= {shoppingCart: payload};
       console.log("SHOPPING-CART:", shoppingCart);
+      
       let response = await axios.put(
         `http://localhost:3001/players/update/${id}`,
         shoppingCart

@@ -3,12 +3,10 @@ import {
   INCREMENT_QUANT_PRODUCT,
   DECREMENT_QUANT_PRODUCT,
   REMOVE_PRODUCT,
-  UPDATE_PLAYER_SHOPPING_CART,
   CLEAR_CART,
   SET_INITIAL_CART
 } from "./actions";
 
-import axios from "axios";
 
 export const addToCart = (product) => {
   return (dispatch) => {

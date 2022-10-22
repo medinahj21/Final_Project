@@ -17,7 +17,7 @@ function ProductCard({ id, name, price, image }) {
 
   const handleAddToCart = ()=>{
     let itemToAdd = allProducts.find((product) => product.id === id);
-    let productToAdd = productsInCart.find((prod) => prod.product.id === id);
+    let productToAdd = productsInCart?.find((prod) => prod.product.id === id);
 
     if (productToAdd) {
       dispatch(incrementProductInCart(id));

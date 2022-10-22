@@ -8,7 +8,7 @@ import Paginated from "./Paginated";
 import {
   clearCart,
 } from "../../redux/actions/shoppingCart";
-import { updatePlayerCart } from "../../redux/actions/player";
+//import { updatePlayerCart } from "../../redux/actions/player";
 import { getPlayerDetail } from "../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
@@ -17,8 +17,8 @@ export default function ShowProducts({ dataFiltered }) {
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
   });
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  //const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  //const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);

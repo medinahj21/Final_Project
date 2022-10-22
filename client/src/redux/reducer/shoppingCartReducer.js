@@ -3,7 +3,7 @@ import {
   INCREMENT_QUANT_PRODUCT,
   DECREMENT_QUANT_PRODUCT,
   CLEAR_CART,
-  SET_INITIAL_CART
+  SET_INITIAL_CART,
 } from "./../actions/actions";
 
 const initialState = {
@@ -14,28 +14,55 @@ const initialState = {
 export default function shoppingCartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
-      return {
-        ...state,
-        cart: [...state.cart, { quant: 1, product: action.payload }],
-      };
+      if (!state.cart){
+        return {
+          ...state,
+          cart: [{quant: 1, product: action.payload}]
+        }
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, { quant: 1, product: action.payload }],
+        };
+      }
+      
 
     case INCREMENT_QUANT_PRODUCT:
       let findProduct = state.cart.find(
         (prod) => prod.product.id === action.payload
       );
-      console.log(findProduct);
       if (!findProduct) return state;
-      let filterProd = state.cart.filter(
-        (p) => p.product.id !== action.payload
-      );
+    
       findProduct.quant++;
       return {
         ...state,
-        cart: [...filterProd, findProduct],
+        cart: [...state.cart],
       };
 
     case DECREMENT_QUANT_PRODUCT:
-      return {};   
+      if (state.cart.length > 0){
+        var productToDecrement = state.cart.find(
+          (prod) => prod.product.id === action.payload
+        );
+      }
+      
+      if (!productToDecrement) return state;
+      let filteredProd = state.cart.filter(
+        (prod) => prod.quant > 0 );
+      productToDecrement.quant--;
+      console.log("ProductTDecre:", productToDecrement)
+      console.log("Filtrados:",filteredProd)
+      if(productToDecrement.quant===0){
+        return {
+          ...state,
+          cart: [...filteredProd]
+        }
+      }else {
+        return { 
+          ...state,
+          cart: [ ...state.cart] };
+      }
+      
 
     case CLEAR_CART:
       return {
@@ -46,7 +73,7 @@ export default function shoppingCartReducer(state = initialState, action) {
       return {
         ...state,
         cart: action.payload,
-      }
+      };
 
     default:
       return state;
