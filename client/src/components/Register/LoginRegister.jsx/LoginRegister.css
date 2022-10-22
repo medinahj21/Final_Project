@@ -166,7 +166,7 @@
     position: absolute;
     top: 50%;
     left: 30px;
-    width: calc(50% - 30px);
+    width: calc(50% - 60px);
     min-height: 420px;
     background-color: #fff;
     border-radius: 3px;
@@ -195,7 +195,7 @@
 }
 
 .user_options-forms .forms_field-input {
-    width: 100%;
+    width: 80%;
     border-bottom: 1px solid #ccc;
     padding: 6px 20px 6px 6px;
     font-family: "Montserrat", sans-serif;
@@ -212,9 +212,8 @@
 
 .user_options-forms .forms_buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-top: 35px;
+    margin-bottom: 35px;
 }
 
 .user_options-forms .forms_buttons-forgot {

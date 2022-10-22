@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import LoginGoogle from "./LoginGoogle";
-// import { auth } from "../../firebase/firebase.config";
 import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
-// import { sendVerificationEmail } from "../../utils/EmailVerification";
 
-import "./Register.css";
-
-function Register() {
+function Register({ setShowRegister, setShowLogin, setShowAlta }) {
   const notifyError = (error) =>
     toast.error(error, {
       draggable: true,
@@ -44,6 +39,10 @@ function Register() {
         credentials.password
       );
       // await sendVerificationEmail(auth.currentUser);
+
+      setShowLogin(false);
+      setShowRegister(false);
+      setShowAlta(true);
       setCredentials({
         email: "",
         password: "",

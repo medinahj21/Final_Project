@@ -83,7 +83,6 @@ function Home() {
           setShowAlta={setShowAlta}
           setShowRegister={setShowRegister}
         />
-        // <Register setShowRegister={setShowRegister} />
       ) : (
         <></>
       )}

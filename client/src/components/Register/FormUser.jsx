@@ -63,7 +63,7 @@ function FormUser({ setShowAlta }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    await setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
     notify();
     setShowAlta(false);
     // notifyError(response.error);
