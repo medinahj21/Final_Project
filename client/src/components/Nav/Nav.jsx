@@ -25,12 +25,12 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
       <div className="nav__container-links">
         {email === "" || !email ? (
           <div className="nav__login">
-            <button onClick={() => setShowRegister(true)}>Registrarse</button>
-            <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+            <p onClick={() => setShowRegister(true)}>Registrarse</p>
+            <p onClick={() => setShowLogin(true)}>Iniciar Sesión</p>
           </div>
         ) : (
-          <div>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
+          <div className="nav__login">
+            <p onClick={handleLogout}>Cerrar Sesión</p>
           </div>
         )}
 
@@ -38,9 +38,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
           {!userInfoFirestore || userInfoFirestore.name === "" ? (
             <>
               {email ? (
-                <button onClick={() => setShowAlta(true)}>
-                  Alta jugador |
-                </button>
+                <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
               ) : (
                 <></>
               )}
