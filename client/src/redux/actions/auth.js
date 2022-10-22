@@ -69,7 +69,6 @@ export const getAllInfoUsers = (docs) => {
 };
 
 export const clickChoiceHandler = (click) => {
-  console.log(click);
   return { type: CLICK__CHOICE, payload: click };
 };
 

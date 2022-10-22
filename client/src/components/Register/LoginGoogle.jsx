@@ -34,7 +34,7 @@ function LoginGoogle() {
       <button
         onClick={() => signInWithRedirect(auth, googleProvider)}
         type="button"
-        class="login-with-google-btn"
+        className="login-with-google-btn"
       >
         Acceder con Google
       </button>
