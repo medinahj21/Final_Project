@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   GET_EVENTS,
 } from "./actions";
