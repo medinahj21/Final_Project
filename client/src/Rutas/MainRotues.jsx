@@ -18,7 +18,6 @@ function MainRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<Shop />} />
-      {/*Prueba del Cart*/}
       <Route path= "/cart" element={<ShoppingCart/>} />
       <Route path="/products/:id" element={<ProductDetail />} />
       <Route path="/calendario" element={<Calendario />} />
