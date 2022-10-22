@@ -21,21 +21,16 @@ let sequelize =
           idle: 10000,
         },
         dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          dialectOptions: {
             ssl: {
               require: true,
               // Ref.: https://github.com/brianc/node-postgres/issues/2009
               rejectUnauthorized: false,
+              
             },
             keepAlive: true,
           },
           ssl: true,
-        },
+  
       })
 
     : //cuando use heroku la base de datos es ClubDB

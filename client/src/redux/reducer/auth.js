@@ -25,7 +25,6 @@ export default function authReducer(state = initialState, action) {
   switch (action.type) {
     //cuando registro no se esta disparando esta accion
     case LOGIN_USER_FIREBASE:
-      console.log("reducer", action.payload);
       return {
         ...state,
         email: action.payload.email,
