@@ -33,10 +33,7 @@ export const loginWhitEmailAndPassword = async (email, password) => {
 };
 
 export const registerWhitEmailAndPassword = async (email, password) => {
-  //cuando mando el form no esta llegando al reducer
-  console.log("antes", email, password);
   await createUserWithEmailAndPassword(auth, email, password);
-  console.log("despues", email, password);
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
@@ -69,7 +66,6 @@ export const getAllInfoUsers = (docs) => {
 };
 
 export const clickChoiceHandler = (click) => {
-  console.log(click);
   return { type: CLICK__CHOICE, payload: click };
 };
 

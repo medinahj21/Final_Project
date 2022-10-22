@@ -57,31 +57,31 @@ function Register({ setShowRegister, setShowLogin, setShowAlta }) {
 
   return (
     <>
-      <div class="user_forms-signup">
+      <div className="user_forms-signup">
         <h2 className="forms_title">Registrarse</h2>
-        <form class="forms_form" onSubmit={submitHandler}>
-          <div class="forms_field">
+        <form className="forms_form" onSubmit={submitHandler}>
+          <div className="forms_field">
             <input
               value={credentials.email}
               type="email"
               name="email"
               placeholder="Correo electrónico"
-              class="forms_field-input"
+              className="forms_field-input"
               onChange={changeHandler}
             />
           </div>
-          <div class="forms_field">
+          <div className="forms_field">
             <input
               value={credentials.password}
               type="password"
               name="password"
               placeholder="Contraseña"
-              class="forms_field-input"
+              className="forms_field-input"
               onChange={changeHandler}
             />
           </div>
-          <div class="forms_buttons">
-            <button type="submit" class="forms_buttons-action">
+          <div className="forms_buttons">
+            <button type="submit" className="forms_buttons-action">
               Registrarse
             </button>
             <LoginGoogle />

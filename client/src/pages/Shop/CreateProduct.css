@@ -1,4 +1,4 @@
-.form__product {
+/* .form__product {
     box-shadow: var(--box-shadow);
     padding: 1rem;
     display: flex;
@@ -65,7 +65,7 @@
 
 .form__product label {
     font-weight: bold;
-}
+} */
 
 /* 
 .product__input-error {
@@ -73,13 +73,13 @@
     color: rgb(255, 0, 0);
 } */
 
-.create__product-title {
+/* .create__product-title {
     text-align: center;
-}
+} */
 
 /*------------------------------PRODUCT PROPERTIES COMPONENT-------------------------------*/
 
-.product__charge-image {
+/* .product__charge-image {
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: var(--box-shadow);
@@ -89,14 +89,84 @@
     cursor: pointer;
 }
 
+*/
 .product__image-create {
     width: 200px;
     border-radius: 25%;
 }
 
-/*------------------------------MODIFIERS COMPONENT-------------------------------*/
-
-.modifier__container-btn {
+.form__product-inputs {
     display: flex;
     gap: 2rem;
 }
+
+/*------------------------------MODIFIERS COMPONENT-------------------------------*/
+
+/* .modifier__container-btn {
+    display: flex;
+    gap: 2rem;
+} */
+
+.modify__button {
+    padding: .4rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0px white;
+}
+
+.modify__button:hover {
+    background-color: grey;
+}
+
+.select_content {
+    appearance: none;
+    outline: 0;
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 white;
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
+}
+
+.select_content::-ms-expand {
+    display: none;
+}
+
+.select_container {
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 white;
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: .25em;
+    overflow: hidden;
+}
+
+.select_container::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 white;
+    background-color: transparent;
+    transition: .25s all ease;
+    pointer-events: none;
+}
+
+.select_container:hover::after {
+    color: rgb(30, 0, 72);
+}
+
+.select_content option {
+    color: #000;
+}
+
+/*------------------------------LABELS COMPONENT-------------------------------*/
+

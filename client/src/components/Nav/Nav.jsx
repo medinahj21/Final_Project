@@ -10,6 +10,7 @@ import { logout,getUserFirestore } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";
+import {AiOutlineShoppingCart} from "react-icons/ai"
 
 function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const dispatch = useDispatch();
@@ -29,10 +30,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        let response = dispatch(getPlayerDetail(currentUser.uid))
-
-        console.log("response", response)
-        //dispatch(setInitialCart(response.shoppingCart))
+        dispatch(getPlayerDetail(currentUser.uid))
       }
     });
     return () => unSuscribe();
@@ -52,6 +50,14 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
         ) : (
           <div className="nav__login">
             <p onClick={handleLogout}>Cerrar Sesión</p>
+            {
+                productsInCart?.length>0?
+                <div className="nav_cart">
+                  <AiOutlineShoppingCart />
+                </div>
+                :
+                <></>
+              }
           </div>
         )}
 
@@ -65,15 +71,18 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
               )}
             </>
           ) : (
-            <Link
-              to={
-                userInfoFirestore.isAdmin
-                  ? "/dashboard-admin"
-                  : "/dashboard-player"
-              }
-            >
-              Dashboard |
-            </Link>
+            <>              
+              <Link
+                to={
+                  userInfoFirestore.isAdmin
+                    ? "/dashboard-admin"
+                    : "/dashboard-player"
+                }
+              >
+                Dashboard |
+              </Link>            
+            </>
+            
           )}
 
           <a href="oferta">Oferta</a>

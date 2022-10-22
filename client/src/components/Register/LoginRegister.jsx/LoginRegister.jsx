@@ -126,7 +126,7 @@ function LoginRegister({
                       name="email"
                       placeholder="Correo electrónico"
                       className="forms_field-input"
-                      autofocus
+                      autoFocus
                       onChange={changeHandler}
                     />
                   </div>
@@ -175,40 +175,3 @@ function LoginRegister({
 }
 
 export default LoginRegister;
-
-// <div class="user_forms-signup">
-//   <h2 class="forms_title">Registrarse</h2>
-//   <form class="forms_form" onSubmit={submitHandlerRegister}>
-//     <fieldset class="forms_fieldset">
-//       <div class="forms_field">
-//         <input
-//           value={credentials.email}
-//           type="email"
-//           name="email"
-//           placeholder="Correo electrónico"
-//           class="forms_field-input"
-//           onChange={changeHandler}
-//         />
-//       </div>
-//       <div class="forms_field">
-//         <input
-//           value={credentials.password}
-//           type="password"
-//           name="password"
-//           placeholder="Contraseña"
-//           class="forms_field-input"
-//           onChange={changeHandler}
-//         />
-//       </div>
-//     </fieldset>
-//     <div class="forms_buttons">
-//       <button
-//         type="submit"
-//         value="Registrarse"
-//         class="forms_buttons-action"
-//       >
-//         Registrarse
-//       </button>
-//     </div>
-//   </form>
-// </div>
