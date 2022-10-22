@@ -1,14 +1,4 @@
 .container__modal {
-    min-width: 250px;
-    min-height: 100px;
-    background-color: #fff;
-    position: relative;
-    border-radius: 5px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 20px;
-}
-
- .container__modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,4 +9,11 @@
     top: 0;
     left: 0;
     z-index: 9999;
+}
+
+.closeModal {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 20vh;
 }

@@ -38,10 +38,11 @@ let sequelize =
         },
       })
 
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`,
-        { logging: false, native: false }
-      );
+    : //cuando use heroku la base de datos es ClubDB
+      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubdB`, {
+        logging: false,
+        native: false,
+      });
 
 const basename = path.basename(__filename);
 
@@ -115,6 +116,9 @@ RoleRequest.belongsTo(Player);
 
 // Group.hasOne(RoleRequest); /*ready**/
 // RoleRequest.belongsTo(Group);
+
+Player.hasOne(RoleRequest); /*ready**/
+RoleRequest.belongsTo(Player);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
