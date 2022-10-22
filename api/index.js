@@ -1,6 +1,6 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const { PORT } = process.env || 3001;
+//const { PORT } = process.env || 3001;
 
 const {
   Event,
@@ -87,6 +87,6 @@ const chargeDummyData = async () => {
 conn.sync({ force: true, alter: false }).then(() => {
   chargeDummyData();
   server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`);
+    console.log(`%s listening`);
   });
 });
