@@ -1,9 +1,31 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
+import { incrementProductInCart, addToCart } from "../../redux/actions/shoppingCart";
 
 import "./ProductCard.css";
 
-function ProductCard({ id, name, price, image, handleAddToCart }) {
+function ProductCard({ id, name, price, image }) {
+
+  const dispatch = useDispatch();
+  
+  const allProducts = useSelector((state) => {
+    return state.productsReducer.allProducts;
+  });
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
+
+  const handleAddToCart = ()=>{
+    let itemToAdd = allProducts.find((product) => product.id === id);
+    let productToAdd = productsInCart.find((prod) => prod.product.id === id);
+
+    if (productToAdd) {
+      dispatch(incrementProductInCart(id));
+    } else {
+      dispatch(addToCart(itemToAdd));
+    }
+  }
+  
   return (
     <div className="card__content card__hover-effect">
       <Link to={`/products/${id}`}>

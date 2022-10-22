@@ -2,8 +2,8 @@ import {
   ADD_TO_CART,
   INCREMENT_QUANT_PRODUCT,
   DECREMENT_QUANT_PRODUCT,
-  UPDATE_PLAYER_SHOPPING_CART,
   CLEAR_CART,
+  SET_INITIAL_CART
 } from "./../actions/actions";
 
 const initialState = {
@@ -35,18 +35,18 @@ export default function shoppingCartReducer(state = initialState, action) {
       };
 
     case DECREMENT_QUANT_PRODUCT:
-      return {};
-
-    case UPDATE_PLAYER_SHOPPING_CART:
-      
-      return {
-        ...state,
-      }
+      return {};   
 
     case CLEAR_CART:
       return {
         cart: initialState.cart,
       };
+
+    case SET_INITIAL_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      }
 
     default:
       return state;

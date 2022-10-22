@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementProductInCart } from "../../redux/actions/shoppingCart";
+import { updatePlayerCart } from "../../redux/actions/player";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
 
   const playerItems = useSelector((state) => state.playerReducer.playerDetail);
   console.log("PLAYER_ITEMS:", playerItems);
-  const productItems= playerItems
+  const productItems= playerItems.shoppingCart;
 
   const handleIncrementProduct= (id)=>{
     dispatch(incrementProductInCart(id));
   }
-
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
+  useEffect(()=>{
+    dispatch(updatePlayerCart(playerItems.uid, productsInCart))
+  },[dispatch,productsInCart])
   
 
   

@@ -5,6 +5,7 @@ import {
   REMOVE_PRODUCT,
   UPDATE_PLAYER_SHOPPING_CART,
   CLEAR_CART,
+  SET_INITIAL_CART
 } from "./actions";
 
 import axios from "axios";
@@ -52,3 +53,12 @@ export const clearCart = () => {
     });
   };
 };
+
+export const setInitialCart = (cart)=>{
+  return (dispatch)=>{
+    dispatch({
+      type: SET_INITIAL_CART,
+      payload: cart
+    })
+  }
+}

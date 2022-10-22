@@ -6,9 +6,7 @@ import "./ShowProducts.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Paginated from "./Paginated";
 import {
-  addToCart,
   clearCart,
-  incrementProductInCart,
 } from "../../redux/actions/shoppingCart";
 import { updatePlayerCart } from "../../redux/actions/player";
 import { getPlayerDetail } from "../../redux/actions/player";
@@ -19,13 +17,8 @@ export default function ShowProducts({ dataFiltered }) {
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
   });
-
-  const allProducts = useSelector((state) => {
-    return state.productsReducer.allProducts;
-  });
-
-  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
@@ -37,6 +30,7 @@ export default function ShowProducts({ dataFiltered }) {
     lastProductIndex
   );
 
+
   useEffect(() => {
     if (prevPage !== currentPage) {
       setCurrentPage(prevPage);
@@ -44,40 +38,20 @@ export default function ShowProducts({ dataFiltered }) {
   }, [currentPage, prevPage]);
 
   useEffect(() => {
-    dispatch(clearCart());
+    /* dispatch(clearCart()); */
     dispatch(getPlayerDetail());
   }, [dispatch]);
 
-  useEffect(() => {
-    return () => dispatch(clearCart());
-  }, [dispatch]);
+ /*  useEffect(() => {
+    return async () => {
+      await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+      await dispatch(clearCart());
+ }},[dispatch ,productsInCart,userInfoFirestore ]); */
 
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
   };
-
-  let userId = userInfoFirestore.uid;
-
-  const handleUpdatePlayerCart= (id, products)=>{
-    dispatch(getPlayerDetail(id));
-    dispatch(updatePlayerCart(id, products));
-  }
-
-  const handleAddToCart = (id) => {
-    let itemToAdd = allProducts.find((product) => product.id === id);
-    let productToAdd = productsInCart.find((prod) => prod.product.id === id);
-
-    if (productToAdd) {
-      dispatch(incrementProductInCart(id));
-    } else {
-      dispatch(addToCart(itemToAdd));
-    }
-
-    handleUpdatePlayerCart(userId, productsInCart);
-  }    
-    
-  
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -99,7 +73,6 @@ export default function ShowProducts({ dataFiltered }) {
               image={p.image}
               name={p.name}
               price={p.price}
-              handleAddToCart={handleAddToCart}
             />
           );
         })}
