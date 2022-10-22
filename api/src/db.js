@@ -20,13 +20,7 @@ let sequelize =
           min: 1,
           idle: 10000,
         },
-        dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          dialectOptions: {
+         dialectOptions: {
             ssl: {
               require: true,
               // Ref.: https://github.com/brianc/node-postgres/issues/2009
