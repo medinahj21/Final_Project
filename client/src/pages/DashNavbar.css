@@ -33,7 +33,7 @@
     width: 90%;
     height: 4rem;
     border: transparent;
-    background-color: #fff;
+    background-color: #e6e8ef;
     margin: 0 auto;
     transition: all .5s ease-in-out;
 }
@@ -42,7 +42,7 @@
     width: 105%;
     border: transparent;
     box-shadow: none;
-    background-color: #fff;
+    background-color: #e6e8ef;
     margin: 0 auto;
     border-radius: 1rem 0 0 1rem;
     transition: all .5s ease-in-out;

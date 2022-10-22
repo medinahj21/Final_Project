@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { updatePlayerCart, getPlayerDetail } from "../../redux/actions/player";
+import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 
-import { logout } from "../../redux/actions/auth";
+import { logout,getUserFirestore } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";
@@ -12,10 +17,26 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const { email, userInfoFirestore } = useSelector(
     (state) => state.authReducer
   );
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+    await dispatch(clearCart());
+    await dispatch(logout());
   };
+
+  useEffect(() => {
+    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch(getUserFirestore(currentUser.uid));
+        let response = dispatch(getPlayerDetail(currentUser.uid))
+
+        console.log("response", response)
+        //dispatch(setInitialCart(response.shoppingCart))
+      }
+    });
+    return () => unSuscribe();
+  }, [dispatch]);
 
   return (
     <nav className="nav__container">
@@ -25,12 +46,12 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
       <div className="nav__container-links">
         {email === "" || !email ? (
           <div className="nav__login">
-            <button onClick={() => setShowRegister(true)}>Registrarse</button>
-            <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+            <p onClick={() => setShowRegister(true)}>Registrarse</p>
+            <p onClick={() => setShowLogin(true)}>Iniciar Sesión</p>
           </div>
         ) : (
-          <div>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
+          <div className="nav__login">
+            <p onClick={handleLogout}>Cerrar Sesión</p>
           </div>
         )}
 
@@ -38,9 +59,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
           {!userInfoFirestore || userInfoFirestore.name === "" ? (
             <>
               {email ? (
-                <button onClick={() => setShowAlta(true)}>
-                  Alta jugador |
-                </button>
+                <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
               ) : (
                 <></>
               )}

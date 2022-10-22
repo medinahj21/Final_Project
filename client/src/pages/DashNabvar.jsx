@@ -32,18 +32,16 @@ function DashNabvar({ setClickChoice, clickChoice }) {
           Administracion de pagos
         </button>
       )}
-      {!userInfoFirestore.isAdmin && (
-        <button
-          className={
-            clickChoice.isGrupo
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("grupo", setClickChoice)}
-        >
-          Mi grupo
-        </button>
-      )}
+      <button
+        className={
+          clickChoice.isGrupo
+            ? "navbar__btn navbar__btn-clicked"
+            : "navbar__btn"
+        }
+        onClick={() => validateClick("grupo", setClickChoice)}
+      >
+        Grupos
+      </button>
       {!userInfoFirestore.isAdmin && (
         <button
           className={
@@ -90,18 +88,6 @@ function DashNabvar({ setClickChoice, clickChoice }) {
       >
         Calendario
       </button>
-      {userInfoFirestore.isAdmin && (
-        <button
-          className={
-            clickChoice.isGrupos
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("grupos", setClickChoice)}
-        >
-          Grupos
-        </button>
-      )}
       <Link to={"/"}>
         <button className="navbar__btn">Inicio</button>
       </Link>

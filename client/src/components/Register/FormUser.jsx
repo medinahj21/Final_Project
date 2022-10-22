@@ -5,27 +5,36 @@ import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
 
-import { useDispatch } from "react-redux";
-import { createPlayer } from "../../redux/actions/player";
-
+// import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import "./FormUser.css";
 import Modal from "../UI/Modal";
 
+import "./FormUser.css";
+
 function FormUser({ setShowAlta }) {
-  const notifyError = (error) => toast.error(error);
-  const notify = () => toast.success("Registro exitoso, vamos a darnos de alta !");
+  const notifyError = (error) =>
+    toast.error(error, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      hideProgressBar: true,
+    });
+  const notify = () =>
+    toast.success("Solicitud enviada", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
 
   const [user, setUser] = useState();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(user);
     if (user) {
       return;
     }
+    console.log("asdsa");
+
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
@@ -60,163 +69,162 @@ function FormUser({ setShowAlta }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
+    if (userInput.name === "") {
+      notifyError("must have a name");
+      return;
+    }
+    await setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
     notify();
-    setShowAlta(true);
-    
-    /* let response = await dispatch(
-      createPlayer({
-        personalInfo: { ...userInput, uid: user.uid, email: user.email },
-      })
-    );
-    if (!response.error) {
-    } else {
-      notifyError(response.error);
-    } */
+    setTimeout(() => {
+      setShowAlta(false);
+    }, 2000);
   };
 
   return (
     <Modal>
+      <ToastContainer />
       <form onSubmit={handleSubmit} className="form__user">
-        <ToastContainer />
-        <h3 className="form__title">Alta como jugador</h3>
-        <label htmlFor="name">
-          Nombre:{" "}
-          <input
-            type="text"
-            value={userInput.name}
-            name="name"
-            id="name"
-            placeholder="Your name"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="typeDoc">
-          Tipo de documento:{" "}
-          <input
-            type="text"
-            value={userInput.typeDoc}
-            name="typeDoc"
-            id="typeDoc"
-            placeholder="your document type"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="document">
-          Documento:{" "}
-          <input
-            type="number"
-            value={userInput.document}
-            name="document"
-            id="document"
-            placeholder="your document"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="years">
-          Años:{" "}
-          <input
-            type="number"
-            value={userInput.years}
-            name="years"
-            id="years"
-            placeholder="your years"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="birthDate">
-          Fecha de nacimiento:{" "}
-          <input
-            type="date"
-            value={userInput.birthDate}
-            name="birthDate"
-            id="birthDate"
-            placeholder="your birthDate"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="cell">
-          Número de teléfono:{" "}
-          <input
-            type="number"
-            value={userInput.cell}
-            name="cell"
-            id="cell"
-            placeholder="your cell"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="emergencyContact">
-          Número del contacto de emergencia:{" "}
-          <input
-            type="number"
-            value={userInput.emergencyContact}
-            name="emergencyContact"
-            id="emergencyContact"
-            placeholder="Emergency contact"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="emergencyRel">
-          Parentesco del contacto de emergencia:{" "}
-          <input
-            type="text"
-            value={userInput.emergencyRel}
-            name="emergencyRel"
-            id="emergencyRel"
-            placeholder="Emergency relationship"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="emergencyName">
-          Nombre del contacto de emergencia:{" "}
-          <input
-            type="text"
-            value={userInput.emergencyName}
-            name="emergencyName"
-            id="emergencyName"
-            placeholder="Emergency name"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="bloodType">
-          Tipo de sangre:{" "}
-          <input
-            type="text"
-            value={userInput.bloodType}
-            name="bloodType"
-            id="bloodType"
-            placeholder="bloodType"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="health">
-          seguro de salud:{" "}
-          <input
-            type="text"
-            value={userInput.health}
-            name="health"
-            id="health"
-            placeholder="health"
-            onChange={changeHandler}
-          />
-        </label>
-        <label htmlFor="specialConditions">
-          Condiciones especiales de salud:{" "}
-          <input
-            type="text"
-            value={userInput.specialConditions}
-            name="specialConditions"
-            id="specialConditions"
-            placeholder="specialConditions"
-            onChange={changeHandler}
-          />
-        </label>
-        <button>Enviar</button>
-
-        <p>
-          {/* JSON.stringify({ personalInfo: { ...userInput, uid: user?.uid, email: user?.email } }) */}
-        </p>
+        <h3 className="form__title">Solicitud de alta</h3>
+        <div className="form__content-alta">
+          <div className="form__content-inputs">
+            <div className="forms_field">
+              <input
+                value={userInput.name}
+                type="text"
+                name="name"
+                placeholder="Nombre completo"
+                className="forms_field-input"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.typeDoc}
+                type="text"
+                name="typeDoc"
+                placeholder="Tipo de documento"
+                className="forms_field-input"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.document}
+                type="number"
+                name="document"
+                placeholder="Número de documento"
+                className="forms_field-input"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.years}
+                type="number"
+                name="years"
+                placeholder="Edad"
+                className="forms_field-input"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+          </div>
+          <div className="form__content-inputs">
+            <div className="forms_field">
+              <input
+                value={userInput.birthDate}
+                type="date"
+                name="birthDate"
+                className="forms_field-input"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.cell}
+                type="number"
+                name="cell"
+                className="forms_field-input"
+                placeholder="Número de teléfono"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.bloodType}
+                type="text"
+                name="bloodType"
+                className="forms_field-input"
+                placeholder="Tipo de sangre"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.health}
+                type="text"
+                name="health"
+                className="forms_field-input"
+                placeholder="Seguro de salud"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+          </div>
+          <div className="form__content-inputs mobile__form-content ">
+            <div className="forms_field">
+              <input
+                value={userInput.specialConditions}
+                type="text"
+                name="specialConditions"
+                className="forms_field-input"
+                placeholder="Condiciones especiales"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.emergencyName}
+                type="text"
+                name="emergencyName"
+                className="forms_field-input"
+                placeholder="Nombre del contacto de emergencia"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.emergencyRel}
+                type="text"
+                name="emergencyRel"
+                className="forms_field-input"
+                placeholder="Parentesco del contacto de emergencia"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="forms_field">
+              <input
+                value={userInput.emergencyContact}
+                type="number"
+                name="emergencyContact"
+                className="forms_field-input"
+                placeholder="Número de emergencia"
+                autoFocus
+                onChange={changeHandler}
+              />
+            </div>
+          </div>
+        </div>
+        <button className="form__btn-alta">Enviar</button>
       </form>
     </Modal>
   );
