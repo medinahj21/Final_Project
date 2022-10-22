@@ -15,18 +15,17 @@ export const GET_USERS = "GET_USERS";
 export const GET_USER_DETAIL = "GET_USER_DETAIL";
 export const GET_PLAYERS = "GET_PLAYERS";
 
-export const GET_EVENTS = "GET_EVENTS";
 
 //GET ORDER?----> Mostrar la orden de acuerdo al jugador o traer la orden por separado??
 export const CREATE_USER = "CREATE_USER";
-export const CREATE_EVENT = "CREATE_EVENT";
 export const CREATE_ORDER = "CREATE_ORDER";
 
 export const DELETE_USER = "DELETE_USER";
-export const DELETE_EVENT = "DELETE_EVENT";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 
-export const EDIT_EVENT = "EDIT_EVENT";
+
+//EVENTS
+export const GET_EVENTS = "GET_EVENTS";
 
 //GROUPS
 export const GET_GROUPS = "GET_GROUPS";

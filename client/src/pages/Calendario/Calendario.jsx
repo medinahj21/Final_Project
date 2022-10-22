@@ -19,8 +19,8 @@ export default function Calendario() {
     const [modalOn, setModalOn] = useState(false);
     const events = useSelector((state) => state.eventReducer.events)
 
-    const openModal = () => {
-        setModalOn(true)
+    const handleModal = () => {
+        setModalOn(!modalOn)
     }
 
     useEffect(() => {
@@ -34,7 +34,8 @@ export default function Calendario() {
                     isCreate={isCreate}
                     setIsCreate={setIsCreate}
                     isUpdate={isUpdate}
-                    setIsUpdate={setIsUpdate} />
+                    setIsUpdate={setIsUpdate} 
+                    handleModal={handleModal}/>
             </Modal>
         )
     }
@@ -59,7 +60,7 @@ export default function Calendario() {
                 {
                     custom1: {
                         text: 'Crear evento',
-                        click: openModal                  
+                        click: handleModal                  
                     }
                 }
             }
