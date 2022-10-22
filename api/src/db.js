@@ -20,21 +20,19 @@ let sequelize =
           min: 1,
           idle: 10000,
         },
-        dialectOptions: {
+         dialectOptions: {
             ssl: {
               require: true,
               // Ref.: https://github.com/brianc/node-postgres/issues/2009
-              rejectUnauthorized: false,
-              
+              rejectUnauthorized: false,             
             },
             keepAlive: true,
           },
           ssl: true,
-  
       })
 
     : //cuando use heroku la base de datos es ClubDB
-      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubdB`, {
+      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`, {
         logging: false,
         native: false,
       });
