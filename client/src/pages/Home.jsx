@@ -17,6 +17,7 @@ import FormUser from "../components/Register/FormUser";
 import "./Home.css";
 import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
+import Register from "../components/Register/Register";
 
 function Home() {
   const dispatch = useDispatch();
@@ -79,8 +80,10 @@ function Home() {
         <LoginRegister
           setShowLogin={setShowLogin}
           showLogin={showLogin}
+          setShowAlta={setShowAlta}
           setShowRegister={setShowRegister}
         />
+        // <Register setShowRegister={setShowRegister} />
       ) : (
         <></>
       )}

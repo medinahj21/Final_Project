@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import LoginGoogle from "./LoginGoogle";
@@ -9,11 +9,8 @@ import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
 // import { sendVerificationEmail } from "../../utils/EmailVerification";
 
 import "./Register.css";
-import Modal from "../UI/Modal";
-import FormUser from "./FormUser";
 
-function Register({ setShowRegister }) {
-  const [register, setRegister] = useState(false);
+function Register() {
   const notifyError = (error) =>
     toast.error(error, {
       draggable: true,
@@ -52,7 +49,6 @@ function Register({ setShowRegister }) {
         password: "",
       });
       notify();
-      setTimeout(() => setRegister(true), 4000);
     } catch (error) {
       console.log(error.message);
       return notifyError(error.message);
@@ -60,41 +56,39 @@ function Register({ setShowRegister }) {
   };
 
   return (
-    <Modal>
-      {!register ? (
-        <form onSubmit={submitHandler} className="register__form">
-          <ToastContainer />
-          <button onClick={() => setShowRegister(false)}>X</button>
-          <h3 className="register__title">Registrarse</h3>
-          <label htmlFor="email">
-            Email:{" "}
+    <>
+      <div class="user_forms-signup">
+        <h2 className="forms_title">Registrarse</h2>
+        <form class="forms_form" onSubmit={submitHandler}>
+          <div class="forms_field">
             <input
-              type="email"
               value={credentials.email}
+              type="email"
               name="email"
-              id="email"
-              placeholder="youremail@company.dtl"
+              placeholder="Correo electrónico"
+              class="forms_field-input"
               onChange={changeHandler}
             />
-          </label>
-          <label htmlFor="password">
-            Password:{" "}
+          </div>
+          <div class="forms_field">
             <input
-              type="password"
               value={credentials.password}
+              type="password"
               name="password"
-              id="password"
-              placeholder="******"
+              placeholder="Contraseña"
+              class="forms_field-input"
               onChange={changeHandler}
             />
-          </label>
-          <button type="submit">Registrarse</button>
-          <LoginGoogle />
+          </div>
+          <div class="forms_buttons">
+            <button type="submit" class="forms_buttons-action">
+              Registrarse
+            </button>
+            <LoginGoogle />
+          </div>
         </form>
-      ) : (
-        <FormUser />
-      )}
-    </Modal>
+      </div>
+    </>
   );
 }
 

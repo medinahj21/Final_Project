@@ -16,7 +16,7 @@ import Modal from "../UI/Modal";
 function FormUser({ setShowAlta }) {
   // const notifyError = (error) => toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT,});
   const notify = () =>
-    toast.success("Registro exitoso, vamos a darnos de alta !", {
+    toast.success("Solicitud enviada", {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
 
