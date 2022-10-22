@@ -3,7 +3,7 @@ import { TbArrowBigRightLines } from "react-icons/tb";
 
 import classes from "./Perfil.module.css";
 
-function Perfil({ userInfoFirestore, image }) {
+export default function Perfil({ userInfoFirestore, image }) {
   const IMAGE = image
     ? image
     : "https://img.freepik.com/vector-gratis/silueta-voleibol-diseno-plano_23-2149400509.jpg?w=826&t=st=1666380508~exp=1666381108~hmac=8abfd0b7c72e3d27b94e38985546257c77caa318603a9a228bcb16241dae11b0";
@@ -63,4 +63,3 @@ function Perfil({ userInfoFirestore, image }) {
   );
 }
 
-export default Perfil;

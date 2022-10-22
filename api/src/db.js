@@ -117,6 +117,9 @@ RoleRequest.belongsTo(Player);
 // Group.hasOne(RoleRequest); /*ready**/
 // RoleRequest.belongsTo(Group);
 
+Player.hasOne(RoleRequest); /*ready**/
+RoleRequest.belongsTo(Player);
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

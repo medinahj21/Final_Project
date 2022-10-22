@@ -5,6 +5,11 @@ import "./ShowProducts.css";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Paginated from "./Paginated";
+import {
+  clearCart,
+} from "../../redux/actions/shoppingCart";
+//import { updatePlayerCart } from "../../redux/actions/player";
+import { getPlayerDetail } from "../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
@@ -12,6 +17,8 @@ export default function ShowProducts({ dataFiltered }) {
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
   });
+  //const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  //const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
@@ -23,15 +30,31 @@ export default function ShowProducts({ dataFiltered }) {
     lastProductIndex
   );
 
+
   useEffect(() => {
     if (prevPage !== currentPage) {
       setCurrentPage(prevPage);
     }
   }, [currentPage, prevPage]);
 
+  useEffect(() => {
+    /* dispatch(clearCart()); */
+    dispatch(getPlayerDetail());
+  }, [dispatch]);
+
+ /*  useEffect(() => {
+    return async () => {
+      await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+      await dispatch(clearCart());
+ }},[dispatch ,productsInCart,userInfoFirestore ]); */
+
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
   return (
@@ -54,6 +77,7 @@ export default function ShowProducts({ dataFiltered }) {
           );
         })}
       </div>
+      <button onClick={() => handleClearCart()}>LIMPIAR CART</button>
     </div>
   );
 }
