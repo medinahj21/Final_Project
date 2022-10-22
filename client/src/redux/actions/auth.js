@@ -29,11 +29,14 @@ export const logout = () => {
 
 export const loginWhitEmailAndPassword = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password);
-  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: null } };
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
 export const registerWhitEmailAndPassword = async (email, password) => {
+  //cuando mando el form no esta llegando al reducer
+  console.log("antes", email, password);
   await createUserWithEmailAndPassword(auth, email, password);
+  console.log("despues", email, password);
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
@@ -46,12 +49,12 @@ export function getUserFirestore(uid) {
           const infoDocu = consult.data();
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: { ...infoDocu},
+            payload: { ...infoDocu },
           });
         } else {
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: null,
+            payload: "",
           });
         }
       });

@@ -84,3 +84,31 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1224px) {
+    .groups__card-container {
+        margin-top: 25vh;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+}
+
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 600px) {
+    .flip-box {
+        position: relative;
+        left: 50%;
+        top: 0;
+        width: 400px;
+        height: 300px;
+        perspective: 1000px;
+        text-align: center;
+        transform: translate(-50%, -50%);
+    }
+}

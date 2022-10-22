@@ -17,10 +17,14 @@ function Login({ setShowLogin }) {
       draggable: true,
       hideProgressBar: true,
       theme: "colored",
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
-  const notify = () => toast.success("Bienvenid@");
+
+  const notify = () =>
+    toast.success("Bienvenid@", { position: toast.POSITION.BOTTOM_RIGHT });
 
   const [forgotPassword, setForgotPassword] = useState(false);
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",

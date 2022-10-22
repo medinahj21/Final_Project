@@ -1,81 +1,143 @@
-.form__container {
-    background-color: rgba(31, 30, 19, 0.866);
-    padding: 1rem 0 1rem 0;
+.form__user {
+    font-family: "Montserrat", sans-serif;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    color: white;
+    width: 80vw;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    background-size: 400% 400%;
     align-items: center;
+    gap: 1rem;
 }
 
 .form__title {
-    color: rgb(0, 0, 0);
-    text-align: center;
+    margin: 0;
+    margin-bottom: 45px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1em;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: .1rem;
 }
 
-.form__user {
-    padding: 1rem;
-    padding-top: 3rem;
+.form__content-alta {
     display: flex;
-    flex-direction: column;
-    width: 50vw;
-    gap: .5rem;
-    height: 80vh;
-    border-radius: 20px;
-    justify-content: center;
-    background-color: #fff;
-    overflow-y: scroll;
+    width: 80%;
+    justify-content: space-evenly;
+}
+
+.form__content-inputs {
+    width: 33%;
+}
+
+.form__content-alta .forms_field:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.form__content-alta .forms_field-input {
+    width: 80%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 20px 6px 6px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: gray;
+    letter-spacing: .1rem;
+    transition: border-color .2s ease-in-out;
+}
+
+.form__content-alta .forms_field-input:focus {
+    border-color: gray;
 }
 
 
-.form__user::-webkit-scrollbar {
-    -webkit-appearance: none;
+
+.form__btn-alta {
+    background-color: transparent;
+    padding: 1rem;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: #fff;
+    box-shadow: 0 0 1px 1px white;
 }
 
-.form__user::-webkit-scrollbar:vertical {
-    width: 10px;
+.form__btn-alta:hover {
+    background-color: #b3b3b3;
+
 }
 
-.form__user::-webkit-scrollbar-button:increment,
-.form__user::-webkit-scrollbar-button {
-    display: none;
-}
 
-.form__user::-webkit-scrollbar:horizontal {
-    height: 10px;
-}
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
-.form__user::-webkit-scrollbar-thumb {
-    background-color: #ddd;
-    border-radius: 20px;
-    border: 2px solid var(--color-bg)
-}
+@media screen and (max-width: 1024px) {}
 
-.form__user::-webkit-scrollbar-track {
-    border-radius: 10px;
-}
 
-.form__container .form__user button {
-    width: fit-content;
-    align-self: center;
-}
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-.form__user input {
-    padding: .2rem;
-    border-radius: 7px;
-    width: 100%;
-}
+@media screen and (max-width: 800px) {
+    .form__user {
+        height: 80vh;
+        align-items: center;
+        justify-content: center;
+    }
 
-.form__user input:focus {
-    background-color: rgba(223, 206, 200, 0.501)
-}
+    .form__content-alta {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 2rem;
+    }
 
-.form__user label {
-    font-weight: bold;
-}
+    .form__content-inputs {
+        width: 40%;
+    }
 
-.form__backbtn {
-    position: absolute;
-    top: 2rem;
-    font-weight: bold;
-    font-size: var(--font-size-p);
+    .form__content-inputs.mobile__form-content {
+        width: 100%;
+        position: relative;
+        left: 1rem;
+    }
+
+    .form__content-alta .forms_field:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+
+    .form__content-alta .forms_field-input {
+        width: 80%;
+        border-bottom: 1px solid #ccc;
+        padding: 6px 20px 6px 6px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: 300;
+        color: gray;
+        letter-spacing: .1rem;
+        transition: border-color .2s ease-in-out;
+    }
+
+    .form__content-alta .forms_field-input:focus {
+        border-color: gray;
+    }
+
+
+
+    .form__btn-alta {
+        background-color: transparent;
+        padding: 1rem;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0 0 1px 1px white;
+    }
+
+    .form__btn-alta:hover {
+        background-color: #b3b3b3;
+
+    }
 }

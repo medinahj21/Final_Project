@@ -11,17 +11,6 @@
     box-shadow: var(--box-shadow);
 }
 
-.card__info-perfil {
-    padding: 1rem;
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
-    text-align: center;
-    background-size: 400% 400%;
-    animation: changeBG 20s ease infinite;
-    color: #fff;
-    border-radius: 20px;
-    box-shadow: var(--box-shadow);
-}
-
 .card__info-image {
     float: left;
     position: relative;
@@ -70,7 +59,12 @@
         border-radius: 20px;
         padding: 1rem;
         box-shadow: var(--box-shadow);
+    }
 
+    .card__info-image {
+        float: none;
+        width: 200px;
+        height: 200px;
     }
 
     .card__info p,
@@ -92,4 +86,5 @@
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-@media screen and (max-width: 600px) {}
+@media screen and (max-width: 600px) {
+}

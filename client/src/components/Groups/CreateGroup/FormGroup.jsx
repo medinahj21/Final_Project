@@ -6,6 +6,8 @@ import UploadImage from "../../UploadImage/UploadImage";
 import Modal from "../../UI/Modal";
 import InputsCreateForm from "./InputsCreateForm";
 
+import './FormGroup.css'
+
 export default function FormGroup({ setIsForm }) {
   const dispatch = useDispatch();
 
@@ -62,7 +64,7 @@ export default function FormGroup({ setIsForm }) {
 
   return (
     <Modal>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form__create-group">
         <button type="button" onClick={() => setIsForm(false)}>
           X
         </button>

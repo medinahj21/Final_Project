@@ -15,7 +15,6 @@ const initialState = {
     isPerfil: true,
     isSocios: false,
     isPagos: false,
-    isGrupos: false,
     isGrupo: false,
     isCalendario: false,
     isRequest: false,
@@ -24,15 +23,19 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
+    //cuando registro no se esta disparando esta accion
     case LOGIN_USER_FIREBASE:
+      console.log("reducer", action.payload);
       return {
         ...state,
         email: action.payload.email,
-        nickName: action.payload.nickName,
+        nickName: action.payload.nickName ? action.payload.nickName : "",
       };
 
     case LOGOUT_USER_FIREBASE:
-      return initialState;
+      return {
+        ...initialState,
+      };
 
     case PLAYER__FORM__FIREBASE:
       return {
