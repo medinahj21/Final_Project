@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import "./CreateProduct.css";
+
 function Modifiers({
   setNewProduct,
   newProduct,
@@ -85,14 +87,22 @@ function Modifiers({
   return (
     <>
       <label> Modificadores: </label>
-
+      <div>
+        <button onClick={newModifierHanlder} className="modify__button">
+          {" "}
+          Nuevo modificador ➕
+        </button>
+      </div>
       {modifiers?.map((obj, index) => {
         if (Object.values(obj)[0] === "") {
           return (
-            <div key={index}>
-              <label>{Object.keys(obj)[0]}:</label>
-              <input placeholder={Object.keys(obj)[0]}></input>
-              <button value={index} onClick={(e) => handleDeleteModifier(e)}>
+            <div key={index} className="">
+              <p>{Object.keys(obj)[0]}</p>
+              <button
+                className="modify__button"
+                value={index}
+                onClick={(e) => handleDeleteModifier(e)}
+              >
                 Eliminar
               </button>
             </div>
@@ -101,87 +111,69 @@ function Modifiers({
           return (
             <div key={index}>
               <label>{Object.keys(obj)[0]}:</label>
-              <select
-                name={Object.keys(obj)[0]}
-                id={index}
-                value={0}
-                readOnly={true}
+              {Object.values(obj)[0]?.map((option, i) => (
+                <p value={option} key={i}>
+                  {option}
+                </p>
+              ))}
+              <button
+                className="modify__button"
+                value={index}
+                onClick={(e) => handleDeleteModifier(e)}
               >
-                <option value={0} disabled={true}>
-                  {"selecciona una"}
-                </option>
-                {Object.values(obj)[0]?.map(
-                  (option, i) => (
-                    <option value={option} key={i}>
-                      {option}
-                    </option>
-                  ) //cambiar a input type radio
-                )}
-              </select>
-              <button value={index} onClick={(e) => handleDeleteModifier(e)}>
                 Eliminar
               </button>
             </div>
           );
         }
       })}
-
-      <div>
-        <button onClick={newModifierHanlder}> Nuevo modificador ➕</button>
-      </div>
-
       {addModifier ? (
-        <label>
-          {" "}
-          Tipo:
+        <div className="select_container">
           <select
+            className="select_content"
             value={0}
             onChange={(e) => setNewModifierType(e.target.value)}
           >
             <option value={0} disabled={true}>
-              {" "}
-              selecciona tipo
+              Opciones extras
             </option>
-            <option value={"opciones"}>{"Opciones"}</option>
-            <option value={"campoDeTexto"}>{"Campo de texto"}</option>
+            <option value={"opciones"}>Especificaciones</option>
+            <option value={"campoDeTexto"}>Agregados</option>
           </select>
-        </label>
+        </div>
       ) : (
         <></>
       )}
       {newModifierType === "opciones" && addModifier ? (
         <>
-          <h2>opciones</h2>
-          <label>
-            {" "}
-            Nombre:
+          <h3>Especificaciones</h3>
+          <div className="forms_field">
             <input
+              placeholder="EJ: Talla, color... etc "
+              className="forms_field-input"
               onChange={(e) => {
                 setNewModifierProperty(e.target.value);
               }}
-            ></input>
-          </label>
-          <div>
-            <button onClick={nameAndOptionsHandler}>
-              Confirmar nombre y agregar opciones
+            />
+            <button className="modify__button" onClick={nameAndOptionsHandler}>
+              Confirmar
             </button>
           </div>
           {enableOptions ? (
             <>
-              <label>nueva opción</label>
-              <input
-                value={newModifierValue}
-                onChange={(e) => {
-                  setNewModifierValue(e.target.value);
-                }}
-              ></input>
-              <div>
-                <button onClick={newOptionHanlder}> agregar opción </button>
+              <div className="forms_field">
+                <input
+                  value={newModifierValue}
+                  placeholder="EJ: xl, rojo... etc "
+                  className="forms_field-input"
+                  onChange={(e) => {
+                    setNewModifierValue(e.target.value);
+                  }}
+                />
+                <button className="modify__button" onClick={newOptionHanlder}>
+                  Agregar
+                </button>
               </div>
-              <p>
-                {" "}
-                nuevo modificador vista previa: {JSON.stringify(newModifier)}
-              </p>
             </>
           ) : (
             <p>Confirma nombre para agregar opciones</p>
@@ -189,52 +181,56 @@ function Modifiers({
         </>
       ) : newModifierType === "campoDeTexto" ? (
         <>
-          <h2>Texto</h2>
-          <label>
-            {" "}
-            Nombre:
+          <h2>Agregados</h2>
+          <div className="forms_field">
             <input
+              type="text"
+              name="name"
+              placeholder="EJ: N° camiseta, apodo"
+              className="forms_field-input"
               onChange={(e) => {
                 setNewModifierProperty(e.target.value);
               }}
-            ></input>
-          </label>
-          <div>
-            <button onClick={prevViewModifierHanlder}>
-              Ver vista previa de modificador de texto
+            />
+            <button
+              className="modify__button"
+              onClick={prevViewModifierHanlder}
+            >
+              Aceptar
             </button>
           </div>
-          <p>Nuevo modificador vista previa: {JSON.stringify(newModifier)}</p>
         </>
       ) : (
         <></>
       )}
       {!disableAddModifier ? (
         <div className="modifier__container-btn">
-          <button disabled={disableAddModifier} onClick={addNewModifierHanlder}>
+          <button
+            className="modify__button"
+            disabled={disableAddModifier}
+            onClick={addNewModifierHanlder}
+          >
             {" "}
-            Añadir nuevo modificador{" "}
+            Añadir modificador{" "}
           </button>
-          <button onClick={resetNewModifierHanlder}>
-            Resetear nuevo modificador
+          <button className="modify__button" onClick={resetNewModifierHanlder}>
+            Resetear modificador
           </button>
         </div>
       ) : (
         <></>
       )}
-      <p>Modificadores producto:{JSON.stringify(modifiers)}</p>
-      <label>
-        {" "}
-        Días de plazo para el pago:
+      <div className="forms_field">
         <input
           type="number"
           name="paymentTerm"
-          value={newProduct.paymentTerm}
+          placeholder="Plazo (días)"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
+        />
+      </div>
     </>
   );
 }
