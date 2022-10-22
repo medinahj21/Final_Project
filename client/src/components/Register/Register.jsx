@@ -39,15 +39,16 @@ function Register({ setShowRegister, setShowLogin, setShowAlta }) {
         credentials.password
       );
       // await sendVerificationEmail(auth.currentUser);
-
-      setShowLogin(false);
-      setShowRegister(false);
-      setShowAlta(true);
+      notify();
+      setTimeout(() => {
+        setShowLogin(false);
+        setShowRegister(false);
+        setShowAlta(true);
+      }, 2000);
       setCredentials({
         email: "",
         password: "",
       });
-      notify();
     } catch (error) {
       console.log(error.message);
       return notifyError(error.message);
