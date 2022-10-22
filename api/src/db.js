@@ -29,7 +29,6 @@ let sequelize =
             keepAlive: true,
           },
           ssl: true,
-        },
       })
 
     : //cuando use heroku la base de datos es ClubDB
