@@ -9,23 +9,33 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridWeek from "@fullcalendar/timegrid";
+import timeGridPlugin from '@fullcalendar/timegrid';
 import esLocale from "@fullcalendar/core/locales/es";
+import DetailEvent from "./DetailEvent/DetailEvent";
 
 export default function Calendario() {
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
-  const [objectEvent, setObjectEvent] = useState({ title: "", date: "" });
+  const [objectEvent, setObjectEvent] = useState([]);
   const [modalOn, setModalOn] = useState(false);
+  const [modalDetail, setModalDetail] = useState(false);
+  const [detail, setDetail] = useState([]);
 
   const events = useSelector((state) => state.eventReducer.events);
 
   useEffect(() => {
-    let eventMap = events?.map((ev) => [
+    let eventMap = events?.map((ev) => ev.state == 'Pending' ? [
       {
         title: ev.name,
-        date: ev.date.toString(),
+        id: ev.id,
+        description: ev.description,
+        state: ev.state,
+        location: ev.location,
+        start: `${ev.date} ${ev.start}`,
+        end: `${ev.date} ${ev.end}`,
+        allDay: false
       },
-    ]);
+    ] : []);
     setObjectEvent(eventMap.flat());
   }, [events]);
 
@@ -48,22 +58,31 @@ export default function Calendario() {
           isCreate={isCreate}
           setIsCreate={setIsCreate}
           handleModal={handleModal}
+          getEvents={getEvents}
         />
       </Modal>
     );
   }
 
-  const modalDetail = (id) => {
-    <Modal>
-      <h1>Hola</h1>
-    </Modal>;
-  };
+  if (modalDetail) {
+    return (
+      <Modal>
+        <DetailEvent
+          setModalDetail={setModalDetail}
+          title={detail.title}
+          description={detail.extendedProps.description}
+          location={detail.extendedProps.location}
+        />
+      </Modal>
+    )
+  }
+
 
   return (
     <div>
       <h1>Calendario</h1>
       <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin, timeGridWeek]}
+        plugins={[dayGridPlugin, interactionPlugin, timeGridWeek, timeGridPlugin]}
         initialView="dayGridMonth"
         locale={esLocale}
         height={800}
@@ -79,14 +98,15 @@ export default function Calendario() {
             click: handleModal,
           },
         }}
-        events= {objectEvent}
-        eventClick={modalDetail(info)}
-      
-        
-    
-    
-        
-        
+        events={{
+          objectEvent,
+          eventBorder
+          
+        }}
+        eventClick={function (event) {
+          setModalDetail(true);
+          setDetail(event.event._def);
+        }}
       />
     </div>
   );

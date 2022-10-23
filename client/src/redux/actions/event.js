@@ -32,7 +32,8 @@ export const createEvent = (datos) => {
     return async () => {
         try {
             let response = await axios.post(`${axios.defaults.baseURL}/events/create`, datos);
-            return response.data;
+            console.log(response);
+            return response.data
         } catch (error) {
             return { error: error.response.data.error }
         }
