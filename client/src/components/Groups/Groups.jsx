@@ -71,7 +71,7 @@ export default function Groups() {
         <>
           <div className="selects__container">
             {userInfoFirestore.isAdmin ? (
-              <button onClick={() => setIsForm(true)}>Nuevo grupo</button>
+              <button className="modify__button" onClick={() => setIsForm(true)}>Nuevo grupo</button>
             ) : (
               <></>
             )}
