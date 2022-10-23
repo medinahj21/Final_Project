@@ -124,6 +124,7 @@ const getGroups = async (req, res) => {
   } catch (error) { console.log(error) }
 };
 
+
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {
