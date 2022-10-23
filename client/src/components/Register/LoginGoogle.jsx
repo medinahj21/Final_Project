@@ -9,6 +9,9 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../../firebase/firebase.config";
+
+import "./LoginGoogle.css";
+
 const googleProvider = new GoogleAuthProvider();
 
 function LoginGoogle() {
@@ -28,8 +31,12 @@ function LoginGoogle() {
 
   return (
     <>
-      <button onClick={() => signInWithRedirect(auth, googleProvider)}>
-        Acceder con google
+      <button
+        onClick={() => signInWithRedirect(auth, googleProvider)}
+        type="button"
+        class="login-with-google-btn"
+      >
+        Acceder con Google
       </button>
     </>
   );

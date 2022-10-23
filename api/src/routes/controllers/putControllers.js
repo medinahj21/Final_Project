@@ -114,13 +114,13 @@ const putOrders = async (req, res) => {
 const updatePlayers = async(req, res) =>{
   const { id } = req.params;
   try {
-  if(rgExp.test(id)){
+  if(id){
     const player = await Player.findByPk(id)
      if (player !== null) {
        player.set(req.body).save() 
        res.status(200).json({ message: "player update successfully" });
      }else{
-      res.status(404).json({ message: "order not found, try again" })
+      res.status(404).json({ message: "player not found, try again" })
      }
   }else{
     res.status(401).json({ message: "Not authorized" })
