@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import s from '../FormEvent/FormEvent.module.css'
 import * as action from '../../../redux/actions/event'
 import Tags from '../../../components/Tag/Tags';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function FormCalendario({ handleModal }) {
 
@@ -46,11 +49,14 @@ export default function FormCalendario({ handleModal }) {
     })
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = dispatch(action.createEvent(inputs));
+    let response = await dispatch(action.createEvent(inputs));
+    console.log(response.error);
     if (response.error) {
-      alert(`algo salio mal: ${response}`)
+
+      alert(`algo salio mal: ${response.error}`)
     } else {
       handleModal();
       setInputs("");
@@ -67,7 +73,7 @@ export default function FormCalendario({ handleModal }) {
     }
     setIsRepetitive(false)
   }
-  console.log(inputs);
+
   return (
     <div className={s.formEventContainer}>
       <section className={s.itemHeaderContainer}>

@@ -5,15 +5,18 @@ const URL = 'http://localhost:3001/events'
 
 export const createEvent = (datos) => {
     return async () => {
-        return axios.post(`${axios.defaults.baseURL}/events/create`, datos)
-            .then(res => res.data)
-            .then(data => {
-                console.log(data, 'creado con exito');
-            })
+        try {
+            let response = await axios.post(`${axios.defaults.baseURL}/events/create`, datos);
+            return response.data;
+        } catch (error) {
+            return { error: error.response.data.error }
+        }
     }
+
 }
 
 export const updateEvent = (id, datos) => {
+    if (!datos) return 'Faltan datos obligatorios'
     return async (dispatch) => {
         return axios
             .put(`${axios.defaults.baseURL}/events/update/${id}`, datos)
