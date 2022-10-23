@@ -91,7 +91,7 @@ const deleteRoleRequest = async (req,res) =>{
     if (!id) {
       res.status(411).json({ error: " missing information" });
     } else {
-      if (rgExp.test(id)) {
+      if (id) {
         await RoleRequest.destroy({ where: { id }});
         res.json({ message: "rolerequest has been deleted successfully" });
       } else {
@@ -99,7 +99,7 @@ const deleteRoleRequest = async (req,res) =>{
       }
     }
   } catch (error) {
-    res.status(400).json({ error_DB: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 

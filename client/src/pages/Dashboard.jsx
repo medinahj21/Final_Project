@@ -1,32 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../firebase/firebase.config";
 
-import { getAllInfoUsers } from "../redux/actions/auth";
+import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
-import FOTO from "../images/icono-marco-fotos-foto.webp";
-import "./Admin.css";
-
-import { validateClick } from "../utils/validateClick";
+import "./Dashboard.css";
+import DashNabvar from "./DashNabvar";
+import Navphone from "../components/Nav/Navphone";
+import DebtCard from "../components/Dashboard/DebtCard";
+import Inscriptions from "../components/Dashboard/Inscriptions";
+import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
+import Groups from "../components/Groups/Groups";
+import Perfil from "../components/Dashboard/perfil/Perfil";
 
 function Admin() {
-  const dispatch = useDispatch();
-  const [clickChoice, setClickChoice] = useState({
-    isPerfil: true,
-    isSocios: false,
-    isPagos: false,
-    isGrupos: false,
-    isGrupo: false,
-    isCalendario: false,
-  });
+  const [isDesktop, setDesktop] = useState(false);
 
-  const { allUserFirestore, userInfoFirestore } = useSelector(
-    (state) => state.authReducer
-  );
+  useEffect(() => {
+    if (window.innerWidth > 1450) {
+      setDesktop(true);
+    } else {
+      setDesktop(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth > 1450) {
+        setDesktop(true);
+      } else {
+        setDesktop(false);
+      }
+    };
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const { allUserFirestore, userInfoFirestore, clickChoicePersist } =
+    useSelector((state) => state.authReducer);
+
+  const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });
+
+  useEffect(() => {
+    dispatch(clickChoiceHandler(clickChoice));
+  }, [clickChoice, dispatch]);
 
   useEffect(() => {
     if (userInfoFirestore.isAdmin) {
@@ -38,112 +58,49 @@ function Admin() {
   }, [dispatch, userInfoFirestore]);
 
   return (
-    <div className="dashboard__container">
-      <div className="admin__navbar">
-        <img
-          className="navbar__image"
-          src={userInfoFirestore.image || FOTO}
-          alt="foto de usuario"
-        />
-        <button
-          className={
-            clickChoice.isPerfil
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("perfil", setClickChoice)}
-        >
-          Perfil
-        </button>
-        {userInfoFirestore.isAdmin && (
-          <button
-            className={
-              clickChoice.isPagos
-                ? "navbar__btn navbar__btn-clicked"
-                : "navbar__btn"
-            }
-            onClick={() => validateClick("pagos", setClickChoice)}
-          >
-            Administracion de pagos
-          </button>
-        )}
-        {!userInfoFirestore.isAdmin && (
-          <button
-            className={
-              clickChoice.isGrupo
-                ? "navbar__btn navbar__btn-clicked"
-                : "navbar__btn"
-            }
-            onClick={() => validateClick("grupo", setClickChoice)}
-          >
-            Mi grupo
-          </button>
-        )}
-        {!userInfoFirestore.isAdmin && (
-          <button
-            className={
-              clickChoice.isPagos
-                ? "navbar__btn navbar__btn-clicked"
-                : "navbar__btn"
-            }
-            onClick={() => validateClick("pagos", setClickChoice)}
-          >
-            Pagos
-          </button>
-        )}
-        {userInfoFirestore.isAdmin && (
-          <button
-            className={
-              clickChoice.isSocios
-                ? "navbar__btn navbar__btn-clicked"
-                : "navbar__btn"
-            }
-            onClick={() => validateClick("socios", setClickChoice)}
-          >
-            Socios
-          </button>
-        )}
-        <button
-          className={
-            clickChoice.isCalendario
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("calendario", setClickChoice)}
-        >
-          Calendario
-        </button>
-        {userInfoFirestore.isAdmin && (
-          <button
-            className={
-              clickChoice.isGrupos
-                ? "navbar__btn navbar__btn-clicked"
-                : "navbar__btn"
-            }
-            onClick={() => validateClick("grupos", setClickChoice)}
-          >
-            Grupos
-          </button>
-        )}
-        <Link to={"/"}>
-          <button className="navbar__btn">Inicio</button>
-        </Link>
-        <Link to={"/products"}>
-          <button className="navbar__btn">Tienda</button>
-        </Link>
-      </div>
-      <div className="admin__content">
-        <h1 className="admin__title">Bienvenid@: {userInfoFirestore?.email}</h1>
+    <>
+      {isDesktop ? (
+        <DashNabvar setClickChoice={setClickChoice} clickChoice={clickChoice} />
+      ) : (
+        <Navphone setClickChoice={setClickChoice} isDashboard={true} />
+      )}
+
+      <div className="dashboard__content">
         {clickChoice.isPerfil && (
-          <InfoCard userInfoFirestore={userInfoFirestore} />
+          <>
+            <Perfil userInfoFirestore={userInfoFirestore} />
+            <UpdateCredentials />
+            {!userInfoFirestore.isAdmin ? (
+              <>
+                {/* Mapear deudas por mes --> */}
+                <div className="debts__cards">
+                  <DebtCard month={"octubre"} />
+                  <DebtCard month={"noviembre"} />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+        {clickChoice.isRequest && (
+          <>
+            <Inscriptions />
+          </>
+        )}
+        {clickChoice.isGrupo && (
+          <>
+            <Groups />
+          </>
         )}
         {clickChoice.isSocios && (
           <div className="cards__container">
             {allUserFirestore ? (
-              allUserFirestore.map((user) => {
+              allUserFirestore.map((user,i) => {
                 return !user.isAdmin ? (
                   <InfoCard
-                    key={userInfoFirestore.document + Math.random()}
+                    className={"infoAdmin"}
+                    key={i}
                     userInfoFirestore={user}
                   />
                 ) : (
@@ -156,7 +113,7 @@ function Admin() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

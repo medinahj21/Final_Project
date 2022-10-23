@@ -1,0 +1,49 @@
+.dashboard__navbar {
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(21, 0, 128), rgb(1, 4, 46), orange);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    min-width: 15vw;
+    max-width: 20vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 2rem;
+    position: fixed;
+    box-shadow: var(--box-shadow);
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.navbar__btn {
+    width: 90%;
+    height: 4rem;
+    border: transparent;
+    background-color: #e6e8ef;
+    margin: 0 auto;
+    transition: all .5s ease-in-out;
+}
+
+.navbar__btn-clicked {
+    width: 105%;
+    border: transparent;
+    box-shadow: none;
+    background-color: #e6e8ef;
+    margin: 0 auto;
+    border-radius: 1rem 0 0 1rem;
+    transition: all .5s ease-in-out;
+}
