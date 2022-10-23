@@ -98,11 +98,7 @@ export default function Calendario() {
             click: handleModal,
           },
         }}
-        events={{
-          objectEvent,
-          eventBorder
-          
-        }}
+        events={objectEvent}
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);
