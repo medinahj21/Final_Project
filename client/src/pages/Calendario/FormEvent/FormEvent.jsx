@@ -67,7 +67,7 @@ export default function FormCalendario({ handleModal }) {
     }
     setIsRepetitive(false)
   }
-  console.log(inputs);
+  // console.log(inputs);
   return (
     <div className={s.formEventContainer}>
       <section className={s.itemHeaderContainer}>
