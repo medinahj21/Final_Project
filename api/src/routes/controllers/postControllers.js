@@ -9,7 +9,7 @@ const {
   ProductRequest,
   FilterTags,
 } = require("../../db");
-const { Sequelize, Model } = require("sequelize");
+
 const { getProductsFromDB } = require("../controllers/getControllers");
 
 const asyncPostProduct = async (req, res) => {
@@ -113,41 +113,41 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const {
-    name,
-    location,
-    start,
-    admin,
-    end,
-    date,
-    description,
-    repetitive,
-    state,
-    player,
-  } = req.body;
+
+  const { name, location, start, admin, end, date, description, repetitive, state, player } = req.body;
   try {
     if (!(name && start && end && location && date && admin)) {
       res.status(400).json({ error: "information is missing" });
     } else {
-      const newEvent = await Event.create({
-        name,
-        location,
-        description,
-        date,
-        repetitive,
-        state,
-        start,
-        end,
-      });
-      const addAdmin = await newEvent.addAdmin(admin);
-      const addPlayer = await newEvent.addPlayer(player);
-      addAdmin &&
-        addPlayer &&
-        res.status(200).send("the event has been created");
+
+      if (repetitive === false) {
+        const newEvent = await Event.create({
+          name, location, description, date, repetitive, state, start, end,
+        });
+        const addAdmin = await newEvent.addAdmin(admin);
+        const addPlayer = await newEvent.addPlayer(player);
+        addAdmin && addPlayer && res.status(200).send("the event has been created");
+      } else {
+        for (let i = 0; i < date.length; i++) {
+          const newEvent = await Event.create({
+            name,
+            location,
+            description,
+            date: [date[i]],
+            repetitive,
+            state,
+            start,
+            end,
+          });
+          await newEvent.addAdmin(admin);
+          await newEvent.addPlayer(player);
+        }
+        res.status(200).send("the events has been created successfully");
+      }
+
+
     }
-  } catch (error) {
-    res.status(400).json({ error_DB: error.message });
-  }
+  } catch (error) { res.status(400).json({ error_DB: error.message }) }
 };
 
 const postOrders = async (req, res) => {
@@ -188,9 +188,7 @@ const postOrders = async (req, res) => {
       // const validateOrderPlayer = await newOrder.addPlayer(player);
       validateOrderProduc && res.status(200).send("order created successfully");
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) { console.log(error) }
 };
 
 const postPlayers = async (req, res) => {
@@ -209,8 +207,7 @@ const postPlayers = async (req, res) => {
         groupId,
       });
 
-      !newPlayer
-        ? res.status(400).json({ message: "newPlayer was  not created" })
+      !newPlayer ? res.status(400).json({ message: "newPlayer was  not created" })
         : res.json({ message: "Player was created successfully" });
     }
   } catch (error) {
@@ -221,8 +218,10 @@ const postAdmins = async (req, res) => {
   const { personal_info, permissions } = req.body;
 
   try {
+
     if (!(personal_info && permissions))
       res.status(400).json({ error: "missing info" });
+
     else {
       const newAdmin = await Admin.create({
         personal_info,
@@ -248,8 +247,9 @@ const postFilterTag = async (req, res) => {
   }
 };
 
+
 const postRoleRequest = async (req, res) => {
-  const { id,newRole, userInfo, groupId } = req.body;
+  const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {
       res.status(400).json({ error: "No role send" });
@@ -270,6 +270,7 @@ const postRoleRequest = async (req, res) => {
     console.log(error);
   }
 };
+
 
 module.exports = {
   asyncPostProduct,

@@ -3,6 +3,7 @@ import {
   LOGOUT_USER_FIREBASE,
   PLAYER__FORM__FIREBASE,
   ALL_PLAYER__FORM__FIREBASE,
+  CLICK__CHOICE,
 } from "./actions";
 
 import {
@@ -28,7 +29,7 @@ export const logout = () => {
 
 export const loginWhitEmailAndPassword = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password);
-  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: null } };
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
 export const registerWhitEmailAndPassword = async (email, password) => {
@@ -45,12 +46,12 @@ export function getUserFirestore(uid) {
           const infoDocu = consult.data();
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: { ...infoDocu},
+            payload: { ...infoDocu },
           });
         } else {
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: null,
+            payload: "",
           });
         }
       });
@@ -62,6 +63,10 @@ export function getUserFirestore(uid) {
 
 export const getAllInfoUsers = (docs) => {
   return { type: ALL_PLAYER__FORM__FIREBASE, payload: docs };
+};
+
+export const clickChoiceHandler = (click) => {
+  return { type: CLICK__CHOICE, payload: click };
 };
 
 //action envie al back

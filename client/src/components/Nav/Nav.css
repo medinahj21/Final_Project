@@ -11,6 +11,7 @@
     justify-content: space-between;
     position: fixed;
     box-shadow: var(--box-shadow);
+    z-index: 999;
 }
 
 @keyframes changeBG {
@@ -54,6 +55,48 @@
 .nav__links {
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.nav__links a:hover,
+.nav__login p:hover {
+    color: tomato;
+}
+
+.nav_cart{
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 white;
+    border-radius: 3px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    position: relative;
+    color: white;
+}
+
+.nav_cart::after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+.nav_cart.nav_cart_phone{
+    position: absolute;
+    right: 50px;
+    top: 30px;
+}
+.nav_cart.nav_cart_dash{
+    position: absolute;
+    right: 30px;
+    bottom: 40px;
+    box-shadow: 0 0 5px 0 rgb(1, 4, 46);
+    color: rgb(1, 4, 46);
 }
 
 

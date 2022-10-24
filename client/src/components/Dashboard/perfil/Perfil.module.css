@@ -1,0 +1,255 @@
+.containerPerfil {
+    min-height: 80vh;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+}
+
+.containerPerfil .titlePerfil {
+    color: white;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 85vmin;
+    height: 25em;
+    border: 4px solid;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+    background-size: 400% 400%;
+    margin: 2rem auto;
+    transition: .3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 1rem .75rem;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+    transition: .4s ease-in-out;
+    z-index: 1;
+}
+
+.overlayContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15vmin;
+    height: 100%;
+    padding: .5rem 0 0 .5rem;
+    border: 3px solid;
+    border-image:
+        linear-gradient(to bottom,
+            rgb(30, 0, 72), rgb(1, 4, 46), orange) 0 0 0 100%;
+    transition: .3s ease-in-out .2s;
+    z-index: 1;
+}
+
+.imageContent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vmin;
+    height: 100%;
+    background-size: cover;
+    transition: .3s ease-in-out;
+}
+
+.dots {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 55px;
+    height: 4vmin;
+    transition: .3s ease-in-out .3s;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+    border: 1px solid indigo;
+    animation: changeBG 1s ease infinite;
+    border-radius: 50%;
+    transition: .3s ease-in-out .3s;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: -50px;
+    width: 60vmin;
+    height: 100%;
+    padding: 3vmin 4vmin;
+    background: #fff;
+    box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / .4);
+    overflow-y: scroll;
+}
+
+.wrap:hover .overlay {
+    transform: translateX(-60vmin);
+}
+
+.wrap:hover .imageContent {
+    width: 70vmin;
+    height: 90vmin;
+}
+
+.wrap:hover .overlayContent {
+    border: none;
+    transition-delay: .2s;
+    transform: translateX(60vmin);
+}
+
+.wrap:hover .dots {
+    transform: translateX(1rem);
+}
+
+.wrap:hover .dots .dot {
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), orange);
+}
+
+
+/* Animations and timing delays */
+.animate {
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
+    animation-fill-mode: backwards;
+}
+
+/* Pop In */
+.pop {
+    animation-name: pop;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+
+/* Slide In */
+.slide {
+    animation-name: slide;
+}
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translate(4em, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+/* Slide Left */
+.slideLeft {
+    animation-name: slide-left;
+}
+
+@keyframes slide-left {
+    0% {
+        opacity: 0;
+        transform: translate(-40px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.slideUp {
+    animation-name: slide-up;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(3em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delay1 {
+    animation-delay: 0.3s;
+}
+
+.delay2 {
+    animation-delay: 0.6s;
+}
+
+.delay3 {
+    animation-delay: 0.9s;
+}
+
+.delay4 {
+    animation-delay: 1.2s;
+}
+
+.delay5 {
+    animation-delay: 1.5s;
+}
+
+.delay6 {
+    animation-delay: 1.8s;
+}
+
+.delay7 {
+    animation-delay: 2.1s;
+}
+
+.delay8 {
+    animation-delay: 2.4s;
+}
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 600px) {
+    .containerPerfil .titlePerfil {
+        font-size: var(--font-size-h3-sm);
+    }
+
+}

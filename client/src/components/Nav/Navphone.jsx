@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect }from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Navphone.css";
-import { logout } from "../../redux/actions/auth";
+import { logout, getUserFirestore } from "../../redux/actions/auth";
 import { validateClick } from "../../utils/validateClick";
+import { onAuthStateChanged} from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
+import {AiOutlineShoppingCart} from "react-icons/ai"
+
+import { updatePlayerCart, getPlayerDetail} from "../../redux/actions/player";
+import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
 
 function Navphone({
   setClickChoice,
@@ -17,20 +23,41 @@ function Navphone({
   const { email, userInfoFirestore } = useSelector(
     (state) => state.authReducer
   );
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
 
   const handleRegister = () => {
     setShowRegister(true);
     setShowLogin(false);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     setShowRegister(false);
     setShowLogin(true);
+    
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async() => {
+    await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+    await dispatch(clearCart());
+    await dispatch(logout());
   };
+
+   useEffect(() => {
+    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch(getUserFirestore(currentUser.uid));
+        dispatch(getPlayerDetail(currentUser.uid))
+        .then(action =>{
+          dispatch(setInitialCart(action.payload.shoppingCart))
+        } )
+
+        //console.log("response", response)
+        //dispatch(setInitialCart(response.shoppingCart))
+      }
+    });
+    return () => unSuscribe();
+  }, [dispatch]);
 
   return (
     <nav role="navigation">
@@ -41,7 +68,24 @@ function Navphone({
         <span></span>
         <span></span>
 
+        {
+          productsInCart?.length>0?
+          <div className="nav_cart">
+            <AiOutlineShoppingCart />
+          </div>
+          :
+          <></>
+        }
+
         <ul id="menu">
+        {
+          true?
+          <div className="nav_cart nav_cart_phone" >
+            <AiOutlineShoppingCart />
+          </div>
+          :
+          <></>
+        }
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>
@@ -58,19 +102,17 @@ function Navphone({
               <p onClick={() => validateClick("perfil", setClickChoice)}>
                 <li>Perfil</li>
               </p>
+              <Link to={"/products"}>
+                <li>Tienda</li>
+              </Link>
+              {userInfoFirestore.isAdmin && (
+                <p onClick={() => validateClick("request", setClickChoice)}>
+                  <li>Inscripciones</li>
+                </p>
+              )}
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("pagos", setClickChoice)}>
                   <li>Administracion de pagos</li>
-                </p>
-              )}
-              {userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("request", setClickChoice)}>
-                  <li>Solicitudes</li>
-                </p>
-              )}
-              {!userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("grupo", setClickChoice)}>
-                  <li>Mi grupo</li>
                 </p>
               )}
               {!userInfoFirestore.isAdmin && (
@@ -78,6 +120,9 @@ function Navphone({
                   <li>Pagos</li>
                 </p>
               )}
+              <p onClick={() => validateClick("grupo", setClickChoice)}>
+                <li>Grupos</li>
+              </p>
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("socios", setClickChoice)}>
                   <li>Socios</li>
@@ -86,16 +131,8 @@ function Navphone({
               <p onClick={() => validateClick("calendario", setClickChoice)}>
                 <li>Calendario</li>
               </p>
-              {userInfoFirestore.isAdmin && (
-                <p onClick={() => validateClick("grupos", setClickChoice)}>
-                  <li>Grupos</li>
-                </p>
-              )}
               <Link to={"/"}>
                 <li>Inicio</li>
-              </Link>
-              <Link to={"/products"}>
-                <li>Tienda</li>
               </Link>
             </>
           ) : (

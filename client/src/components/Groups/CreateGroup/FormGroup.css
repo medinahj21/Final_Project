@@ -1,0 +1,4 @@
+.form__create-group{
+    display: flex;
+    flex-direction: column;
+}

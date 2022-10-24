@@ -130,6 +130,7 @@ const getGroups = async (req, res) => {
   }
 };
 
+
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {
@@ -211,13 +212,13 @@ const getPlayers = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
   try {
-    if (rgExp.test(id)) {
+    if (id) {
       const player = await Player.findByPk(id, {
         include: [
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !player
@@ -230,7 +231,7 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !player
@@ -242,7 +243,7 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event },
-          { model: RoleRequest },
+          //{ model: RoleRequest },
         ],
       });
       !allPlayers

@@ -1,6 +1,5 @@
 .dashboard__content {
-    margin-left: 15vw;
-    padding: 2rem;
+    margin-left: 17em;
 }
 
 .cards__container {
@@ -83,15 +82,20 @@
     text-decoration: underline;
 }
 
+.debts__cards{
+    display: flex;
+    justify-content: center;
+}
+
 /* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
-@media screen and (max-width: 1124px) {
+@media screen and (max-width: 1424px) {
     .dashboard__title {
         margin: 0;
     }
 
     .dashboard__content {
-        margin-left: 16vw;
+        margin-left: 6vw;
     }
 
     .cards__container {
@@ -106,4 +110,15 @@
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-@media screen and (max-width: 600px) {}
+@media screen and (max-width: 600px) {
+    .dashboard__content {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .debts__cards{
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}

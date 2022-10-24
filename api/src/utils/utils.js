@@ -46,6 +46,12 @@ const validateProduct = (prod) => {
   } 
 }
 
+
+
+
+
+
+
 module.exports = {
   validateProduct,
 }

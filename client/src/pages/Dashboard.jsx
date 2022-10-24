@@ -4,20 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../firebase/firebase.config";
 
-import { getAllInfoUsers } from "../redux/actions/auth";
+import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
-import "./Dashboard.css";
-import DashNabvar from "./DashNabvar";
 import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
-// import Request from "../components/Dashboard/Request";
-import UserDB from "../components/Dashboard/UserDB";
+import Inscriptions from "../components/Dashboard/Inscriptions";
 import UpdateCredentials from "../components/Dashboard/UpdateCredentials";
 import Groups from "../components/Groups/Groups";
+import Perfil from "../components/Dashboard/perfil/Perfil";
+import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
+
+import "./Dashboard.css";
+import Calendario from "./Calendario/Calendario";
 
 function Admin() {
+  const dispatch = useDispatch();
   const [isDesktop, setDesktop] = useState(false);
+
+  const { allUserFirestore, userInfoFirestore, clickChoicePersist } =
+    useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (window.innerWidth > 1450) {
@@ -37,21 +43,6 @@ function Admin() {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
-  const dispatch = useDispatch();
-  const [clickChoice, setClickChoice] = useState({
-    isPerfil: true,
-    isSocios: false,
-    isPagos: false,
-    isGrupos: false,
-    isGrupo: false,
-    isCalendario: false,
-    isRequest: false,
-  });
-
-  const { allUserFirestore, userInfoFirestore } = useSelector(
-    (state) => state.authReducer
-  );
-
   useEffect(() => {
     if (userInfoFirestore.isAdmin) {
       getDocs(collection(firestore, "usuarios")).then((querySnapshot) => {
@@ -61,10 +52,17 @@ function Admin() {
     }
   }, [dispatch, userInfoFirestore]);
 
+  const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });
+
+  useEffect(() => {
+    dispatch(clickChoiceHandler(clickChoice));
+  }, [clickChoice, dispatch]);
+
   return (
     <>
       {isDesktop ? (
-        <DashNabvar setClickChoice={setClickChoice} clickChoice={clickChoice} />
+        // <DashNabvar setClickChoice={setClickChoice} clickChoice={clickChoice} />
+        <NavbarDash setClickChoice={setClickChoice} />
       ) : (
         <Navphone setClickChoice={setClickChoice} isDashboard={true} />
       )}
@@ -72,20 +70,39 @@ function Admin() {
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
           <>
-            <InfoCard userInfoFirestore={userInfoFirestore} perfil={true} />
-            <UpdateCredentials />
-            <DebtCard />
+            <Perfil userInfoFirestore={userInfoFirestore} />
+            {!userInfoFirestore.isAdmin ? (
+              <>
+                {/* Mapear deudas por mes --> */}
+                <div className="debts__cards">
+                  <DebtCard month={"octubre"} />
+                  <DebtCard month={"noviembre"} />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+        {clickChoice.isPagos && (
+          <>
+            {!userInfoFirestore.isAdmin ? (
+              <>
+                {/* Mapear deudas por mes --> */}
+                <div>Detalles de pagos player</div>
+              </>
+            ) : (
+              <div>Detalles de pagos admin</div>
+            )}
           </>
         )}
         {clickChoice.isRequest && (
           <>
-            <UserDB />
+            <Inscriptions />
           </>
         )}
-        {clickChoice.isGrupos && (
-          <>
-            <Groups />
-          </>
+        {clickChoice.isCalendario && (
+          <Calendario />
         )}
         {clickChoice.isGrupo && (
           <>
@@ -95,11 +112,11 @@ function Admin() {
         {clickChoice.isSocios && (
           <div className="cards__container">
             {allUserFirestore ? (
-              allUserFirestore.map((user) => {
+              allUserFirestore.map((user,i) => {
                 return !user.isAdmin ? (
                   <InfoCard
                     className={"infoAdmin"}
-                    key={userInfoFirestore.document + Math.random()}
+                    key={i}
                     userInfoFirestore={user}
                   />
                 ) : (

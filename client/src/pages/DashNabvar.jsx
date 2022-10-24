@@ -1,3 +1,4 @@
+import {AiOutlineShoppingCart} from "react-icons/ai"
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,6 +8,7 @@ import "./DashNavbar.css";
 
 function DashNabvar({ setClickChoice, clickChoice }) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   return (
     <div className="dashboard__navbar">
@@ -32,18 +34,16 @@ function DashNabvar({ setClickChoice, clickChoice }) {
           Administracion de pagos
         </button>
       )}
-      {!userInfoFirestore.isAdmin && (
-        <button
-          className={
-            clickChoice.isGrupo
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("grupo", setClickChoice)}
-        >
-          Mi grupo
-        </button>
-      )}
+      <button
+        className={
+          clickChoice.isGrupo
+            ? "navbar__btn navbar__btn-clicked"
+            : "navbar__btn"
+        }
+        onClick={() => validateClick("grupo", setClickChoice)}
+      >
+        Grupos
+      </button>
       {!userInfoFirestore.isAdmin && (
         <button
           className={
@@ -77,7 +77,7 @@ function DashNabvar({ setClickChoice, clickChoice }) {
           }
           onClick={() => validateClick("request", setClickChoice)}
         >
-          Solicitudes
+          Inscripciones
         </button>
       )}
       <button
@@ -90,23 +90,21 @@ function DashNabvar({ setClickChoice, clickChoice }) {
       >
         Calendario
       </button>
-      {userInfoFirestore.isAdmin && (
-        <button
-          className={
-            clickChoice.isGrupos
-              ? "navbar__btn navbar__btn-clicked"
-              : "navbar__btn"
-          }
-          onClick={() => validateClick("grupos", setClickChoice)}
-        >
-          Grupos
-        </button>
-      )}
       <Link to={"/"}>
         <button className="navbar__btn">Inicio</button>
       </Link>
       <Link to={"/products"}>
-        <button className="navbar__btn">Tienda</button>
+        <button className="navbar__btn">
+          Tienda
+              {
+                productsInCart?.length>0?
+                <div className="nav_cart nav_cart_dash">
+                  <AiOutlineShoppingCart />
+                </div>
+                :
+                <></>
+              }
+        </button>
       </Link>
     </div>
   );
