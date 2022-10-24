@@ -93,8 +93,9 @@
 }
 
 .shopping-cart .shopping-cart-items .item-price {
-    color: #6394f8;
+    color: rgb(15, 3, 31);
     margin-right: 8px;
+    font-weight: bolder;
 }
 
 .shopping-cart .shopping-cart-items .item-quantity {
