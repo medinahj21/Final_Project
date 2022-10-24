@@ -60,7 +60,7 @@ function FormUser({ setShowAlta }) {
   };
 
   const handleSubmit = async (e) => {
-    //ya sabemos que no tenemos que refrescar la pag :)
+    e.preventDefault();    
     if (userInput.name === "") {
       notifyError("must have a name");
       return;
@@ -70,6 +70,7 @@ function FormUser({ setShowAlta }) {
     setTimeout(() => {
       setShowAlta(false);
     }, 2000);
+    window.location.reload(true);
   };
 
   return (
