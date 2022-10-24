@@ -10,6 +10,8 @@ function SearchbarProduct(props) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const [showCart, setShowCart] = useState(false);
 
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+
   const {
     handleAllProducts,
     setCreationDiv,
@@ -76,6 +78,10 @@ function SearchbarProduct(props) {
       <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
       {showCart ? <ShoppingCart setShowCart={setShowCart} /> : <></>}      
       <button onClick={() => setShowCart(true)}><BsCartPlusFill/></button>
+      <span>{productsInCart?.reduce(
+            (a, item) => a + item.quant,
+            0
+          )}</span>
     </div>
   );
 }
