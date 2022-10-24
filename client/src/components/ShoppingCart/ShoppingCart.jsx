@@ -25,7 +25,7 @@ const ShoppingCart = () => {
             )}
             .00
           </h4>
-          <button>Comprar</button>
+          <button className="modify__button">Comprar</button>
         </div>
       </div>
     </Modal>
