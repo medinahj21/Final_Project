@@ -16,6 +16,7 @@ import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
 
 import "./Dashboard.css";
+import Calendario from "./Calendario/Calendario";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -101,9 +102,7 @@ function Admin() {
           </>
         )}
         {clickChoice.isCalendario && (
-          <>
-            componente del calendario
-          </>
+          <Calendario />
         )}
         {clickChoice.isGrupo && (
           <>
