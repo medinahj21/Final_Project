@@ -50,9 +50,6 @@ function Navphone({
         .then(action =>{
           dispatch(setInitialCart(action.payload.shoppingCart))
         } )
-
-        //console.log("response", response)
-        //dispatch(setInitialCart(response.shoppingCart))
       }
     });
     return () => unSuscribe();

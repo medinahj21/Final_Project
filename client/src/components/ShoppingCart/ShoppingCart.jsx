@@ -2,15 +2,12 @@
 import { useSelector } from "react-redux";
 //import { updatePlayerCart } from "../../redux/actions/player";
 import CartProduct from "./CartProduct"
+import Modal from "../UI/Modal";
+import "./ShoppingCart.css"
 
-const ShoppingCart = () => {
+const ShoppingCart = ({setShowCart}) => {
   
-
-  const playerShopCart = useSelector(
-    (state) => state.playerReducer.playerDetail
-  );
-  const productItems = playerShopCart.shoppingCart;
-  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
 //Este useEffect me rompe la consola del navegador al renderizar "/cart" ??????????????
 /*   useEffect(() => {
@@ -18,7 +15,9 @@ const ShoppingCart = () => {
   }, [dispatch, productsInCart]); */
 
   return (
+    <Modal>
     <div>
+      <button onClick={()=> setShowCart(false)}>X</button>
       <h2>Carrito de Compras</h2>
       {productsInCart?.filter((item)=> item.quant !== 0).map((prod, index) => {
         return (
@@ -30,16 +29,18 @@ const ShoppingCart = () => {
       })}
       <div>
         <h2>Total</h2>
-        <h4>
+        <h2>
           ${" "}
           {productsInCart?.reduce(
             (a, item) => a + item.product.price * item.quant,
             0
           )}
           .00
-        </h4>
+        </h2>
       </div>
+      <button className="card__title card__title-checkout">Proceder al pago</button>
     </div>
+    </Modal>
   );
 };
 

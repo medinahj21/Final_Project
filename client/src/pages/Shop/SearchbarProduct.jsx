@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {BsCartPlusFill} from "react-icons/bs"
+import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
 
 import "./SearchbarProduct.css";
 
 function SearchbarProduct(props) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const [showCart, setShowCart] = useState(false);
 
   const {
     handleAllProducts,
@@ -71,6 +74,8 @@ function SearchbarProduct(props) {
         <p>No has seleccionado etiquetas</p>
       )}
       <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
+      {showCart ? <ShoppingCart setShowCart={setShowCart} /> : <></>}      
+      <button onClick={() => setShowCart(true)}><BsCartPlusFill/></button>
     </div>
   );
 }

@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePlayerCart, getPlayerDetail } from "../../redux/actions/player";
-import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
+import { clearCart, setInitialCart } from "../../redux/actions/shoppingCart";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
-import { logout,getUserFirestore } from "../../redux/actions/auth";
+import { logout, getUserFirestore } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";
@@ -29,10 +29,10 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        let response = dispatch(getPlayerDetail(currentUser.uid))
-
-        console.log("response", response)
-        //dispatch(setInitialCart(response.shoppingCart))
+        dispatch(getPlayerDetail(currentUser.uid))
+        .then((action) => {
+        dispatch(setInitialCart(action.payload.shoppingCart));
+        });
       }
     });
     return () => unSuscribe();

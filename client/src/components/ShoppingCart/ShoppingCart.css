@@ -1,0 +1,17 @@
+.card__title-checkout{
+    padding: 1rem;
+    background: linear-gradient(-4deg, rgb(3, 194, 13), rgb(1, 4, 46));
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+
+    font-size: 1.5rem;
+    text-shadow: var(--text-shadow);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: .4rem;
+    cursor: pointer;
+}

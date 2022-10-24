@@ -1,7 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./ShowProductDetail.css";
-export default function ShowProductDetail() {
+import { incrementProductInCart, addToCart } from "../../redux/actions/shoppingCart";
+
+export default function ShowProductDetail({id}) {
   const product = useSelector(
     (state) => state.productsReducer.productDetail
   )[0];
@@ -17,6 +19,31 @@ export default function ShowProductDetail() {
     stock,
     paymentTerm,
   } = { ...product };
+  const [modifier, setModifier]= useState([]);
+  const [disabled, setDisabled]= useState(false);
+  const dispatch = useDispatch();
+  
+  const allProducts = useSelector((state) => {
+    return state.productsReducer.allProducts;
+  });
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+
+  const handleModifiers = (e)=> {
+
+
+  }
+  
+
+  const handleAddToCart = ()=>{
+    let itemToAdd = allProducts.find((product) => product.id === id);
+    let productToAdd = productsInCart?.find((prod) => prod.product.id === id);
+
+    if (productToAdd) {
+      dispatch(incrementProductInCart(id));
+    } else {
+      dispatch(addToCart(itemToAdd));
+    }
+  }
 
   return (
     <div className="detail__container-product">
@@ -47,7 +74,9 @@ export default function ShowProductDetail() {
                 return (
                   <label key={index}>
                     {Object.keys(obj)[0]}:
-                    <input placeholder={Object.keys(obj)[0]}></input>
+                    <input placeholder={Object.keys(obj)[0]}
+                    name={Object.keys(obj)[0]}
+                    value={Object.values(obj)[0]} ></input>
                   </label>
                 );
               } else {
@@ -73,11 +102,15 @@ export default function ShowProductDetail() {
                     </select>
                   </label>
                 );
+
               }
             })}
             <h4>Producto bajo {isOrder ? "pedido" : "stock"}</h4>
             {!isOrder ? <label>Existencias: {stock}</label> : <></>}
             <h4> Plazo máximo de pago: {paymentTerm} días</h4>
+            <button className="card__title card__title-recipe" 
+            onClick={()=> handleAddToCart(id)}
+            disabled= {disabled} >Agregar al carrito</button>
           </div>
         </>
       ) : (
