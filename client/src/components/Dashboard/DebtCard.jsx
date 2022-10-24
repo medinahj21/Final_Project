@@ -10,7 +10,7 @@ const deudas = [
   },
   {
     deuda: 40000,
-    motivo: "Adny gato",
+    motivo: "Deuda de prueba",
     vto: "10-12-2022",
   },
 ];
