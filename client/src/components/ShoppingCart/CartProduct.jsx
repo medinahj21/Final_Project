@@ -18,7 +18,7 @@ export default function ShoppingCart(prod) {
 
   return (
     <div>
-      <div style={{borderBottom: "thin solid white"}}>
+      <div style={{borderBottom: "thin solid green"}}>
         <h3>{prod.prod.product.name}</h3>
         <h3>${prod.prod.product.price}.00</h3>
         <h5>Cantidad: {prod.prod.quant}</h5>
