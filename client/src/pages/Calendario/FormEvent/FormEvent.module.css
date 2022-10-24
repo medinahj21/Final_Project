@@ -1,6 +1,4 @@
 .formEventContainer {
-    width: 50%;
-    height: 60%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -114,7 +112,7 @@
     border: 1px;
     border-radius: 5px;
     box-shadow: none;
-    background-color: #5289d7;
+    background-color: #386fbd;
     color: white;
 }
 .buttonSubmitEvent:hover{
@@ -122,7 +120,7 @@
 }
 
 .containerDays {
-    width: 100%;
+    width: 98%;
     min-height: 50px;
     max-height: 80px;
     margin: 5px;
