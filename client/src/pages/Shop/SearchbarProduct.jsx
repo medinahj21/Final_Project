@@ -1,6 +1,8 @@
 import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
 
 import "./SearchbarProduct.css";
 
@@ -16,6 +18,8 @@ function SearchbarProduct(props) {
     deleteTag,
     handleClean,
   } = props;
+
+  const [showCart,setShowCart]=useState(false)
 
   return (
     <div className="search__container">
@@ -71,6 +75,12 @@ function SearchbarProduct(props) {
         <p>No has seleccionado etiquetas</p>
       )}
       <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
+      <button onClick={() => setShowCart(true)}>🛒</button>
+      {showCart?
+        <ShoppingCart setShowCart={setShowCart}/>:
+      <></>
+      }
+      
     </div>
   );
 }

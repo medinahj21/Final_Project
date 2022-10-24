@@ -181,8 +181,6 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
                 tags={tags}
                 deleteTag={deleteTag}
               />
-            </div>
-            <div>
               <ProductStock
                 onHandler={OrderOrStockHanlde}
                 isOrder={isOrder}
@@ -192,7 +190,7 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
             </div>
           </div>
         </div>
-        <div>
+        <div className="create__product-button">
           <button type="submit" className="form__btn-alta">
             Crear
           </button>

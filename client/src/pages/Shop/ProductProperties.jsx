@@ -32,10 +32,10 @@ function ProductProperties({
 
   return (
     <>
-      <div className="forms_field">
-        <div onClick={handleOnClick}>
+      <div className="forms_field product__image-container">
+        <button className="modify__button" onClick={handleOnClick}>
           Cargar imagen
-        </div>
+        </button>
         <img
           className="product__image-create"
           src={newProduct.image || FOTO}
@@ -56,10 +56,9 @@ function ProductProperties({
       </div>
       <div className="forms_field">
         <input
-          value={newProduct.price}
           type="number"
           name="price"
-          placeholder="Precio"
+          placeholder="$ Precio"
           className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);

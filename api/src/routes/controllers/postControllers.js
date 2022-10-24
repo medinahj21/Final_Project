@@ -119,6 +119,7 @@ const createEvent = async (req, res) => {
     if (!(name && start && end && location && date && admin)) {
       res.status(400).json({ error: "information is missing" });
     } else {
+
       if (repetitive === false) {
         const newEvent = await Event.create({
           name, location, description, date, repetitive, state, start, end,
@@ -143,6 +144,7 @@ const createEvent = async (req, res) => {
         }
         res.status(200).send("the events has been created successfully");
       }
+
 
     }
   } catch (error) { res.status(400).json({ error_DB: error.message }) }
@@ -247,7 +249,7 @@ const postFilterTag = async (req, res) => {
 
 
 const postRoleRequest = async (req, res) => {
-  const { id,newRole, userInfo, groupId } = req.body;
+  const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {
       res.status(400).json({ error: "No role send" });

@@ -15,7 +15,6 @@ export const getGroups = () => {
       .get(`${axios.defaults.baseURL}/groups`)
       .then((res) => res.data)
       .then((data) => {
-        //console.log(data);
         dispatch({
           type: GET_GROUPS,
           payload: data,

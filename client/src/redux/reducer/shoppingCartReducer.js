@@ -29,7 +29,7 @@ export default function shoppingCartReducer(state = initialState, action) {
 
     case INCREMENT_QUANT_PRODUCT:
       let findProduct = state.cart.find(
-        (prod) => prod.product.id === action.payload
+        (prod) => prod.product.id === action.payload[0] && JSON.stringify(prod.product.modifiers) === JSON.stringify(action.payload[1])
       );
       if (!findProduct) return state;
     
@@ -42,7 +42,7 @@ export default function shoppingCartReducer(state = initialState, action) {
     case DECREMENT_QUANT_PRODUCT:
       if (state.cart.length > 0){
         var productToDecrement = state.cart.find(
-          (prod) => prod.product.id === action.payload
+          (prod) => prod.product.id === action.payload[0] && JSON.stringify(prod.product.modifiers) === JSON.stringify(action.payload[1])
         );
       }
       
@@ -50,8 +50,6 @@ export default function shoppingCartReducer(state = initialState, action) {
       let filteredProd = state.cart.filter(
         (prod) => prod.quant > 0 );
       productToDecrement.quant--;
-      console.log("ProductTDecre:", productToDecrement)
-      console.log("Filtrados:",filteredProd)
       if(productToDecrement.quant===0){
         return {
           ...state,

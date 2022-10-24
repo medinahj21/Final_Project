@@ -17,20 +17,20 @@ export const addToCart = (product) => {
   };
 };
 
-export const incrementProductInCart= (id)=> {
+export const incrementProductInCart= (id,modifiers)=> {
   return (dispatch)=> {
     dispatch({
       type: INCREMENT_QUANT_PRODUCT,
-      payload:id,
+      payload:[id,modifiers],
     })
   }
 }
 
-export const decrementProductInCart = (id) => {
+export const decrementProductInCart = (id,modifiers) => {
   return (dispatch) => {
     dispatch({
       type: DECREMENT_QUANT_PRODUCT,
-      payload: id,
+      payload: [id,modifiers],
     });
   };
 };
