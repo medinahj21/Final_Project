@@ -41,7 +41,7 @@ export default function ProductDetail({id, setShowDetail}) {
           {!editor ? "Editar" : "Ver detalle"}
         </button>
       ) : (
-        <Link to={"/products"}>Volver</Link>
+        <></>
       )}
       {editor ? <CreateProduct isCreate={false} /> : <ShowProductDetail />}
     </div>

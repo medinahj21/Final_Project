@@ -30,17 +30,15 @@ export default function ShowProductDetail() {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   const handleAddToCart = ()=>{
-    let productInCart = productsInCart?.find((prod) => prod.product.id === id);
-    let itemToAdd = {id};
+    let itemToAdd = {id, price};
     itemToAdd.modifiers = {...modifiersChosen};
-
-    console.log(modifiersChosen)
+    let productInCart = productsInCart?.find((prod) => prod.product.id === id && JSON.stringify(itemToAdd.modifiers)===JSON.stringify(prod.product.modifiers));
     
     if(Object.keys(modifiers).length && !Object.keys(modifiersChosen).length){
       notifyError("Elije algún modificador")
     }
-    else if (productInCart && JSON.stringify(itemToAdd.modifiers)===JSON.stringify(productInCart?.product.modifiers)) {
-      dispatch(incrementProductInCart(id));
+    else if (productInCart) {
+      dispatch(incrementProductInCart(id,itemToAdd.modifiers));
       notify(`Se añadió otro ${name.toLowerCase()} al carrito | cant: ${productInCart.quant}`)
 
     } else {
