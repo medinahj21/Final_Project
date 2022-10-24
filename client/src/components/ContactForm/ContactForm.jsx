@@ -12,7 +12,7 @@ const ContactForm = ({ setShowContactForm }) => {
   
   const notify = () =>
     toast.success("Tu mensaje fue enviado con exito. Gracias por contactarnos!", {
-      position: toast.POSITION.BOTTOM_RIGHT,
+      position: toast.POSITION.TOP_RIGHT,
     });
 
   const [userInput, setUserInput] = useState({
@@ -37,11 +37,12 @@ const ContactForm = ({ setShowContactForm }) => {
   }
 
   return (
-    <div>
+    <div className="contact-form-global-container">
+      <a className="go-back-button" href="/">Volver</a>
       <form onSubmit={handleSubmit} className="contact-form">
       <ToastContainer />
-        <div>
-          <h2>Contacto</h2>
+        <div className="form-contact-main-container">
+          <h2 className="title-contact-form">Contacto</h2>
           <div className="contactForm-leftData-container">
             <span>
               <FiMail />{"  "}
@@ -102,8 +103,9 @@ const ContactForm = ({ setShowContactForm }) => {
               id="message"
               placeholder="Mensaje"
               maxLength={255}
+              rows= {20}
               cols= {60}
-              wrap= "soft"
+              wrap= "hard"
               onChange={changeHandler}
             />
             <br />
