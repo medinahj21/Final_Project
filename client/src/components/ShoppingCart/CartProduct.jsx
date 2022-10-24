@@ -23,14 +23,14 @@ export default function ShoppingCart(prod) {
         <span>Cant: {prod.prod.quant}</span>
         <div className="cart__container-button">
           <button
-            className="modify__button"
+            className="modify__button modify__button-cart"
             onClick={() => handleDecrementProduct(prod.prod.product.id)}
           >
             {" "}
             -{" "}
           </button>
           <button
-            className="modify__button"
+            className="modify__button  modify__button-cart"
             onClick={() => handleIncrementProduct(prod.prod.product.id)}
           >
             {" "}

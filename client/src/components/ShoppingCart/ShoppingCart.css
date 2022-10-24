@@ -29,3 +29,7 @@
     display: flex;
     gap: 1rem;
 }
+
+.modify__button.modify__button-cart:hover {
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+}
