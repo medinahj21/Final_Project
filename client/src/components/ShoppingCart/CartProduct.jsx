@@ -1,44 +1,53 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   incrementProductInCart,
   decrementProductInCart,
 } from "../../redux/actions/shoppingCart";
 
-export default function ShoppingCart(prod) {
+export default function CartProduct(prod) {
   const dispatch = useDispatch();
 
-  const handleIncrementProduct = (id) => {
-    dispatch(incrementProductInCart(id));
+  const allProducts = useSelector((state) => state.productsReducer.allProducts);
+  const product = allProducts?.find(
+    (product) => product.id === prod.prod.product.id
+  );
+
+  const { id, name, price, image } = { ...product };
+
+  const handleIncrementProduct = (id, modifiers) => {
+    dispatch(incrementProductInCart(id, modifiers));
   };
 
-  const handleDecrementProduct = (id) => {
-    dispatch(decrementProductInCart(id));
+  const handleDecrementProduct = (id, modifiers) => {
+    dispatch(decrementProductInCart(id, modifiers));
   };
 
   return (
-    <div className="cart-container-prod">
-      <div className="cart-content">
-        <h4 className="cart__product-title">{prod.prod.product.name}</h4>
-        <span>$ {prod.prod.product.price}.00</span>
-        <span>Cant: {prod.prod.quant}</span>
-        <div className="cart__container-button">
-          <button
-            className="modify__button modify__button-cart"
-            onClick={() => handleDecrementProduct(prod.prod.product.id)}
-          >
-            {" "}
-            -{" "}
-          </button>
-          <button
-            className="modify__button  modify__button-cart"
-            onClick={() => handleIncrementProduct(prod.prod.product.id)}
-          >
-            {" "}
-            +{" "}
-          </button>
-        </div>
+    <li class="clearfix">
+      <img className="image__cart" src={image} alt="item" />
+      <span class="item-name">{name}</span>
+      <span class="item-price">$ {price}</span>
+      <span class="item-quantity">Cantidad: {prod.prod.quant}</span>
+      <div className="cart__container-button">
+        <button
+          className="modify__button modify__button-cart"
+          onClick={() =>
+            handleDecrementProduct(id, prod.prod.product.modifiers)
+          }
+        >
+          {" "}
+          -{" "}
+        </button>
+        <button
+          className="modify__button  modify__button-cart"
+          onClick={() =>
+            handleIncrementProduct(id, prod.prod.product.modifiers)
+          }
+        >
+          {" "}
+          +{" "}
+        </button>
       </div>
-      <h4>Subtotal: ${prod.prod.quant * prod.prod.product.price}</h4>
-    </div>
+    </li>
   );
 }

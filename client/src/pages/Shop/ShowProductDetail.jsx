@@ -1,11 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import "./ShowProductDetail.css";
+import { useDispatch, useSelector } from "react-redux"
+import { incrementProductInCart, addToCart } from "../../redux/actions/shoppingCart";
+import { useState } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function ShowProductDetail() {
   const product = useSelector(
     (state) => state.productsReducer.productDetail
   )[0];
   const {
+    id,
     name,
     image,
     price,
@@ -18,8 +25,51 @@ export default function ShowProductDetail() {
     paymentTerm,
   } = { ...product };
 
+  const dispatch = useDispatch();
+  
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+
+  const handleAddToCart = ()=>{
+    let itemToAdd = {id, price};
+    itemToAdd.modifiers = {...modifiersChosen};
+    let productInCart = productsInCart?.find((prod) => prod.product.id === id && JSON.stringify(itemToAdd.modifiers)===JSON.stringify(prod.product.modifiers));
+    
+    if(Object.keys(modifiers).length && !Object.keys(modifiersChosen).length){
+      notifyError("Elije algún modificador")
+    }
+    else if (productInCart) {
+      dispatch(incrementProductInCart(id,itemToAdd.modifiers));
+      notify(`Se añadió otro ${name.toLowerCase()} al carrito | cant: ${productInCart.quant}`)
+
+    } else {
+      dispatch(addToCart(itemToAdd));
+      notify(`${name} añadido al carrito`)
+    } 
+  
+  }
+
+  const [modifiersChosen, setModifiersChosen] = useState({})
+
+  const handleModifiers = (e)=>{
+    setModifiersChosen(
+      {
+        ...modifiersChosen,
+        [e.target.name] : e.target.value
+      }
+    )
+  }
+
+  const notify = (message) => toast.success(message);
+  const notifyError = (message) =>
+    toast.error(message, {
+      hideProgressBar: true,
+      theme: "colored",
+    });
+
+
   return (
     <div className="detail__container-product">
+      <ToastContainer />
       {product ? (
         <>
           <div>
@@ -47,7 +97,7 @@ export default function ShowProductDetail() {
                 return (
                   <label key={index}>
                     {Object.keys(obj)[0]}:
-                    <input placeholder={Object.keys(obj)[0]}></input>
+                    <input placeholder={Object.keys(obj)[0]} name={Object.keys(obj)[0]} onChange={handleModifiers}></input>
                   </label>
                 );
               } else {
@@ -57,8 +107,9 @@ export default function ShowProductDetail() {
                     <select
                       name={Object.keys(obj)[0]}
                       id={index}
-                      value={0}
+                      defaultValue={0}
                       readOnly={true}
+                      onChange={handleModifiers}
                     >
                       <option value={0} disabled={true}>
                         {"selecciona una"}
@@ -78,6 +129,7 @@ export default function ShowProductDetail() {
             <h4>Producto bajo {isOrder ? "pedido" : "stock"}</h4>
             {!isOrder ? <label>Existencias: {stock}</label> : <></>}
             <h4> Plazo máximo de pago: {paymentTerm} días</h4>
+            <button onClick={handleAddToCart}> Añadir al carrito </button>
           </div>
         </>
       ) : (

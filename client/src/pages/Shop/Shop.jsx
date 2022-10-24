@@ -29,7 +29,7 @@ function Shop() {
     (state) => state.authReducer
   );
   useEffect(()=>{
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
+    // dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
   },[dispatch,productsInCart,userInfoFirestore.uid])
 
   useEffect(() => {

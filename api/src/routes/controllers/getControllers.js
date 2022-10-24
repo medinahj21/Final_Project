@@ -130,6 +130,7 @@ const getGroups = async (req, res) => {
   }
 };
 
+
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {

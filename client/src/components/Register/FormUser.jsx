@@ -62,7 +62,7 @@ function FormUser({ setShowAlta }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();    
     if (userInput.name === "") {
       notifyError("must have a name");
       return;
