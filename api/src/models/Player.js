@@ -1,12 +1,11 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, STRING } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
     "player",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
       },
@@ -28,7 +27,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       paymentDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       shirtNumber: {
@@ -36,7 +35,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       shoppingCart: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: true
       }
     },

@@ -4,15 +4,22 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('roleRequest', {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
         },
-        new_role: {
+        newRole: {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        userInfo:{
+            type: DataTypes.JSON,
+            allowNull: false
+        },
+        groupId:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     },{
         timestamps:false 
     });

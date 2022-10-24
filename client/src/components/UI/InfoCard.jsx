@@ -1,13 +1,13 @@
 import React from "react";
 
-import FOTO from "../../images/icono-marco-fotos-foto.webp";
+import FOTO from "../../images/siluetasinfondo.png";
 
 import "./InfoCard.css";
 
 function InfoCard({ userInfoFirestore }) {
   return (
     <div className="card__info">
-      <img className="card__image" src={FOTO} alt="" />
+      <img className={"card__image"} src={FOTO} alt="" />
       <h2>{userInfoFirestore.name}</h2>
       <p>Edad: {userInfoFirestore.years}</p>
       <p>Fecha de nacimiento: {userInfoFirestore.birthDate}</p>

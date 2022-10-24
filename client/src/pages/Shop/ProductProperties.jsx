@@ -32,50 +32,52 @@ function ProductProperties({
 
   return (
     <>
-      <label>
-        {" "}
-        Nombre producto:
-        <input
-          type="text"
-          name="name"
-          value={newProduct.name}
-          onChange={(e) => {
-            handleSetNewProductProperties(e);
-          }}
-        ></input>
-      </label>
-      <label>
-        {" "}
-        Imagen:
-        <div className="product__charge-image" onClick={handleOnClick}>
+      <div className="forms_field">
+        <div onClick={handleOnClick}>
           Cargar imagen
         </div>
-        <img className="product__image-create" src={newProduct.image || FOTO} alt="" />
-      </label>
-      <label>
-        {" "}
-        Precio:
+        <img
+          className="product__image-create"
+          src={newProduct.image || FOTO}
+          alt="product"
+        />
+      </div>
+      <div className="forms_field">
         <input
+          value={newProduct.name}
+          type="text"
+          name="name"
+          placeholder="Nombre"
+          className="forms_field-input"
+          onChange={(e) => {
+            handleSetNewProductProperties(e);
+          }}
+        />
+      </div>
+      <div className="forms_field">
+        <input
+          value={newProduct.price}
           type="number"
           name="price"
-          value={newProduct.price}
+          placeholder="Precio"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
-      <label>
-        {" "}
-        Descripción:
+        />
+      </div>
+      <div className="forms_field">
         <input
+          value={newProduct.description}
           type="text"
           name="description"
-          value={newProduct.description}
+          placeholder="Description"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
+        />
+      </div>
     </>
   );
 }

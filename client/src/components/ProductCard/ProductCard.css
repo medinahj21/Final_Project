@@ -40,20 +40,34 @@
     cursor: pointer;
 }
 
-.card__title-recipe {
+.card__title-product {
+    padding: 1rem;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+
     font-size: 1.5rem;
-    color: var(--color-white);
     text-shadow: var(--text-shadow);
-    background-color: transparent;
     border-radius: 10px;
     border: 1px solid transparent;
     padding: .4rem;
-    background-color: var(--color-bg);
-    box-shadow: var(--box-shadow);
     cursor: pointer;
 }
 
-.card__healthscore {
+.card__price {
+    padding: 1rem;
+    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+
     width: 100%;
     font-size: var(--font-size-p);
     text-align: center;

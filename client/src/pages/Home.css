@@ -19,22 +19,43 @@
 }
 
 .home__gruops {
+    background: fixed url(../images/fondogroups.jpg);
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 1fr;
     width: 100vw;
+    margin: 0 auto;
     background-color: #ddd;
 }
 
-.home__gruop {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
-    border: 1px solid black;
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {
+    .home__container {
+        background: fixed url(../images/Fondo-app.jpg);
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home__container h1 {
+        font-size: var(--font-size-h1-md);
+    }
+
 }
 
-.home__gruop .home__group-content {
-    display: flex;
-}
 
-.home__gruop .home__group-content img {
-    width: 500px;
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+
+@media (max-width: 640px) {
+    .home__container h1 {
+        font-size: var(--font-size-h1-sm);
+    }
+
+   
 }
