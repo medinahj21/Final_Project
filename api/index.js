@@ -1,7 +1,7 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const { PORT } = process.env;
 
+const { PORT } = process.env;
 const {
   Event,
   Product,
@@ -11,6 +11,7 @@ const {
   Admin,
   FilterTags,
 } = require("./src/db");
+
 
 const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
@@ -83,9 +84,13 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
+
 conn.sync({ force: false, alter: false }).then(() => {
   //chargeDummyData();
+
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
   });
 });
+
+

@@ -38,6 +38,9 @@ module.exports = (sequelize) => {
       },
       date: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+
+        defaultValue: DataTypes.NOW,//*va a romper
+
         allowNull: false,
       },
       start: {
