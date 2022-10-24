@@ -10,8 +10,8 @@ import ShowProductDetail from "./ShowProductDetail";
 
 import "./ShowProductDetail.css";
 
-export default function ProductDetail() {
-  let { id } = useParams();
+export default function ProductDetail({id, setShowDetail}) {
+  // let { id } = useParams();
 
   const dispatch = useDispatch();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
@@ -29,6 +29,8 @@ export default function ProductDetail() {
 
   return (
     <div className="productDetail__container">
+      <button onClick={()=>setShowDetail(false)}> X </button>
+
       {userInfoFirestore.isAdmin ? (
         <button
           onClick={() => {
