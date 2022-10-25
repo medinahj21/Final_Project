@@ -23,11 +23,11 @@ export default function CartProduct(prod) {
   };
 
   return (
-    <li class="clearfix">
+    <li className="clearfix">
       <img className="image__cart" src={image} alt="item" />
-      <span class="item-name">{name}</span>
-      <span class="item-price">$ {price}</span>
-      <span class="item-quantity">Cantidad: {prod.prod.quant}</span>
+      <span className="item-name">{name}</span>
+      <span className="item-price">$ {price}</span>
+      <span className="item-quantity">Cantidad: {prod.prod.quant}</span>
       <div className="cart__container-button">
         <button
           className="modify__button modify__button-cart"

@@ -18,6 +18,7 @@ import "./Home.css";
 import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
 import Carousel from "../components/Home/Carousel";
+import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 
 function Home() {
   const dispatch = useDispatch();
@@ -76,25 +77,37 @@ function Home() {
         />
       )}
       {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
-      {showRegister ? (
-        <LoginRegister
+      {!isDesktop && showLogin ? (
+        <LoginRegisteMob
           setShowLogin={setShowLogin}
           showLogin={showLogin}
           setShowAlta={setShowAlta}
           setShowRegister={setShowRegister}
         />
       ) : (
-        <></>
+        <>
+          {showRegister ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowAlta={setShowAlta}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+          {showLogin ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+        </>
       )}
-      {showLogin ? (
-        <LoginRegister
-          setShowLogin={setShowLogin}
-          showLogin={showLogin}
-          setShowRegister={setShowRegister}
-        />
-      ) : (
-        <></>
-      )}
+
       <div className="home__carrousel">
         <Carousel />
       </div>
