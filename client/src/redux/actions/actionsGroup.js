@@ -109,7 +109,7 @@ export const createNewRoleRequest = (roleRequest) => {
 export const deleteRoleRequest = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.delete(
+        await axios.delete(
         `${axios.defaults.baseURL}/roleRequests/delete/${id}`
       );
     } catch (error) {

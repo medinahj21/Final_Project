@@ -22,7 +22,8 @@ export default function Calendario() {
   const [detail, setDetail] = useState([]);
 
   const events = useSelector((state) => state.eventReducer.events);
-  console.log("events", objectEvent);
+
+
   useEffect(() => {
     let eventMap = events?.map((ev) => ev.state === 'Pending' ? [
       {
@@ -98,7 +99,11 @@ export default function Calendario() {
             click: handleModal,
           },
         }}
-        events={objectEvent}
+        events={{
+          objectEvent,
+          eventBorder
+          
+        }}
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);

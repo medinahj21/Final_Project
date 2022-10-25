@@ -37,7 +37,6 @@ export default function Groups() {
       setAllGroups(groups);
     } else {
       let filtered = [...allGroups].filter((e) => e.genre === value);
-      console.log(filtered);
       if (filtered.length === 0) {
         filtered = [...groups].filter((e) => e.genre === value);
       }
@@ -71,7 +70,7 @@ export default function Groups() {
         <>
           <div className="selects__container">
             {userInfoFirestore.isAdmin ? (
-              <button onClick={() => setIsForm(true)}>Nuevo grupo</button>
+              <button className="modify__button" onClick={() => setIsForm(true)}>Nuevo grupo</button>
             ) : (
               <></>
             )}
@@ -82,7 +81,6 @@ export default function Groups() {
           </div>
           <div className="groups__card-container">
             {allGroups?.map((e, i) => {
-              console.log(e.image);
               return (
                 <CardGroup
                   key={i}

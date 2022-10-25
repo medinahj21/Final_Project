@@ -3,33 +3,35 @@ import React from "react";
 function ProductStock({ onHandler, isOrder, newProduct, onHandlerNewProd }) {
   return (
     <>
-      <label>
-        {" "}
-        Producto bajo pedido o bajo stock:
-        <select onChange={onHandler}>
-          <option value={-1} disabled={true}>
-            {"tipo de producto"}
+      <div className="select_container">
+        <select
+          defaultValue="type"
+          className="select_content"
+          name="Tags"
+          onChange={onHandler}
+        >
+          <option value="type" disabled={true}>
+            {"Pedido o Stock"}
           </option>
-          <option value={true}>{"bajo pedido"}</option>
-          <option value={false}>{"bajo stock"}</option>
+          <option value={true}>{"Bajo pedido"}</option>
+          <option value={false}>{"Bajo stock"}</option>
         </select>
-      </label>
+      </div>
+
       {isOrder === "false" ? (
-        <>
-          <label>
-            Existencias:
-            <input
-              type="number"
-              name="stock"
-              value={newProduct.stock}
-              onChange={(e) => {
-                onHandlerNewProd(e);
-              }}
-            ></input>
-          </label>
-        </>
+        <div className="forms_field">
+          <input
+            type="number"
+            name="stock"
+            placeholder="Existencias"
+            className="forms_field-input"
+            onChange={(e) => {
+              onHandlerNewProd(e);
+            }}
+          />
+        </div>
       ) : (
-        <></>
+        <>{isOrder === "true" ? <p>Bajo pedido</p> : <></>}</>
       )}
     </>
   );

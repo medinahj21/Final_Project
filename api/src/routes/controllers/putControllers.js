@@ -126,7 +126,7 @@ const updatePlayers = async(req, res) =>{
     res.status(401).json({ message: "Not authorized" })
   }
 } catch (error) {
-  console.log(error);
+  console.log(error.message);
 }
 }
 const updateAdmins = async(req, res) =>{

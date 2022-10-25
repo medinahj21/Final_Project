@@ -10,7 +10,7 @@ const deudas = [
   },
   {
     deuda: 40000,
-    motivo: "Adny gato",
+    motivo: "Deuda de prueba",
     vto: "10-12-2022",
   },
 ];
@@ -26,28 +26,28 @@ const total = debt.reduce((prev, current) => {
 function DebtCard({ month }) {
   return (
     <>
-      <ul class="card__debt">
-        <li class="card-header">
-          <h2 class="card-header-title">{month}</h2>
+      <ul className="card__debt">
+        <li className="card-header">
+          <h2 className="card-header-title">{month}</h2>
 
-          <ul class="card-header-status list-inline">
-            <li class="card-price">$ {total}</li>
+          <ul className="card-header-status list-inline">
+            <li className="card-price">$ {total}</li>
           </ul>
         </li>
         {deudas.map((debt) => {
           return (
             <>
-              <li class="card-item card-loss">
-                <h3 class="card-title">{debt.motivo}</h3>
+              <li className="card-item card-loss">
+                <h3 className="card-title">{debt.motivo}</h3>
 
-                <p class="card-info card-overdue">Vence: {debt.vto}</p>
+                <p className="card-info card-overdue">Vence: {debt.vto}</p>
 
-                <ul class="list-inline card-menu left">
-                  <li class="card-menu-item">Pagar |</li>
-                  <li class="card-menu-item">Ver detalle</li>
+                <ul className="list-inline card-menu left">
+                  <li className="card-menu-item">Pagar |</li>
+                  <li className="card-menu-item">Ver detalle</li>
                 </ul>
 
-                <h4 class="card-price right">$ {debt.deuda}</h4>
+                <h4 className="card-price right">$ {debt.deuda}</h4>
               </li>
             </>
           );
@@ -59,28 +59,28 @@ function DebtCard({ month }) {
 
 export default DebtCard;
 
-// <div className="debts__container">
-//   <div className="container__debt-total">
-//     <div className="debt__top">
+// <div classNameName="debts__container">
+//   <div classNameName="container__debt-total">
+//     <div classNameName="debt__top">
 //       <h4>Deuda Total</h4>
-//       <span className="debt__total">$ {total}</span>
+//       <span classNameName="debt__total">$ {total}</span>
 //     </div>
 //     <ul>
 //       {deudas.map((deuda, i) => {
 //         return <li key={i}>{deuda.motivo}</li>;
 //       })}
 //     </ul>
-//     <button className="debt__total-btn">Pagar</button>
-//     {/* <div className="debt__total">
-//       <h3 className="debt__title">Deuda total</h3>
+//     <button classNameName="debt__total-btn">Pagar</button>
+//     {/* <div classNameName="debt__total">
+//       <h3 classNameName="debt__title">Deuda total</h3>
 //       <span>{total}</span>
 //     </div>
 //     <button>Pagar</button> */}
 //   </div>
-//   <div className="container__debt-info">
+//   <div classNameName="container__debt-info">
 //     {deudas?.map((deuda) => {
 //       return (
-//         <div className="debt__info">
+//         <div classNameName="debt__info">
 //           <h4>{deuda.motivo}</h4>
 //           <span>${deuda.deuda}</span>
 //           <button>pagar</button>

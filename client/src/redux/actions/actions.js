@@ -29,6 +29,9 @@ export const UPDATE_ORDER = "UPDATE_ORDER";
 
 
 //EVENTS
+export const CREATE_EVENT = "CREATE_EVENT";
+export const DELETE_EVENT = "DELETE_EVENT";
+export const EDIT_EVENT = "EDIT_EVENT";
 export const GET_EVENTS = "GET_EVENTS";
 
 //GROUPS
