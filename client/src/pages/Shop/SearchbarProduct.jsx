@@ -10,15 +10,7 @@ import "./SearchbarProduct.css";
 function SearchbarProduct(props) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
-  const {
-    handleAllProducts,
-    setCreationDiv,
-    handleTags,
-    allTags,
-    tags,
-    deleteTag,
-    handleClean,
-  } = props;
+  const { setCreationDiv, handleTags, allTags, tags, deleteTag, handleClean } = props;
 
   const [showCart, setShowCart] = useState(false);
 

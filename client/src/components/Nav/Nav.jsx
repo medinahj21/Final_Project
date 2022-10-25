@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,10 +5,8 @@ import {
   clearPlayerDetail,
 } from "../../redux/actions/player";
 import { clearCart } from "../../redux/actions/shoppingCart";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
 
-import { logout, getUserFirestore } from "../../redux/actions/auth";
+import { logout } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";

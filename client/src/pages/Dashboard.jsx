@@ -7,7 +7,6 @@ import { firestore } from "../firebase/firebase.config";
 import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
-import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
 import Inscriptions from "../components/Dashboard/Inscriptions";
 import Groups from "../components/Groups/Groups";
