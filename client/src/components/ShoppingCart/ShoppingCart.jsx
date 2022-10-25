@@ -6,7 +6,7 @@ import "./ShoppingCart.css";
 const ShoppingCart = () => {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const totalInCart = productsInCart?.map((item) => item.quant);
-  const total = totalInCart?.reduce((a, b) => a + b);
+  const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
 
   return (
     <>

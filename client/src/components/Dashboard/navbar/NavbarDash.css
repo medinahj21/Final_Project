@@ -20,8 +20,8 @@
     font-weight: bolder;
 }
 
-/* 
-.sidebar .sidebar-image {
+
+/* .sidebar .sidebar-image {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
     position: relative;
     top: 1rem;
     box-shadow: 0 0 3px 0 white;
-} */
+}  */
 
 .sidebar-nav {
     position: fixed;
