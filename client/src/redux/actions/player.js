@@ -1,4 +1,4 @@
-import { CREATE_PLAYER, GET_PLAYERS_FROM_DB, GET_PLAYER_DETAIL, UPDATE_PLAYER_SHOPPING_CART } from "./actions";
+import { CLEAR_PLAYER_DETAIL, CREATE_PLAYER, GET_PLAYERS_FROM_DB, GET_PLAYER_DETAIL, UPDATE_PLAYER_SHOPPING_CART } from "./actions";
 import axios from "axios";
 
 export const createPlayer = (personalInfo) => {
@@ -51,3 +51,10 @@ export const updatePlayerCart = (id, payload) => {
     }
   };
 };
+
+export const clearPlayerDetail = () => {
+  return async (dispatch) => {
+    dispatch({
+      type:CLEAR_PLAYER_DETAIL
+    })
+  }}

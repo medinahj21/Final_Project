@@ -12,13 +12,22 @@ import { AiOutlineShopping } from "react-icons/ai";
 import { SlHome } from "react-icons/sl";
 
 import "./NavbarDash.css";
+import { clearCart } from "../../../redux/actions/shoppingCart";
+import { clearPlayerDetail, updatePlayerCart } from "../../../redux/actions/player";
 
 function NavbarDash({ setClickChoice, clickChoice }) {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.authReducer.email);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const isPlayer = useSelector((state) => state.playerReducer.playerDetail);
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
+  console.log("is playeer",isPlayer)
 
   const handleLogout = () => {
+    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+    dispatch(clearPlayerDetail())
+    dispatch(clearCart());
     dispatch(logout());
   };
 
@@ -152,14 +161,15 @@ function NavbarDash({ setClickChoice, clickChoice }) {
                 </li>
               </ul>
             </li>
-            <li>
+            { isPlayer.id?
+              <li>
               <Link to={"/products"}>
                 <i className="shop-icon">
                   <AiOutlineShopping />
                 </i>{" "}
                 <span className="">Tienda</span>
               </Link>
-            </li>
+            </li>:<></>}
             <li>
               <Link to={"/"}>
                 <i className="home-icon">

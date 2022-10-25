@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePlayerCart, getPlayerDetail } from "../../redux/actions/player";
+import { updatePlayerCart, getPlayerDetail, clearPlayerDetail } from "../../redux/actions/player";
 import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
@@ -21,6 +21,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   const handleLogout = async () => {
+    await dispatch(clearPlayerDetail())
     await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
     await dispatch(clearCart());
     await dispatch(logout());
