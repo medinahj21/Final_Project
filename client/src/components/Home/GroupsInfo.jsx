@@ -1,6 +1,11 @@
+import { useState } from "react";
+import GroupDetail from "../Groups/GroupDetail/GroupDetail";
+import Modal from "../UI/Modal";
 import "./GroupsInfo.css";
 
-function GroupsInfo({ position, img, name, schedule, genre, price }) {
+function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
+  const [showDetail, setShowDetail] = useState(false);
+
   const imageBG = {
     background: `url(${img})`,
     backgroundSize: "cover",
@@ -26,10 +31,17 @@ function GroupsInfo({ position, img, name, schedule, genre, price }) {
           <h3>{name}</h3>
           <p>{schedule}</p>
           <p className="read-more">
-            <a href="!">Lee mas</a>
+            <a href="#!" onClick={() => setShowDetail(true)}>
+              Lee mas
+            </a>
           </p>
         </div>
       </div>
+      {showDetail && (
+        <Modal>
+          <GroupDetail id={id} setShowDetail={setShowDetail} />
+        </Modal>
+      )}
     </>
   );
 }

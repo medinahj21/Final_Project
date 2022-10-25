@@ -115,10 +115,6 @@
     }
 }
 
-
-/**
-   * Registered and Unregistered user box and text
-   */
 .user_options-registered,
 .user_options-unregistered {
     width: 50%;
@@ -159,9 +155,6 @@
     background-color: #ccc;
 }
 
-/**
-   * Login and signup forms
-   */
 .user_options-forms {
     position: absolute;
     top: 50%;
@@ -271,9 +264,6 @@
     visibility: visible;
 }
 
-/**
-   * Triggers
-   */
 .user_options-forms.bounceLeft {
     animation: bounceLeft 1s forwards;
 }
@@ -292,9 +282,7 @@
     animation: bounceRight 1s forwards;
 }
 
-/**
-   * Responsive 990px
-   */
+
 @media screen and (max-width: 990px) {
     .user_options-forms {
         min-height: 350px;
@@ -317,4 +305,23 @@
     .user_options-unregistered {
         padding: 50px 45px;
     }
+}
+
+/* forgot password component*/
+
+.forgot-password {
+    background-color: rgb(1, 1, 46);
+    padding: 1rem;
+    width: 60vw;
+    height: 40vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.forgot-container-btn {
+    display: flex;
+    gap: 2rem;
 }

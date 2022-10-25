@@ -64,7 +64,7 @@ export default function shoppingCartReducer(state = initialState, action) {
 
     case CLEAR_CART:
       return {
-        cart: initialState.cart,
+        cart: [],
       };
 
     case SET_INITIAL_CART:

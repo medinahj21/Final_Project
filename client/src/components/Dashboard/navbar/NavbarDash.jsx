@@ -12,13 +12,23 @@ import { AiOutlineShopping } from "react-icons/ai";
 import { SlHome } from "react-icons/sl";
 
 import "./NavbarDash.css";
+import { clearCart } from "../../../redux/actions/shoppingCart";
+import {
+  clearPlayerDetail,
+  updatePlayerCart,
+} from "../../../redux/actions/player";
 
-function NavbarDash({ setClickChoice, clickChoice }) {
+function NavbarDash({ setClickChoice }) {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.authReducer.email);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const isPlayer = useSelector((state) => state.playerReducer.playerDetail);
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   const handleLogout = () => {
+    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+    dispatch(clearPlayerDetail());
+    dispatch(clearCart());
     dispatch(logout());
   };
 
@@ -31,9 +41,6 @@ function NavbarDash({ setClickChoice, clickChoice }) {
     <section className="app">
       <aside className="sidebar">
         <header>Menu</header>
-        <div className="sidebar-image">
-          <span>IMAGE</span>
-        </div>
         <nav className="sidebar-nav">
           <ul>
             <li>
@@ -52,7 +59,7 @@ function NavbarDash({ setClickChoice, clickChoice }) {
                     <i className="ion-ios-filing-outline"></i>Info personal
                   </a>
                 </li>
-                {!userInfoFirestore.isAdmin && (
+                {!userInfoFirestore.isAdmin && isPlayer.id ? (
                   <>
                     <li>
                       <a
@@ -69,10 +76,13 @@ function NavbarDash({ setClickChoice, clickChoice }) {
                       </a>
                     </li>
                   </>
+                ) : (
+                  <></>
                 )}
                 <li>
                   <a href="#!" onClick={(e) => onClcikHandler(e, "grupo")}>
-                    <i className="ion-ios-paperplane-outline"></i>Grupo
+                    <i className="ion-ios-paperplane-outline"></i>
+                    {isPlayer?.id ? "Mi grupo" : "Grupos"}
                   </a>
                 </li>
 
@@ -152,14 +162,30 @@ function NavbarDash({ setClickChoice, clickChoice }) {
                 </li>
               </ul>
             </li>
-            <li>
-              <Link to={"/products"}>
-                <i className="shop-icon">
-                  <AiOutlineShopping />
-                </i>{" "}
-                <span className="">Tienda</span>
-              </Link>
-            </li>
+            {isPlayer.id ? (
+              <li>
+                <Link to={"/products"}>
+                  <i className="shop-icon">
+                    <AiOutlineShopping />
+                  </i>{" "}
+                  <span className="">Tienda</span>
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
+            {userInfoFirestore.isAdmin ? (
+              <li>
+                <Link to={"/products"}>
+                  <i className="shop-icon">
+                    <AiOutlineShopping />
+                  </i>{" "}
+                  <span className="">Tienda</span>
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
             <li>
               <Link to={"/"}>
                 <i className="home-icon">

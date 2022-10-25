@@ -8,11 +8,9 @@
     text-align: center;
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
-    border-radius: 20px;
     display: flex;
     justify-content: space-evenly;
     padding: 1rem;
-    border-radius: 20px;
     color: #fff;
     box-shadow: var(--box-shadow);
 }

@@ -130,7 +130,6 @@ const getGroups = async (req, res) => {
   }
 };
 
-
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {
@@ -222,7 +221,7 @@ const getPlayers = async (req, res) => {
         ],
       });
       !player
-        ? res.status(404).json({ message: "players not found" })
+        ? res.status(404).json({ message: "player not found" })
         : res.send(player);
     } else if (name) {
       const player = await Player.findAll({
@@ -251,7 +250,8 @@ const getPlayers = async (req, res) => {
         : res.send(allPlayers);
     }
   } catch (error) {
-    console.log(error);
+    console.log("string", error);
+    res.status(500).json({error});
   }
 };
 
@@ -307,7 +307,7 @@ const getRoleRequest = async (req, res) => {
       !role ? res.status(400).json({ message: "bad request" }) : res.send(role);
     }
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
     console.log(error);
   }
 };
