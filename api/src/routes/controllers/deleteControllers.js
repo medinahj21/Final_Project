@@ -1,4 +1,11 @@
-const { Player, Event, Group, Product, RoleRequest } = require("../../db");
+const {
+  Player,
+  Event,
+  Group,
+  Product,
+  RoleRequest,
+  Admin,
+} = require("../../db");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
@@ -64,7 +71,7 @@ const deleteEvent = async (req, res) => {
   }
 };
 
-const deletePlayers = async (req, res) =>{
+const deletePlayers = async (req, res) => {
   const { id } = req.params;
   try {
     if (!id) {
@@ -82,33 +89,49 @@ const deletePlayers = async (req, res) =>{
   } catch (error) {
     res.status(400).json({ error_DB: error.message });
   }
-}
+};
 
-
-const deleteRoleRequest = async (req,res) =>{
+const deleteRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
     if (!id) {
       res.status(411).json({ error: " missing information" });
     } else {
       if (id) {
-        await RoleRequest.destroy({ where: { id }});
+        await RoleRequest.destroy({ where: { id } });
         res.json({ message: "rolerequest has been deleted successfully" });
       } else {
-        res.status(400).json({ message: "Bad request" });
+        res.status(400).json({ error: "Bad request" });
       }
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
+};
 
-
+const deleteAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!id) {
+      res.status(411).json({ error: " missing information" });
+    } else {
+      if (id) {
+        await Admin.destroy({ where: { id } });
+        res.json({ message: "Admin has been deleted successfully" });
+      } else {
+        res.status(400).json({ error: "Bad request" });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   asyncDeleteProduct,
+  deleteAdmin,
   deleteGroups,
   deleteEvent,
   deletePlayers,
-  deleteRoleRequest
+  deleteRoleRequest,
 };

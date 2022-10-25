@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../../redux/actions/actionsGroup";
+import FormUser from "../../Register/FormUser";
 
 import "./UpdateGroup.css";
 
@@ -11,6 +12,7 @@ export default function UpdateGroup({
   update,
   setUpdate,
   setShowDetail,
+  isPlayer,
 }) {
   const dispatch = useDispatch();
 
@@ -18,6 +20,7 @@ export default function UpdateGroup({
 
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
   const [requestSent, setRequestSent] = useState(false);
+  const [isForm, setIsForm] = useState(false);
 
   useEffect(() => {
     setInputUpdate(groupDetail);
@@ -48,31 +51,41 @@ export default function UpdateGroup({
     }
   };
   const handleSuscribe = async () => {
-    //debo hacer la validación de si no es jugador    
-    if(!userInfoFirestore.isAdmin){
-      let newRoleRequest = { id:userInfoFirestore.uid ,newRole: "Jugador", userInfo:{userInfoFirestore}, groupId : id}
-      let response = await dispatch(actions.createNewRoleRequest(newRoleRequest));
-      if(response.error){
-        alert("Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D");
+    //debo hacer la validación de si no es jugador
+    if (!userInfoFirestore.isAdmin) {
+      let newRoleRequest = {
+        id: userInfoFirestore.uid,
+        newRole: "Jugador",
+        userInfo: { userInfoFirestore },
+        groupId: id,
+      };
+      let response = await dispatch(
+        actions.createNewRoleRequest(newRoleRequest)
+      );
+      if (response.error) {
+        alert(
+          "Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D"
+        );
         !update && setRequestSent(true);
-      } else  /* if(response.data) */{
+      } /* if(response.data) */ else {
         !update && setRequestSent(true);
         alert("Solicitud de inscripción enviada");
       }
       /* else{
         alert ("algo raro pasó")
       } */
-    }else{
-      alert("¿aún no te registras?")
+    } else {
+      alert("¿aún no te registras?");
     }
-    
   };
 
   return (
     <div className="update__container">
-      <button className="update__button" onClick={() => setShowDetail(false)}>
-        Volver
-      </button>
+      {!isPlayer && (
+        <button className="update__button" onClick={() => setShowDetail(false)}>
+          Volver
+        </button>
+      )}
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       {update ? <div>Subir</div> : ""}
       {userInfoFirestore.isAdmin ? (
@@ -83,7 +96,6 @@ export default function UpdateGroup({
         <></>
       )}
       <h1>{groupDetail.name}</h1>
-
       <span>Genero:</span>
       {update ? (
         <select name="genre" value={inputUpdate.genre} onChange={handleChange}>
@@ -208,13 +220,25 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      <button
-        className="update__button"
-        onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
-        disabled= {requestSent}
-      >
-        {update ? "Aceptar" : "Inscribirme"}
-      </button>
+      {(isPlayer.id || userInfoFirestore.isAdmin) && userInfoFirestore?.uid ? (
+        <button
+          className="update__button"
+          onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
+          disabled={requestSent}
+        >
+          {update ? "Aceptar" : "Inscribirme"}
+        </button>
+      ) : (
+        <>
+          {!isPlayer.id ? (
+            // <button>Solicitar cambio</button> -> para implementar cambio de grupo.
+            <></>
+          ) : (
+            <button onClick={() => setIsForm(true)}>Solicitar alta</button>
+          )}
+        </>
+      )}
+      {isForm ? <FormUser /> : <></>}
     </div>
   );
 }

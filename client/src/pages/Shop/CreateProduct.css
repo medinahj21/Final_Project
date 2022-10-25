@@ -37,15 +37,8 @@
 }
 
 .select_content {
+    width: 100%;
     appearance: none;
-    outline: 0;
-    border: 1px solid transparent;
-    box-shadow: 0 0 3px 0 white;
-    flex: 1;
-    padding: 0 1em;
-    color: #fff;
-    background-color: transparent;
-    background-image: none;
     cursor: pointer;
 }
 
@@ -55,7 +48,6 @@
 
 .select_container {
     border: 1px solid transparent;
-    box-shadow: 0 0 3px 0 white;
     position: relative;
     display: flex;
     width: 20em;
@@ -71,7 +63,6 @@
     right: 0;
     padding: 1em;
     border: 1px solid transparent;
-    box-shadow: 0 0 3px 0 white;
     background-color: transparent;
     transition: .25s all ease;
     pointer-events: none;

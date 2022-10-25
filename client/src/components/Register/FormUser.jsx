@@ -25,7 +25,9 @@ function FormUser({ setShowAlta }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    if (user) {return}
+    if (user) {
+      return;
+    }
 
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -65,6 +67,7 @@ function FormUser({ setShowAlta }) {
       notifyError("must have a name");
       return;
     }
+    console.log(userInput);
     await setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
     notify();
     setTimeout(() => {

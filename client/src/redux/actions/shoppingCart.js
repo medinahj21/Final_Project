@@ -52,7 +52,7 @@ export const clearCart = () => {
   };
 };
 
-export const setInitialCart = (cart)=>{
+export const setInitialCart = (cart = [])=>{
   return (dispatch)=>{
     dispatch({
       type: SET_INITIAL_CART,
