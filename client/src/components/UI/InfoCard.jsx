@@ -24,7 +24,7 @@ function InfoCard({ userInfoFirestore }) {
     });
 
   const handleUpdateAdd = async () => {
-    if (window.confirm("¿ Está seguro que desea generar un nuevo admin ?")) {
+    if (window.confirm("¿ Está seguro que desea GENERAR un nuevo admin ?")) {
       try {
         const newAdmin = {
           id: userInfoFirestore.uid,
@@ -32,29 +32,42 @@ function InfoCard({ userInfoFirestore }) {
           permissions: ["all"],
         };
 
-        let response = await axios.post(
-          `${axios.defaults.baseURL}/admins/create`,
-          newAdmin
-        );
+        await axios.post(`${axios.defaults.baseURL}/admins/create`, newAdmin);
 
         const washingtonRef = doc(firestore, "usuarios", userInfoFirestore.uid);
         await updateDoc(washingtonRef, {
           isAdmin: true,
         });
         notify("Admin creado con exito!");
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 3000);
       } catch (error) {
         notifyError(error.response.data.error_DB);
-        console.log("infocardfornt", error.response.data.error_DB);
       }
     }
   };
 
   const handleUpdateDelete = async () => {
-    const washingtonRef = doc(firestore, "usuarios", userInfoFirestore.uid);
+    try {
+      if (window.confirm("¿ Está seguro que desea ELIMINAR un nuevo admin ?")) {
+        await axios.delete(
+          `${axios.defaults.baseURL}/admins/delete/${userInfoFirestore.uid}`
+        );
 
-    await updateDoc(washingtonRef, {
-      isAdmin: false,
-    });
+        const washingtonRef = doc(firestore, "usuarios", userInfoFirestore.uid);
+
+        await updateDoc(washingtonRef, {
+          isAdmin: false,
+        });
+        notify("Admin eliminado con exito!");
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 3000);
+      }
+    } catch (error) {
+      notifyError(error.response.data.error);
+    }
   };
 
   return (
@@ -74,9 +87,9 @@ function InfoCard({ userInfoFirestore }) {
       <p>Parentesco: {userInfoFirestore.emergencyRel}</p>
       <p>Seguro de salud: {userInfoFirestore.health}</p>
       {userInfoFirestore.isAdmin ? (
-        <button onClick={handleUpdateDelete}>Eliminar como admin</button>
+        <button onClick={handleUpdateDelete} className='button-delete'>Eliminar como admin</button>
       ) : (
-        <button onClick={handleUpdateAdd}>Agregar como admin</button>
+        <button onClick={handleUpdateAdd} className='button-add'>Agregar como admin</button>
       )}
     </div>
   );
