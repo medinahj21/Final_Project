@@ -71,13 +71,19 @@ function Admin() {
     dispatch(clickChoiceHandler(clickChoice));
   }, [clickChoice, dispatch]);
 
+  const sortUsers =
+    allUserFirestore &&
+    allUserFirestore?.sort((a, b) => {
+      return Number(b.isAdmin) - Number(a.isAdmin);
+    });
+
   return (
     <>
-      {isDesktop ? (
-        <NavbarDash setClickChoice={setClickChoice} />
-      ) : (
+      {/* {isDesktop ? ( */}
+      <NavbarDash setClickChoice={setClickChoice} />
+      {/* ) : (
         <Navphone setClickChoice={setClickChoice} isDashboard={true} />
-      )}
+      )} */}
 
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
@@ -121,15 +127,13 @@ function Admin() {
         {clickChoice.isSocios && (
           <div className="cards__container">
             {allUserFirestore ? (
-              allUserFirestore.map((user, i) => {
-                return !user.isAdmin ? (
+              sortUsers.map((user, i) => {
+                return (
                   <InfoCard
                     className={"infoAdmin"}
                     key={i}
                     userInfoFirestore={user}
                   />
-                ) : (
-                  <></>
                 );
               })
             ) : (

@@ -220,7 +220,7 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      {isPlayer.id && userInfoFirestore?.uid ? (
+      {(isPlayer.id || userInfoFirestore.isAdmin) && userInfoFirestore?.uid ? (
         <button
           className="update__button"
           onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}

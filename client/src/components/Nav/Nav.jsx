@@ -29,15 +29,6 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     await dispatch(logout());
   };
 
-  useEffect(() => {
-    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        dispatch(getUserFirestore(currentUser.uid));
-      }
-    });
-    return () => unSuscribe();
-  }, [dispatch]);
-
   return (
     <nav className="nav__container">
       <Link to={"/"} className="nav__logo">
