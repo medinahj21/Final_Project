@@ -11,6 +11,7 @@ export default function UpdateGroup({
   update,
   setUpdate,
   setShowDetail,
+  isPlayer,
 }) {
   const dispatch = useDispatch();
 
@@ -78,9 +79,11 @@ export default function UpdateGroup({
 
   return (
     <div className="update__container">
-      <button className="update__button" onClick={() => setShowDetail(false)}>
-        Volver
-      </button>
+      {!isPlayer && (
+        <button className="update__button" onClick={() => setShowDetail(false)}>
+          Volver
+        </button>
+      )}
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       {update ? <div>Subir</div> : ""}
       {userInfoFirestore.isAdmin ? (
@@ -215,13 +218,15 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      <button
-        className="update__button"
-        onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
-        disabled={requestSent}
-      >
-        {update ? "Aceptar" : "Inscribirme"}
-      </button>
+      {!isPlayer && (
+        <button
+          className="update__button"
+          onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
+          disabled={requestSent}
+        >
+          {update ? "Aceptar" : "Inscribirme"}
+        </button>
+      )}
     </div>
   );
 }

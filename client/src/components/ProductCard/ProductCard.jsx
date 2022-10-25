@@ -7,26 +7,7 @@ import "./ProductCard.css";
 
 function ProductCard({ id, name, price, image }) {
 
-  /* const dispatch = useDispatch();
-  
-  const allProducts = useSelector((state) => {
-    return state.productsReducer.allProducts;
-  });
-  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
- */
-  const [showDetail,setShowDetail] = useState(false);
-  
-
-  /* const handleAddToCart = ()=>{
-    let itemToAdd = allProducts.find((product) => product.id === id);
-    let productToAdd = productsInCart?.find((prod) => prod.product.id === id);
-
-    if (productToAdd) {
-      dispatch(incrementProductInCart(id));
-    } else {
-      dispatch(addToCart(itemToAdd));
-    }
-  } */
+  const [showDetail,setShowDetail] = useState(false); 
   
   return (
     <>
@@ -39,7 +20,6 @@ function ProductCard({ id, name, price, image }) {
         
         <Link to={`/detail/${id}`}>
         </Link>
-        {/* <button className="card__title card__title-recipe" onClick={()=> handleAddToCart(id)}>Agregar al carrito</button> */}
       </div>
       { showDetail?
       <Modal>

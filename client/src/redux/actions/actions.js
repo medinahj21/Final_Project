@@ -18,6 +18,7 @@ export const UPDATE_PLAYER_SHOPPING_CART= "UPDATE_PLAYER_SHOPPING_CART";
 export const GET_USERS = "GET_USERS";
 export const GET_USER_DETAIL = "GET_USER_DETAIL";
 export const GET_PLAYERS = "GET_PLAYERS";
+export const CLEAR_PLAYER_DETAIL = "CLEAR_PLAYER_DETAIL";
 
 
 //GET ORDER?----> Mostrar la orden de acuerdo al jugador o traer la orden por separado??
