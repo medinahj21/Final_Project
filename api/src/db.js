@@ -32,7 +32,7 @@ let sequelize =
       })
 
     : //cuando use heroku la base de datos es ClubDB
-      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ClubDB`, {
+      new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/clubdb`, {
         logging: false,
         native: false,
       });
@@ -77,47 +77,36 @@ const {
 
 // Aca vendrian las relaciones
 
-Order.belongsTo(Player); /**ready*/
+Order.belongsTo(Player);    /**ready*/
 Player.hasMany(Order);
 
-Player.belongsTo(Group); /**ready*/
+Player.belongsTo(Group);    /**ready*/
 Group.hasMany(Player);
 
-Player.belongsToMany(Event, { through: "player-event" }); /**ready*/
+Player.belongsToMany(Event, { through: "player-event" });     /**ready*/
 Event.belongsToMany(Player, { through: "player-event" });
 
-Group.belongsToMany(Admin, { through: "group-admin" }); /*ready**/
+Group.belongsToMany(Admin, { through: "group-admin" });         /*ready**/
 Admin.belongsToMany(Group, { through: "group-admin" });
 
-Order.belongsToMany(Product, { through: "product-order" }); /*ready**/
+Order.belongsToMany(Product, { through: "product-order" });       /*ready**/
 Product.belongsToMany(Order, { through: "product-order" });
 
-Event.belongsToMany(Admin, { through: "admin-event" }); /*ready**/
+Event.belongsToMany(Admin, { through: "admin-event" });               /*ready**/
 Admin.belongsToMany(Event, { through: "admin-event" });
 
-Product.belongsToMany(FilterTags, { through: "product-filter" }); /*ready**/
+Product.belongsToMany(FilterTags, { through: "product-filter" });       /*ready**/
 FilterTags.belongsToMany(Product, { through: "product-filter" });
 
-// Product.hasMany(ProductRequest);
-// ProductRequest.belongsTo(Product, { foreignKey: "productId" });   /*Pending**/
+ Product.belongsToMany(ProductRequest,  { through: "product-request" });
+ ProductRequest.belongsToMany(Product,  { through: "product-request" });   /*ready**/
 
-// Player.hasMany(ProductRequest);
-// ProductRequest.belongsTo(Player, { foreignKey: "playerId" });     /*Pending**/
+Player.hasMany(ProductRequest);
+ProductRequest.belongsTo(Player);                                        /*ready**/
 
-<<<<<<< HEAD
 Player.hasOne(RoleRequest);                                         /*ready**/
 RoleRequest.belongsTo(Player);         
 
-=======
-Player.hasOne(RoleRequest); 
-RoleRequest.belongsTo(Player);
-
-// Group.hasOne(RoleRequest); /*ready**/
-// RoleRequest.belongsTo(Group);
-
-Player.hasOne(RoleRequest); /*ready**/
-RoleRequest.belongsTo(Player);
->>>>>>> c09b4d092ef2e57ff14b9e3eb237a26e2e164e3f
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

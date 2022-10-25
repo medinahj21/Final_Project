@@ -1,4 +1,4 @@
-const { Player, Event, Group, Product, RoleRequest } = require("../../db");
+const { Player, Event, Group, Product, RoleRequest,ProductRequest } = require("../../db");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
@@ -64,7 +64,7 @@ const deleteEvent = async (req, res) => {
   }
 };
 
-const deletePlayers = async (req, res) =>{
+const deletePlayers = async (req, res) => {
   const { id } = req.params;
   try {
     if (!id) {
@@ -85,14 +85,14 @@ const deletePlayers = async (req, res) =>{
 }
 
 
-const deleteRoleRequest = async (req,res) =>{
+const deleteRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
     if (!id) {
       res.status(411).json({ error: " missing information" });
     } else {
       if (id) {
-        await RoleRequest.destroy({ where: { id }});
+        await RoleRequest.destroy({ where: { id } });
         res.json({ message: "rolerequest has been deleted successfully" });
       } else {
         res.status(400).json({ message: "Bad request" });
@@ -105,10 +105,29 @@ const deleteRoleRequest = async (req,res) =>{
 
 
 
+const deleteProductRequest = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!id) {
+      res.status(401).json({ error: "Not authorized" });
+    } else {
+      if (id) {
+        await ProductRequest.destroy({ where: { id } });
+        res.json({ message: "producRequest has been deleted successfully" });
+      } else {
+        res.status(400).json({ message: "Bad request" });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   asyncDeleteProduct,
   deleteGroups,
   deleteEvent,
   deletePlayers,
-  deleteRoleRequest
+  deleteRoleRequest,
+  deleteProductRequest
 };
