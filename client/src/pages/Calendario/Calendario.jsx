@@ -100,9 +100,7 @@ export default function Calendario() {
           },
         }}
         events={{
-          objectEvent,
-          eventBorder
-          
+          objectEvent
         }}
         eventClick={function (event) {
           setModalDetail(true);
