@@ -1,28 +1,21 @@
-import { CREATE_EVENT } from "./actions";
+import {
+    GET_EVENTS,
+} from "./actions";
 import axios from "axios";
 
-const URL = 'http://localhost:3001/events'
-
-export const createEvent = (datos) => {
-    return async () => {
-        return axios.post(`${axios.defaults.baseURL}/events/create`, datos)
-            .then(res => res.data)
-            .then(data => {
-                console.log(data, 'creado con exito');
+export function getEvents() {
+    return async function (dispatch) {
+        try {
+            let { data } = await axios.get('/events')
+            return dispatch({
+                type: GET_EVENTS,
+                payload: data
             })
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
-
-export const updateEvent = (id, datos) => {
-    return async (dispatch) => {
-        return axios
-            .put(`${axios.defaults.baseURL}/events/update/${id}`, datos)
-            .then((res) => res.data)
-            .then((data) => {
-                console.log(data);
-            });
-    };
-};
 
 export const deleteEvent = (id, datos) => {
     return async (dispatch) => {
@@ -34,3 +27,27 @@ export const deleteEvent = (id, datos) => {
             });
     };
 };
+
+export const createEvent = (datos) => {
+    return async () => {
+        try {
+            let response = await axios.post(`${axios.defaults.baseURL}/events/create`, datos);
+            console.log(response);
+            return response.data
+        } catch (error) {
+            return { error: error.response.data.error }
+        }
+    }
+}
+
+export const editEvent = (id, datos) => {
+    return async (dispatch) => {
+        return axios
+            .put(`${axios.defaults.baseURL}/events/update/${id}`, datos)
+            .then((res) => res.data)
+            .then((data) => {
+                console.log(data);
+            });
+    };
+};
+

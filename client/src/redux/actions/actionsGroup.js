@@ -15,7 +15,6 @@ export const getGroups = () => {
       .get(`${axios.defaults.baseURL}/groups`)
       .then((res) => res.data)
       .then((data) => {
-        //console.log(data);
         dispatch({
           type: GET_GROUPS,
           payload: data,
@@ -110,7 +109,7 @@ export const createNewRoleRequest = (roleRequest) => {
 export const deleteRoleRequest = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.delete(
+        await axios.delete(
         `${axios.defaults.baseURL}/roleRequests/delete/${id}`
       );
     } catch (error) {

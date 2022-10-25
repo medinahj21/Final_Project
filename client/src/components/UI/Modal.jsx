@@ -1,11 +1,10 @@
 import "./Modal.css";
 
-function Modal({ children }) {
+function Modal({ children, onClick }) {
   return (
-    <div className="overlay">
-      <div className="container__modal">
-        {children}
-      </div>
+    <div className="container__modal">
+      <div onClick={onClick} className={onClick ? "closeModal" : ""}></div>
+      {children}
     </div>
   );
 }

@@ -1,37 +1,64 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   incrementProductInCart,
   decrementProductInCart,
 } from "../../redux/actions/shoppingCart";
 
-export default function ShoppingCart(prod) {
+
+export default function CartProduct({ prod }) {
   const dispatch = useDispatch();
 
-  const handleIncrementProduct = (id) => {
-    dispatch(incrementProductInCart(id));
+  const allProducts = useSelector((state) => state.productsReducer.allProducts);
+  const product = allProducts?.find(
+    (product) => product.id === prod.product.id
+  );
+
+  const { id, name, price, image } = { ...product };
+
+  const handleIncrementProduct = (id, modifiers) => {
+    dispatch(incrementProductInCart(id, modifiers));
   };
 
-  const handleDecrementProduct = (id) => {
-    dispatch(decrementProductInCart(id));
+  const handleDecrementProduct = (id, modifiers) => {
+    dispatch(decrementProductInCart(id, modifiers));
   };
 
   return (
-    <div>
-      <div style={{borderBottom: "thin solid green"}}>
-        <h3>{prod.prod.product.name}</h3>
-        <h3>${prod.prod.product.price}.00</h3>
-        <h5>Cantidad: {prod.prod.quant}</h5>
-        <button onClick={() => handleDecrementProduct(prod.prod.product.id)}>
+    <li className="clearfix">
+      <div>
+        <span className="item-name name-position">{name}</span>
+        <img className="image__cart" src={image} alt="item" />
+      </div>
+      <span className="item-price">$ {price}</span>
+      <span className="item-quantity">Cantidad: {prod.quant}</span>
+      <div className="cart__container-button">
+        <button
+          className="modify__button modify__button-cart"
+          onClick={() => handleDecrementProduct(id, prod.product.modifiers)}
+        >
           {" "}
           -{" "}
         </button>
-        <button onClick={() => handleIncrementProduct(prod.prod.product.id)}>
+        <button
+          className="modify__button  modify__button-cart"
+          onClick={() => handleIncrementProduct(id, prod.product.modifiers)}
+        >
           {" "}
           +{" "}
         </button>
-        <h4>Subtotal: ${prod.prod.quant * prod.prod.product.price}</h4>
+        {/* agregar boton para eliminar del carrito aca */}
       </div>
-    </div>
+      <span className="item-name">
+        {" "}
+        {Object.keys(prod.product.modifiers)?.map((key) => {
+          return (
+            <>
+              {key} : {prod.product.modifiers[key]}{" "}
+            </>
+          );
+        })}
+      </span>
+      <hr />
+    </li>
   );
 }

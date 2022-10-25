@@ -1,46 +1,49 @@
-//import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-//import { updatePlayerCart } from "../../redux/actions/player";
-import CartProduct from "./CartProduct"
-import Modal from "../UI/Modal";
-import "./ShoppingCart.css"
+import CartProduct from "./CartProduct";
 
-const ShoppingCart = ({setShowCart}) => {
-  
-const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+import "./ShoppingCart.css";
 
-//Este useEffect me rompe la consola del navegador al renderizar "/cart" ??????????????
-/*   useEffect(() => {
-    dispatch(updatePlayerCart(playerShopCart.uid, productsInCart));
-  }, [dispatch, productsInCart]); */
+const ShoppingCart = () => {
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  const totalInCart = productsInCart?.map((item) => item.quant);
+  const total = totalInCart?.reduce((a, b) => a + b);
 
   return (
-    <Modal>
-    <div>
-      <button onClick={()=> setShowCart(false)}>X</button>
-      <h2>Carrito de Compras</h2>
-      {productsInCart?.filter((item)=> item.quant !== 0).map((prod, index) => {
-        return (
-          <CartProduct
-            key= {index}
-            prod= {prod}
-          />
-        );
-      })}
-      <div>
-        <h2>Total</h2>
-        <h2>
-          ${" "}
-          {productsInCart?.reduce(
-            (a, item) => a + item.product.price * item.quant,
-            0
-          )}
-          .00
-        </h2>
+    <>
+      <div className="shopping-cart">
+        <div className="shopping-cart-header">
+          <i className="fa fa-shopping-cart cart-icon"></i>
+          <span className="badge">{total}</span>
+          <div className="shopping-cart-total">
+            <span className="lighter-text">Total: </span>
+            <span className="main-color-text">
+              $
+              {productsInCart?.reduce(
+                (a, item) => a + item.product.price * item.quant,
+                0
+              )}
+            </span>
+          </div>
+        </div>
+        {productsInCart?.length ? (
+          <ul className="shopping-cart-items">
+            {productsInCart
+              ?.filter((item) => item?.quant !== 0)
+              ?.map((prod, index) => {
+                return <CartProduct key={index} prod={prod} />;
+              })}
+          </ul>
+        ) : (
+          <h3 className="main-color-text">
+            Aún no hay productos en el carrito
+          </h3>
+        )}
+
+        <a href="#!" className="button">
+          Comprar
+        </a>
       </div>
-      <button className="card__title card__title-checkout">Proceder al pago</button>
-    </div>
-    </Modal>
+    </>
   );
 };
 

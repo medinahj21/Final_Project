@@ -12,12 +12,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase.config.js";
 
 import Navphone from "../components/Nav/Navphone";
-import Login from "../components/Register/Login";
-import Register from "../components/Register/Register";
 import FormUser from "../components/Register/FormUser";
 
 import "./Home.css";
 import GroupsInfo from "../components/Home/GroupsInfo";
+import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
+import Carousel from "../components/Home/Carousel";
+import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 
 function Home() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function Home() {
     });
     return () => unSuscribe();
   }, [dispatch]);
+
   return (
     <>
       {!isDesktop ? (
@@ -75,12 +77,41 @@ function Home() {
         />
       )}
       {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
-      {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
-      {showRegister ? <Register setShowRegister={setShowRegister} /> : <></>}
-      <div className="home__container">
-        <h1>Club Wolves - Voleyball</h1>
+      {!isDesktop && showLogin ? (
+        <LoginRegisteMob
+          setShowLogin={setShowLogin}
+          showLogin={showLogin}
+          setShowAlta={setShowAlta}
+          setShowRegister={setShowRegister}
+        />
+      ) : (
+        <>
+          {showRegister ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowAlta={setShowAlta}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+          {showLogin ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+        </>
+      )}
+
+      <div className="home__carrousel">
+        <Carousel />
       </div>
-      <div className="home__gruops">
+      <div className="home__gruops" id={"oferta"}>
         {groups?.map((group, i) => {
           const alter = i % 2 === 0 ? "alt" : "";
           return (

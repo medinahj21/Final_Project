@@ -10,6 +10,7 @@ import { logout, getUserFirestore } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const dispatch = useDispatch();
@@ -46,12 +47,19 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
       <div className="nav__container-links">
         {email === "" || !email ? (
           <div className="nav__login">
-            <button onClick={() => setShowRegister(true)}>Registrarse</button>
-            <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
+            <p onClick={() => setShowRegister(true)}>Registrarse</p>
+            <p onClick={() => setShowLogin(true)}>Iniciar Sesión</p>
           </div>
         ) : (
-          <div>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
+          <div className="nav__login">
+            <p onClick={handleLogout}>Cerrar Sesión</p>
+            {productsInCart?.length > 0 ? (
+              <div className="nav_cart">
+                <AiOutlineShoppingCart />
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         )}
 
@@ -59,23 +67,23 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
           {!userInfoFirestore || userInfoFirestore.name === "" ? (
             <>
               {email ? (
-                <button onClick={() => setShowAlta(true)}>
-                  Alta jugador |
-                </button>
+                  <p className="alta__jugador" onClick={() => setShowAlta(true)}>Alta jugador |</p>
               ) : (
                 <></>
               )}
             </>
           ) : (
-            <Link
-              to={
-                userInfoFirestore.isAdmin
-                  ? "/dashboard-admin"
-                  : "/dashboard-player"
-              }
-            >
-              Dashboard |
-            </Link>
+            <>
+              <Link
+                to={
+                  userInfoFirestore.isAdmin
+                    ? "/dashboard-admin"
+                    : "/dashboard-player"
+                }
+              >
+                Dashboard |
+              </Link>
+            </>
           )}
 
           <a href="oferta">Oferta</a>

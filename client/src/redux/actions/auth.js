@@ -24,21 +24,16 @@ export const logout = () => {
   signOut(auth);
   return {
     type: LOGOUT_USER_FIREBASE,
-    payload: null,
   };
 };
 
 export const loginWhitEmailAndPassword = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password);
-  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: null } };
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
 export const registerWhitEmailAndPassword = async (email, password) => {
   await createUserWithEmailAndPassword(auth, email, password);
-  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
-};
-
-export const loginWhitGoogle = async (email) => {
   return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
 };
 
@@ -56,7 +51,7 @@ export function getUserFirestore(uid) {
         } else {
           return dispatch({
             type: PLAYER__FORM__FIREBASE,
-            payload: null,
+            payload: "",
           });
         }
       });
@@ -71,7 +66,6 @@ export const getAllInfoUsers = (docs) => {
 };
 
 export const clickChoiceHandler = (click) => {
-  console.log(click);
   return { type: CLICK__CHOICE, payload: click };
 };
 

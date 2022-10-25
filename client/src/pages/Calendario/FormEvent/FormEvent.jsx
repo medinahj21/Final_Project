@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import s from '../FormEvent/FormEvent.module.css'
 import * as action from '../../../redux/actions/event'
 import Tags from '../../../components/Tag/Tags';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function FormCalendario({ handleModal }) {
+
+export default function FormCalendario({ handleModal, getEvents }) {
 
   const dispatch = useDispatch();
-
   const [isRepetitive, setIsRepetitive] = useState('');
-
   const [inputs, setInputs] = useState({
     name: "",
     state: "",
@@ -20,6 +21,16 @@ export default function FormCalendario({ handleModal }) {
     start: "",
     end: "",
   })
+
+  const notifyError = (error) =>
+    toast.error(error, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      hideProgressBar: true,
+    });
+  const notify = () =>
+    toast.success("Event has been created successfully", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
 
   const deleteTag = (e) => {
     setInputs({
@@ -46,16 +57,16 @@ export default function FormCalendario({ handleModal }) {
     })
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = dispatch(action.createEvent(inputs));
-    if (response.error) {
-      alert(`algo salio mal: ${response}`)
-    } else {
-      handleModal();
-      setInputs("");
-      alert("Event has been created successfully");
-    }
+    let response = await dispatch(action.createEvent(inputs));
+    if (response.error) return alert(`algo salio mal: ${response.error}`)
+    handleModal();
+    setInputs("");
+    notify();
+    alert("Event has been created successfully");
+    dispatch(getEvents());
   }
 
   const handleRepetitive = (e) => {
@@ -67,9 +78,10 @@ export default function FormCalendario({ handleModal }) {
     }
     setIsRepetitive(false)
   }
-  console.log(inputs);
+
   return (
     <div className={s.formEventContainer}>
+      <ToastContainer />
       <section className={s.itemHeaderContainer}>
         <button type="button" onClick={() => handleModal()}>X</button>
         <div className={s.item}>

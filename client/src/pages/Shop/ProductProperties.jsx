@@ -32,50 +32,51 @@ function ProductProperties({
 
   return (
     <>
-      <label>
-        {" "}
-        Nombre producto:
+      <div className="forms_field product__image-container">
+        <button className="modify__button" onClick={handleOnClick}>
+          Cargar imagen
+        </button>
+        <img
+          className="product__image-create"
+          src={newProduct.image || FOTO}
+          alt="product"
+        />
+      </div>
+      <div className="forms_field">
         <input
+          value={newProduct.name}
           type="text"
           name="name"
-          value={newProduct.name}
+          placeholder="Nombre"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
-      <label>
-        {" "}
-        Imagen:
-        <div className="product__charge-image" onClick={handleOnClick}>
-          Cargar imagen
-        </div>
-        <img className="product__image-create" src={newProduct.image || FOTO} alt="" />
-      </label>
-      <label>
-        {" "}
-        Precio:
+        />
+      </div>
+      <div className="forms_field">
         <input
           type="number"
           name="price"
-          value={newProduct.price}
+          placeholder="$ Precio"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
-      <label>
-        {" "}
-        Descripción:
+        />
+      </div>
+      <div className="forms_field">
         <input
+          value={newProduct.description}
           type="text"
           name="description"
-          value={newProduct.description}
+          placeholder="Description"
+          className="forms_field-input"
           onChange={(e) => {
             handleSetNewProductProperties(e);
           }}
-        ></input>
-      </label>
+        />
+      </div>
     </>
   );
 }

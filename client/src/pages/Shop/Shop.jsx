@@ -7,7 +7,6 @@ import {
   getProducts,
   setPageNumPrev,
 } from "../../redux/actions/products";
-// import { setInitialCart } from "../../redux/actions/shoppingCart";
 import { updatePlayerCart } from "../../redux/actions/player";
 
 import "../Shop/Shop.css";
@@ -30,8 +29,8 @@ function Shop() {
     (state) => state.authReducer
   );
   useEffect(()=>{
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
-  },[dispatch,productsInCart])
+    // dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
+  },[dispatch,productsInCart,userInfoFirestore.uid])
 
   useEffect(() => {
     async function getTags() {

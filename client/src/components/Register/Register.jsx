@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import LoginGoogle from "./LoginGoogle";
-// import { auth } from "../../firebase/firebase.config";
 import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
-// import { sendVerificationEmail } from "../../utils/EmailVerification";
 
-import "./Register.css";
-import Modal from "../UI/Modal";
-import FormUser from "./FormUser";
-
-function Register({ setShowRegister }) {
-  const [register, setRegister] = useState(false);
+function Register({ setShowRegister, setShowLogin, setShowAlta }) {
   const notifyError = (error) =>
     toast.error(error, {
       draggable: true,
@@ -47,12 +39,16 @@ function Register({ setShowRegister }) {
         credentials.password
       );
       // await sendVerificationEmail(auth.currentUser);
+      notify();
+      setTimeout(() => {
+        setShowLogin(false);
+        setShowRegister(false);
+        setShowAlta(true);
+      }, 2000);
       setCredentials({
         email: "",
         password: "",
       });
-      notify();
-      setTimeout(() => setRegister(true), 4000);
     } catch (error) {
       console.log(error.message);
       return notifyError(error.message);
@@ -60,41 +56,39 @@ function Register({ setShowRegister }) {
   };
 
   return (
-    <Modal>
-      {!register ? (
-        <form onSubmit={submitHandler} className="register__form">
-          <ToastContainer />
-          <button onClick={() => setShowRegister(false)}>X</button>
-          <h3 className="register__title">Registrarse</h3>
-          <label htmlFor="email">
-            Email:{" "}
+    <>
+      <div className="user_forms-signup">
+        <h2 className="forms_title">Registrarse</h2>
+        <form className="forms_form" onSubmit={submitHandler}>
+          <div className="forms_field">
             <input
-              type="email"
               value={credentials.email}
+              type="email"
               name="email"
-              id="email"
-              placeholder="youremail@company.dtl"
+              placeholder="Correo electrónico"
+              className="forms_field-input"
               onChange={changeHandler}
             />
-          </label>
-          <label htmlFor="password">
-            Password:{" "}
+          </div>
+          <div className="forms_field">
             <input
-              type="password"
               value={credentials.password}
+              type="password"
               name="password"
-              id="password"
-              placeholder="******"
+              placeholder="Contraseña"
+              className="forms_field-input"
               onChange={changeHandler}
             />
-          </label>
-          <button type="submit">Registrarse</button>
-          <LoginGoogle />
+          </div>
+          <div className="forms_buttons">
+            <button type="submit" className="forms_buttons-action">
+              Registrarse
+            </button>
+            <LoginGoogle />
+          </div>
         </form>
-      ) : (
-        <FormUser />
-      )}
-    </Modal>
+      </div>
+    </>
   );
 }
 

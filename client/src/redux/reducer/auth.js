@@ -27,16 +27,12 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         email: action.payload.email,
-        nickName: action.payload.nickName,
+        nickName: action.payload.nickName ? action.payload.nickName : "",
       };
 
     case LOGOUT_USER_FIREBASE:
       return {
-        ...state,
-        userInfoFirestore: action.payload,
-        allUserFirestore: action.payload,
-        email: action.payload,
-        nickName: action.payload,
+        ...initialState,
       };
 
     case PLAYER__FORM__FIREBASE:
