@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../../redux/actions/actionsGroup";
+import FormUser from "../../Register/FormUser";
 
 import "./UpdateGroup.css";
 
@@ -19,6 +20,7 @@ export default function UpdateGroup({
 
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
   const [requestSent, setRequestSent] = useState(false);
+  const [isForm, setIsForm] = useState(false);
 
   useEffect(() => {
     setInputUpdate(groupDetail);
@@ -218,7 +220,7 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      {!isPlayer && (
+      {isPlayer.id && userInfoFirestore?.uid ? (
         <button
           className="update__button"
           onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
@@ -226,7 +228,17 @@ export default function UpdateGroup({
         >
           {update ? "Aceptar" : "Inscribirme"}
         </button>
+      ) : (
+        <>
+          {!isPlayer.id ? (
+            // <button>Solicitar cambio</button> -> para implementar cambio de grupo.
+            <></>
+          ) : (
+            <button onClick={() => setIsForm(true)}>Solicitar alta</button>
+          )}
+        </>
       )}
+      {isForm ? <FormUser /> : <></>}
     </div>
   );
 }

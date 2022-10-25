@@ -41,9 +41,6 @@ function NavbarDash({ setClickChoice }) {
     <section className="app">
       <aside className="sidebar">
         <header>Menu</header>
-        {/* <div className="sidebar-image">
-          <span>IMAGE</span>
-        </div> */}
         <nav className="sidebar-nav">
           <ul>
             <li>
@@ -84,7 +81,8 @@ function NavbarDash({ setClickChoice }) {
                 )}
                 <li>
                   <a href="#!" onClick={(e) => onClcikHandler(e, "grupo")}>
-                    <i className="ion-ios-paperplane-outline"></i>Grupo
+                    <i className="ion-ios-paperplane-outline"></i>
+                    {isPlayer?.id ? "Mi grupo" : "Grupos"}
                   </a>
                 </li>
 
@@ -165,6 +163,18 @@ function NavbarDash({ setClickChoice }) {
               </ul>
             </li>
             {isPlayer.id ? (
+              <li>
+                <Link to={"/products"}>
+                  <i className="shop-icon">
+                    <AiOutlineShopping />
+                  </i>{" "}
+                  <span className="">Tienda</span>
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
+            {userInfoFirestore.isAdmin ? (
               <li>
                 <Link to={"/products"}>
                   <i className="shop-icon">

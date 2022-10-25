@@ -29,10 +29,6 @@ function Admin() {
   const { playerDetail } = useSelector((state) => state.playerReducer);
 
   useEffect(() => {
-    dispatch(getPlayerDetail(userInfoFirestore.uid));
-  }, [dispatch, userInfoFirestore]);
-
-  useEffect(() => {
     dispatch(
       setInitialCart(
         playerDetail?.shoppingCart ? playerDetail.shoppingCart : []
@@ -66,6 +62,7 @@ function Admin() {
         dispatch(getAllInfoUsers(docs));
       });
     }
+    dispatch(getPlayerDetail(userInfoFirestore.uid));
   }, [dispatch, userInfoFirestore]);
 
   const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });

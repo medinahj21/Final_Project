@@ -52,15 +52,7 @@ function Home() {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
-  useEffect(() => {
-    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        dispatch(getUserFirestore(currentUser.uid));
-      }
-    });
-    return () => unSuscribe();
-  }, [dispatch]);
-
+ 
   return (
     <>
       {!isDesktop ? (
