@@ -84,8 +84,15 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
+<<<<<<< HEAD
 conn.sync({ force: false, alter: false }).then(() => {
   //chargeDummyData();
+=======
+
+conn.sync({ force: false, alter: false }).then(() => {
+  //chargeDummyData();
+
+>>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
   });

@@ -114,11 +114,16 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
   const { name, location, start, admin, end, date, description, repetitive, state, player } = req.body;
   try {
     if (!(name && start && end && location && date && admin)) {
       res.status(400).json({ error: "information is missing" });
     } else {
+
       if (repetitive === false) {
         const newEvent = await Event.create({
           name, location, description, date, repetitive, state, start, end,
@@ -143,6 +148,11 @@ const createEvent = async (req, res) => {
         }
         res.status(200).send("the events has been created successfully");
       }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
     }
   } catch (error) { res.status(400).json({ error_DB: error.message }) }
 };
@@ -215,7 +225,14 @@ const postAdmins = async (req, res) => {
   const { personal_info, permissions } = req.body;
 
   try {
+<<<<<<< HEAD
     if (!(personal_info && permissions)) res.status(400).json({ error: "missing info" });
+=======
+
+    if (!(personal_info && permissions))
+      res.status(400).json({ error: "missing info" });
+
+>>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
     else {
       const newAdmin = await Admin.create({
         personal_info,
@@ -241,6 +258,7 @@ const postFilterTag = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 
 
 const postRoleRequest = async (req, res) => {
@@ -288,6 +306,33 @@ const postProductRequest = async (req, res) => {
     console.log(error);
   }
 }
+=======
+
+const postRoleRequest = async (req, res) => {
+  const { id, newRole, userInfo, groupId } = req.body;
+  try {
+    if (!newRole) {
+      res.status(400).json({ error: "No role send" });
+    } else {
+      const newRoll = await RoleRequest.create({
+        id,
+        newRole,
+        userInfo,
+        groupId,
+      });
+
+      newRoll
+        ? res.json({ message: "procces successfully" })
+        : res.status(400).json({ error: "bad request" });
+    }
+  } catch (error) {
+    res.status(500).json({ error_DB: error.message });
+    console.log(error);
+  }
+};
+
+
+>>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
 module.exports = {
   asyncPostProduct,
   postGroups,
