@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as actions from "../../../redux/actions/actionsGroup";
+import {
+  cleanGroupDetail,
+  getGroupDetail,
+} from "../../../redux/actions/actionsGroup";
 import UpdateGroup from "../UpdateGroup/UpdateGroup";
 
 export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
@@ -12,12 +15,10 @@ export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    dispatch(actions.getGroupDetail(id));
-  }, [dispatch]);
+    dispatch(getGroupDetail(id));
 
-  useEffect(() => {
-    return () => dispatch(actions.cleanGroupDetail());
-  }, [dispatch]);
+    return () => dispatch(cleanGroupDetail());
+  }, [dispatch, id]);
 
   return (
     <UpdateGroup

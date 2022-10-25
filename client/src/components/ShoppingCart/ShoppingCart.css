@@ -5,7 +5,7 @@
     display: flex;
     gap: 1rem;
     position: relative;
-    left: 150px;
+    left: 110px;
 }
 
 .modify__button.modify__button-cart {
@@ -93,14 +93,31 @@
     padding-top: 10px;
     font-size: 16px;
     color: rgb(15, 3, 31);
-    
+
 }
 
 .shopping-cart .name-position {
     position: relative;
     right: 110px;
     top: -20px;
-    
+
+}
+
+.button-trash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(15, 3, 31);
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: 0 0 1px 0 rgb(15, 3, 31);
+}
+
+.button-trash:hover {
+    background-color: crimson;
+    color: white;
+    box-shadow: 0 0 1px 0 white;
 }
 
 .shopping-cart .shopping-cart-items .item-price {

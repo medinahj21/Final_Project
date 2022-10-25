@@ -3,6 +3,7 @@ import {
   incrementProductInCart,
   decrementProductInCart,
 } from "../../redux/actions/shoppingCart";
+import { FiTrash2 } from "react-icons/fi";
 
 
 export default function CartProduct({ prod }) {
@@ -46,7 +47,9 @@ export default function CartProduct({ prod }) {
           {" "}
           +{" "}
         </button>
-        {/* agregar boton para eliminar del carrito aca */}
+        <div className="button-trash">
+          <FiTrash2 />
+        </div>
       </div>
       <span className="item-name">
         {" "}
