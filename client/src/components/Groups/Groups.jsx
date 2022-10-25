@@ -18,37 +18,31 @@ export default function Groups() {
   const [isShowDetail, setShowDetail] = useState(false);
   const [allGroups, setAllGroups] = useState([]);
   const [category, setCategory] = useState(groups.map((e) => e.category));
+  const [values, setValues] = useState({ category: "", genre: "" })
 
   useEffect(() => {
     setAllGroups(groups);
     setCategory([...new Set(category)]);
   }, [groups]);
 
-  const filterByGenre = (e) => {
-    let value = e.target.value;
-    if (value === "all") {
-      setAllGroups(groups);
-    } else {
-      let filtered = [...allGroups].filter((e) => e.genre === value);
-      if (filtered.length === 0) {
-        filtered = [...groups].filter((e) => e.genre === value);
-      }
-      setAllGroups(filtered);
-    }
-  };
+  const filtros = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  }
 
-  const filterByCategory = (e) => {
-    let value = e.target.value;
-    if (value === "all") {
-      setAllGroups(groups);
-    } else {
-      let filtered = [...allGroups].filter((e) => e.category === value);
-      if (!filtered.length) {
-        filtered = [...groups].filter((e) => e.category === value);
-      }
+  useEffect(() => {
+    if (values.genre === "" && values.category === "") {
+      setAllGroups(groups)
+    } else if (values.genre.length && values.category.length) {
+      let filtered = groups.filter((e) => (e.genre === values.genre) && (e.category === values.category));
+      setAllGroups(filtered)
+    } else if (!values.genre.length && values.category.length) {
+      let filtered = groups.filter((e) => e.category === values.category)
       setAllGroups(filtered);
-    }
-  };
+    } else if (!values.category.length && values.genre.length) {
+      let filtered = groups.filter((e) => e.genre === values.genre);
+      setAllGroups(filtered)
+    }     
+  }, [values])
 
   const idRecoverHandler = (id) => {
     setIdGroup(id);
@@ -81,12 +75,11 @@ export default function Groups() {
                   <></>
                 )}
                 <SelectGroups
-                  filterByGenre={filterByGenre}
-                  filterByCategory={filterByCategory}
+                  filtros={filtros}
                 />
               </div>
               <div className="groups__card-container">
-                {allGroups?.map((e, i) => {
+                {allGroups.length ? allGroups?.map((e, i) => {
                   return (
                     <CardGroup
                       key={i}
@@ -99,7 +92,10 @@ export default function Groups() {
                       idRecoverHandler={idRecoverHandler}
                     />
                   );
-                })}
+                })
+                  :
+                  <h3 style={{ alignSelf: "center" }}>No se encontraron coincidencias...</h3>
+                }
               </div>
             </>
           ) : (

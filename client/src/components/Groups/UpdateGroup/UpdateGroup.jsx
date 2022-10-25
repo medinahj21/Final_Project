@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import UploadImage from '../../UploadImage/UploadImage'
 import * as actions from "../../../redux/actions/actionsGroup";
 import FormUser from "../../Register/FormUser";
 
@@ -31,6 +31,7 @@ export default function UpdateGroup({
     if (window.confirm("Estas seguro quieres guardar?")) {
       setUpdate(false);
       dispatch(actions.updateGroup(id, inputUpdate));
+      dispatch(actions.getGroups());
     }
   };
 
@@ -86,8 +87,11 @@ export default function UpdateGroup({
           Volver
         </button>
       )}
-      <img className="update__image" src={groupDetail.image} alt="grupos" />
-      {update ? <div>Subir</div> : ""}
+      {update ?
+        <UploadImage />
+       : 
+       <img className="update__image" src={groupDetail.image} alt="grupos" />
+        }
       {userInfoFirestore.isAdmin ? (
         <button className="update__button" onClick={() => handleUpdate()}>
           {update ? "Cancelar" : "Editar"}

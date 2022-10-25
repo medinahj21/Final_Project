@@ -1,20 +1,20 @@
 import React from "react";
 
-function SelectGroups({ filterByGenre, filterByCategory }) {
+function SelectGroups({ filtros }) {
   return (
     <>
       <div className="select_container">
         <select
           className="select_content"
-          name="filterByGenre"
+          name="genre"
           defaultValue={"genre"}
           id=""
-          onChange={(e) => filterByGenre(e)}
+          onChange={(e) => filtros(e)}
         >
           <option value="genre" disabled={true}>
             Género
           </option>
-          <option key={"all"} value={"all"}>
+          <option key={"all"} value={""}>
             Todos
           </option>
           <option key={"Male"} value={"Male"}>
@@ -32,14 +32,14 @@ function SelectGroups({ filterByGenre, filterByCategory }) {
         <select
           className="select_content"
           defaultValue={"category"}
-          name="filterByCategory"
+          name="category"
           id=""
-          onChange={(e) => filterByCategory(e)}
+          onChange={(e) => filtros(e)}
         >
           <option value={"category"} disabled={true}>
             Categoria
           </option>
-          <option key={"todos"} value="all">
+          <option key={"todos"} value="">
             Todos
           </option>
           <option key={"Mixto"} value="Mixto">

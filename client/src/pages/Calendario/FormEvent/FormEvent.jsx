@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function FormCalendario({ handleModal, getEvents }) {
 
   const dispatch = useDispatch();
+  const [isUpdate, setisUpdate] = useState(false)
   const [isRepetitive, setIsRepetitive] = useState('');
   const [inputs, setInputs] = useState({
     name: "",
@@ -57,7 +58,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     })
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let response = await dispatch(action.createEvent(inputs));
@@ -73,12 +73,13 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
     if (e.target.value === "true") {
       setInputs({ ...inputs, date: [], })
-      setInputs({ ...inputs, [e.target.name]: e.target.value })
       return setIsRepetitive(true)
     }
     setIsRepetitive(false)
   }
 
+
+  console.log(inputs);
   return (
     <div className={s.formEventContainer}>
       <ToastContainer />
@@ -93,9 +94,16 @@ export default function FormCalendario({ handleModal, getEvents }) {
           <select name="state" onChange={handleChange}>
             <option value="s" selected={true} disabled={true} >Selecciona una opción</option>
             <option value="Pending">Pendiente</option>
-            <option value="Canceled">Cancelado</option>
-            <option value="Postponed">Aplazado</option>
-            <option value="Finished">Finalizado</option>
+            {isUpdate ?
+              <>
+                <option value="Canceled">Cancelado</option>
+                <option value="Postponed">Aplazado</option>
+                <option value="Finished">Finalizado</option>
+
+              </>
+              :
+              ""
+            }
           </select>
         </div>
       </section>
@@ -130,6 +138,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
                     <option value="miercoles">Miercoles</option>
                     <option value="jueves">Jueves</option>
                     <option value="viernes">Viernes</option>
+                    <option value="sabado">Sabado</option>
+                    <option value="domingo">Domingo</option>
                   </select>
                 </div>
                 <div className={s.item}>
@@ -155,7 +165,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-                <input type="date" name='date' onChange={handleChangeDays} />
+                <input type="date" name='date' onChange={handleChange} />
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>
