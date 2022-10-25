@@ -28,7 +28,7 @@ const ShoppingCart = () => {
         {productsInCart?.length ? (
           <ul className="shopping-cart-items">
             {productsInCart
-              ?.filter((item) => item.quant !== 0)
+              ?.filter((item) => item?.quant !== 0)
               ?.map((prod, index) => {
                 return <CartProduct key={index} prod={prod} />;
               })}
