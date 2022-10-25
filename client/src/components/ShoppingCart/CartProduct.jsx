@@ -4,12 +4,12 @@ import {
   decrementProductInCart,
 } from "../../redux/actions/shoppingCart";
 
-export default function CartProduct(prod) {
+export default function CartProduct({prod}) {
   const dispatch = useDispatch();
 
   const allProducts = useSelector((state) => state.productsReducer.allProducts);
   const product = allProducts?.find(
-    (product) => product.id === prod.prod.product.id
+    (product) => product.id === prod.product.id
   );
 
   const { id, name, price, image } = { ...product };
@@ -24,15 +24,17 @@ export default function CartProduct(prod) {
 
   return (
     <li className="clearfix">
-      <img className="image__cart" src={image} alt="item" />
-      <span className="item-name">{name}</span>
+      <div>
+        <span className="item-name name-position">{name}</span>
+        <img className="image__cart" src={image} alt="item" />
+      </div>
       <span className="item-price">$ {price}</span>
       <span className="item-quantity">Cantidad: {prod.prod.quant}</span>
       <div className="cart__container-button">
         <button
           className="modify__button modify__button-cart"
           onClick={() =>
-            handleDecrementProduct(id, prod.prod.product.modifiers)
+            handleDecrementProduct(id, prod.product.modifiers)
           }
         >
           {" "}
@@ -41,13 +43,15 @@ export default function CartProduct(prod) {
         <button
           className="modify__button  modify__button-cart"
           onClick={() =>
-            handleIncrementProduct(id, prod.prod.product.modifiers)
+            handleIncrementProduct(id, prod.product.modifiers)
           }
         >
           {" "}
           +{" "}
         </button>
       </div>
+        <span className="item-name">(Talla: XL, Apodo: Pipe, N°: 20)</span>
+        <hr />
     </li>
   );
 }

@@ -48,24 +48,32 @@ export default function UpdateGroup({
     }
   };
   const handleSuscribe = async () => {
-    //debo hacer la validación de si no es jugador    
-    if(!userInfoFirestore.isAdmin){
-      let newRoleRequest = { id:userInfoFirestore.uid ,newRole: "Jugador", userInfo:{userInfoFirestore}, groupId : id}
-      let response = await dispatch(actions.createNewRoleRequest(newRoleRequest));
-      if(response.error){
-        alert("Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D");
+    //debo hacer la validación de si no es jugador
+    if (!userInfoFirestore.isAdmin) {
+      let newRoleRequest = {
+        id: userInfoFirestore.uid,
+        newRole: "Jugador",
+        userInfo: { userInfoFirestore },
+        groupId: id,
+      };
+      let response = await dispatch(
+        actions.createNewRoleRequest(newRoleRequest)
+      );
+      if (response.error) {
+        alert(
+          "Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D"
+        );
         !update && setRequestSent(true);
-      } else  /* if(response.data) */{
+      } /* if(response.data) */ else {
         !update && setRequestSent(true);
         alert("Solicitud de inscripción enviada");
       }
       /* else{
         alert ("algo raro pasó")
       } */
-    }else{
-      alert("¿aún no te registras?")
+    } else {
+      alert("¿aún no te registras?");
     }
-    
   };
 
   return (
@@ -83,7 +91,6 @@ export default function UpdateGroup({
         <></>
       )}
       <h1>{groupDetail.name}</h1>
-
       <span>Genero:</span>
       {update ? (
         <select name="genre" value={inputUpdate.genre} onChange={handleChange}>
@@ -211,7 +218,7 @@ export default function UpdateGroup({
       <button
         className="update__button"
         onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
-        disabled= {requestSent}
+        disabled={requestSent}
       >
         {update ? "Aceptar" : "Inscribirme"}
       </button>

@@ -5,10 +5,8 @@ import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
-
-  const totalInCart = productsInCart.map((item) => item.quant);
-
-  const total = totalInCart.reduce((a, b) => a + b);
+  const totalInCart = productsInCart?.map((item) => item.quant);
+  const total = totalInCart?.reduce((a, b) => a + b);
 
   return (
     <>
@@ -27,16 +25,18 @@ const ShoppingCart = () => {
             </span>
           </div>
         </div>
-        {productsInCart.length ? (
+        {productsInCart?.length ? (
           <ul className="shopping-cart-items">
             {productsInCart
               ?.filter((item) => item.quant !== 0)
-              .map((prod, index) => {
+              ?.map((prod, index) => {
                 return <CartProduct key={index} prod={prod} />;
               })}
           </ul>
         ) : (
-          <h4>Aún no hay productos en el carrito</h4>
+          <h3 className="main-color-text">
+            Aún no hay productos en el carrito
+          </h3>
         )}
 
         <a href="#!" className="button">

@@ -86,10 +86,21 @@
     margin-right: 12px;
 }
 
+
+
 .shopping-cart .shopping-cart-items .item-name {
     display: block;
     padding-top: 10px;
     font-size: 16px;
+    color: rgb(15, 3, 31);
+    
+}
+
+.shopping-cart .name-position {
+    position: relative;
+    right: 110px;
+    top: -20px;
+    
 }
 
 .shopping-cart .shopping-cart-items .item-price {
