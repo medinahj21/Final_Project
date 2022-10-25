@@ -57,7 +57,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     })
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let response = await dispatch(action.createEvent(inputs));
@@ -79,6 +78,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setIsRepetitive(false)
   }
 
+
+  console.log(inputs);
   return (
     <div className={s.formEventContainer}>
       <ToastContainer />
@@ -155,7 +156,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-                <input type="date" name='date' onChange={handleChangeDays} />
+                <input type="date" name='date' onChange={handleChange} />
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>
