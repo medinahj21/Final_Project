@@ -1,16 +1,18 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePlayerCart, getPlayerDetail } from "../../redux/actions/player";
-import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
+import {
+  updatePlayerCart,
+  clearPlayerDetail,
+} from "../../redux/actions/player";
+import { clearCart } from "../../redux/actions/shoppingCart";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
-import { logout,getUserFirestore } from "../../redux/actions/auth";
+import { logout, getUserFirestore } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
 import "./Nav.css";
-import {AiOutlineShoppingCart} from "react-icons/ai"
 
 function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   const handleLogout = async () => {
+    await dispatch(clearPlayerDetail());
     await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
     await dispatch(clearCart());
     await dispatch(logout());
@@ -30,7 +33,6 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        dispatch(getPlayerDetail(currentUser.uid))
       }
     });
     return () => unSuscribe();
@@ -50,14 +52,6 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
         ) : (
           <div className="nav__login">
             <p onClick={handleLogout}>Cerrar Sesión</p>
-            {
-                productsInCart?.length>0?
-                <div className="nav_cart">
-                  <AiOutlineShoppingCart />
-                </div>
-                :
-                <></>
-              }
           </div>
         )}
 
@@ -65,13 +59,15 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
           {!userInfoFirestore || userInfoFirestore.name === "" ? (
             <>
               {email ? (
-                <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
+                <p className="alta__jugador" onClick={() => setShowAlta(true)}>
+                  Alta jugador |
+                </p>
               ) : (
                 <></>
               )}
             </>
           ) : (
-            <>              
+            <>
               <Link
                 to={
                   userInfoFirestore.isAdmin
@@ -80,9 +76,8 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
                 }
               >
                 Dashboard |
-              </Link>            
+              </Link>
             </>
-            
           )}
 
           <a href="oferta">Oferta</a>

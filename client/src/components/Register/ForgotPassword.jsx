@@ -32,23 +32,26 @@ function ForgotPassword({ setForgotPassword }) {
   };
 
   return (
-    <form onSubmit={submitHandler} className="register__form">
-      <h3>Recuperar contraseña</h3>
-      <label htmlFor="email">
-        Email:{" "}
+    <form onSubmit={submitHandler} className="forgot-password">
+      <h4>Recuperar contraseña</h4>
+      <div className="form-group">
         <input
+          value={email}
           type="email"
           name="email"
-          value={email}
-          id="email"
-          placeholder="youremail@company.dtl"
+          className="form-style"
+          placeholder="Your Email"
           onChange={changeHandler}
         />
-      </label>
-      <button type="submit">Enviar</button>
-      <button type="button" onClick={backLogInHandle}>
-        Volver
-      </button>
+      </div>
+      <div className="forgot-container-btn">
+        <button type="submit" className="btn">
+          Enviar
+        </button>
+        <button type="button" onClick={backLogInHandle} className="btn">
+          Volver
+        </button>
+      </div>
     </form>
   );
 }

@@ -19,7 +19,7 @@ function SearchbarProduct(props) {
     handleClean,
   } = props;
 
-  const [showCart,setShowCart]=useState(false)
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <div className="search__container">
@@ -75,12 +75,8 @@ function SearchbarProduct(props) {
         <p>No has seleccionado etiquetas</p>
       )}
       <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
-      <button onClick={() => setShowCart(true)}>🛒</button>
-      {showCart?
-        <ShoppingCart setShowCart={setShowCart}/>:
-      <></>
-      }
-      
+      <button onClick={() => setShowCart(!showCart)}>🛒</button>
+      {showCart ? <ShoppingCart /> : <></>}
     </div>
   );
 }
