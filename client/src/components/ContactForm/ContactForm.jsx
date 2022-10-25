@@ -96,14 +96,13 @@ const ContactForm = ({ setShowContactForm }) => {
               onChange={changeHandler}
             />
             <br />
-            <input
-              type="textarea"
+            <textarea
               value={userInput.message}
               name="message"
               id="message"
               placeholder="Mensaje"
               maxLength={255}
-              rows= {20}
+              rows= {10}
               cols= {60}
               wrap= "hard"
               onChange={changeHandler}
