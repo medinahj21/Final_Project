@@ -8,21 +8,19 @@
     text-align: center;
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
-    border-radius: 20px;
     display: flex;
     justify-content: space-evenly;
     padding: 1rem;
-    border-radius: 20px;
     color: #fff;
     box-shadow: var(--box-shadow);
 }
 
 .groups__container .selects__container select {
-    border-radius: 20px;
+    border-radius: 5px;
+    width: 100%;
     padding: .2rem;
     margin-left: 1rem;
     border: 1px solid transparent;
-    box-shadow: var(--box-shadow);
 }
 
 @keyframes changeBG {

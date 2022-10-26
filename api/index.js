@@ -12,7 +12,6 @@ const {
   FilterTags,
 } = require("./src/db");
 
-
 const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
@@ -90,5 +89,3 @@ conn.sync({ force: false, alter: false }).then(() => {
     console.log(`%s listening at ${PORT}`);
   });
 });
-
-

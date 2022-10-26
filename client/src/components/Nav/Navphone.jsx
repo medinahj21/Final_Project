@@ -8,7 +8,7 @@ import { onAuthStateChanged} from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 import {AiOutlineShoppingCart} from "react-icons/ai"
 
-import { updatePlayerCart, getPlayerDetail} from "../../redux/actions/player";
+import { updatePlayerCart, getPlayerDetail, clearPlayerDetail} from "../../redux/actions/player";
 import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
 
 function Navphone({
@@ -24,6 +24,8 @@ function Navphone({
     (state) => state.authReducer
   );
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  const isPlayer = useSelector((state) => state.playerReducer.playerDetail);
+  console.log("Phonee", isPlayer.id)
   
 
   const handleRegister = () => {
@@ -38,6 +40,7 @@ function Navphone({
   };
 
   const handleLogout = async() => {
+    await dispatch(clearPlayerDetail())
     await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
     await dispatch(clearCart());
     await dispatch(logout());
@@ -51,9 +54,6 @@ function Navphone({
         .then(action =>{
           dispatch(setInitialCart(action.payload.shoppingCart))
         } )
-
-        //console.log("response", response)
-        //dispatch(setInitialCart(response.shoppingCart))
       }
     });
     return () => unSuscribe();
@@ -102,9 +102,9 @@ function Navphone({
               <p onClick={() => validateClick("perfil", setClickChoice)}>
                 <li>Perfil</li>
               </p>
-              <Link to={"/products"}>
+              {<Link to={"/products"}>
                 <li>Tienda</li>
-              </Link>
+              </Link>}
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("request", setClickChoice)}>
                   <li>Inscripciones</li>
