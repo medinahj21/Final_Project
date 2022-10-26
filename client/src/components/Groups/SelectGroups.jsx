@@ -37,7 +37,7 @@ function SelectGroups({ filtros }) {
           onChange={(e) => filtros(e)}
         >
           <option value={"category"} disabled={true}>
-            Categoria
+            Categoría
           </option>
           <option key={"todos"} value="">
             Todos

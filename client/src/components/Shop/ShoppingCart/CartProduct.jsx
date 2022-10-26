@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   incrementProductInCart,
   decrementProductInCart,
-} from "../../redux/actions/shoppingCart";
+} from "../../../redux/actions/shoppingCart";
+
 import { FiTrash2 } from "react-icons/fi";
 
 export default function CartProduct({ prod }) {
