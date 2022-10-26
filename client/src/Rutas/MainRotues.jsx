@@ -18,6 +18,7 @@ function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path= "/contacto" element= {<ContactForm/>} />
       <Route
         path="/products"
         element={

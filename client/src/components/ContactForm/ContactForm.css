@@ -25,6 +25,16 @@
   
 }
 
+.whatsapp-container{
+  width: 100%;
+}
+
+.whatsapp-icon{
+  width: 40%;
+}
+
+
+
 .go-back-button{
   color: rgb(5, 5, 73);
   display: flex;
