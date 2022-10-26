@@ -3,9 +3,6 @@ import { useDispatch } from "react-redux";
 
 import * as action from "../../../redux/actions/event";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import Tags from "../../../components/Tag/Tags";
 
 import s from "../FormEvent/FormEvent.module.css";
@@ -24,11 +21,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     start: "",
     end: "",
   });
-
-  const notify = () =>
-    toast.success("Event has been created successfully", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
 
   const deleteTag = (e) => {
     setInputs({
@@ -54,22 +46,27 @@ export default function FormCalendario({ handleModal, getEvents }) {
       date: [...inputs.date, e.target.value],
     });
   };
+  console.log(inputs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(inputs);
     let response = await dispatch(action.createEvent(inputs));
-    if (response.error) return alert(`algo salio mal: ${response.error}`);
-    handleModal();
-    setInputs("");
-    notify();
-    alert("Event has been created successfully");
-    dispatch(getEvents());
+    if (response.error) {
+      return alert(`algo salio mal: ${response.error}`);
+    } else {
+      handleModal();
+      setInputs("");
+      alert(response);
+      dispatch(getEvents());
+    }
   };
 
   const handleRepetitive = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
     if (e.target.value === "true") {
-      setInputs({ ...inputs, date: [], })
+      setInputs({ ...inputs, date: [], });
+      setInputs({ ...inputs, [e.target.name]: e.target.value });
       return setIsRepetitive(true)
     }
     setIsRepetitive(false);
@@ -79,7 +76,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
   console.log(inputs);
   return (
     <div className={s.formEventContainer}>
-      <ToastContainer />
       <section className={s.itemHeaderContainer}>
         <button type="button" onClick={() => handleModal()}>
           X

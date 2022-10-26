@@ -115,6 +115,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
           <option value="Juvenil">Juvenil</option>
           <option value="Adultos">Adultos</option>
         </select>
+        Genero:
         <label className="check__label">
           Femenino{" "}
           <input
