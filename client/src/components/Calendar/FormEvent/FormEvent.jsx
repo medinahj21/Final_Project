@@ -12,12 +12,8 @@ import s from "../FormEvent/FormEvent.module.css";
 
 export default function FormCalendario({ handleModal, getEvents }) {
   const dispatch = useDispatch();
-<<<<<<< HEAD:client/src/pages/Calendario/FormEvent/FormEvent.jsx
   const [isUpdate, setisUpdate] = useState(false)
   const [isRepetitive, setIsRepetitive] = useState('');
-=======
-  const [isRepetitive, setIsRepetitive] = useState("");
->>>>>>> 1f9876c693ea2c65557ad19edc1b06f7a1c8fc8c:client/src/components/Calendar/FormEvent/FormEvent.jsx
   const [inputs, setInputs] = useState({
     name: "",
     state: "",
@@ -56,13 +52,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setInputs({
       ...inputs,
       date: [...inputs.date, e.target.value],
-<<<<<<< HEAD:client/src/pages/Calendario/FormEvent/FormEvent.jsx
     })
   }
-=======
-    });
-  };
->>>>>>> 1f9876c693ea2c65557ad19edc1b06f7a1c8fc8c:client/src/components/Calendar/FormEvent/FormEvent.jsx
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,14 +69,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
   const handleRepetitive = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
     if (e.target.value === "true") {
-<<<<<<< HEAD:client/src/pages/Calendario/FormEvent/FormEvent.jsx
-      setInputs({ ...inputs, date: [], })
-      return setIsRepetitive(true)
-=======
       setInputs({ ...inputs, date: [] });
       setInputs({ ...inputs, [e.target.name]: e.target.value });
       return setIsRepetitive(true);
->>>>>>> 1f9876c693ea2c65557ad19edc1b06f7a1c8fc8c:client/src/components/Calendar/FormEvent/FormEvent.jsx
     }
     setIsRepetitive(false);
   };
@@ -207,11 +193,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-<<<<<<< HEAD:client/src/pages/Calendario/FormEvent/FormEvent.jsx
-                <input type="date" name='date' onChange={handleChange} />
-=======
                 <input type="date" name="date" onChange={handleChangeDays} />
->>>>>>> 1f9876c693ea2c65557ad19edc1b06f7a1c8fc8c:client/src/components/Calendar/FormEvent/FormEvent.jsx
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>
