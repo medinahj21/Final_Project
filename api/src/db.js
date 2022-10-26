@@ -104,19 +104,11 @@ FilterTags.belongsToMany(Product, { through: "product-filter" });
 Player.hasMany(ProductRequest);
 ProductRequest.belongsTo(Player);                                        /*ready**/
 
-<<<<<<< HEAD
-Player.hasOne(RoleRequest);                                         /*ready**/
-RoleRequest.belongsTo(Player);         
-=======
-Player.hasOne(RoleRequest); 
-RoleRequest.belongsTo(Player);
-
-// Group.hasOne(RoleRequest); /*ready**/
-// RoleRequest.belongsTo(Group);
+Group.hasOne(RoleRequest); /*ready**/
+RoleRequest.belongsTo(Group);
 
 Player.hasOne(RoleRequest); /*ready**/
 RoleRequest.belongsTo(Player);
->>>>>>> c8856bf49106041b5436561c53a9aa4fb99359e9
 
 
 module.exports = {
