@@ -13,6 +13,7 @@ const { Sequelize, Model, Op } = require("sequelize");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
+/**===================== ProductsFromDB ======================== */
 const getProductsFromDB = async () => {
   try {
     const allProducts = await Product.findAll({
@@ -35,6 +36,7 @@ const getProductsFromDB = async () => {
   }
 };
 
+/**===================== Products ======================== */
 const asyncGetProducts = async (req, res) => {
   let { name } = req.query;
   try {
@@ -55,6 +57,7 @@ const asyncGetProducts = async (req, res) => {
   }
 };
 
+/**===================== Tags ======================== */
 const getFilterTags = async (req, res) => {
   try {
     let filterTags = await FilterTags.findAll();
@@ -64,6 +67,7 @@ const getFilterTags = async (req, res) => {
   }
 };
 
+/**===================== ProductById ======================== */
 const asyncGetProductById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -85,6 +89,7 @@ const asyncGetProductById = async (req, res) => {
   }
 };
 
+/**===================== Groups ======================== */
 const getGroups = async (req, res) => {
   const { id } = req.params;
   const { name } = req.query;
@@ -131,6 +136,7 @@ const getGroups = async (req, res) => {
   }
 };
 
+/**===================== Events ======================== */
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {
@@ -174,8 +180,9 @@ const getEvent = async (req, res) => {
   }
 };
 
+/**===================== Order ======================== */
 const getOrder = async (req, res) => {
-  const { id } = req.params;
+  const { id, state } = req.params;
   try {
     if (id) {
       if (rgExp.test(id)) {
@@ -194,6 +201,23 @@ const getOrder = async (req, res) => {
           ? res.status(200).send(infoOrder)
           : res.status(404).json({ message: "order not found" });
       } else res.status(406).json({ mesagge: "no valid" });
+    } else if (state) {
+      let verifyState = ["Pending", "Deleted", "Paid"]
+
+      !verifyState.includes(state) && res.json({ msg: "this state not exist" });
+
+
+      if (verifyState.includes(state)) {
+        const allOrders = await Order.findAll({
+          include: [{ model: Player }, { model: Product }],
+          where: {
+            state
+          }
+        })
+        res.send(allOrders)
+      };
+      // if (state === "Deleted") { };
+      // if (state === "Paid") { };
     } else {
       const infoOrder = await Order.findAll({
         include: [{ model: Player }, { model: Product }],
@@ -208,6 +232,8 @@ const getOrder = async (req, res) => {
   }
 };
 
+
+/**===================== Player ======================== */
 const getPlayers = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -252,10 +278,11 @@ const getPlayers = async (req, res) => {
     }
   } catch (error) {
     console.log("string", error);
-    res.status(500).json({error});
+    res.status(500).json({ error });
   }
 };
 
+/**===================== Admins ======================== */
 const getAdmins = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -295,6 +322,7 @@ const getAdmins = async (req, res) => {
   }
 };
 
+/**===================== RoleRequest ======================== */
 const getRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
@@ -313,7 +341,8 @@ const getRoleRequest = async (req, res) => {
   }
 };
 
-const getProductRequest = async(req, res) =>{
+/**===================== ProductRequest ======================== */
+const getProductRequest = async (req, res) => {
   const { id } = req.params;
   try {
     if (rgExp.test(id)) {
@@ -339,6 +368,9 @@ const getProductRequest = async(req, res) =>{
     console.log(error);
   }
 }
+
+
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,

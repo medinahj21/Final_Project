@@ -185,6 +185,7 @@ const postOrders = async (req, res) => {
     if (
       !value ||
       !concept ||
+      !order_state ||
       !description ||
       !payment_date ||
       !payment_term ||

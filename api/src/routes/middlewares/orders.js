@@ -7,6 +7,7 @@ const { putOrders } = require("../controllers/putControllers");
 router
   .get("/", getOrder)
   .get("/:id", getOrder)
+  .get("/:state", getOrder)
   .post("/create", postOrders)
   .put("/update/:id", putOrders);
 
