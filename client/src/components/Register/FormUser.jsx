@@ -25,7 +25,9 @@ function FormUser({ setShowAlta }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    if (user) {return}
+    if (user) {
+      return;
+    }
 
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -60,16 +62,18 @@ function FormUser({ setShowAlta }) {
   };
 
   const handleSubmit = async (e) => {
-    //ya sabemos que no tenemos que refrescar la pag :)
+    e.preventDefault();    
     if (userInput.name === "") {
       notifyError("must have a name");
       return;
     }
+    console.log(userInput);
     await setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
     notify();
     setTimeout(() => {
       setShowAlta(false);
     }, 2000);
+    window.location.reload(true);
   };
 
   return (

@@ -12,7 +12,6 @@ const {
   FilterTags,
 } = require("./src/db");
 
-
 const eventsData = require("./Datos_de_prueba/Eventos.json");
 const productsData = require("./Datos_de_prueba/Productos.json");
 const groupsData = require("./Datos_de_prueba/Grupos.json");
@@ -85,12 +84,10 @@ const chargeDummyData = async () => {
 
 // Syncing all the models at once.
 
-conn.sync({ force: false, alter: false }).then(() => {
-  //chargeDummyData();
+conn.sync({ force: true, alter: false }).then(() => {
+  chargeDummyData();
 
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
   });
 });
-
-

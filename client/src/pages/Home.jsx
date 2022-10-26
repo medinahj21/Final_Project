@@ -6,10 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Nav from "../components/Nav/Nav";
 
 import { getGroups } from "../redux/actions/actionsGroup";
-import { getUserFirestore } from "../redux/actions/auth";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/firebase.config.js";
 
 import Navphone from "../components/Nav/Navphone";
 import FormUser from "../components/Register/FormUser";
@@ -17,6 +13,8 @@ import FormUser from "../components/Register/FormUser";
 import "./Home.css";
 import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
+import Carousel from "../components/Home/Carousel";
+import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 
 function Home() {
   const dispatch = useDispatch();
@@ -50,15 +48,7 @@ function Home() {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
-  useEffect(() => {
-    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        dispatch(getUserFirestore(currentUser.uid));
-      }
-    });
-    return () => unSuscribe();
-  }, [dispatch]);
-
+ 
   return (
     <>
       {!isDesktop ? (
@@ -75,27 +65,39 @@ function Home() {
         />
       )}
       {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
-      {showRegister ? (
-        <LoginRegister
+      {!isDesktop && showLogin ? (
+        <LoginRegisteMob
           setShowLogin={setShowLogin}
           showLogin={showLogin}
           setShowAlta={setShowAlta}
           setShowRegister={setShowRegister}
         />
       ) : (
-        <></>
+        <>
+          {showRegister ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowAlta={setShowAlta}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+          {showLogin ? (
+            <LoginRegister
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowRegister={setShowRegister}
+            />
+          ) : (
+            <></>
+          )}
+        </>
       )}
-      {showLogin ? (
-        <LoginRegister
-          setShowLogin={setShowLogin}
-          showLogin={showLogin}
-          setShowRegister={setShowRegister}
-        />
-      ) : (
-        <></>
-      )}
-      <div className="home__container">
-        <h1>Club Wolves - Voleyball</h1>
+
+      <div className="home__carrousel">
+        <Carousel />
       </div>
       <div className="home__gruops" id={"oferta"}>
         {groups?.map((group, i) => {

@@ -113,20 +113,37 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-
-  const { name, location, start, admin, end, date, description, repetitive, state, player } = req.body;
+  const {
+    name,
+    location,
+    start,
+    admin,
+    end,
+    date,
+    description,
+    repetitive,
+    state,
+    player,
+  } = req.body;
   try {
-    if (!(name && start && end && location && date && admin)) {
+    if (!((name && start && end && location && date) /*&& admin*/)) {
       res.status(400).json({ error: "information is missing" });
     } else {
-
       if (repetitive === false) {
         const newEvent = await Event.create({
-          name, location, description, date, repetitive, state, start, end,
+          name,
+          location,
+          description,
+          date,
+          repetitive,
+          state,
+          start,
+          end,
         });
-        const addAdmin = await newEvent.addAdmin(admin);
+        /*const addAdmin = await newEvent.addAdmin(admin);
         const addPlayer = await newEvent.addPlayer(player);
-        addAdmin && addPlayer && res.status(200).send("the event has been created");
+        addAdmin && addPlayer && */
+        res.status(200).send("the event has been created");
       } else {
         for (let i = 0; i < date.length; i++) {
           const newEvent = await Event.create({
@@ -144,10 +161,10 @@ const createEvent = async (req, res) => {
         }
         res.status(200).send("the events has been created successfully");
       }
-
-
     }
-  } catch (error) { res.status(400).json({ error_DB: error.message }) }
+  } catch (error) {
+    res.status(400).json({ error_DB: error.message });
+  }
 };
 
 const postOrders = async (req, res) => {
@@ -188,7 +205,9 @@ const postOrders = async (req, res) => {
       // const validateOrderPlayer = await newOrder.addPlayer(player);
       validateOrderProduc && res.status(200).send("order created successfully");
     }
-  } catch (error) { console.log(error) }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const postPlayers = async (req, res) => {
@@ -207,25 +226,26 @@ const postPlayers = async (req, res) => {
         groupId,
       });
 
-      !newPlayer ? res.status(400).json({ message: "newPlayer was  not created" })
+      !newPlayer
+        ? res.status(400).json({ message: "newPlayer was  not created" })
         : res.json({ message: "Player was created successfully" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
   }
 };
+
 const postAdmins = async (req, res) => {
-  const { personal_info, permissions } = req.body;
+  const { personal_info, permissions, id } = req.body;
 
   try {
-
-    if (!(personal_info && permissions))
+    if (!(personal_info && permissions && id))
       res.status(400).json({ error: "missing info" });
-
     else {
       const newAdmin = await Admin.create({
         personal_info,
         permissions,
+        id,
       });
 
       !newAdmin
@@ -246,7 +266,6 @@ const postFilterTag = async (req, res) => {
     res.status(500).json({ error_DB: error.message });
   }
 };
-
 
 const postRoleRequest = async (req, res) => {
   const { id, newRole, userInfo, groupId } = req.body;
@@ -270,7 +289,6 @@ const postRoleRequest = async (req, res) => {
     console.log(error);
   }
 };
-
 
 module.exports = {
   asyncPostProduct,

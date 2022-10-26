@@ -10,7 +10,7 @@ const deudas = [
   },
   {
     deuda: 40000,
-    motivo: "Adny gato",
+    motivo: "Deuda de prueba",
     vto: "10-12-2022",
   },
 ];
@@ -34,10 +34,10 @@ function DebtCard({ month }) {
             <li className="card-price">$ {total}</li>
           </ul>
         </li>
-        {deudas.map((debt) => {
+        {deudas.map((debt, i) => {
           return (
             <>
-              <li className="card-item card-loss">
+              <li className="card-item card-loss" key={Math.random() * 500 + i}>
                 <h3 className="card-title">{debt.motivo}</h3>
 
                 <p className="card-info card-overdue">Vence: {debt.vto}</p>
