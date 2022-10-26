@@ -176,6 +176,8 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
             </div>
             <div>
               <Labels
+                setNewProduct={setNewProduct}
+                newProduct={newProduct}
                 handleTags={handleTags}
                 filterTags={allFilterTags}
                 tags={tags}

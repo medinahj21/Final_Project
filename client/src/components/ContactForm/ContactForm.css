@@ -1,0 +1,51 @@
+.contactForm-leftData-container{
+  padding: 30px;
+  margin-left: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contactForm-rightData-container{
+  padding: 30px;
+  margin-right: 50px;
+  position: fixed;
+  margin-left: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-networks{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  
+}
+
+.whatsapp-container{
+  width: 100%;
+}
+
+.whatsapp-icon{
+  width: 40%;
+}
+
+
+
+.go-back-button{
+  color: rgb(5, 5, 73);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.title-contact-form{
+  display: flex;
+}
+
+
+

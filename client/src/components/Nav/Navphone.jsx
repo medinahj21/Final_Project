@@ -169,7 +169,7 @@ function Navphone({
               <p href="!">
                 <li>Nosotros</li>
               </p>
-              <p href="!">
+              <p href="/contacto">
                 <li>Contacto</li>
               </p>
             </>

@@ -8,7 +8,9 @@ import { auth } from "../../firebase/firebase.config";
 import {
   updatePlayerCart,
   clearPlayerDetail,
+  getPlayerDetail,
 } from "../../redux/actions/player";
+import { setInitialCart } from "../../redux/actions/shoppingCart";
 import { clearCart } from "../../redux/actions/shoppingCart";
 import { getUserFirestore, logout } from "../../redux/actions/auth";
 
@@ -28,6 +30,10 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
+        dispatch(getPlayerDetail(currentUser.uid))
+        .then((action) => {
+        dispatch(setInitialCart(action.payload.shoppingCart));
+        });
       }
     });
     return () => unSuscribe();
@@ -85,7 +91,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
           <a href="oferta">Oferta</a>
           <a href="calendario">Calendario</a>
           <a href="Nosotros">Nosotros</a>
-          <a href="contanto">Contacto</a>
+          <a href="contacto">Contacto</a>
         </div>
       </div>
     </nav>

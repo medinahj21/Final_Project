@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -30,8 +31,8 @@ export default function ShowProductDetail() {
   } = { ...product };
 
   const dispatch = useDispatch();
-
-  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+  
+  const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);  
 
   const handleAddToCart = () => {
     //hay que hacer control de stock !!
@@ -40,8 +41,7 @@ export default function ShowProductDetail() {
     let productInCart = productsInCart?.find(
       (prod) =>
         prod.product.id === id &&
-        JSON.stringify(itemToAdd.modifiers) ===
-          JSON.stringify(prod.product.modifiers)
+        JSON.stringify(itemToAdd.modifiers) === JSON.stringify(prod.product.modifiers)
     );
 
     if (
@@ -140,6 +140,7 @@ export default function ShowProductDetail() {
                     </select>
                   </label>
                 );
+
               }
             })}
             <h4>Producto bajo {isOrder ? "pedido" : "stock"}</h4>
