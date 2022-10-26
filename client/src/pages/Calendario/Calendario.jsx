@@ -87,6 +87,7 @@ export default function Calendario() {
         initialView="dayGridMonth"
         locale={esLocale}
         height={800}
+        handleWindowResize={true}
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",

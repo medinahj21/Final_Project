@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from '../../redux/actions/actionsGroup'
 import CardGroup from "./CardGroup/CardGroup";
 import FormGroup from "./CreateGroup/FormGroup";
 import GroupDetail from "./GroupDetail/GroupDetail";
@@ -9,6 +9,8 @@ import SelectGroups from "./SelectGroups";
 import "./Groups.css";
 
 export default function Groups() {
+  const dispatch = useDispatch();
+
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const groups = useSelector((state) => state.groupReducer.groups);
   const { playerDetail } = useSelector((state) => state.playerReducer);
@@ -19,6 +21,12 @@ export default function Groups() {
   const [allGroups, setAllGroups] = useState([]);
   const [category, setCategory] = useState(groups.map((e) => e.category));
   const [values, setValues] = useState({ category: "", genre: "" })
+
+  useEffect(() => {
+    dispatch(actions.getGroups())    
+    
+  }, [dispatch])
+  
 
   useEffect(() => {
     setAllGroups(groups);

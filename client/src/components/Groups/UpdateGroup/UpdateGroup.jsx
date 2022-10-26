@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UploadImage from '../../UploadImage/UploadImage'
 import * as actions from "../../../redux/actions/actionsGroup";
 import FormUser from "../../Register/FormUser";
+import Swal from 'sweetalert2'
 
 import "./UpdateGroup.css";
 
@@ -13,12 +14,13 @@ export default function UpdateGroup({
   setUpdate,
   setShowDetail,
   isPlayer,
+  setCreatedSuccess,
 }) {
   const dispatch = useDispatch();
 
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
+  const [image, setImage] = useState(groupDetail.image)
   const [requestSent, setRequestSent] = useState(false);
   const [isForm, setIsForm] = useState(false);
 
@@ -26,13 +28,28 @@ export default function UpdateGroup({
     setInputUpdate(groupDetail);
   }, [groupDetail]);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (window.confirm("Estas seguro quieres guardar?")) {
-      setUpdate(false);
-      dispatch(actions.updateGroup(id, inputUpdate));
-      dispatch(actions.getGroups());
-    }
+    Swal.fire({
+      title: "Estas seguro quieres guardar?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      confirmButtonColor: '#181A3A',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUpdate(false);
+        dispatch(actions.updateGroup(id, inputUpdate));
+        dispatch(actions.getGroups());
+        setCreatedSuccess(true)
+        Swal.fire('Save!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+        setUpdate(false);
+      }
+    })
   };
 
   const handleChange = (e) => {
@@ -44,9 +61,28 @@ export default function UpdateGroup({
     });
   };
 
+  useEffect(() => {
+    setInputUpdate((prevState) => {
+      return {
+        ...prevState,
+        image: image,
+      }
+
+    })
+  }, [image])
+
   const handleUpdate = () => {
     if (update) {
-      if (window.confirm("¿Quieres salir de editar?")) setUpdate(!update);
+      Swal.fire({
+        title: "¿Quieres salir de editar?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#181A3A',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, salir!'
+      }).then((result) => {
+        if (result.isConfirmed) setUpdate(!update)
+      });
     } else {
       setUpdate(!update);
     }
@@ -82,16 +118,18 @@ export default function UpdateGroup({
 
   return (
     <div className="update__container">
-      {!isPlayer && (
-        <button className="update__button" onClick={() => setShowDetail(false)}>
-          Volver
-        </button>
+      {isPlayer || userInfoFirestore.isAdmin && (
+        !update ?
+          <button className="update__button" onClick={() => setShowDetail(false)}>
+            Volver
+          </button>
+          : <></>
       )}
       {update ?
-        <UploadImage />
-       : 
-       <img className="update__image" src={groupDetail.image} alt="grupos" />
-        }
+        <UploadImage setImage={setImage} image={image} />
+        :
+        <img className="update__image" src={groupDetail.image} alt="grupos" />
+      }
       {userInfoFirestore.isAdmin ? (
         <button className="update__button" onClick={() => handleUpdate()}>
           {update ? "Cancelar" : "Editar"}
@@ -224,13 +262,14 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      {isPlayer.id && userInfoFirestore?.uid ? (
+      {isPlayer.id || userInfoFirestore?.uid ? (
         <button
           className="update__button"
           onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
           disabled={requestSent}
         >
-          {update ? "Aceptar" : "Inscribirme"}
+          {update && "Aceptar"}
+          {!userInfoFirestore.isAdmin && "Incribirme"}
         </button>
       ) : (
         <>

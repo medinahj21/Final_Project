@@ -13,12 +13,17 @@ export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
 
   const [update, setUpdate] = useState(false);
+  const [createdSuccess, setCreatedSuccess] = useState(false);
 
   useEffect(() => {
     dispatch(getGroupDetail(id));
-
     return () => dispatch(cleanGroupDetail());
   }, [dispatch, id]);
+
+  if (createdSuccess) {
+    dispatch(getGroupDetail(id));
+    setCreatedSuccess(false)
+  }
 
   return (
     <UpdateGroup
@@ -28,6 +33,7 @@ export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
       setUpdate={setUpdate}
       setShowDetail={setShowDetail}
       isPlayer={isPlayer}
+      setCreatedSuccess={setCreatedSuccess}
     />
   );
 }
