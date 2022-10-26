@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as action from "../../../redux/actions/event";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import Tags from "../../../components/Tag/Tags";
 
@@ -12,8 +9,8 @@ import s from "../FormEvent/FormEvent.module.css";
 
 export default function FormCalendario({ handleModal, getEvents }) {
   const dispatch = useDispatch();
-  const [isUpdate, setisUpdate] = useState(false)
-  const [isRepetitive, setIsRepetitive] = useState('');
+  const [isUpdate, setisUpdate] = useState(false);
+  const [isRepetitive, setIsRepetitive] = useState("");
   const [inputs, setInputs] = useState({
     name: "",
     state: "",
@@ -21,15 +18,12 @@ export default function FormCalendario({ handleModal, getEvents }) {
     location: "",
     repetitive: "",
     date: [],
+    groups: [],
     start: "",
     end: "",
   });
-
-  const notify = () =>
-    toast.success("Event has been created successfully", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
+  const groups = useSelector((state) => state.groupReducer.groups);
+  console.log(groups);
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
@@ -52,8 +46,21 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setInputs({
       ...inputs,
       date: [...inputs.date, e.target.value],
-    })
-  }
+    });
+  };
+  const handleChangeGroups = (e) => {
+    let valor = e.target.value;
+    if (valor === "") {
+      return alert("Este campo no puede ser vacio");
+    }
+    if (inputs.groups.includes(valor)) {
+      return alert("El grupo ya fue añadido a la lista");
+    }
+    setInputs({
+      ...inputs,
+      groups: [...inputs.groups, e.target.value],
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +68,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
     if (response.error) return alert(`algo salio mal: ${response.error}`);
     handleModal();
     setInputs("");
-    notify();
+
     alert("Event has been created successfully");
     dispatch(getEvents());
   };
@@ -76,11 +83,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setIsRepetitive(false);
   };
 
-
   console.log(inputs);
   return (
     <div className={s.formEventContainer}>
-      <ToastContainer />
       <section className={s.itemHeaderContainer}>
         <button type="button" onClick={() => handleModal()}>
           X
@@ -96,16 +101,15 @@ export default function FormCalendario({ handleModal, getEvents }) {
               Selecciona una opción
             </option>
             <option value="Pending">Pendiente</option>
-            {isUpdate ?
+            {isUpdate ? (
               <>
                 <option value="Canceled">Cancelado</option>
                 <option value="Postponed">Aplazado</option>
                 <option value="Finished">Finalizado</option>
-
               </>
-              :
+            ) : (
               ""
-            }
+            )}
           </select>
         </div>
       </section>
@@ -207,6 +211,38 @@ export default function FormCalendario({ handleModal, getEvents }) {
           )
         ) : (
           ""
+        )}
+        <div className={s.item}>
+          <label htmlFor="groups">Grupos Convocados</label>
+          <select name="groups" onChange={(e) => handleChangeGroups(e)}>
+            <option selected value="s" disabled={true}>
+              Selecciona una opción
+            </option>
+            {groups.map((group) => {
+              return (
+                <option value={group.id} key={group.id}>
+                  {group.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        {inputs.groups.length ? (
+          <div>
+            <h4>Has seleccionado estos grupos: </h4>
+            <div className={s.groupsSelectedContainer}>
+              {inputs.groups?.map((el) => {
+                return (
+                  <div key={el} className={s.groupsSelected}>
+                    <p>{groups.find((gr) => gr.id === el).name} </p>
+                    <div>✖</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <br></br>
         )}
       </section>
       <button className={s.buttonSubmitEvent} onClick={(e) => handleSubmit(e)}>
