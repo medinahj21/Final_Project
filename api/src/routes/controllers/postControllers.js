@@ -204,6 +204,7 @@ const postPlayers = async (req, res) => {
   const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
     req.body;
 
+
   try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
     else {
@@ -222,6 +223,7 @@ const postPlayers = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
+    console.log(error.message)
   }
 };
 
@@ -265,9 +267,10 @@ const postProductRequest = async (req, res) => {
     productId,
     playerId
   } = req.body;
+  console.log("bodyyy",req.body)
   try {
     if (!(infoProduct && productId && playerId)) {
-      res.status(400).json({ msg: "mising information" })
+      res.status(400).json({ msg: "missing information" })
     } else {
       const newRequest = await ProductRequest.create({
         infoProduct,
@@ -276,10 +279,11 @@ const postProductRequest = async (req, res) => {
       await newRequest.addProduct(productId)
 
       newRequest ?
-        res.json({ msg: "procces sussessfuly" })
-        : res.json({ msg: "something was wrong" })
+        res.json({ msg: "proccess sussessfuly" })
+        : res.json({ msg: "something went wrong" })
     }
   } catch (error) {
+    res.status(500).json({error:error.message})
     console.log(error);
   }
 }

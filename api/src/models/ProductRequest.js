@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             primaryKey: true
         },
         infoProduct: {
-            type: DataTypes.ARRAY(DataTypes.JSON),
+            type: DataTypes.JSON,
             allowNull: false
           }
     });
