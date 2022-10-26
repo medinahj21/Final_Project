@@ -26,8 +26,8 @@ function Shop() {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   useEffect(() => {
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
-  }, [dispatch, productsInCart, userInfoFirestore.uid]);
+    if(!userInfoFirestore.isAdmin) dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+  }, [dispatch, productsInCart, userInfoFirestore]);
 
   useEffect(() => {
     async function getTags() {
