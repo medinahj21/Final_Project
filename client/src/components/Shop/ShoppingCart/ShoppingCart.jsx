@@ -34,9 +34,9 @@ const ShoppingCart = () => {
               })}
           </ul>
         ) : (
-          <h3 className="main-color-text">
+          <h4 className="main-color-text">
             Aún no hay productos en el carrito
-          </h3>
+          </h4>
         )}
 
         <a href="#!" className="button">

@@ -37,6 +37,7 @@
 }
 
 .select_content {
+    text-align: center;
     width: 100%;
     appearance: none;
     cursor: pointer;
@@ -52,7 +53,7 @@
     display: flex;
     width: 20em;
     height: 3em;
-    border-radius: .25em;
+    border-radius: 10px;
     overflow: hidden;
 }
 

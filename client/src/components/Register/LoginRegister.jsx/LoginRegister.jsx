@@ -40,7 +40,7 @@ function LoginRegister({
   const notifyLoad = (message) =>
     toast.loading(message, {
       position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 10000,
+      autoClose: 8000,
     });
 
   const notify = (message) =>

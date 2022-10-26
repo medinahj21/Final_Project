@@ -6,10 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Nav from "../components/Nav/Nav";
 
 import { getGroups } from "../redux/actions/actionsGroup";
-import { getUserFirestore } from "../redux/actions/auth";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/firebase.config.js";
 
 import Navphone from "../components/Nav/Navphone";
 import FormUser from "../components/Register/FormUser";
@@ -19,6 +15,7 @@ import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
 import Carousel from "../components/Home/Carousel";
 import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
+import ContactForm from "../components/ContactForm/ContactForm";
 
 function Home() {
   const dispatch = useDispatch();
@@ -52,7 +49,6 @@ function Home() {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
- 
   return (
     <>
       {!isDesktop ? (
@@ -119,6 +115,9 @@ function Home() {
             />
           );
         })}
+      </div>
+      <div className="home_footer">
+        <ContactForm />
       </div>
     </>
   );

@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import { validateClick } from "../../../utils/validateClick";
 
 import { CgProfile } from "react-icons/cg";
-import { RiAdminLine } from "react-icons/ri";
+import { RiAdminLine, RiDeviceRecoverLine } from "react-icons/ri";
 import { BsCalendarEvent } from "react-icons/bs";
 import {
   AiOutlineClose,
   AiOutlineMenu,
   AiOutlineShopping,
 } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
 import { SlHome } from "react-icons/sl";
 
 import "./NavbarDash.css";
@@ -105,18 +106,6 @@ function NavbarDash({ setClickChoice }) {
                       {isPlayer?.id ? "Mi grupo" : "Grupos"}
                     </a>
                   </li>
-
-                  <li>
-                    <a href="#!" onClick={() => ResetPassword(email)}>
-                      <i className="ion-android-star-outline"></i>Cambiar
-                      contraseña
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" onClick={handleLogout}>
-                      <i className="ion-android-star-outline"></i>Cerrar sesión
-                    </a>
-                  </li>
                 </ul>
               </li>
               {userInfoFirestore.isAdmin && (
@@ -195,7 +184,7 @@ function NavbarDash({ setClickChoice }) {
                     <i className="shop-icon">
                       <AiOutlineShopping />
                     </i>{" "}
-                    <span className="">Tienda</span>
+                    <span>Tienda</span>
                   </Link>
                 </li>
               ) : (
@@ -207,7 +196,7 @@ function NavbarDash({ setClickChoice }) {
                     <i className="shop-icon">
                       <AiOutlineShopping />
                     </i>{" "}
-                    <span className="">Tienda</span>
+                    <span>Tienda</span>
                   </Link>
                 </li>
               ) : (
@@ -218,8 +207,24 @@ function NavbarDash({ setClickChoice }) {
                   <i className="home-icon">
                     <SlHome />
                   </i>{" "}
-                  <span className="">Inicio</span>
+                  <span>Inicio</span>
                 </Link>
+              </li>
+              <li>
+                <a href="#!" onClick={() => ResetPassword(email)}>
+                  <i className="reset-icon">
+                    <RiDeviceRecoverLine />
+                  </i>{" "}
+                  <span>Cambiar contraseña</span>
+                </a>
+              </li>
+              <li>
+                <a href="#!" onClick={handleLogout}>
+                  <i className="logout-icon">
+                    <BiLogOut />
+                  </i>{" "}
+                  <span>Cerrar sesión</span>
+                </a>
               </li>
             </ul>
           </nav>

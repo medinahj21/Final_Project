@@ -6,10 +6,6 @@ import Dashboard from "../pages/Dashboard";
 import Shop from "../pages/Shop";
 
 import ProtectedRoute from "./ProtectedRoutes";
-import ProductDetail from "../components/Shop/ProductDetail/ProductDetail";
-import Calendario from "../components/Calendar/Calendario";
-import ContactForm from "../components/ContactForm/ContactForm";
-import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
@@ -18,7 +14,6 @@ function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path= "/contacto" element= {<ContactForm/>} />
       <Route
         path="/products"
         element={

@@ -3,5 +3,22 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.519)
+}
+
+.cart-button-nav {
+  position: absolute;
+  align-self: center;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  height: fit-content;
+  padding: .5rem;
+  right: 100px;
+}
+
+@media (max-width:600px) {
+  .cart-button-nav {
+    top: 16px;
+    right: 35px;
+  }
 }
