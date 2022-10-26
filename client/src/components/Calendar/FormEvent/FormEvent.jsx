@@ -13,7 +13,7 @@ import s from "../FormEvent/FormEvent.module.css";
 export default function FormCalendario({ handleModal, getEvents }) {
   const dispatch = useDispatch();
   const [isUpdate, setisUpdate] = useState(false)
-  const [isRepetitive, setIsRepetitive] = useState("");
+  const [isRepetitive, setIsRepetitive] = useState('');
   const [inputs, setInputs] = useState({
     name: "",
     state: "",
@@ -69,8 +69,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
   const handleRepetitive = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
     if (e.target.value === "true") {
-      setInputs({ ...inputs, date: [], })
-      return setIsRepetitive(true)
+      setInputs({ ...inputs, date: [] });
+      setInputs({ ...inputs, [e.target.name]: e.target.value });
+      return setIsRepetitive(true);
     }
     setIsRepetitive(false);
   };
@@ -192,7 +193,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-                <input type="date" name='date' onChange={handleChange} />
+                <input type="date" name="date" onChange={handleChangeDays} />
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>
