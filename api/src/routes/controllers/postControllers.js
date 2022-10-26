@@ -212,7 +212,7 @@ const postOrders = async (req, res) => {
 
 const postPlayers = async (req, res) => {
   const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
-    req.body;
+    req.body; 
 
   try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });

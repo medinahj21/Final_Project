@@ -27,7 +27,7 @@ export default function Calendario() {
 
   useEffect(() => {
     let eventMap = events?.map((ev) =>
-      ev.state == "Pending"
+      ev.state === "Pending"
         ? [
             {
               title: ev.name,
