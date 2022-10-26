@@ -37,7 +37,7 @@ function SelectGroups({ filterByGenre, filterByCategory }) {
           onChange={(e) => filterByCategory(e)}
         >
           <option value={"category"} disabled={true}>
-            Categoria
+            Categoría
           </option>
           <option key={"todos"} value="all">
             Todos

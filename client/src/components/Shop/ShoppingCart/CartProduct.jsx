@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   incrementProductInCart,
   decrementProductInCart,
   removeProductFromCart,
-} from "../../redux/actions/shoppingCart";
+} from "../../../redux/actions/shoppingCart";
 import { FiTrash2 } from "react-icons/fi";
 
 

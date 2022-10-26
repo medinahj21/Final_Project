@@ -1,6 +1,6 @@
 import React from "react";
 
-import FOTO from "../../images/icono-marco-fotos-foto.webp";
+import FOTO from "../../../images/icono-marco-fotos-foto.webp";
 
 function ProductProperties({
   newProduct,

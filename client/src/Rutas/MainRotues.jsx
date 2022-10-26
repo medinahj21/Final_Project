@@ -3,26 +3,31 @@ import { useSelector } from "react-redux";
 
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
-import Shop from "../pages/Shop/Shop";
+import Shop from "../pages/Shop";
+
 import ProtectedRoute from "./ProtectedRoutes";
-import ProductDetail from "../pages/Shop/ProductDetail";
-import Calendario from "../pages/Calendario/Calendario";
+import ProductDetail from "../components/Shop/ProductDetail/ProductDetail";
+import Calendario from "../components/Calendar/Calendario";
 import ContactForm from "../components/ContactForm/ContactForm";
 import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 
 function MainRoutes() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const { playerDetail } = useSelector((state) => state.playerReducer);
 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login2" element={<LoginRegisteMob />} />
-      <Route path="/products" element={<Shop />} />
-      {/*Prueba del Cart*/}
-      <Route path= "/contacto" element={<ContactForm/>} />
-      <Route path="/products/:id" element={<ProductDetail />} />
-      <Route path="/calendario" element={<Calendario />} />
-
+      <Route
+        path="/products"
+        element={
+          <ProtectedRoute
+            isAllowed={!playerDetail.error || userInfoFirestore.isAdmin}
+          >
+            <Shop />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="dashboard-player"
         element={

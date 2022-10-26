@@ -19,6 +19,24 @@
     height: 400px;
 }
 
+.button-delete {
+    border-color: red;
+}
+
+.button-add {
+    border-color: green;
+}
+
+.button-delete:hover {
+    background-color: red;
+    color: white;
+}
+
+.button-add:hover {
+    background-color: green;
+    color: white;
+}
+
 @keyframes changeBG {
     0% {
         background-position: 0% 50%;
@@ -86,5 +104,4 @@
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
-@media screen and (max-width: 600px) {
-}
+@media screen and (max-width: 600px) {}

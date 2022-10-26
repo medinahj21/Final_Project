@@ -4,24 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../firebase/firebase.config";
 
+import { getPlayerDetail } from "../redux/actions/player";
+import { setInitialCart } from "../redux/actions/shoppingCart";
 import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
 import InfoCard from "../components/UI/InfoCard";
-import Navphone from "../components/Nav/Navphone";
 import DebtCard from "../components/Dashboard/DebtCard";
 import Inscriptions from "../components/Dashboard/Inscriptions";
 import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
+import Calendario from "../components/Calendar/Calendario";
 
 import "./Dashboard.css";
-import Calendario from "./Calendario/Calendario";
-import { getPlayerDetail } from "../redux/actions/player";
-import { setInitialCart } from "../redux/actions/shoppingCart";
 
 function Admin() {
   const dispatch = useDispatch();
-  const [isDesktop, setDesktop] = useState(false);
 
   const { allUserFirestore, userInfoFirestore, clickChoicePersist } =
     useSelector((state) => state.authReducer);
@@ -35,24 +33,6 @@ function Admin() {
       )
     );
   }, [dispatch, playerDetail]);
-
-  useEffect(() => {
-    if (window.innerWidth > 1450) {
-      setDesktop(true);
-    } else {
-      setDesktop(false);
-    }
-
-    const updateMedia = () => {
-      if (window.innerWidth > 1450) {
-        setDesktop(true);
-      } else {
-        setDesktop(false);
-      }
-    };
-    window.addEventListener("resize", updateMedia);
-    return () => window.removeEventListener("resize", updateMedia);
-  }, []);
 
   useEffect(() => {
     //llamar todos los players si es admin
@@ -71,13 +51,15 @@ function Admin() {
     dispatch(clickChoiceHandler(clickChoice));
   }, [clickChoice, dispatch]);
 
+  const sortUsers =
+    allUserFirestore &&
+    allUserFirestore?.sort((a, b) => {
+      return Number(b.isAdmin) - Number(a.isAdmin);
+    });
+
   return (
     <>
-      {isDesktop ? (
-        <NavbarDash setClickChoice={setClickChoice} />
-      ) : (
-        <Navphone setClickChoice={setClickChoice} isDashboard={true} />
-      )}
+      <NavbarDash setClickChoice={setClickChoice} />
 
       <div className="dashboard__content">
         {clickChoice.isPerfil && (
@@ -121,15 +103,13 @@ function Admin() {
         {clickChoice.isSocios && (
           <div className="cards__container">
             {allUserFirestore ? (
-              allUserFirestore.map((user, i) => {
-                return !user.isAdmin ? (
+              sortUsers.map((user, i) => {
+                return (
                   <InfoCard
                     className={"infoAdmin"}
                     key={i}
                     userInfoFirestore={user}
                   />
-                ) : (
-                  <></>
                 );
               })
             ) : (

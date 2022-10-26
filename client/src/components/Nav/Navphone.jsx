@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import "./Navphone.css";
-import { logout, getUserFirestore } from "../../redux/actions/auth";
-import { validateClick } from "../../utils/validateClick";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
 
+import { logout, getUserFirestore } from "../../redux/actions/auth";
 import {
   updatePlayerCart,
-  clearPlayerDetail,
   getPlayerDetail,
+  clearPlayerDetail,
 } from "../../redux/actions/player";
-import { setInitialCart } from "../../redux/actions/shoppingCart";
-import { clearCart } from "../../redux/actions/shoppingCart";
+import { clearCart, setInitialCart } from "../../redux/actions/shoppingCart";
+
+import { validateClick } from "../../utils/validateClick";
+
+import { onAuthStateChanged } from "firebase/auth";
+
+import { auth } from "../../firebase/firebase.config";
+
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
+import "./Navphone.css";
 
 function Navphone({
   setClickChoice,
@@ -50,10 +55,9 @@ function Navphone({
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        dispatch(getPlayerDetail(currentUser.uid))
-        .then(action =>{
-          dispatch(setInitialCart(action.payload.shoppingCart))
-        } )
+        dispatch(getPlayerDetail(currentUser.uid)).then((action) => {
+          dispatch(setInitialCart(action.payload.shoppingCart));
+        });
       }
     });
     return () => unSuscribe();
@@ -68,7 +72,22 @@ function Navphone({
         <span></span>
         <span></span>
 
+        {productsInCart?.length > 0 ? (
+          <div className="nav_cart">
+            <AiOutlineShoppingCart />
+          </div>
+        ) : (
+          <></>
+        )}
+
         <ul id="menu">
+          {true ? (
+            <div className="nav_cart nav_cart_phone">
+              <AiOutlineShoppingCart />
+            </div>
+          ) : (
+            <></>
+          )}
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>

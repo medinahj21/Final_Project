@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageNumPrev } from "../../redux/actions/products";
+
+import { setPageNumPrev } from "../../../redux/actions/products";
+import { clearCart } from "../../../redux/actions/shoppingCart";
+
+import ProductCard from "./ProductCard";
+import Paginated from "../Paginated";
+
 import "./ShowProducts.css";
 
-import ProductCard from "../../components/ProductCard/ProductCard";
-import Paginated from "./Paginated";
-import { clearCart } from "../../redux/actions/shoppingCart";
-
-import { getPlayerDetail } from "../../redux/actions/player";
+import { getPlayerDetail } from "../../../redux/actions/player";
 
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();

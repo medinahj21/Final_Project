@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   incrementProductInCart,
   addToCart,
-} from "../../redux/actions/shoppingCart";
+} from "../../../redux/actions/shoppingCart";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import "./ShowProductDetail.css";
 
 export default function ShowProductDetail() {
   const product = useSelector(

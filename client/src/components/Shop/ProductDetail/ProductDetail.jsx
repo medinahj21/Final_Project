@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+
 import {
   cleanProductDetail,
   getProductDetail,
-} from "../../redux/actions/products";
-import CreateProduct from "./CreateProduct";
+} from "../../../redux/actions/products";
+
+import CreateProduct from "../CreateProducts/CreateProduct";
 import ShowProductDetail from "./ShowProductDetail";
 
 import "./ShowProductDetail.css";
 
 export default function ProductDetail({id, setShowDetail}) {
-  // let { id } = useParams();
 
   const dispatch = useDispatch();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
