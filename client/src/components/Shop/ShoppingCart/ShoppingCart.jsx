@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
+
 import CartProduct from "./CartProduct";
 
 import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
@@ -39,9 +41,11 @@ const ShoppingCart = () => {
           </h3>
         )}
 
-        <a href="#!" className="button">
+        { !userInfoFirestore.isAdmin &&
+          <a href="#!" className="button">
           Comprar
         </a>
+        }
       </div>
     </>
   );

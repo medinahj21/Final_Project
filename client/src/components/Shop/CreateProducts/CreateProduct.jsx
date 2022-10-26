@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,18 +6,19 @@ import {
   createProduct,
   getFilterTags,
   updateProduct,
-} from "../../redux/actions/products";
-import { validate } from "./utils/validate";
+} from "../../../redux/actions/products";
+
+import { validate } from "../../../utils/validate";
 
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
-import "./CreateProduct.css";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import "./CreateProduct.css";
 
 export default function CreateProduct({ isCreate, setCreationDiv }) {
   const notify = (message) => toast.success(message);
