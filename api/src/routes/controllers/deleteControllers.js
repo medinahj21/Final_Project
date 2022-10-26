@@ -4,6 +4,7 @@ const {
   Group,
   Product,
   RoleRequest,
+  ProductRequest,
   Admin,
 } = require("../../db");
 const rgExp =
@@ -127,6 +128,24 @@ const deleteAdmin = async (req, res) => {
   }
 };
 
+const deleteProductRequest = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!id) {
+      res.status(401).json({ error: "Not authorized" });
+    } else {
+      if (id) {
+        await ProductRequest.destroy({ where: { id } });
+        res.json({ message: "producRequest has been deleted successfully" });
+      } else {
+        res.status(400).json({ message: "Bad request" });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   asyncDeleteProduct,
   deleteAdmin,
@@ -134,4 +153,5 @@ module.exports = {
   deleteEvent,
   deletePlayers,
   deleteRoleRequest,
+  deleteProductRequest
 };

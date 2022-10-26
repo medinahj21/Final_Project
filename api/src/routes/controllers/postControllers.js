@@ -33,7 +33,7 @@ const asyncPostProduct = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
-    if (!name || !price || !description) {
+    if (!name || !price || !description || !isOrder || !paymentTerm || !state) {
       res.status(404).json({ message: "missing required fields" });
     } else {
       const newProduct = await Product.create({
@@ -49,8 +49,9 @@ const asyncPostProduct = async (req, res) => {
         FilterTags,
       });
 
-      if (FilterTags) newProduct.addFilterTags(FilterTags);
-      return res.status(200).json(newProduct);
+      FilterTags && newProduct.addFilterTags(FilterTags);
+
+      return res.status(200).json({ msg: "product created" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
@@ -113,18 +114,7 @@ const postGroups = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const {
-    name,
-    location,
-    start,
-    admin,
-    end,
-    date,
-    description,
-    repetitive,
-    state,
-    player,
-  } = req.body;
+  const { name, location, start, admin, end, date, description, repetitive, state, player } = req.body;
   try {
     if (!((name && start && end && location && date) /*&& admin*/)) {
       res.status(400).json({ error: "information is missing" });
@@ -241,6 +231,7 @@ const postAdmins = async (req, res) => {
   try {
     if (!(personal_info && permissions && id))
       res.status(400).json({ error: "missing info" });
+
     else {
       const newAdmin = await Admin.create({
         personal_info,
@@ -266,6 +257,32 @@ const postFilterTag = async (req, res) => {
     res.status(500).json({ error_DB: error.message });
   }
 };
+
+
+const postProductRequest = async (req, res) => {
+  const {
+    infoProduct,
+    productId,
+    playerId
+  } = req.body;
+  try {
+    if (!(infoProduct && productId && playerId)) {
+      res.status(400).json({ msg: "mising information" })
+    } else {
+      const newRequest = await ProductRequest.create({
+        infoProduct,
+        playerId
+      })
+      await newRequest.addProduct(productId)
+
+      newRequest ?
+        res.json({ msg: "procces sussessfuly" })
+        : res.json({ msg: "something was wrong" })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const postRoleRequest = async (req, res) => {
   const { id, newRole, userInfo, groupId } = req.body;
@@ -299,4 +316,5 @@ module.exports = {
   postFilterTag,
   postAdmins,
   postRoleRequest,
+  postProductRequest
 };

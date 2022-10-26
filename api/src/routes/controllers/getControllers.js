@@ -7,6 +7,7 @@ const {
   Admin,
   FilterTags,
   RoleRequest,
+  ProductRequest
 } = require("../../db");
 const { Sequelize, Model, Op } = require("sequelize");
 const rgExp =
@@ -312,6 +313,32 @@ const getRoleRequest = async (req, res) => {
   }
 };
 
+const getProductRequest = async(req, res) =>{
+  const { id } = req.params;
+  try {
+    if (rgExp.test(id)) {
+      const request = await ProductRequest.findByPk(id, {
+        include: [
+          { model: Player, attributes: ["id"] },
+          { model: Product, attributes: ["id"] },
+        ],
+      });
+      !request
+        ? res.status(400).json({ message: " request is empty" })
+        : res.send(request);
+    } else {
+      const request = await ProductRequest.findAll({
+        include: [
+          { model: Player, attributes: ["id"] },
+          { model: Product, attributes: ["id"] },
+        ],
+      });
+      !request ? res.status(400).json({ message: " empty" }) : res.send(request);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -323,4 +350,5 @@ module.exports = {
   getPlayers,
   getAdmins,
   getRoleRequest,
+  getProductRequest
 };
