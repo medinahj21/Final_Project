@@ -25,6 +25,7 @@ function Shop() {
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
   useEffect(() => {
     dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
   }, [dispatch, productsInCart, userInfoFirestore.uid]);

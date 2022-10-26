@@ -1,6 +1,8 @@
+import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
 import { toast, ToastContainer } from "react-toastify";
+import { auth } from "../../../firebase/firebase.config";
 
 import { loginWhitEmailAndPassword } from "../../../redux/actions/auth";
 
@@ -35,8 +37,16 @@ function LoginRegister({
       position: toast.POSITION.BOTTOM_RIGHT,
     });
 
+  const notifyLoad = (message) =>
+    toast.loading(message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 10000,
+    });
+
   const notify = (message) =>
-    toast.success(message, { position: toast.POSITION.BOTTOM_RIGHT });
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
 
   const changeHandler = (e) => {
     setCredentials((prevState) => {
@@ -51,15 +61,27 @@ function LoginRegister({
     e.preventDefault();
     try {
       await loginWhitEmailAndPassword(credentials.email, credentials.password);
+      
       setCredentials({
         email: "",
         password: "",
       });
-      notify("Bienvenid@ !!!");
+
+      notifyLoad("Iniciando usuario");
+
+      setTimeout(() => {
+        const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+          if (currentUser) {
+            notify(`Bienvendi@ ${currentUser.email}`);
+          }
+        });
+        unSuscribe();
+      }, 5000);
+
       setTimeout(() => {
         setShowLogin(false);
         setShowRegister(false);
-      }, 2000);
+      }, 6000);
     } catch (error) {
       //manejo de errores
       console.log(error.message);

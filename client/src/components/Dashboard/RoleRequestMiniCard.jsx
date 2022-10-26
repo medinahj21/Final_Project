@@ -103,7 +103,7 @@ export default function RoleRequestMiniCard(roleRequest) {
     <>
       <ToastContainer />
       <div className="row">
-        <div className="cell" data-title="iamge">
+        <div className="cell" data-title="image">
           <label>espacio img</label>
         </div>
         <div className="cell" data-title="name">

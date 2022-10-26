@@ -47,9 +47,17 @@ function NavbarDash({ setClickChoice }) {
   return (
     <>
       <span onClick={() => setShowMenu(!showMenu)} className="showAction">
-        {!showMenu ? <AiOutlineClose /> : <AiOutlineMenu />}
+        {showMenu ? (
+          <div className="menu-icon">
+            <AiOutlineClose />
+          </div>
+        ) : (
+          <div className="menu-icon">
+            <AiOutlineMenu />
+          </div>
+        )}
       </span>
-      <section className={showMenu ? "app" : "show-navbar"}>
+      <section className={!showMenu ? "app" : "show-navbar"}>
         <aside className="sidebar">
           <header className="header-sidebar">Menu</header>
           <nav className="sidebar-nav">
