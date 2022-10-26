@@ -20,22 +20,6 @@
     font-weight: bolder;
 }
 
-
-/* .sidebar .sidebar-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    background-color: grey;
-    margin: 0 auto;
-    position: relative;
-    top: 1rem;
-    box-shadow: 0 0 3px 0 white;
-}  */
-
 .sidebar-nav {
     position: fixed;
     height: 100%;
@@ -53,8 +37,6 @@
     display: block;
     padding: 0;
     margin: 0;
-    /* position: relative;
-    top: 2rem; */
 }
 
 .sidebar-nav ul li {
@@ -150,4 +132,34 @@
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1424px) {
+    .sidebar {
+        z-index: 9999;
+    }
+
+    .app {
+        display: none;
+    }
+
+    .show-navbar {
+        display: block;
+    }
+
+    .showAction {
+        left: 20px;
+        top: 5px;
+        font-size: 2rem;
+        display: block;
+        position: absolute;
+        z-index: 999999999;
+    }
+
+    .header-sidebar{
+        text-align: center;
+    }
 }

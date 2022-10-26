@@ -13,12 +13,14 @@ export default function UpdateGroup({
   update,
   setUpdate,
   setShowDetail,
-  isPlayer,
+  allowBack,
   setCreatedSuccess,
 }) {
   const dispatch = useDispatch();
 
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const { playerDetail } = useSelector((state) => state.playerReducer);
+
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
   const [image, setImage] = useState(groupDetail.image)
   const [requestSent, setRequestSent] = useState(false);
@@ -115,15 +117,12 @@ export default function UpdateGroup({
       alert("¿aún no te registras?");
     }
   };
-
   return (
     <div className="update__container">
-      {isPlayer || userInfoFirestore.isAdmin && (
-        !update ?
-          <button className="update__button" onClick={() => setShowDetail(false)}>
-            Volver
-          </button>
-          : <></>
+      {(!playerDetail.id || allowBack) && (
+        <button className="update__button" onClick={() => setShowDetail(false)}>
+          Volver
+        </button>
       )}
       {update ?
         <UploadImage setImage={setImage} image={image} />
@@ -262,25 +261,27 @@ export default function UpdateGroup({
           src={groupDetail.location}
         ></iframe>
       </div>
-      {isPlayer.id || userInfoFirestore?.uid ? (
-        <button
-          className="update__button"
-          onClick={update ? (e) => handleSubmit(e) : (e) => handleSuscribe()}
-          disabled={requestSent}
-        >
-          {update && "Aceptar"}
-          {!userInfoFirestore.isAdmin && "Incribirme"}
-        </button>
-      ) : (
-        <>
-          {!isPlayer.id ? (
-            // <button>Solicitar cambio</button> -> para implementar cambio de grupo.
-            <></>
-          ) : (
-            <button onClick={() => setIsForm(true)}>Solicitar alta</button>
-          )}
-        </>
+
+      {userInfoFirestore?.uid &&
+        !userInfoFirestore?.isAdmin &&
+        !playerDetail.id && (
+          <button
+            className="update__button"
+            onClick={(e) => handleSuscribe()}
+            disabled={requestSent}
+          >
+            Inscribirme
+          </button>
+        )}
+
+      {userInfoFirestore?.isAdmin && update && (
+        <button onClick={() => handleSubmit()}>Aceptar</button>
       )}
+
+      {!userInfoFirestore?.uid && (
+        <button onClick={() => setIsForm(true)}>Solicitar alta</button>
+      )}
+
       {isForm ? <FormUser /> : <></>}
     </div>
   );

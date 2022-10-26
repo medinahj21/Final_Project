@@ -7,7 +7,7 @@ import {
 } from "../../../redux/actions/actionsGroup";
 import UpdateGroup from "../UpdateGroup/UpdateGroup";
 
-export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
+export default function GroupDetail({ setShowDetail, id ,allowBack}) {
   const dispatch = useDispatch();
 
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
@@ -32,7 +32,7 @@ export default function GroupDetail({ setShowDetail, id, isPlayer = false }) {
       update={update}
       setUpdate={setUpdate}
       setShowDetail={setShowDetail}
-      isPlayer={isPlayer}
+      allowBack={allowBack}
       setCreatedSuccess={setCreatedSuccess}
     />
   );

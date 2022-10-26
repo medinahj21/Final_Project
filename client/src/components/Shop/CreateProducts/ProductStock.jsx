@@ -1,6 +1,4 @@
-import React from "react";
-
-function ProductStock({ onHandler, isOrder, newProduct, onHandlerNewProd }) {
+function ProductStock({ onHandler, isOrder, onHandlerNewProd }) {
   return (
     <>
       <div className="select_container">
