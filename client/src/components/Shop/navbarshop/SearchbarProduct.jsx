@@ -1,8 +1,9 @@
-import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
+
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
+
 import { IoIosCart } from "react-icons/io";
 
 import "./SearchbarProduct.css";
@@ -11,13 +12,13 @@ function SearchbarProduct(props) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const {
-    handleAllProducts,
     setCreationDiv,
     handleTags,
     allTags,
     tags,
     deleteTag,
     handleClean,
+    handleAllProducts,
   } = props;
 
   const [showCart, setShowCart] = useState(false);
@@ -57,7 +58,10 @@ function SearchbarProduct(props) {
             </b>
           ) : (
             <></>
-          )}
+          )}{" "}
+          <button onClick={(e) => handleAllProducts(e)}>
+            TODOS LOS PRODUCTOS
+          </button>
           <select defaultValue="title2" className="select_container">
             <option value="title2" disabled={true}>
               Filtar por: Precio

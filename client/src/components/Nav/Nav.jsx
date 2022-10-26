@@ -1,17 +1,19 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
+
 import {
   updatePlayerCart,
   clearPlayerDetail,
 } from "../../redux/actions/player";
 import { clearCart } from "../../redux/actions/shoppingCart";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
-
-import { logout, getUserFirestore } from "../../redux/actions/auth";
+import { getUserFirestore, logout } from "../../redux/actions/auth";
 
 import LOGO from "../../images/LogoPNG.png";
+
 import "./Nav.css";
 
 function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
@@ -21,6 +23,15 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     (state) => state.authReducer
   );
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
+
+  useEffect(() => {
+    const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        dispatch(getUserFirestore(currentUser.uid));
+      }
+    });
+    return () => unSuscribe();
+  }, [dispatch]);
 
   const handleLogout = async () => {
     await dispatch(clearPlayerDetail());

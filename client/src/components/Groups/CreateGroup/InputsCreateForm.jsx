@@ -55,7 +55,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
         <div className="form__content-inputs">
           <div className="forms_field">
             <input
-              type="text"
+              type="number"
               name="inscription_cost"
               placeholder="Costo de inscripción"
               className="forms_field-input"
@@ -96,7 +96,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
           name="accept_newPlayers"
           onChange={handleChange}
         >
-          <option value="disabled" disabled="true">
+          <option value="disabled" disabled={true}>
             Acepta nuevos
           </option>
           <option value="true">Si</option>
