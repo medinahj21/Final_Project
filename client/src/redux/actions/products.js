@@ -7,6 +7,7 @@ import {
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
+  ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
@@ -107,6 +108,16 @@ export const getFilterTags = () => {
     dispatch({ type: GET_FILTER_TAGS, payload: filterTags.data });
   };
 };
+
+export const addFilterTags = (payload) => {
+  return (dispatch)=> {
+    dispatch({
+      type: ADD_FILTER_TAGS,
+      payload,
+    })
+  }
+
+}
 
 export const modifyProducts = (payload) => {
   return async (dispatch) => {
