@@ -1,4 +1,12 @@
-const { Player, Event, Admin, Group, Product, RoleRequest,ProductRequest } = require("../../db");
+const {
+  Player,
+  Event,
+  Group,
+  Product,
+  RoleRequest,
+  ProductRequest,
+  Admin,
+} = require("../../db");
 const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 

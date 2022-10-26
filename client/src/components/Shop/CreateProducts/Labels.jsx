@@ -1,5 +1,3 @@
-import React from "react";
-
 function Labels({ handleTags, filterTags, tags, deleteTag }) {
   return (
     <>

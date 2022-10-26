@@ -1,15 +1,24 @@
-import React, { useEffect }from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import "./Navphone.css";
-import { logout, getUserFirestore } from "../../redux/actions/auth";
-import { validateClick } from "../../utils/validateClick";
-import { onAuthStateChanged} from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
-import {AiOutlineShoppingCart} from "react-icons/ai"
 
-import { updatePlayerCart, getPlayerDetail, clearPlayerDetail} from "../../redux/actions/player";
-import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
+import { logout, getUserFirestore } from "../../redux/actions/auth";
+import {
+  updatePlayerCart,
+  getPlayerDetail,
+  clearPlayerDetail,
+} from "../../redux/actions/player";
+import { clearCart, setInitialCart } from "../../redux/actions/shoppingCart";
+
+import { validateClick } from "../../utils/validateClick";
+
+import { onAuthStateChanged } from "firebase/auth";
+
+import { auth } from "../../firebase/firebase.config";
+
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
+import "./Navphone.css";
 
 function Navphone({
   setClickChoice,
@@ -24,36 +33,31 @@ function Navphone({
     (state) => state.authReducer
   );
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
-  const isPlayer = useSelector((state) => state.playerReducer.playerDetail);
-  console.log("Phonee", isPlayer.id)
-  
 
   const handleRegister = () => {
     setShowRegister(true);
     setShowLogin(false);
   };
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     setShowRegister(false);
     setShowLogin(true);
-    
   };
 
-  const handleLogout = async() => {
-    await dispatch(clearPlayerDetail())
+  const handleLogout = async () => {
+    await dispatch(clearPlayerDetail());
     await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
     await dispatch(clearCart());
     await dispatch(logout());
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        dispatch(getPlayerDetail(currentUser.uid))
-        .then(action =>{
-          dispatch(setInitialCart(action.payload.shoppingCart))
-        } )
+        dispatch(getPlayerDetail(currentUser.uid)).then((action) => {
+          dispatch(setInitialCart(action.payload.shoppingCart));
+        });
       }
     });
     return () => unSuscribe();
@@ -68,24 +72,22 @@ function Navphone({
         <span></span>
         <span></span>
 
-        {
-          productsInCart?.length>0?
+        {productsInCart?.length > 0 ? (
           <div className="nav_cart">
             <AiOutlineShoppingCart />
           </div>
-          :
+        ) : (
           <></>
-        }
+        )}
 
         <ul id="menu">
-        {
-          true?
-          <div className="nav_cart nav_cart_phone" >
-            <AiOutlineShoppingCart />
-          </div>
-          :
-          <></>
-        }
+          {true ? (
+            <div className="nav_cart nav_cart_phone">
+              <AiOutlineShoppingCart />
+            </div>
+          ) : (
+            <></>
+          )}
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>
@@ -102,9 +104,11 @@ function Navphone({
               <p onClick={() => validateClick("perfil", setClickChoice)}>
                 <li>Perfil</li>
               </p>
-              {<Link to={"/products"}>
-                <li>Tienda</li>
-              </Link>}
+              {
+                <Link to={"/products"}>
+                  <li>Tienda</li>
+                </Link>
+              }
               {userInfoFirestore.isAdmin && (
                 <p onClick={() => validateClick("request", setClickChoice)}>
                   <li>Inscripciones</li>

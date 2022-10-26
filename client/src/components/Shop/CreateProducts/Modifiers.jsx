@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -74,7 +73,6 @@ function Modifiers({
 
   const handleDeleteModifier = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     let aux = modifiers;
     aux.splice(e.target.value, 1);
     setModifiers(aux);

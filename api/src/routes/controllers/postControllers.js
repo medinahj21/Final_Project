@@ -269,26 +269,6 @@ const postFilterTag = async (req, res) => {
   }
 };
 
-const postRoleRequest = async (req, res) => {
-  const { new_role, playerId, groupId } = req.body;
-  try {
-    if (!new_role) {
-      res.status(500).json({ error_DB: error.message });
-    } else {
-      const newRoll = await RoleRequest.create({
-        new_role,
-        playerId,
-        groupId
-      })
-
-      newRoll ? res.json({ message: "procces successfully" })
-        : res.status(400).json({ message: "bad request" })
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 
 const postProductRequest = async (req, res) => {
   const {
@@ -314,6 +294,30 @@ const postProductRequest = async (req, res) => {
     console.log(error);
   }
 }
+
+const postRoleRequest = async (req, res) => {
+  const { id, newRole, userInfo, groupId } = req.body;
+  try {
+    if (!newRole) {
+      res.status(400).json({ error: "No role send" });
+    } else {
+      const newRoll = await RoleRequest.create({
+        id,
+        newRole,
+        userInfo,
+        groupId,
+      });
+
+      newRoll
+        ? res.json({ message: "procces successfully" })
+        : res.status(400).json({ error: "bad request" });
+    }
+  } catch (error) {
+    res.status(500).json({ error_DB: error.message });
+    console.log(error);
+  }
+};
+
 module.exports = {
   asyncPostProduct,
   postGroups,

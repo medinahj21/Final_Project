@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ProductDetail from "../../pages/Shop/ProductDetail";
-import Modal from "../UI/Modal";
+
+import ProductDetail from "../ProductDetail/ProductDetail";
+import Modal from "../../UI/Modal";
 
 import "./ProductCard.css";
 

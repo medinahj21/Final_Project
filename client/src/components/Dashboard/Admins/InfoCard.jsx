@@ -1,14 +1,13 @@
-import React from "react";
-
 import axios from "axios";
 
-import FOTO from "../../images/siluetasinfondo.png";
+import FOTO from "../../../images/siluetasinfondo.png";
+
 import { doc, updateDoc } from "firebase/firestore";
+import { firestore } from "../../../firebase/firebase.config";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { firestore } from "../../firebase/firebase.config";
 import "./InfoCard.css";
 
 function InfoCard({ userInfoFirestore }) {
@@ -29,7 +28,7 @@ function InfoCard({ userInfoFirestore }) {
         const newAdmin = {
           id: userInfoFirestore.uid,
           personal_info: userInfoFirestore,
-          permissions: ["all"],
+          permissions: ["not all"],
         };
 
         await axios.post(`${axios.defaults.baseURL}/admins/create`, newAdmin);
@@ -87,9 +86,13 @@ function InfoCard({ userInfoFirestore }) {
       <p>Parentesco: {userInfoFirestore.emergencyRel}</p>
       <p>Seguro de salud: {userInfoFirestore.health}</p>
       {userInfoFirestore.isAdmin ? (
-        <button onClick={handleUpdateDelete} className='button-delete'>Eliminar como admin</button>
+        <button onClick={handleUpdateDelete} className="button-delete">
+          Eliminar como admin
+        </button>
       ) : (
-        <button onClick={handleUpdateAdd} className='button-add'>Agregar como admin</button>
+        <button onClick={handleUpdateAdd} className="button-add">
+          Agregar como admin
+        </button>
       )}
     </div>
   );

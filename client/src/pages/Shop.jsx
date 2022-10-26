@@ -6,15 +6,15 @@ import {
   getFilterTags,
   getProducts,
   setPageNumPrev,
-} from "../../redux/actions/products";
-import { updatePlayerCart } from "../../redux/actions/player";
+} from "../redux/actions/products";
+import { updatePlayerCart } from "../redux/actions/player";
 
-import "../Shop/Shop.css";
-import CreateProduct from "./CreateProduct";
-import { handleFilter } from "./utils/filters";
-import ShowProducts from "./ShowProducts";
-import SearchbarProduct from "./SearchbarProduct";
-import Modal from "../../components/UI/Modal";
+import "./Shop.css";
+import CreateProduct from "../components/Shop/CreateProducts/CreateProduct";
+import { handleFilter } from "../utils/filter";
+import ShowProducts from "../components/Shop/ProductCard/ShowProducts";
+import SearchbarProduct from "../components/Shop/navbarshop/SearchbarProduct";
+import Modal from "../components/UI/Modal";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
@@ -23,14 +23,11 @@ function Shop() {
 
   const dispatch = useDispatch();
 
-
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
-   const { userInfoFirestore } = useSelector(
-    (state) => state.authReducer
-  );
-  useEffect(()=>{
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
-  },[dispatch,productsInCart,userInfoFirestore.uid])
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  useEffect(() => {
+    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+  }, [dispatch, productsInCart, userInfoFirestore.uid]);
 
   useEffect(() => {
     async function getTags() {
