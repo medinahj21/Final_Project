@@ -26,18 +26,22 @@ export default function Calendario() {
 
 
   useEffect(() => {
-    let eventMap = events?.map((ev) => ev.state === 'Pending' ? [
-      {
-        title: ev.name,
-        id: ev.id,
-        description: ev.description,
-        state: ev.state,
-        location: ev.location,
-        start: `${ev.date} ${ev.start}`,
-        end: `${ev.date} ${ev.end}`,
-        allDay: false
-      },
-    ] : []);
+    let eventMap = events?.map((ev) =>
+      ev.state === "Pending"
+        ? [
+            {
+              title: ev.name,
+              id: ev.id,
+              description: ev.description,
+              state: ev.state,
+              location: ev.location,
+              start: `${ev.date} ${ev.start}`,
+              end: `${ev.date} ${ev.end}`,
+              allDay: false,
+            },
+          ]
+        : []
+    );
     setObjectEvent(eventMap.flat());
   }, [events]);
 
@@ -92,6 +96,7 @@ export default function Calendario() {
         initialView="dayGridMonth"
         locale={esLocale}
         height={800}
+        handleWindowResize={true}
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",
