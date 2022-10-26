@@ -35,9 +35,9 @@ export default function UpdateGroup({
       title: "Estas seguro quieres guardar?",
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Save',
+      confirmButtonText: 'Guardar',
       confirmButtonColor: '#181A3A',
-      denyButtonText: `Don't save`,
+      denyButtonText: `No guardar`,
     }).then((result) => {
       if (result.isConfirmed) {
         setUpdate(false);
