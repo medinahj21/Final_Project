@@ -45,14 +45,12 @@
 }
 
 .btn-product {
-    background: rgb(1, 0, 46);
     background: linear-gradient(0deg, rgb(5, 7, 75) 0%, rgb(6, 29, 52) 100%);
     width: 130px;
     height: 40px;
     line-height: 42px;
     padding: 0;
     border: none;
-
 }
 
 .btn-product span {
@@ -134,18 +132,19 @@
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
     color: #fff;
-    box-shadow: var(--box-shadow);
     width: 100%;
     font-size: var(--font-size-p);
     text-align: center;
     padding: .1rem 1rem .1rem 1rem;
-    box-shadow: var(--box-shadow);
-    color: orange;
+    color: rgb(255, 255, 255);
     background-color: var(--color-bg);
 }
 
 .card__image-product {
     max-width: 100%;
     border-radius: 2rem;
+}
+
+.card__image-product:hover {
     box-shadow: var(--box-shadow);
 }
