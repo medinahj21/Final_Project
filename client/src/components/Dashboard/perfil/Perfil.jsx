@@ -30,7 +30,7 @@ export default function Perfil({ userInfoFirestore, image }) {
             className={`${classes.imageContent} ${classes.animate} ${classes.slide} ${classes.delay5}`}
             style={{
               background: ` url(${IMAGE}) center`,
-              backgroundSize: 'cover'
+              backgroundSize: "cover",
             }}
           ></div>
           <div className={`${classes.dots} ${classes.animate}`}>
@@ -62,4 +62,3 @@ export default function Perfil({ userInfoFirestore, image }) {
     </div>
   );
 }
-

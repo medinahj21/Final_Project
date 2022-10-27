@@ -1,9 +1,12 @@
+import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
 import { toast, ToastContainer } from "react-toastify";
+import { auth } from "../../../firebase/firebase.config";
 
 import { loginWhitEmailAndPassword } from "../../../redux/actions/auth";
 import { registerWhitEmailAndPassword } from "../../../redux/actions/auth";
+import { sendVerificationEmail } from "../../../utils/EmailVerification";
 
 import Modal from "../../UI/Modal";
 import ForgotPassword from "../ForgotPassword";
@@ -11,23 +14,39 @@ import LoginGoogle from "../LoginGoogle";
 
 import "./LoginRegisterMob.css";
 
-function LoginRegisteMob({ setShowLogin, setShowRegister, setShowAlta }) {
+const notifyError = (error) =>
+  toast.error(error, {
+    hideProgressBar: true,
+    theme: "colored",
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
+
+const notifyLoad = (message) =>
+  toast.loading(message, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+    autoClose: 5000,
+  });
+
+const notify = (message) =>
+  toast.success(message, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
+
+const dismissAll = () => toast.dismiss();
+
+function LoginRegisteMob({
+  setShowLogin,
+  setShowRegister,
+  showLogin,
+  setShowAlta,
+}) {
   const [forgotPassword, setForgotPassword] = useState(false);
+  const [isChecked, setIsChecked] = useState(!showLogin);
 
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-
-  const notifyError = (error) =>
-    toast.error(error, {
-      hideProgressBar: true,
-      theme: "colored",
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
-  const notify = (message) =>
-    toast.success(message, { position: toast.POSITION.BOTTOM_RIGHT });
 
   const changeHandler = (e) => {
     setCredentials((prevState) => {
@@ -38,21 +57,40 @@ function LoginRegisteMob({ setShowLogin, setShowRegister, setShowAlta }) {
     });
   };
 
+  const changeCheckedHanlder = (e) => {
+    setIsChecked(!isChecked);
+  };
+
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
     try {
       await loginWhitEmailAndPassword(credentials.email, credentials.password);
+
       setCredentials({
         email: "",
         password: "",
       });
-      notify("Bienvenid@ !!!");
+
+      notifyLoad("Iniciando usuario");
+
+      setTimeout(() => {
+        dismissAll();
+      }, 4000);
+
+      setTimeout(() => {
+        const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
+          if (currentUser) {
+            notify(`Bienvendi@ ${currentUser.email}`);
+          }
+        });
+        unSuscribe();
+      }, 5000);
+
       setTimeout(() => {
         setShowLogin(false);
         setShowRegister(false);
-      }, 2000);
+      }, 6000);
     } catch (error) {
-      //manejo de errores
       console.log(error.message);
       return notifyError(error.message);
     }
@@ -65,13 +103,15 @@ function LoginRegisteMob({ setShowLogin, setShowRegister, setShowAlta }) {
         credentials.email,
         credentials.password
       );
-      // await sendVerificationEmail(auth.currentUser);
+
+      await sendVerificationEmail(auth.currentUser);
+
       notify();
       setTimeout(() => {
         setShowLogin(false);
         setShowRegister(false);
-        setShowAlta(true);
       }, 2000);
+
       setCredentials({
         email: "",
         password: "",
@@ -82,8 +122,13 @@ function LoginRegisteMob({ setShowLogin, setShowRegister, setShowAlta }) {
     }
   };
 
+  const closeHanlder = () => {
+    setShowLogin(false);
+    setShowRegister(false);
+  };
+
   return (
-    <Modal>
+    <Modal clickHandler={closeHanlder}>
       <ToastContainer />
       {!forgotPassword ? (
         <div className="section__login-register">
@@ -98,8 +143,10 @@ function LoginRegisteMob({ setShowLogin, setShowRegister, setShowAlta }) {
                 type="checkbox"
                 id="reg-log"
                 name="reg-log"
+                checked={!isChecked}
+                onChange={changeCheckedHanlder}
               />
-              <label for="reg-log"></label>
+              <label htmlFor="reg-log"></label>
               <div className="card-3d-wrap">
                 <div className="card-3d-wrapper">
                   <form className="card-front" onSubmit={submitHandler}>

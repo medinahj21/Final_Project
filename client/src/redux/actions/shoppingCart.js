@@ -35,11 +35,11 @@ export const decrementProductInCart = (id,modifiers) => {
   };
 };
 
-export const removeProductFromCart = (id) => {
+export const removeProductFromCart = (id, modifiers) => {
   return (dispatch) => {
     dispatch({
       type: REMOVE_PRODUCT,
-      payload: id,
+      payload: [id, modifiers]
     });
   };
 };

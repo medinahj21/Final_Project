@@ -43,7 +43,7 @@ export default function ProductDetail({id, setShowDetail}) {
       ) : (
         <></>
       )}
-      {editor ? <CreateProduct isCreate={false} /> : <ShowProductDetail />}
+      {editor ? <CreateProduct isCreate={false} /> : <ShowProductDetail id= {id} />}
     </div>
   );
 }

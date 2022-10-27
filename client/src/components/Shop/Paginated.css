@@ -31,15 +31,11 @@
     border-radius: .3rem;
     box-shadow: var(--box-shadow);
     border: 1px solid transparent;
-}
-
-.paginated__number:hover {
     cursor: pointer;
 }
 
 .paginated__isActive {
     background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
     color: #fff;
-    box-shadow: var(--box-shadow);
-    color: aliceblue;
+    box-shadow: 0 0 3px 0 white;
 }

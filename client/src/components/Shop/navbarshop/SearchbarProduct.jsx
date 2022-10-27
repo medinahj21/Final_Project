@@ -23,6 +23,11 @@ function SearchbarProduct(props) {
 
   const [showCart, setShowCart] = useState(false);
 
+  const handleAllProduct = (e) => {
+    handleClean(e);
+    handleAllProducts(e);
+  };
+
   return (
     <>
       <div className="nav">
@@ -47,22 +52,23 @@ function SearchbarProduct(props) {
             <span></span>
           </label>
         </div>
-        <div className="nav-links">
+        <div className="nav-links nav-links-shop">
           {userInfoFirestore?.isAdmin ? (
             <b
+              className="button-nav"
               onClick={(e) => {
                 setCreationDiv(true);
               }}
             >
-              CREAR PRODUCTO
+              Crear producto
             </b>
           ) : (
             <></>
           )}{" "}
-          <button onClick={(e) => handleAllProducts(e)}>
-            TODOS LOS PRODUCTOS
+          <button onClick={handleAllProduct} className="button-nav">
+            Todos
           </button>
-          <select defaultValue="title2" className="select_container">
+          <select defaultValue="title2" className="select_container ">
             <option value="title2" disabled={true}>
               Filtar por: Precio
             </option>
@@ -72,7 +78,7 @@ function SearchbarProduct(props) {
           <select
             defaultValue="title"
             onChange={(e) => handleTags(e)}
-            className="select_container"
+            className="select_container "
           >
             <option value="title" disabled={true}>
               Filtar por:
@@ -94,8 +100,10 @@ function SearchbarProduct(props) {
               );
             })}
           </ul>
-          <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
-          <button onClick={() => setShowCart(!showCart)}>
+          <button
+            className="cart-button-nav"
+            onClick={() => setShowCart(!showCart)}
+          >
             <IoIosCart />
           </button>
           {showCart ? <ShoppingCart /> : <></>}

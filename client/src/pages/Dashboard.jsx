@@ -8,15 +8,15 @@ import { getPlayerDetail } from "../redux/actions/player";
 import { setInitialCart } from "../redux/actions/shoppingCart";
 import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
-import InfoCard from "../components/Dashboard/Admins/InfoCard";
 import DebtCard from "../components/Dashboard/DebtCard";
 import Inscriptions from "../components/Dashboard/Inscriptions";
 import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
-import Calendario from "../components/Calendar/Calendario";
+import Calendar from "../components/Calendar/Calendar";
 
 import "./Dashboard.css";
+import InfoTable from "../components/Dashboard/Admins/InfoTable";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -51,11 +51,12 @@ function Admin() {
     dispatch(clickChoiceHandler(clickChoice));
   }, [clickChoice, dispatch]);
 
-  const sortUsers =
+  const adminUser =
     allUserFirestore &&
-    allUserFirestore?.sort((a, b) => {
-      return Number(b.isAdmin) - Number(a.isAdmin);
-    });
+    allUserFirestore.filter((user) => user.isAdmin === true);
+  const regularUser =
+    allUserFirestore &&
+    allUserFirestore.filter((user) => user.isAdmin === false);
 
   return (
     <>
@@ -94,27 +95,16 @@ function Admin() {
             <Inscriptions />
           </>
         )}
-        {clickChoice.isCalendario && <Calendario />}
+        {clickChoice.isCalendario && <Calendar />}
         {clickChoice.isGrupo && (
           <>
             <Groups />
           </>
         )}
         {clickChoice.isSocios && (
-          <div className="cards__container">
-            {allUserFirestore ? (
-              sortUsers.map((user, i) => {
-                return (
-                  <InfoCard
-                    className={"infoAdmin"}
-                    key={i}
-                    userInfoFirestore={user}
-                  />
-                );
-              })
-            ) : (
-              <></>
-            )}
+          <div>
+            <InfoTable users={adminUser} admin={true} />
+            <InfoTable users={regularUser} admin={false} />
           </div>
         )}
       </div>

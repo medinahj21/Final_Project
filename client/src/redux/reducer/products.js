@@ -6,6 +6,7 @@ import {
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
+  ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
@@ -51,6 +52,7 @@ export default function productsReducer(state = initialState, action) {
     case CREATE_PRODUCT:
       return {
         ...state,
+        allProducts: [...state.allProducts, action.payload],
         products: [...state.products, action.payload],
       };
 
@@ -71,6 +73,12 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         filterTags: action.payload,
       };
+
+    case ADD_FILTER_TAGS:
+      return {
+        ...state,
+        filterTags: [...state.filterTags, action.payload ]
+      }
 
     case MODIFY_PRODUCTS:
       return {
