@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../../redux/actions/event";
+import { getGroups } from "../../redux/actions/actionsGroup";
 
 import Modal from "../UI/Modal";
 import FormEvent from "./FormEvent/FormEvent";
@@ -24,7 +25,7 @@ export default function Calendario() {
 
   const events = useSelector((state) => state.eventReducer.events);
 
-
+  
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
@@ -55,7 +56,9 @@ export default function Calendario() {
 
   useEffect(() => {
     dispatch(getEvents());
+    // dispatch(getGroups());
   }, [dispatch]);
+  console.log(events);
 
   if (modalOn) {
     return (
