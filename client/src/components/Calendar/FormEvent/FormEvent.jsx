@@ -6,6 +6,7 @@ import * as action from "../../../redux/actions/event";
 import Tags from "../../../components/Tag/Tags";
 
 import s from "../FormEvent/FormEvent.module.css";
+import Swal from "sweetalert2";
 
 export default function FormCalendario({ handleModal, getEvents }) {
   const dispatch = useDispatch();
@@ -52,12 +53,29 @@ export default function FormCalendario({ handleModal, getEvents }) {
     console.log(inputs);
     let response = await dispatch(action.createEvent(inputs));
     if (response.error) {
-      return alert(`algo salio mal: ${response.error}`);
+      handleModal();
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Algo salio mal: ${response.error}`,
+      })
     } else {
       handleModal();
-      setInputs("");
-      alert(response);
-      dispatch(getEvents());
+      Swal.fire({
+        title: 'Estas seguro que quieres guardar?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        denyButtonText: `No guardar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(response, '', 'success')
+          setInputs("");
+          dispatch(getEvents());
+        } else if (result.isDenied) {
+          Swal.fire('No ha sido creado!', '', 'info')
+        }
+      })
     }
   };
 
