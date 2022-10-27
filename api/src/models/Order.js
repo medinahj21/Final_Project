@@ -30,14 +30,14 @@ module.exports = (sequelize) => {
     },
     order_state: {
       type: DataTypes.ENUM("Pending", "Deleted", "Paid"),
-      allowNull: true,
+      allowNull: false,
     },
     payment_date: {
       type: DataTypes.DATE,
       allowNull: true,
     },
     type_order:{
-      type: DataTypes.ENUM("product", "paid"),
+      type: DataTypes.ENUM("product", "payment"),
       allowNull:false,
     }
   });
