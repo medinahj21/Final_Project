@@ -17,6 +17,7 @@
 .modify__button.modify__button-cart:hover {
     background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
     color: white;
+    border: 1px solid white;
 }
 
 .image__cart {
@@ -112,6 +113,7 @@
 
 .button-trash:hover {
     background-color: crimson;
+    border-color: white;
     color: white;
     box-shadow: 0 0 1px 0 white;
 }

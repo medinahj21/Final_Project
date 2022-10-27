@@ -7,26 +7,30 @@ import Modal from "../../UI/Modal";
 import "./ProductCard.css";
 
 function ProductCard({ id, name, price, image }) {
+  const [showDetail, setShowDetail] = useState(false);
 
-  const [showDetail,setShowDetail] = useState(false); 
-  
   return (
     <>
       <div className="card__content card__hover-effect">
-
         <h3 className="card__title">{name}</h3>
         <span className="card__price">price: ${price}</span>
-        <img className="card__image-product" src={image} alt={name} />  
-        <button className="card__title card__title-product" onClick={()=>setShowDetail(true)}>Ver más</button>
-        
-        <Link to={`/detail/${id}`}>
-        </Link>
+        <img className="card__image-product" src={image} alt={name} />
+        <button
+          className="card__title card__title-product btn-product"
+          onClick={() => setShowDetail(true)}
+        >
+          Ver más
+        </button>
+
+        <Link to={`/detail/${id}`}></Link>
       </div>
-      { showDetail?
-      <Modal>
-        <ProductDetail id={id} setShowDetail={setShowDetail}/>
-      </Modal>
-      :<></>}
+      {showDetail ? (
+        <Modal>
+          <ProductDetail id={id} setShowDetail={setShowDetail} />
+        </Modal>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

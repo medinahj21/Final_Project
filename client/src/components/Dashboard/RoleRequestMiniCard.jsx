@@ -119,14 +119,14 @@ export default function RoleRequestMiniCard(roleRequest) {
           {" "}
           <div className="form__request-buttons">
             <button
-              className="form__btn-alta btn__background"
+              className="form__btn-alta btn__background add-btn"
               onClick={() => handleAccept()}
             >
               {" "}
               Aceptar{" "}
             </button>
             <button
-              className="form__btn-alta btn__background"
+              className="form__btn-alta btn__background delete-btn"
               onClick={() => handleDelete(id)}
             >
               {" "}

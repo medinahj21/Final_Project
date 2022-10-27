@@ -55,6 +55,7 @@ function SearchbarProduct(props) {
         <div className="nav-links nav-links-shop">
           {userInfoFirestore?.isAdmin ? (
             <b
+              className="button-nav"
               onClick={(e) => {
                 setCreationDiv(true);
               }}
@@ -64,7 +65,9 @@ function SearchbarProduct(props) {
           ) : (
             <></>
           )}{" "}
-          <button onClick={handleAllProduct}>Todos</button>
+          <button onClick={handleAllProduct} className="button-nav">
+            Todos
+          </button>
           <select defaultValue="title2" className="select_container ">
             <option value="title2" disabled={true}>
               Filtar por: Precio

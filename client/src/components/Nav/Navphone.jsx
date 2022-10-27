@@ -16,8 +16,6 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "../../firebase/firebase.config";
 
-import { AiOutlineShoppingCart } from "react-icons/ai";
-
 import "./Navphone.css";
 
 function Navphone({
@@ -72,22 +70,7 @@ function Navphone({
         <span></span>
         <span></span>
 
-        {productsInCart?.length > 0 ? (
-          <div className="nav_cart">
-            <AiOutlineShoppingCart />
-          </div>
-        ) : (
-          <></>
-        )}
-
         <ul id="menu">
-          {true ? (
-            <div className="nav_cart nav_cart_phone">
-              <AiOutlineShoppingCart />
-            </div>
-          ) : (
-            <></>
-          )}
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>
@@ -144,7 +127,9 @@ function Navphone({
               {!userInfoFirestore || userInfoFirestore.name === "" ? (
                 <>
                   {email ? (
-                    <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
+                    <p onClick={() => setShowAlta(true)}>
+                      <li>Alta jugador</li>
+                    </p>
                   ) : (
                     <></>
                   )}
@@ -157,7 +142,7 @@ function Navphone({
                       : "/dashboard-player"
                   }
                 >
-                  Dashboard |
+                  <li>Dashboard</li>
                 </Link>
               )}
               <p href="!">

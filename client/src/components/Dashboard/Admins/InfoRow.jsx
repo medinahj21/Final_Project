@@ -6,9 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { firestore } from "../../../firebase/firebase.config";
 
-import "../Request.css";
 import { getAllInfoUsers } from "../../../redux/actions/auth";
 import { useDispatch } from "react-redux";
+
+import "../Request.css";
+import "./InfoTable.css";
 
 const notify = (message) => toast.success(message, { autoClose: 2000 });
 
@@ -92,7 +94,7 @@ function InfoRow({ user }) {
           <div className="form__request-buttons">
             {!user.isAdmin ? (
               <button
-                className="form__btn-alta btn__background"
+                className="form__btn-alta btn__background add-btn"
                 onClick={() => handleUpdateAdd()}
               >
                 {" "}
@@ -100,7 +102,7 @@ function InfoRow({ user }) {
               </button>
             ) : (
               <button
-                className="form__btn-alta btn__background"
+                className="form__btn-alta btn__background delete-btn"
                 onClick={() => handleUpdateDelete()}
               >
                 {" "}

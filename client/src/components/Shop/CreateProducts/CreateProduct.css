@@ -1,4 +1,3 @@
-
 .product__image-create {
     width: 200px;
     border-radius: 25%;
@@ -11,13 +10,23 @@
     justify-content: space-between;
 }
 
-.create__product-button{
+.create__product-button {
     display: flex;
     gap: 1rem;
 }
 
+.form__btn-alta.add-btn:hover {
+    background-color: green;
+    box-shadow: none;
+}
+
+.form__btn-alta.delete-btn:hover {
+    background-color: red;
+    box-shadow: none;
+}
+
 /*------------------------------MODIFIERS COMPONENT-------------------------------*/
-.product__image-container{
+.product__image-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,6 +64,7 @@
     height: 3em;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .select_container::after {
@@ -78,4 +88,3 @@
 }
 
 /*------------------------------LABELS COMPONENT-------------------------------*/
-

@@ -16,6 +16,13 @@
   right: 100px;
 }
 
+.cart-button-nav:hover {
+  background-color: white;
+  color: rgb(1, 4, 46);
+  border: 1px solid rgb(1, 4, 46);
+  border-radius: 7px;
+}
+
 @media (max-width:600px) {
   .cart-button-nav {
     top: 16px;

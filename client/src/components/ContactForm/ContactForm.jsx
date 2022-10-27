@@ -52,108 +52,111 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form-global-container">
-      <div className="whatsapp-container">
-        <a
-          className="whatsapp-icon"
-          href="https://api.whatsapp.com/send?phone=573192452766&text=Wolves%20Volleyball%20Club%20¡Bienvenido!"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <FaWhatsappSquare />
-        </a>
-      </div>
-      <div className="contactForm-leftData-container">
-        <div className="social-networks">
+    <>
+      <h2 className="contact-form-title">Contacto</h2>
+      <div className="contact-form-global-container">
+        <div className="whatsapp-container">
           <a
-            href="https://www.facebook.com"
-            target={"_blank"}
-            rel="noreferrer"
-            className="icon-socials"
+            className="whatsapp-icon"
+            href="https://api.whatsapp.com/send?phone=573192452766&text=Wolves%20Volleyball%20Club%20¡Bienvenido!"
+            target="_blank"
+            rel="noreferrer noopener"
           >
-            <BsFacebook />
-            <span className="color-bg-facebook">Facebook</span>
-          </a>
-          <a
-            href="https://www.twitter.com"
-            target={"_blank"}
-            rel="noreferrer"
-            className="icon-socials"
-            >
-            <AiFillTwitterCircle />
-            <span className="color-bg-twitter">Twitter</span>
-          </a>
-          <a
-            href="https://www.instagram.com"
-            target={"_blank"}
-            rel="noreferrer"
-            className="icon-socials"
-            >
-            <BsInstagram />
-            <span className="color-bg-instagram">Instagram</span>
+            <FaWhatsappSquare />
           </a>
         </div>
-        <a href="mailto:info@wolves.com?Subject=Consulta%20">
-          <FiMail />
-          {"  "}
-          info@wolves.com
-        </a>
-        <a
-          href="https://goo.gl/maps/mnQm11vGEkNi7uR5A"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <FiMapPin />
-          Av. 16 de julio - Unidad deportiva Belén
-        </a>
-        <a href="#!" rel="norefferrer" target={""}>
-          <FaPhone />
-          (604) 3228764
-        </a>
+        <div className="contactForm-leftData-container">
+          <div className="social-networks">
+            <a
+              href="https://www.facebook.com"
+              target={"_blank"}
+              rel="noreferrer"
+              className="icon-socials"
+            >
+              <BsFacebook />
+              <span className="color-bg-facebook">Facebook</span>
+            </a>
+            <a
+              href="https://www.twitter.com"
+              target={"_blank"}
+              rel="noreferrer"
+              className="icon-socials"
+            >
+              <AiFillTwitterCircle />
+              <span className="color-bg-twitter">Twitter</span>
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target={"_blank"}
+              rel="noreferrer"
+              className="icon-socials"
+            >
+              <BsInstagram />
+              <span className="color-bg-instagram">Instagram</span>
+            </a>
+          </div>
+          <a href="mailto:info@wolves.com?Subject=Consulta%20">
+            <FiMail />
+            {"  "}
+            info@wolves.com
+          </a>
+          <a
+            href="https://goo.gl/maps/mnQm11vGEkNi7uR5A"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FiMapPin />
+            Av. 16 de julio - Unidad deportiva Belén
+          </a>
+          <a href="#!" rel="norefferrer" target={""}>
+            <FaPhone />
+            (604) 3228764
+          </a>
+        </div>
+        <form onSubmit={sendEmail} className="contact-form">
+          <ToastContainer />
+          <div className="form__content-alta inputs-container">
+            <div className="form__content-inputs input-contact-footer">
+              <div className="forms_field">
+                <input
+                  value={userInput.name}
+                  type="text"
+                  name="name"
+                  placeholder="Nombre"
+                  className="forms_field-input "
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+            <div className="form__content-inputs input-contact-footer">
+              <div className="forms_field">
+                <input
+                  value={userInput.email}
+                  type="text"
+                  name="email"
+                  placeholder="Correo"
+                  className="forms_field-input"
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+            <textarea
+              className="textarea-contact"
+              value={userInput.message}
+              name="message"
+              id="message"
+              placeholder="Mensaje"
+              maxLength={255}
+              rows={10}
+              cols={60}
+              wrap="hard"
+              onChange={changeHandler}
+            />
+            <button className="modify__button">Enviar</button>
+          </div>
+        </form>
       </div>
-      <form onSubmit={sendEmail} className="contact-form">
-        <ToastContainer />
-        <div className="form__content-alta inputs-container">
-          <div className="form__content-inputs input-contact-footer">
-            <div className="forms_field">
-              <input
-                value={userInput.name}
-                type="text"
-                name="name"
-                placeholder="Nombre"
-                className="forms_field-input "
-                onChange={changeHandler}
-              />
-            </div>
-          </div>
-          <div className="form__content-inputs input-contact-footer">
-            <div className="forms_field">
-              <input
-                value={userInput.email}
-                type="text"
-                name="email"
-                placeholder="Correo"
-                className="forms_field-input"
-                onChange={changeHandler}
-              />
-            </div>
-          </div>
-          <textarea
-            className="textarea-contact"
-            value={userInput.message}
-            name="message"
-            id="message"
-            placeholder="Mensaje"
-            maxLength={255}
-            rows={10}
-            cols={60}
-            wrap="hard"
-            onChange={changeHandler}
-          />
-          <button className="modify__button">Enviar</button>
-        </div>
-      </form>
-    </div>
+    </>
   );
 };
 
