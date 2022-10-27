@@ -11,8 +11,7 @@ import ShowProductDetail from "./ShowProductDetail";
 
 import "./ShowProductDetail.css";
 
-export default function ProductDetail({id, setShowDetail}) {
-
+export default function ProductDetail({ id, setShowDetail }) {
   const dispatch = useDispatch();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
@@ -28,22 +27,37 @@ export default function ProductDetail({id, setShowDetail}) {
   }, [dispatch]);
 
   return (
-    <div className="productDetail__container">
-      <button onClick={()=>setShowDetail(false)}> X </button>
-
-      {userInfoFirestore.isAdmin ? (
-        <button
-          onClick={() => {
-            editMode = !editMode;
-            setEditor(editMode);
-          }}
-        >
-          {!editor ? "Editar" : "Ver detalle"}
-        </button>
-      ) : (
-        <></>
+    <>
+      {!editor && (
+        <div className="productDetail__container">
+          <button onClick={() => setShowDetail(false)}> X </button>
+          {userInfoFirestore.isAdmin && (
+            <button
+              onClick={() => {
+                editMode = !editMode;
+                setEditor(editMode);
+              }}
+            >
+              Editar
+            </button>
+          )}
+          <ShowProductDetail id={id} />
+        </div>
       )}
-      {editor ? <CreateProduct isCreate={false} /> : <ShowProductDetail id= {id} />}
-    </div>
+      {userInfoFirestore.isAdmin && editor && (
+        <>
+          <CreateProduct isCreate={false} />
+          <button
+            className="detail_edit-product"
+            onClick={() => {
+              editMode = !editMode;
+              setEditor(editMode);
+            }}
+          >
+            Ver detalle
+          </button>
+        </>
+      )}
+    </>
   );
 }

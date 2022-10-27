@@ -91,7 +91,7 @@ function SearchbarProduct(props) {
               );
             })}
           </select>
-          <ul>
+          <ul className="tag-list">
             {tags?.map((tagId) => {
               return (
                 <li key={tagId} value={tagId} onClick={(e) => deleteTag(e)}>

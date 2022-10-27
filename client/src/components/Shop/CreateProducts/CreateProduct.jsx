@@ -157,7 +157,7 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
     <>
       <ToastContainer />
       <form onSubmit={confirmHandler} className="form__user">
-        <h3 className="form__title">Crear producto</h3>
+        <h3 className="form__title">{isCreate ? 'Crear producto' : 'Editar producto'}</h3>
         <div className="form__content-alta">
           <div className="form__product-inputs">
             <div>

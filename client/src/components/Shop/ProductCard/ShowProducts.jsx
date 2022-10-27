@@ -33,10 +33,6 @@ export default function ShowProducts({ dataFiltered }) {
     }
   }, [currentPage, prevPage]);
 
-  useEffect(() => {
-    dispatch(getPlayerDetail());
-  }, [dispatch]);
-
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
