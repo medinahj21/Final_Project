@@ -35,6 +35,10 @@ module.exports = (sequelize) => {
     payment_date: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    type_order:{
+      type: DataTypes.ENUM("product", "paid"),
+      allowNull:false,
     }
   });
 };
