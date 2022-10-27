@@ -17,6 +17,7 @@
 .modify__button.modify__button-cart:hover {
     background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
     color: white;
+    border: 1px solid white;
 }
 
 .image__cart {
@@ -59,8 +60,8 @@
     position: absolute;
     border-radius: 3px;
     padding: 20px;
-    top: 60px;
-    right: 40px;
+    top: 55px;
+    right: 65px;
     z-index: 9999;
 }
 
@@ -86,21 +87,17 @@
     margin-right: 12px;
 }
 
-
-
 .shopping-cart .shopping-cart-items .item-name {
     display: block;
     padding-top: 10px;
     font-size: 16px;
     color: rgb(15, 3, 31);
-
 }
 
 .shopping-cart .name-position {
     position: relative;
-    right: 110px;
+    right: 30px;
     top: -20px;
-
 }
 
 .button-trash {
@@ -116,6 +113,7 @@
 
 .button-trash:hover {
     background-color: crimson;
+    border-color: white;
     color: white;
     box-shadow: 0 0 1px 0 white;
 }
@@ -152,8 +150,6 @@
 }
 
 .button {
-    background: rgb(30, 0, 72);
-    color: white;
     text-align: center;
     padding: 12px;
     text-decoration: none;
@@ -161,14 +157,27 @@
     border-radius: 3px;
     font-size: 16px;
     margin: 25px 0 15px 0;
+    border: 1px solid rgb(30, 0, 72);
+    color: rgb(30, 0, 72);
+    background: white;
+    transition: all .5s ease;
 }
 
 .button:hover {
+    border: 1px solid transparent;
     background: rgb(30, 0, 72);
+    color: white;
 }
 
 .clearfix:after {
     content: "";
     display: table;
     clear: both;
+}
+
+@media (max-width:600px) {
+    .shopping-cart {
+        top: 45px;
+        right: 7px;
+    }
 }

@@ -7,6 +7,7 @@ import {
   UPDATE_PRODUCT,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
+  ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
@@ -15,7 +16,7 @@ import {
 export const getProducts = () => {
   return async (dispatch) => {
     try {
-      let allProducts = await axios.get(`${axios.defaults.baseURL}/products`);
+      let allProducts = await axios.get(`http://localhost:3001/products`);
       return dispatch({
         type: GET_PRODUCTS,
         payload: allProducts.data,
@@ -30,7 +31,7 @@ export const getProductsByName = (name) => {
   return async (dispatch) => {
     try {
       let productByName = await axios.get(
-        `${axios.defaults.baseURL}/products?name=${name}`
+        `http://localhost:3001/products?name=${name}`
       );
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
@@ -46,7 +47,7 @@ export const getProductDetail = (id) => {
   return async (dispatch) => {
     try {
       let productById = await axios.get(
-        `${axios.defaults.baseURL}/products/${id}`
+        `http://localhost:3001/products/${id}`
       );
       return dispatch({
         type: GET_PRODUCT_DETAIL,
@@ -63,7 +64,7 @@ export const createProduct = (payload) => {
     try {
      
       let response = await axios.post(
-        `${axios.defaults.baseURL}/products/create`,
+        `http://localhost:3001/products/create`,
         payload
       );
       return dispatch({
@@ -80,7 +81,7 @@ export const updateProduct = (id, payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.put(
-        `${axios.defaults.baseURL}/products/update/${id}`,
+        `http://localhost:3001/products/update/${id}`,
         payload
       );
       return dispatch({
@@ -103,10 +104,20 @@ export const cleanProducts = () => {
 
 export const getFilterTags = () => {
   return async (dispatch) => {
-    const filterTags = await axios(`${axios.defaults.baseURL}/tags/`);
+    const filterTags = await axios(`http://localhost:3001/tags/`);
     dispatch({ type: GET_FILTER_TAGS, payload: filterTags.data });
   };
 };
+
+export const addFilterTags = (payload) => {
+  return (dispatch)=> {
+    dispatch({
+      type: ADD_FILTER_TAGS,
+      payload,
+    })
+  }
+
+}
 
 export const modifyProducts = (payload) => {
   return async (dispatch) => {

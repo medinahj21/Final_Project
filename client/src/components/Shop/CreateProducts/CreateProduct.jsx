@@ -176,6 +176,8 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
             </div>
             <div>
               <Labels
+                setNewProduct={setNewProduct}
+                newProduct={newProduct}
                 handleTags={handleTags}
                 filterTags={allFilterTags}
                 tags={tags}
@@ -191,11 +193,11 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
           </div>
         </div>
         <div className="create__product-button">
-          <button type="submit" className="form__btn-alta">
+          <button type="submit" className="form__btn-alta add-btn">
             Crear
           </button>
           <button
-            className="form__btn-alta"
+            className="form__btn-alta delete-btn"
             onClick={() => {
               setCreationDiv(false);
             }}

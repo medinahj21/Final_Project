@@ -29,15 +29,14 @@ const ShoppingCart = () => {
         {productsInCart?.length ? (
           <ul className="shopping-cart-items">
             {productsInCart
-              ?.filter((item) => item?.quant !== 0)
               ?.map((prod, index) => {
                 return <CartProduct key={index} prod={prod} />;
               })}
           </ul>
         ) : (
-          <h3 className="main-color-text">
+          <h4 className="main-color-text">
             Aún no hay productos en el carrito
-          </h3>
+          </h4>
         )}
 
         <a href="#!" className="button">
