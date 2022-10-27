@@ -6,19 +6,18 @@ import "react-toastify/dist/ReactToastify.css";
 import Nav from "../components/Nav/Nav";
 
 import { getGroups } from "../redux/actions/actionsGroup";
-import { getUserFirestore } from "../redux/actions/auth";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/firebase.config.js";
 
 import Navphone from "../components/Nav/Navphone";
 import FormUser from "../components/Register/FormUser";
 
-import "./Home.css";
 import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
 import Carousel from "../components/Home/Carousel";
 import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
+import ContactForm from "../components/ContactForm/ContactForm";
+import Calendar from "../components/Calendar/Calendar";
+
+import "./Home.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -48,13 +47,13 @@ function Home() {
         setDesktop(false);
       }
     };
+
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
- 
   return (
-    <>
+    <div id="home">
       {!isDesktop ? (
         <Navphone
           setShowLogin={setShowLogin}
@@ -69,41 +68,48 @@ function Home() {
         />
       )}
       {showAlta ? <FormUser setShowAlta={setShowAlta} /> : <></>}
-      {!isDesktop && showLogin ? (
-        <LoginRegisteMob
-          setShowLogin={setShowLogin}
-          showLogin={showLogin}
-          setShowAlta={setShowAlta}
-          setShowRegister={setShowRegister}
-        />
+      {!isDesktop ? (
+        <>
+          {showLogin && (
+            <LoginRegisteMob
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowRegister={setShowRegister}
+            />
+          )}
+          {showRegister && (
+            <LoginRegisteMob
+              setShowLogin={setShowLogin}
+              showLogin={showLogin}
+              setShowRegister={setShowRegister}
+            />
+          )}
+        </>
       ) : (
         <>
-          {showRegister ? (
+          {showRegister && (
             <LoginRegister
               setShowLogin={setShowLogin}
               showLogin={showLogin}
-              setShowAlta={setShowAlta}
               setShowRegister={setShowRegister}
             />
-          ) : (
-            <></>
           )}
-          {showLogin ? (
+          {showLogin && (
             <LoginRegister
               setShowLogin={setShowLogin}
               showLogin={showLogin}
               setShowRegister={setShowRegister}
             />
-          ) : (
-            <></>
           )}
         </>
       )}
-
+      <a href="#home">
+        <span className="back-up"></span>
+      </a>
       <div className="home__carrousel">
         <Carousel />
       </div>
-      <div className="home__gruops" id={"oferta"}>
+      <div className="home__gruops" id="oferta">
         {groups?.map((group, i) => {
           const alter = i % 2 === 0 ? "alt" : "";
           return (
@@ -120,7 +126,13 @@ function Home() {
           );
         })}
       </div>
-    </>
+      <div className="home_calendar" id="calendar">
+        <Calendar />
+      </div>
+      <div className="home_footer" id="contact">
+        <ContactForm />
+      </div>
+    </div>
   );
 }
 

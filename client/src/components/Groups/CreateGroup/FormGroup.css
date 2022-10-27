@@ -6,7 +6,6 @@
     position: relative;
 }
 
-
 .inputs-container {
     display: flex;
     flex-direction: column;
@@ -32,6 +31,18 @@
 .width-input {
     width: 200px;
 }
+
+
+.modify__button.add-btn:hover {
+    background-color: green;
+    box-shadow: none;
+}
+
+.modify__button.delete-btn:hover {
+    background-color: red;
+    box-shadow: none;
+}
+
 
 .check__label {
     display: flex;

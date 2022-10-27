@@ -71,13 +71,13 @@ export default function FormGroup({ setIsForm }) {
           handleChange={handleChange}
         />
         <div className="container-button-group">
-          <button type="submit" className="modify__button">
+          <button type="submit" className="modify__button add-btn">
             Crear
           </button>
           <button
             type="button"
             onClick={() => setIsForm(false)}
-            className="modify__button"
+            className="modify__button delete-btn"
           >
             Cancelar
           </button>

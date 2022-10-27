@@ -6,19 +6,22 @@ import LoginGoogle from "./LoginGoogle";
 
 import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
 import emailjs from "@emailjs/browser";
+import { sendVerificationEmail } from "../../utils/EmailVerification";
+import { auth } from "../../firebase/firebase.config";
+
+const notifyError = (error) =>
+  toast.error(error, {
+    draggable: true,
+    hideProgressBar: true,
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
+
+const notify = () =>
+  toast.success("Correo de verificación enviado", {
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
 
 function Register({ setShowRegister, setShowLogin, setShowAlta }) {
-  const notifyError = (error) =>
-    toast.error(error, {
-      draggable: true,
-      hideProgressBar: true,
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-  const notify = () =>
-    toast.success("Registro exitoso, vamos a darnos de alta !", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -54,14 +57,16 @@ function Register({ setShowRegister, setShowLogin, setShowAlta }) {
         credentials.email,
         credentials.password
       );
-      // await sendVerificationEmail(auth.currentUser);
+
+      await sendVerificationEmail(auth.currentUser);
+
       notify();
       sendEmail(e);
       setTimeout(() => {
         setShowLogin(false);
         setShowRegister(false);
-        setShowAlta(true);
       }, 2000);
+
       setCredentials({
         email: "",
         password: "",

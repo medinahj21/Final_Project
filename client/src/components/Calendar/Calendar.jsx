@@ -14,7 +14,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import esLocale from "@fullcalendar/core/locales/es";
 import DetailEvent from "./DetailEvent/DetailEvent";
 
-export default function Calendario() {
+import "./Calendar.css";
+
+export default function Calendar() {
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
   const [objectEvent, setObjectEvent] = useState([]);
@@ -23,7 +25,6 @@ export default function Calendario() {
   const [detail, setDetail] = useState([]);
 
   const events = useSelector((state) => state.eventReducer.events);
-  console.log("events", objectEvent);
 
   useEffect(() => {
     let eventMap = events?.map((ev) =>
@@ -44,10 +45,6 @@ export default function Calendario() {
     );
     setObjectEvent(eventMap.flat());
   }, [events]);
-
-  useEffect(() => {
-    console.log(objectEvent);
-  }, [objectEvent]);
 
   const handleModal = () => {
     setModalOn(!modalOn);
@@ -84,8 +81,7 @@ export default function Calendario() {
   }
 
   return (
-    <div>
-      <h1>Calendario</h1>
+    <div className="fc-header-toolbar fc-toolbar font-size">
       <FullCalendar
         plugins={[
           dayGridPlugin,

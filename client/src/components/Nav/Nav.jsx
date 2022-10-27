@@ -17,6 +17,7 @@ import { getUserFirestore, logout } from "../../redux/actions/auth";
 import LOGO from "../../images/LogoPNG.png";
 
 import "./Nav.css";
+import { sendVerificationEmail } from "../../utils/EmailVerification";
 
 function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
   const dispatch = useDispatch();
@@ -30,9 +31,8 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         dispatch(getUserFirestore(currentUser.uid));
-        dispatch(getPlayerDetail(currentUser.uid))
-        .then((action) => {
-        dispatch(setInitialCart(action.payload.shoppingCart));
+        dispatch(getPlayerDetail(currentUser.uid)).then((action) => {
+          dispatch(setInitialCart(action.payload.shoppingCart));
         });
       }
     });
@@ -44,6 +44,10 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
     await dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
     await dispatch(clearCart());
     await dispatch(logout());
+  };
+
+  const handleVerifyEmail = async () => {
+    await sendVerificationEmail(auth.currentUser);
   };
 
   return (
@@ -66,12 +70,23 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
         <div className="nav__links">
           {!userInfoFirestore || userInfoFirestore.name === "" ? (
             <>
-              {email ? (
+              {email && auth?.currentUser?.emailVerified ? (
                 <p className="alta__jugador" onClick={() => setShowAlta(true)}>
                   Alta jugador |
                 </p>
               ) : (
-                <></>
+                <>
+                  {email ? (
+                    <p
+                      className="alta__jugador verify-email"
+                      onClick={handleVerifyEmail}
+                    >
+                      Vefica tu email
+                    </p>
+                  ) : (
+                    <></>
+                  )}
+                </>
               )}
             </>
           ) : (
@@ -88,10 +103,10 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
             </>
           )}
 
-          <a href="oferta">Oferta</a>
-          <a href="calendario">Calendario</a>
-          <a href="Nosotros">Nosotros</a>
-          <a href="contacto">Contacto</a>
+          <a href="#oferta">Oferta</a>
+          <a href="#calendar">Calendario</a>
+          <a href="#about">Nosotros</a>
+          <a href="#contact">Contacto</a>
         </div>
       </div>
     </nav>
