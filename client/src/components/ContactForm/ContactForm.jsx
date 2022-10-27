@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 import emailjs from "@emailjs/browser";
 
-//import Modal from "../UI/Modal";
 import { FiMapPin, FiMail } from "react-icons/fi";
 import { FaPhone, FaWhatsappSquare } from "react-icons/fa";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
@@ -53,7 +52,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <h2 className="contact-form-title">Contacto</h2>
+      <span className="contact-form-title"></span>
       <div className="contact-form-global-container">
         <div className="whatsapp-container">
           <a

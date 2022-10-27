@@ -13,7 +13,7 @@ import Inscriptions from "../components/Dashboard/Inscriptions";
 import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
-import Calendario from "../components/Calendar/Calendario";
+import Calendar from "../components/Calendar/Calendar";
 
 import "./Dashboard.css";
 import InfoTable from "../components/Dashboard/Admins/InfoTable";
@@ -95,7 +95,7 @@ function Admin() {
             <Inscriptions />
           </>
         )}
-        {clickChoice.isCalendario && <Calendario />}
+        {clickChoice.isCalendario && <Calendar />}
         {clickChoice.isGrupo && (
           <>
             <Groups />

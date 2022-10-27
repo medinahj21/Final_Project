@@ -13,6 +13,26 @@ import Register from "../Register";
 
 import "./LoginRegister.css";
 
+const notifyError = (error) =>
+  toast.error(error, {
+    hideProgressBar: true,
+    theme: "colored",
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
+
+const notifyLoad = (message) =>
+  toast.loading(message, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+    autoClose: 5000,
+  });
+
+const notify = (message) =>
+  toast.success(message, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
+
+const dismissAll = () => toast.dismiss();
+
 function LoginRegister({
   setShowLogin,
   setShowRegister,
@@ -30,24 +50,6 @@ function LoginRegister({
     password: "",
   });
 
-  const notifyError = (error) =>
-    toast.error(error, {
-      hideProgressBar: true,
-      theme: "colored",
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
-  const notifyLoad = (message) =>
-    toast.loading(message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 8000,
-    });
-
-  const notify = (message) =>
-    toast.success(message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
   const changeHandler = (e) => {
     setCredentials((prevState) => {
       return {
@@ -61,13 +63,17 @@ function LoginRegister({
     e.preventDefault();
     try {
       await loginWhitEmailAndPassword(credentials.email, credentials.password);
-      
+
       setCredentials({
         email: "",
         password: "",
       });
 
       notifyLoad("Iniciando usuario");
+
+      setTimeout(() => {
+        dismissAll();
+      }, 4000);
 
       setTimeout(() => {
         const unSuscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -90,15 +96,14 @@ function LoginRegister({
   };
 
   const closeHanlder = () => {
-    setShowAlta(false);
     setShowLogin(false);
     setShowRegister(false);
   };
 
   return (
-    <Modal onClick={closeHanlder}>
+    <Modal clickHandler={closeHanlder}>
       <section className="user">
-        <ToastContainer />
+        <ToastContainer autoClose={5000} />
         {!forgotPassword ? (
           <div className="user_options-container">
             <div className="user_options-text">

@@ -1,4 +1,5 @@
 .home__gruops {
+    padding-top: 6rem;
     background: fixed url(../images/fondogroups.jpg);
     background-size: cover;
     display: grid;
@@ -17,14 +18,58 @@
     align-items: center;
 }
 
+.home_calendar {
+    padding: 5rem;
+    height: auto;
+}
+
 .home_footer {
-    padding:2rem;
+    padding: 2rem;
     color: white;
     background: linear-gradient(-4deg, orange, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), rgb(1, 4, 46));
     background-size: 500% 200%;
     animation: changeBG 10s ease infinite;
     height: fit-content;
 }
+
+.back-up {
+    background-color: rgb(1, 4, 46);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: fixed;
+    top: 90vh;
+    right: 80px;
+    z-index: 999999;
+    animation-name: pulseBack;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+}
+
+.back-up::after {
+    color: white;
+    height: 0;
+    width: 0;
+    font-size: 3rem;
+    margin-top: 5px;
+    margin-left: -13px;
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    content: '^';
+}
+
+
+@keyframes pulseBack {
+    0% {
+        box-shadow: 0 0 0 0 rgba(222, 222, 233, 0.7);
+    }
+
+    80% {
+        box-shadow: 0 0 0 14px rgba(13, 42, 24, 0);
+    }
+}
+
 
 @keyframes changeBG {
     0% {
@@ -69,5 +114,23 @@
         font-size: var(--font-size-h1-sm);
     }
 
+    .home_calendar {
+        padding-top: 2rem;
+    }
 
+    .back-up {
+        height: 40px;
+        width: 40px;
+        top: 90vh;
+        right: 45%;
+    }
+
+    .back-up::after {
+        font-size: 2rem;
+        margin-top: 8px;
+        margin-left: -10px;
+        position: absolute;
+        font-family: 'Courier New', Courier, monospace;
+        content: '^';
+    }
 }

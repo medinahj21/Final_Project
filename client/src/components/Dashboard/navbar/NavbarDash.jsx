@@ -136,7 +136,7 @@ function NavbarDash({ setClickChoice }) {
                         href="#!"
                         onClick={() => validateClick("socios", setClickChoice)}
                       >
-                        <i className="ion-ios-paperplane-outline"></i>Usuarios
+                        <i className="ion-ios-paperplane-outline"></i>Gestion de admins
                       </a>
                     </li>
                   </ul>

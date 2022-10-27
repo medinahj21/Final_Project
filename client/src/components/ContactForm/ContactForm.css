@@ -13,14 +13,13 @@
 }
 
 .contact-form-title {
-  margin-top: 0;
+  position: relative;
+  top: -10px;
+  display: block;
   color: rgb(255, 255, 255);
-  font-size: var(--font-size-h2);
-  padding: .2rem 0;
-  height: fit-content;
-  text-align: center;
-  border: 1px solid transparent;
-  box-shadow: 0 0 4px 0 rgb(255, 255, 255);
+  width: 80vw;
+  border: 1px solid white;
+  margin: 0 auto;
 }
 
 .textarea-contact {
