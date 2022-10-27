@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
+
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -62,7 +64,7 @@ function FormUser({ setShowAlta }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     if (userInput.name === "") {
       notifyError("must have a name");
       return;

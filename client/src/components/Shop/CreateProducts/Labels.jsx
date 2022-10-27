@@ -1,0 +1,48 @@
+function Labels({ handleTags, filterTags, tags, deleteTag }) {
+  return (
+    <>
+      <div className="select_container">
+        <select
+          className="select_content"
+          name="Tags"
+          defaultValue="type"
+          onChange={(e) => {
+            handleTags(e);
+          }}
+        >
+          <option value="type"> Selecciona etiquetas </option>
+          {filterTags?.map((tag) => {
+            return (
+              <option key={tag.id} value={tag.id}>
+                {tag.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      {tags.length > 0 ? (
+        <ul>
+          {tags?.map((tagId) => {
+            return (
+              <>
+                <li
+                  key={tagId}
+                  value={tagId}
+                  onClick={(e) => {
+                    deleteTag(e);
+                  }}
+                >
+                  {filterTags.find((t) => t.id === Number(tagId)).name} ❌
+                </li>
+              </>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>No has seleccionado ninguna etiqueta</p>
+      )}
+    </>
+  );
+}
+
+export default Labels;

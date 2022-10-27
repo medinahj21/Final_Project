@@ -12,6 +12,8 @@ const {
 
 const { getProductsFromDB } = require("../controllers/getControllers");
 
+
+/**======================== asyncPostProduct==========================*/
 const asyncPostProduct = async (req, res) => {
   const {
     name,
@@ -25,7 +27,7 @@ const asyncPostProduct = async (req, res) => {
     paymentTerm,
     FilterTags,
   } = req.body;
-
+  
   try {
     const existingProducts = await getProductsFromDB();
     if (
@@ -33,7 +35,7 @@ const asyncPostProduct = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
-    if (!name || !price || !description) {
+    if (!name || !price || !description || !isOrder || !paymentTerm || !state) {
       res.status(404).json({ message: "missing required fields" });
     } else {
       const newProduct = await Product.create({
@@ -48,15 +50,17 @@ const asyncPostProduct = async (req, res) => {
         paymentTerm,
         FilterTags,
       });
-
-      if (FilterTags) newProduct.addFilterTags(FilterTags);
-      return res.status(200).json(newProduct);
+      
+      FilterTags && newProduct.addFilterTags(FilterTags);
+      
+      return res.status(200).json({ msg: "product created" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
   }
 };
 
+/**======================== postProduct==========================*/
 const postGroups = async (req, res) => {
   console.log("backedn", req.body);
   const {
@@ -82,8 +86,8 @@ const postGroups = async (req, res) => {
       !description ||
       !inscription_cost ||
       !accept_newPlayers
-    ) {
-      res.status(412).json({ message: "missing information" });
+      ) {
+        res.status(412).json({ message: "missing information" });
     } else {
       const newGroup = await Group.create({
         name: name.toLowerCase(),
@@ -98,7 +102,7 @@ const postGroups = async (req, res) => {
         inscription_cost,
         accept_newPlayers,
       });
-
+      
       if (adminId?.length) {
         const validateAdmin = await newGroup.addAdmin(adminId);
         validateAdmin && res.status(200).send("group created susscessful");
@@ -112,6 +116,7 @@ const postGroups = async (req, res) => {
   }
 };
 
+/**======================== Event ==========================*/
 const createEvent = async (req, res) => {
   const {
     name,
@@ -167,6 +172,7 @@ const createEvent = async (req, res) => {
   }
 };
 
+/**======================== Orders ==========================*/
 const postOrders = async (req, res) => {
   const {
     value,
@@ -176,45 +182,66 @@ const postOrders = async (req, res) => {
     payment_date,
     payment_mode, //==> revisar obligatoriedad
     payment_term,
+    type_order,
     product,
     playerId,
   } = req.body;
-
+  
   try {
     if (
       !value ||
       !concept ||
+      !order_state ||
       !description ||
       !payment_date ||
       !payment_term ||
-      !product
-    ) {
-      res.status(412).json({ message: "information is missing" });
-    } else {
-      const newOrder = await Order.create({
-        value,
-        concept,
-        description,
-        order_state,
-        payment_date,
-        payment_mode,
-        payment_term,
-        playerId,
-      });
-      const validateOrderProduc = await newOrder.addProduct(product);
-      // const validateOrderPlayer = await newOrder.addPlayer(player);
-      validateOrderProduc && res.status(200).send("order created successfully");
+      !type_order
+      ) {
+        res.status(412).json({ message: "information is missing" });
+      } else {
+        if(product){
+          const newOrder = await Order.create({
+            value,
+            concept,
+            description,
+            order_state,
+            payment_date,
+            payment_mode,
+            payment_term,
+            type_order,
+            playerId,
+          });
+          
+          const validateOrderProduc = await newOrder.addProduct(product);
+          
+          validateOrderProduc && res.status(200).send("order created successfully");
+        }else{
+          const newOrder = await Order.create({
+            value,
+            concept,
+            description,
+            order_state,
+            payment_date,
+            payment_mode,
+            payment_term,
+            type_order,
+            playerId,
+          });
+          
+          newOrder && res.status(200).send("order created successfully");
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const postPlayers = async (req, res) => {
-  const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
+  };
+  
+  /**======================== Players ==========================*/
+  const postPlayers = async (req, res) => {
+    const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
     req.body;
-
-  try {
+    
+    try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
     else {
       const newPlayer = await Player.create({
@@ -225,38 +252,40 @@ const postPlayers = async (req, res) => {
         shirtNumber,
         groupId,
       });
-
+      
       !newPlayer
-        ? res.status(400).json({ message: "newPlayer was  not created" })
-        : res.json({ message: "Player was created successfully" });
+      ? res.status(400).json({ message: "newPlayer was  not created" })
+      : res.json({ message: "Player was created successfully" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
   }
 };
 
+/**======================== Admins ==========================*/
 const postAdmins = async (req, res) => {
   const { personal_info, permissions, id } = req.body;
-
+  
   try {
     if (!(personal_info && permissions && id))
-      res.status(400).json({ error: "missing info" });
+    res.status(400).json({ error: "missing info" });
     else {
       const newAdmin = await Admin.create({
         personal_info,
         permissions,
         id,
       });
-
+      
       !newAdmin
-        ? res.status(400).json({ message: "Admin was  not created" })
-        : res.json({ message: "Admin was created successfully" });
+      ? res.status(400).json({ message: "Admin was  not created" })
+      : res.json({ message: "Admin was created successfully" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
   }
 };
 
+/**======================== FilterTags ==========================*/
 const postFilterTag = async (req, res) => {
   const { name } = req.body;
   try {
@@ -267,6 +296,34 @@ const postFilterTag = async (req, res) => {
   }
 };
 
+
+/**======================== ProductRequest ==========================*/
+const postProductRequest = async (req, res) => {
+  const {
+    infoProduct,
+    productId,
+    playerId
+  } = req.body;
+  try {
+    if (!(infoProduct && productId && playerId)) {
+      res.status(400).json({ msg: "mising information" })
+    } else {
+      const newRequest = await ProductRequest.create({
+        infoProduct,
+        playerId
+      })
+      await newRequest.addProduct(productId)
+      
+      newRequest ?
+      res.json({ msg: "procces sussessfuly" })
+      : res.json({ msg: "something was wrong" })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**======================== RoleRequest ==========================*/
 const postRoleRequest = async (req, res) => {
   const { id, newRole, userInfo, groupId } = req.body;
   try {
@@ -279,16 +336,17 @@ const postRoleRequest = async (req, res) => {
         userInfo,
         groupId,
       });
-
+      
       newRoll
-        ? res.json({ message: "procces successfully" })
-        : res.status(400).json({ error: "bad request" });
+      ? res.json({ message: "procces successfully" })
+      : res.status(400).json({ error: "bad request" });
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
     console.log(error);
   }
 };
+
 
 module.exports = {
   asyncPostProduct,
@@ -299,4 +357,5 @@ module.exports = {
   postFilterTag,
   postAdmins,
   postRoleRequest,
+  postProductRequest
 };
