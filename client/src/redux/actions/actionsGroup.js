@@ -1,4 +1,3 @@
-
 import {
   GET_GROUPS,
   GET_GROUP_DETAIL,
