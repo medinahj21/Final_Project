@@ -45,74 +45,87 @@
 }
 
 .btn-product {
-    background: rgb(0,172,238);
-  background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    background: rgb(1, 0, 46);
+    background: linear-gradient(0deg, rgb(5, 7, 75) 0%, rgb(6, 29, 52) 100%);
     width: 130px;
     height: 40px;
     line-height: 42px;
     padding: 0;
     border: none;
-    
-  }
-  .btn-product span {
+
+}
+
+.btn-product span {
     position: relative;
     display: block;
     width: 100%;
     height: 100%;
-  }
-  .btn-product:before,
-  .btn-product:after {
+}
+
+.btn-product:before,
+.btn-product:after {
     position: absolute;
     content: "";
     right: 0;
     top: 0;
-     background: rgba(2,126,251,1);
+    background: rgb(5, 7, 75);
     transition: all 0.3s ease;
-  }
-  .btn-product:before {
+}
+
+.btn-product:before {
     height: 0%;
     width: 2px;
-  }
-  .btn-product:after {
+}
+
+.btn-product:after {
     width: 0%;
     height: 2px;
-  }
-  .btn-product:hover{
-     background: transparent;
+}
+
+.btn-product:hover {
+    background: transparent;
     box-shadow: none;
-  }
-  .btn-product:hover:before {
+}
+
+.btn-product:hover:before {
     height: 100%;
-  }
-  .btn-product:hover:after {
+}
+
+.btn-product:hover:after {
     width: 100%;
-  }
-  .btn-product span:hover{
-     color: rgba(2,126,251,1);
-  }
-  .btn-product span:before,
-  .btn-product span:after {
+}
+
+.btn-product span:hover {
+    color: rgb(5, 7, 75);
+}
+
+.btn-product span:before,
+.btn-product span:after {
     position: absolute;
     content: "";
     left: 0;
     bottom: 0;
-     background: rgba(2,126,251,1);
+    background: rgb(5, 7, 75);
     transition: all 0.3s ease;
-  }
-  .btn-product span:before {
+}
+
+.btn-product span:before {
     width: 2px;
     height: 0%;
-  }
-  .btn-product span:after {
+}
+
+.btn-product span:after {
     width: 0%;
     height: 2px;
-  }
-  .btn-product span:hover:before {
+}
+
+.btn-product span:hover:before {
     height: 100%;
-  }
-  .btn-product span:hover:after {
+}
+
+.btn-product span:hover:after {
     width: 100%;
-  }
+}
 
 .card__price {
     padding: 1rem;
@@ -121,14 +134,13 @@
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
     color: #fff;
-    border-radius: 20px;
     box-shadow: var(--box-shadow);
     width: 100%;
     font-size: var(--font-size-p);
     text-align: center;
     padding: .1rem 1rem .1rem 1rem;
     box-shadow: var(--box-shadow);
-    color: yellowgreen;
+    color: orange;
     background-color: var(--color-bg);
 }
 

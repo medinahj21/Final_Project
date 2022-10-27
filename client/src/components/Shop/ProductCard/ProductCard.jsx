@@ -19,7 +19,7 @@ function ProductCard({ id, name, price, image }) {
           className="card__title card__title-product btn-product"
           onClick={() => setShowDetail(true)}
         >
-          Ver más
+          <span> Ver más</span>
         </button>
 
         <Link to={`/detail/${id}`}></Link>
