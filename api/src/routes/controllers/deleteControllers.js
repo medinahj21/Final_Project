@@ -78,7 +78,7 @@ const deletePlayers = async (req, res) => {
     if (!id) {
       res.status(411).json({ error: "id is missing" });
     } else {
-      if (rgExp.test(id)) {
+      if (id) {
         await Player.destroy({
           where: { id },
         });

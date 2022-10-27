@@ -170,7 +170,7 @@ const getEvent = async (req, res) => {
   }
 };
 
-/**=============================== player events */
+/**=============================== player events ====================*/
 const getPlayerEvents = async (req, res) => {
   const { id } = req.params;
 
@@ -442,5 +442,5 @@ module.exports = {
   getAdmins,
   getRoleRequest,
   getProductRequest,
-  getPlayerEvents
+  getPlayerEvents,
 };

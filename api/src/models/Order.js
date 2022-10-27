@@ -40,5 +40,9 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("product", "payment"),
       allowNull:false,
     }
-  });
+  },
+  {
+    paranoid: true
+  }
+  );
 };
