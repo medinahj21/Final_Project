@@ -1,60 +1,62 @@
-import React, { useState }from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-function Labels({ 
+function Labels({
   handleTags,
-  filterTags,
   tags,
   deleteTag,
-  newProduct,
-  setNewProduct,
- }) {
-
+}) {
   const [addLabel, setAddLabel] = useState(false);
   const [newLabelValue, setNewLabelValue] = useState("");
-  
-  let lastFilterTagId= filterTags[filterTags.length-1].id;
 
-const newLabelHandler = (e)=> {
-  e.preventDefault();
-  setAddLabel(true);
-}
+  const newLabelHandler = (e) => {
+    e.preventDefault();
+    setAddLabel(true);
+  };
 
-const addNewLabelHanlder = (labelValue) => {
-  setAddLabel(false);
-  setNewProduct({
-    ...newProduct,
-    filterTags: [...filterTags, {id:++lastFilterTagId, name: labelValue} ]
-});
-}
+  const addNewLabelHandler = (labelValue) => {
+    setAddLabel(false);
+    axios
+      .post("http://localhost:3001/tags/create", {name:labelValue})
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
+      
+  };
 
-
+  const allFilterTags= useSelector((state)=> state.productsReducer.filterTags)
 
   return (
     <>
       <label> Etiquetas: </label>
       <div>
-        <button onClick= {newLabelHandler} className="modify__button">
+        <button onClick={newLabelHandler} className="modify__button">
           {" "}
           Nueva etiqueta ➕
         </button>
       </div>
-      {
-        addLabel? (
-          <div>
+      {addLabel ? (
+        <div>
           <label>Nombre de etiqueta:</label>
           <input
             value={newLabelValue}
-            name= "etiqueta" 
-            type= "text"
+            name="etiqueta"
+            type="text"
             placeholder="nombre de la etiqueta"
             onChange={(e) => {
               setNewLabelValue(e.target.value);
             }}
-            />
-            <button className="confirm-new-label" onClick={()=> addNewLabelHanlder(newLabelValue)}>Agregar etiqueta</button>
-          </div>
-        ):(<></>)
-      }
+          />
+          <button
+            className="confirm-new-label"
+            onClick={() => addNewLabelHandler(newLabelValue)}
+          >
+            Agregar etiqueta
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="select_container">
         <select
           className="select_content"
@@ -65,7 +67,7 @@ const addNewLabelHanlder = (labelValue) => {
           }}
         >
           <option value="type"> Selecciona etiquetas </option>
-          {filterTags?.map((tag) => {
+          {allFilterTags?.map((tag) => {
             return (
               <option key={tag.id} value={tag.id}>
                 {tag.name}
@@ -86,7 +88,7 @@ const addNewLabelHanlder = (labelValue) => {
                     deleteTag(e);
                   }}
                 >
-                  {filterTags.find((t) => t.id === Number(tagId)).name} ❌
+                  {allFilterTags.find((t) => t.id === Number(tagId)).name} ❌
                 </li>
               </>
             );
