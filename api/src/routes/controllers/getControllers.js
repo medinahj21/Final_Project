@@ -215,9 +215,7 @@ const getOrder = async (req, res) => {
   const { id } = req.params;
   const { state, type } = req.query;
   try {
-    console.log("jajajajajajaja");
     if (id) {
-      console.log("fhkhjfkj4543523232");
       if (rgExp.test(id)) {
         const infoOrder = await Order.findByPk(id, {
           include: [
@@ -249,7 +247,7 @@ const getOrder = async (req, res) => {
       }
 
     } else if (type) {
-      console.log('==>');
+   
       let veriType = ["product", "paid"]
 
       !veriType.includes(type) && res.json({ msg: "this type not exist" });
@@ -278,7 +276,6 @@ const getOrder = async (req, res) => {
 
       }
     } else {
-      console.log('halksljkvjdkjoi');
       const infoOrder = await Order.findAll({
         include: [{ model: Player }, { model: Product }],
       });
@@ -316,7 +313,6 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event, attributes: ["id"], through: { attributes: [] } },
-          //{ model: RoleRequest },
         ],
       });
       !player
@@ -328,7 +324,6 @@ const getPlayers = async (req, res) => {
           { model: Order },
           { model: Group },
           { model: Event, attributes: ["id"], through: { attributes: [] } },
-          //{ model: RoleRequest },
         ],
       });
       !allPlayers
