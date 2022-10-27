@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
+import { getFilterTags } from "../../../redux/actions/products";
 
 function Labels({
   handleTags,
@@ -9,6 +10,7 @@ function Labels({
 }) {
   const [addLabel, setAddLabel] = useState(false);
   const [newLabelValue, setNewLabelValue] = useState("");
+  const dispatch= useDispatch();
 
   const newLabelHandler = (e) => {
     e.preventDefault();
@@ -16,12 +18,14 @@ function Labels({
   };
 
   const addNewLabelHandler = (labelValue) => {
-    setAddLabel(false);
+    
     axios
       .post("http://localhost:3001/tags/create", {name:labelValue})
-      .then((resp) => console.log(resp))
+      .then((resp) => {console.log(resp)
+      dispatch(getFilterTags());
+      })
       .catch((err) => console.log(err));
-      
+      setAddLabel(false);  
   };
 
   const allFilterTags= useSelector((state)=> state.productsReducer.filterTags)
