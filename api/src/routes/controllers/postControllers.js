@@ -77,7 +77,7 @@ const postGroups = async (req, res) => {
     if (
       !name ||
       !genre ||
-      // !adminId ||
+      !adminId ||
       !schedule ||
       !description ||
       !inscription_cost ||
