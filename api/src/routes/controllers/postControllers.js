@@ -260,14 +260,12 @@ const postFilterTag = async (req, res) => {
   }
 };
 
-
 const postProductRequest = async (req, res) => {
   const {
     infoProduct,
     productId,
     playerId
   } = req.body;
-  console.log("bodyyy",req.body)
   try {
     if (!(infoProduct && productId && playerId)) {
       res.status(400).json({ msg: "missing information" })
