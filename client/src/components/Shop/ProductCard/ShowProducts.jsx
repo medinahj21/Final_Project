@@ -8,8 +8,6 @@ import Paginated from "../Paginated";
 
 import "./ShowProducts.css";
 
-import { getPlayerDetail } from "../../../redux/actions/player";
-
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
 
@@ -32,10 +30,6 @@ export default function ShowProducts({ dataFiltered }) {
       setCurrentPage(prevPage);
     }
   }, [currentPage, prevPage]);
-
-  useEffect(() => {
-    dispatch(getPlayerDetail());
-  }, [dispatch]);
 
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
