@@ -46,7 +46,7 @@ export default function RoleRequestMiniCard(roleRequest) {
 
   const [newPlayerData, setNewPlayerData] = useState({
     debtValue: "",
-    paymentDay: "",
+    paymentDate: "",
     shirtNumber: "",
   });
 
@@ -78,7 +78,7 @@ export default function RoleRequestMiniCard(roleRequest) {
         id,
         personalInfo: userInfo.userInfoFirestore,
         debtValue: newPlayerData.debtValue,
-        paymentDay: newPlayerData.paymentDay,
+        paymentDate: newPlayerData.paymentDate,
         shirtNumber: newPlayerData.shirtNumber,
         groupId,
       };
@@ -152,10 +152,10 @@ export default function RoleRequestMiniCard(roleRequest) {
               <input
                 className="forms_field-request-input"
                 type="number"
-                name="paymentDay"
+                name="paymentDate"
                 placeholder="fecha de pago"
                 onChange={(e) => handleChanges(e)}
-                value={newPlayerData.paymentDay}
+                value={newPlayerData.paymentDate}
               />
             </div>
             <div className="forms_field-request">

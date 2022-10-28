@@ -42,7 +42,7 @@ function Admin() {
         dispatch(getAllInfoUsers(docs));
       });
     }
-    dispatch(getPlayerDetail(userInfoFirestore.uid));
+    !userInfoFirestore.isAdmin && dispatch(getPlayerDetail(userInfoFirestore.uid));
   }, [dispatch, userInfoFirestore]);
 
   const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });

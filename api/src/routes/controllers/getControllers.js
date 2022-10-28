@@ -9,9 +9,12 @@ const {
   RoleRequest,
   ProductRequest
 } = require("../../db");
+
 const { Sequelize, Model, Op } = require("sequelize");
-const rgExp =
-  /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+
+const rgExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
+
+/**===================== ProductsFromDB ======================== */
 
 const getProductsFromDB = async () => {
   try {
@@ -35,6 +38,7 @@ const getProductsFromDB = async () => {
   }
 };
 
+/**===================== Products ======================== */
 const asyncGetProducts = async (req, res) => {
   let { name } = req.query;
   try {
@@ -55,6 +59,7 @@ const asyncGetProducts = async (req, res) => {
   }
 };
 
+/**===================== Tags ======================== */
 const getFilterTags = async (req, res) => {
   try {
     let filterTags = await FilterTags.findAll();
@@ -64,6 +69,7 @@ const getFilterTags = async (req, res) => {
   }
 };
 
+/**===================== ProductById ======================== */
 const asyncGetProductById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -85,6 +91,7 @@ const asyncGetProductById = async (req, res) => {
   }
 };
 
+/**===================== Groups ======================== */
 const getGroups = async (req, res) => {
   const { id } = req.params;
   const { name } = req.query;
@@ -131,22 +138,15 @@ const getGroups = async (req, res) => {
   }
 };
 
+/**===================== Events ======================== */
 const getEvent = async (req, res) => {
   const { id } = req.params;
   try {
     if (!id) {
       const allEvents = await Event.findAll({
         include: [
-          {
-            model: Player,
-            attributes: ["id"],
-            through: { attributes: [] },
-          },
-          {
-            model: Admin,
-            attributes: ["id"],
-            through: { attributes: [] },
-          },
+          { model: Player, attributes: ["id"], through: { attributes: [] } },
+          { model: Admin, attributes: ["id"], through: { attributes: [] } },
         ],
       });
 
@@ -156,12 +156,8 @@ const getEvent = async (req, res) => {
     } else {
       const event = await Event.findByPk(id, {
         include: [
-          {
-            model: Player,
-            attributes: ["id"],
-            through: { attributes: [] },
-          },
-          { model: Admin },
+          { model: Player, attributes: ["id"], through: { attributes: [] } },
+          { model: Admin, attributes: ["id"], through: { attributes: [] } },
         ],
       });
 
@@ -174,18 +170,56 @@ const getEvent = async (req, res) => {
   }
 };
 
+/**=============================== player events ====================*/
+const getPlayerEvents = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!id) {
+      res.json({ mesagge: "id is require" });
+    } else {
+      const player = await Player.findOne({
+        where: {
+          id
+        }
+      })
+
+      if (!player) {
+        res.json({ msg: "player does not exist" })
+      } else {
+        const events = await Event.findAll({
+          include: [
+            { model: Player, attributes: ["id"], through: { attributes: [] } },
+            { model: Admin, attributes: ["id"], through: { attributes: [] } },
+          ],
+        });
+
+        let fil = [];
+
+        for (let i = 0; i < events.length; i++) {
+          for (let j = 0; j < events[i].players.length; j++) {
+            const ready = events[i].players[j].id
+            ready === id && fil.push(events[i])
+          }
+        }
+        fil.length ? res.send(fil).status(200) : res.json({ msg: "without Events" })
+      }
+    }
+  } catch (error) {
+    res.json({ error_DB: error.message });
+  }
+};
+
+/**===================== Order ======================== */
 const getOrder = async (req, res) => {
   const { id } = req.params;
+  const { state, type } = req.query;
   try {
     if (id) {
       if (rgExp.test(id)) {
         const infoOrder = await Order.findByPk(id, {
           include: [
-            {
-              model: Product,
-              attributes: ["name"],
-              through: { attributes: [] },
-            },
+            { model: Product, attributes: ["name"], through: { attributes: [] } },
             { model: Player },
           ],
         });
@@ -194,6 +228,53 @@ const getOrder = async (req, res) => {
           ? res.status(200).send(infoOrder)
           : res.status(404).json({ message: "order not found" });
       } else res.status(406).json({ mesagge: "no valid" });
+    } else if (state) {
+      let verifyState = ["Pending", "Deleted", "Paid"]
+
+      !verifyState.includes(state) && res.json({ msg: "this state not exist" });
+
+      if (verifyState.includes(state)) {
+        const allOrders = await Order.findAll({
+          include: [
+            { model: Player, attributes: ["id", "personalInfo"] },  //o:N
+            { model: Product, attributes: ["id", "name"], through: { attributes: [] } } //N:N
+          ],
+          where: {
+            order_state: state
+          }
+        })
+        res.send(allOrders)
+      }
+
+    } else if (type) {
+   
+      let veriType = ["product", "paid"]
+
+      !veriType.includes(type) && res.json({ msg: "this type not exist" });
+
+      if (veriType.includes(type)) {
+        if (type === "product") {
+          const allOrders = await Order.findAll({
+            include: [
+              { model: Player, attributes: ["id", "personalInfo"] },  //o:N
+              { model: Product, attributes: ["id", "name"], through: { attributes: [] } } //N:N
+            ],
+            where: {
+              type_order: type
+            }
+          })
+          res.send(allOrders)
+        } else {
+          const allOrders = await Order.findAll({
+            include: [{ model: Player, attributes: ["id", "personalInfo"] }],
+            where: {
+              type_order: type
+            }
+          })
+          res.send(allOrders)
+        }
+
+      }
     } else {
       const infoOrder = await Order.findAll({
         include: [{ model: Player }, { model: Product }],
@@ -208,6 +289,8 @@ const getOrder = async (req, res) => {
   }
 };
 
+
+/**===================== Player ======================== */
 const getPlayers = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -217,8 +300,7 @@ const getPlayers = async (req, res) => {
         include: [
           { model: Order },
           { model: Group },
-          { model: Event },
-          //{ model: RoleRequest },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
         ],
       });
       !player
@@ -230,8 +312,7 @@ const getPlayers = async (req, res) => {
         include: [
           { model: Order },
           { model: Group },
-          { model: Event },
-          //{ model: RoleRequest },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
         ],
       });
       !player
@@ -242,8 +323,7 @@ const getPlayers = async (req, res) => {
         include: [
           { model: Order },
           { model: Group },
-          { model: Event },
-          //{ model: RoleRequest },
+          { model: Event, attributes: ["id"], through: { attributes: [] } },
         ],
       });
       !allPlayers
@@ -252,10 +332,11 @@ const getPlayers = async (req, res) => {
     }
   } catch (error) {
     console.log("string", error);
-    res.status(500).json({error});
+    res.status(500).json({ error });
   }
 };
 
+/**===================== Admins ======================== */
 const getAdmins = async (req, res) => {
   const { name } = req.query;
   const { id } = req.params;
@@ -295,6 +376,7 @@ const getAdmins = async (req, res) => {
   }
 };
 
+/**===================== RoleRequest ======================== */
 const getRoleRequest = async (req, res) => {
   const { id } = req.params;
   try {
@@ -313,14 +395,15 @@ const getRoleRequest = async (req, res) => {
   }
 };
 
-const getProductRequest = async(req, res) =>{
+/**===================== ProductRequest ======================== */
+const getProductRequest = async (req, res) => {
   const { id } = req.params;
   try {
     if (rgExp.test(id)) {
       const request = await ProductRequest.findByPk(id, {
         include: [
           { model: Player, attributes: ["id"] },
-          { model: Product, attributes: ["id"] },
+          { model: Product, attributes: ["id"], through: { attributes: [] } },
         ],
       });
       !request
@@ -330,7 +413,7 @@ const getProductRequest = async(req, res) =>{
       const request = await ProductRequest.findAll({
         include: [
           { model: Player, attributes: ["id"] },
-          { model: Product, attributes: ["id"] },
+          { model: Product, attributes: ["id"], through: { attributes: [] } },
         ],
       });
       !request ? res.status(400).json({ message: " empty" }) : res.send(request);
@@ -339,6 +422,9 @@ const getProductRequest = async(req, res) =>{
     console.log(error);
   }
 }
+
+
+
 module.exports = {
   asyncGetProductById,
   asyncGetProducts,
@@ -350,5 +436,6 @@ module.exports = {
   getPlayers,
   getAdmins,
   getRoleRequest,
-  getProductRequest
+  getProductRequest,
+  getPlayerEvents,
 };

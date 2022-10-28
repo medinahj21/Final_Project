@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
         infoProduct: {
             type: DataTypes.JSON,
             allowNull: false
-          }
-    });
+        }
+    },
+        {
+            paranoid: true
+        }
+    );
 };
