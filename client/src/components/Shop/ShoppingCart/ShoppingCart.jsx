@@ -13,20 +13,28 @@ const ShoppingCart = () => {
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
 
-  const notify = (message) => toast.success(message);
+  const notify = (message) => toast.success(message, {
+    position: toast.POSITION.TOP_LEFT,
+  });
   const notifyError = (message) =>
     toast.error(message, {
       hideProgressBar: true,
       theme: "colored",
+      position: toast.POSITION.TOP_LEFT,
     });
 
   const handleCheckout = (e) => {
-    console.log(productsInCart.length);
     if (!productsInCart.length) {
       notifyError("No hay productos en el carrito");
     } else {
       notify("Empezando proceso de compra, no recargues la página");
       try {
+        // ---------------- genero las órdenes -----------------------------------
+        let newOrders = [];
+        productsInCart.forEach(()=>{})
+
+
+        // ---------------- genero las product requests --------------------------
         let productRequests = [];
         productsInCart.forEach((prod) => {
           let add = Array(prod.quant).fill({
@@ -37,11 +45,11 @@ const ShoppingCart = () => {
           productRequests = [...productRequests, ...add];
         });
 
-        productRequests.forEach(async (pr) => {
-          axios.post(`${axios.defaults.baseURL}/productRequests/create`, pr);
-        });
-
+        productRequests.forEach(async (pr) => {await axios.post(`${axios.defaults.baseURL}/productRequests/create`, pr)});
         notify("Ahora puedes ver tus solicitudes de producto en tu dashboard");
+
+        
+        
 
         
 
