@@ -292,13 +292,31 @@ const getOrder = async (req, res) => {
 /**===================== OrdersPlayer ======================== */
 const getOrdersPlayer = async (req, res) => {
   const { id } = req.params;
+  const { state } = req.query;
+  
   try {
     if(!id){
       res.json({msg:"error"})
-    }else{
+    }else if(id && state){
       const player = await Player.findOne({
         where: { id }
       })
+      
+      if (!player) {
+        res.json({ msg: "player does not exist" })
+      } else {
+        const order = await Order.findAll({
+          where:{ order_state:state},
+            include: [
+              { model: Player, attributes: ["id"] },
+            ]
+        })
+        const result = order.filter(e=> e.player.id === id)
+        result ? res.send(result).status(200) : res.json({ msg: "without order" })
+    
+      }
+    }else{ 
+      const player = await Player.findOne({where: { id }})
 
       if (!player) {
         res.json({ msg: "player does not exist" })
@@ -310,10 +328,13 @@ const getOrdersPlayer = async (req, res) => {
     })
     const result = order.filter(e=> e.player.id === id)
 
-    result ? res.send(result).status(200) : res.json({ msg: "without Events" })
+    result ? res.send(result).status(200) : res.json({ msg: "without orders" })
   
   }}
-  } catch{ error => res.json({ error_DB: error.message })}
+  } catch (error){
+    
+    res.json({ error_DB: error.message })
+  }
 }
 
 /**===================== Player ======================== */
