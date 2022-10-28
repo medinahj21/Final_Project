@@ -11,31 +11,65 @@
     color: white;
 }
 
-.group__detail-container button {
+.group__detail-container .group-button {
     width: fit-content;
+    align-self: center;
+    position: relative;
+    left: -10%;
 }
 
 .group-detail-content {
     display: flex;
+    gap: 10rem;
+    width: 100%;
+    margin-left: 10rem;
     font-size: 1rem;
 }
 
 .group-detail-content span {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
-.group__detail-container .inscription-button {}
+.group__detail-container .inscription-button {
+    position: absolute;
+    bottom: 10vh;
+    left: 15vw;
+}
 
-.group__detail-container h1 {
+.group__detail-container p span {
     text-align: center;
     position: relative;
-    right: 10%;
+    left: -10%;
+    font-size: 5rem;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: 0.25em 0 0.325em;
+    display: block;
+    text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
 }
+
+@keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 
 .group__detail-container iframe {
     position: absolute;
-    height: 400px;
-    width: 400px;
+    height: 350px;
+    width: 350px;
     bottom: 0;
     left: 60%;
     border: 2px solid transparent;
@@ -63,6 +97,26 @@
     position: fixed;
     z-index: -1;
     filter: blur(5px);
+}
+
+@media screen and (max-width: 1404px) {
+    .group__detail-container {
+        left: 0;
+        bottom: 0;
+        font-size: 1.4rem;
+    }
+
+    .group__detail-container p span {
+        left: 0;
+        font-size: 4rem;
+    }
+
+    .group__detail-container iframe {
+        position: absolute;
+        height: 300px;
+        width: 300px;
+        left: 75%;
+    }
 }
 
 /*

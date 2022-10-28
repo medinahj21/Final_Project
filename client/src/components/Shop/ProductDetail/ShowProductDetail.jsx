@@ -152,7 +152,7 @@ export default function ShowProductDetail() {
                       : "button-detail-cart loading"
                   }
                 >
-                  <span>Add to cart</span>
+                  <span>Agregar al carrito</span>
                   <div className="cart-detail">
                     <svg viewBox="0 0 36 26">
                       <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>

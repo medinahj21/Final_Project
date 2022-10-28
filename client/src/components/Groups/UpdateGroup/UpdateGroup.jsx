@@ -84,14 +84,13 @@ export default function UpdateGroup({
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       <div className="group__detail-container">
         {(!playerDetail.id || allowBack) && (
-          <button
-            className="update__button"
-            onClick={() => setShowDetail(false)}
-          >
+          <button className="group-button" onClick={() => setShowDetail(false)}>
             Volver
           </button>
         )}
-        <h1>{groupDetail.name}</h1>
+        <p>
+          <span>{groupDetail.name}</span>
+        </p>
         <div className="group-detail-content">
           <div>
             <span>Genero: </span>
