@@ -25,7 +25,7 @@ function ProductCard({ id, name, price, image }) {
         <Link to={`/detail/${id}`}></Link>
       </div>
       {showDetail ? (
-        <Modal>
+        <Modal clickHandler={() => setShowDetail(false)}>
           <ProductDetail id={id} setShowDetail={setShowDetail} />
         </Modal>
       ) : (

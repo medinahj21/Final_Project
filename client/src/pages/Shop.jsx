@@ -34,8 +34,8 @@ function Shop() {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
-  }, [dispatch, productsInCart, userInfoFirestore.uid]);
+    if(!userInfoFirestore.isAdmin) dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+  }, [dispatch, productsInCart, userInfoFirestore]);
 
   useEffect(() => {
     async function getTags() {
@@ -150,7 +150,7 @@ function Shop() {
         </button>
       </div>
       {creationDiv ? (
-        <Modal>
+        <Modal clickHandler={()=>setCreationDiv(false)}>
           {" "}
           <CreateProduct setCreationDiv={setCreationDiv} isCreate={true} />{" "}
         </Modal>

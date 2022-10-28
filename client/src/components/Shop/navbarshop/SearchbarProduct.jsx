@@ -47,7 +47,7 @@ function SearchbarProduct(props) {
           </div>
         </div>
         <div className="nav-btn">
-          <label for="nav-check">
+          <label htmlFor="nav-check">
             <span></span>
             <span></span>
             <span></span>
@@ -95,7 +95,7 @@ function SearchbarProduct(props) {
               );
             })}
           </select>
-          <ul>
+          <ul className="tag-list">
             {tags?.map((tagId) => {
               return (
                 <li key={tagId} value={tagId} onClick={(e) => deleteTag(e)}>

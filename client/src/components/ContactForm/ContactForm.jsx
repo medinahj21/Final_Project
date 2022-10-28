@@ -52,7 +52,6 @@ const ContactForm = () => {
 
   return (
     <>
-      <span className="contact-form-title"></span>
       <div className="contact-form-global-container">
         <div className="whatsapp-container">
           <a

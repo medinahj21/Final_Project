@@ -153,8 +153,8 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
   return (
     <>
       <ToastContainer />
-      <form onSubmit={confirmHandler} className="form__user">
-        <h3 className="form__title">Crear producto</h3>
+      <form onSubmit={confirmHandler} className="form__user form-create-product">
+        <h3 className="form__title">{isCreate ? 'Crear producto' : 'Editar producto'}</h3>
         <div className="form__content-alta">
           <div className="form__product-inputs">
             <div>
@@ -190,16 +190,16 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
         </div>
         <div className="create__product-button">
           <button type="submit" className="form__btn-alta add-btn">
-            Crear
+            {isCreate ? 'Crear' : 'Editar'}
           </button>
-          <button
+          {isCreate && <button
             className="form__btn-alta delete-btn"
             onClick={() => {
               setCreationDiv(false);
             }}
           >
             Cancelar
-          </button>
+          </button>}
         </div>
       </form>
     </>
