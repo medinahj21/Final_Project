@@ -46,7 +46,7 @@ function SearchbarProduct(props) {
           </div>
         </div>
         <div className="nav-btn">
-          <label for="nav-check">
+          <label htmlFor="nav-check">
             <span></span>
             <span></span>
             <span></span>

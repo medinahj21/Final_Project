@@ -31,6 +31,8 @@ export default function ShowProductDetail() {
 
   const dispatch = useDispatch();
 
+  const [addToCartAnimation, setAddToCartAnimation] = useState(false);
+
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
   const handleAddToCart = () => {
@@ -51,14 +53,22 @@ export default function ShowProductDetail() {
     ) {
       notifyError("Elije algún modificador");
     } else if (productInCart) {
+      setAddToCartAnimation(true);
       dispatch(incrementProductInCart(id, itemToAdd.modifiers));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(
         `Se añadió otro ${name.toLowerCase()} al carrito | cant: ${
           productInCart.quant
         }`
       );
     } else {
+      setAddToCartAnimation(true);
       dispatch(addToCart(itemToAdd));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(`${name} añadido al carrito`);
     }
   };
@@ -87,7 +97,7 @@ export default function ShowProductDetail() {
           {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
           <h1 className="detail-product-title">{name}</h1>
           <div className="detail-product-content">
-            <div>
+            <div className="image-price">
               <img alt="imgProduct" src={image} className="image-detail" />
               <p className="price-detail">
                 Precio <span>${price}</span>
@@ -136,11 +146,20 @@ export default function ShowProductDetail() {
                 </span>
                 {!isOrder ? <label>Existencias: {stock}</label> : <></>}
                 <button
-                  className="card__title-product btn-product"
                   onClick={handleAddToCart}
+                  className={
+                    !addToCartAnimation
+                      ? "button-detail-cart"
+                      : "button-detail-cart loading"
+                  }
                 >
-                  {" "}
-                  <span>Añadir al carrito</span>{" "}
+                  <span>Add to cart</span>
+                  <div className="cart-detail">
+                    <svg viewBox="0 0 36 26">
+                      <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                      <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                    </svg>
+                  </div>
                 </button>
               </div>
             </div>

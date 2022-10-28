@@ -30,7 +30,10 @@ export default function ProductDetail({ id, setShowDetail }) {
     <>
       {!editor && (
         <div className="productDetail__container">
-          <button onClick={() => setShowDetail(false)}> X </button>
+          <button className="close-detail" onClick={() => setShowDetail(false)}>
+            {" "}
+            X{" "}
+          </button>
           {userInfoFirestore.isAdmin && (
             <button
               onClick={() => {
@@ -41,6 +44,14 @@ export default function ProductDetail({ id, setShowDetail }) {
               Editar
             </button>
           )}
+          {userInfoFirestore.isAdmin && (
+            <div className="toggle checkcross">
+              <input id="checkcross" type="checkbox" />
+              <label className="toggle-item" htmlFor="checkcross">
+                <div className="check"></div>
+              </label>
+            </div>
+          )}
           <ShowProductDetail id={id} />
         </div>
       )}
@@ -48,7 +59,7 @@ export default function ProductDetail({ id, setShowDetail }) {
         <>
           <CreateProduct isCreate={false} />
           <button
-            className="detail_edit-product"
+            className="modify__button detail_edit-product"
             onClick={() => {
               editMode = !editMode;
               setEditor(editMode);

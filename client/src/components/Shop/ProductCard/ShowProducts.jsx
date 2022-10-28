@@ -7,9 +7,6 @@ import ProductCard from "./ProductCard";
 import Paginated from "../Paginated";
 
 import "./ShowProducts.css";
-
-import { getPlayerDetail } from "../../../redux/actions/player";
-
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
 

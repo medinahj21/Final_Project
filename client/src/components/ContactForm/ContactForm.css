@@ -12,16 +12,6 @@
   width: 100%;
 }
 
-.contact-form-title {
-  position: relative;
-  top: -10px;
-  display: block;
-  color: rgb(255, 255, 255);
-  width: 80vw;
-  border: 1px solid white;
-  margin: 0 auto;
-}
-
 .textarea-contact {
   width: 90%;
   background-color: transparent;
