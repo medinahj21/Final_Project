@@ -6,6 +6,7 @@ import UploadImage from "../../UploadImage/UploadImage";
 import Modal from "../../UI/Modal";
 import InputsCreateForm from "./InputsCreateForm";
 import "./FormGroup.css";
+import Swal from "sweetalert2";
 
 export default function FormGroup({ setIsForm }) {
   const dispatch = useDispatch();
@@ -24,7 +25,8 @@ export default function FormGroup({ setIsForm }) {
     adminId: [],
   });
   const [image, setImage] = useState(null);
-  const admins = useSelector((state) => state.adminReducer.admins)
+  const admins = useSelector((state) => state.adminReducer.admins);
+  console.log(groupInputs);
 
   const handleChange = (e) => {
     setGroupInputs((prevState) => {
@@ -56,27 +58,39 @@ export default function FormGroup({ setIsForm }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await dispatch(actions.createGroup(groupInputs));
-    if (response.error) {
-      alert(`algo ha salido mal: ${response.error}`);
-    } else {
-      await dispatch(actions.getGroups());
-      setGroupInputs({
-        name: "",
-        location: "",
-        schedule: "",
-        description: "",
-        image: "",
-        inscription_cost: "",
-        contact: "",
-        whatsapp: "",
-        accept_newPlayers: "",
-        genre: "",
-        adminId: [],
-      });
-      setImage("");
-      alert("Group has been created successfully");
-    }
+    Swal.fire({
+      title: 'Estas seguro que quieres guardar?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let response = await dispatch(actions.createGroup(groupInputs));
+        if (response.error) {
+          alert(`algo ha salido mal: ${response.error}`);
+        } else {
+          Swal.fire(response, '', 'success')
+          await dispatch(actions.getGroups());
+          setGroupInputs({
+            name: "",
+            location: "",
+            schedule: "",
+            description: "",
+            image: "",
+            inscription_cost: "",
+            contact: "",
+            whatsapp: "",
+            accept_newPlayers: "",
+            genre: "",
+            adminId: [],
+          });
+          setImage("");
+        }
+      } else if (result.isDenied) {
+        Swal.fire('No ha sido creado!', '', 'info')
+      }
+    })
   };
 
   const deleteAdminSelected = (id) => {
