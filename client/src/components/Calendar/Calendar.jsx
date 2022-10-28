@@ -28,7 +28,7 @@ export default function Calendar() {
 
   useEffect(() => {
     let eventMap = events?.map((ev) =>
-      ev.state == "Pending"
+      ev.state === "Pending"
         ? [
             {
               title: ev.name,
