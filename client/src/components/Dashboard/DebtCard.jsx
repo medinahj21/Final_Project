@@ -23,7 +23,7 @@ const total = debt.reduce((prev, current) => {
   return prev + current;
 });
 
-function DebtCard({ month }) {
+function DebtCard({ month, orders = deudas }) {
   return (
     <>
       <ul className="card__debt">
@@ -31,10 +31,10 @@ function DebtCard({ month }) {
           <h2 className="card-header-title">{month}</h2>
 
           <ul className="card-header-status list-inline">
-            <li className="card-price">$ {total}</li>
+            <li className="card-price">$ {orders.map((i)=>i.deuda).reduce((a,b)=>a+ b)}</li>
           </ul>
         </li>
-        {deudas.map((debt, i) => {
+        {orders.map((debt, i) => {
           return (
             <>
               <li className="card-item card-loss" key={Math.random() * 500 + i}>

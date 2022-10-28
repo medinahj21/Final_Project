@@ -17,6 +17,7 @@ import Calendar from "../components/Calendar/Calendar";
 
 import "./Dashboard.css";
 import InfoTable from "../components/Dashboard/Admins/InfoTable";
+import PlayerPayments from "../components/Dashboard/Payments/PlayerPayments";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -82,8 +83,8 @@ function Admin() {
           <>
             {!userInfoFirestore.isAdmin ? (
               <>
-                {/* Mapear deudas por mes --> */}
-                <div>Detalles de pagos player</div>
+                {/* Mapear deudas por mes --> */}                
+                <PlayerPayments />
               </>
             ) : (
               <div>Detalles de pagos admin</div>
