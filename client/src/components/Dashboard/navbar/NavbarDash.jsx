@@ -86,14 +86,14 @@ function NavbarDash({ setClickChoice }) {
                           href="pagos"
                           onClick={(e) => onClcikHandler(e, "pagos")}
                         >
-                          <i className="ion-ios-information-outline"></i>Detalle
-                          de pagos
+                          <i className="ion-ios-information-outline"></i>
+                          Historial de gastos
                         </a>
                       </li>
                       <li>
                         <a href="#!">
-                          <i className="ion-android-star-outline"></i>Mis
-                          compras
+                          <i className="ion-android-star-outline"></i>Pagos y
+                          deudas
                         </a>
                       </li>
                     </>
@@ -126,17 +126,24 @@ function NavbarDash({ setClickChoice }) {
                       </a>
                     </li>
                     <li>
-                      <a href="#!">
-                        <i className="ion-ios-information-outline"></i>
-                        Contaduria
-                      </a>
-                    </li>
-                    <li>
                       <a
                         href="#!"
                         onClick={() => validateClick("socios", setClickChoice)}
                       >
-                        <i className="ion-ios-paperplane-outline"></i>Gestion de admins
+                        <i className="ion-ios-paperplane-outline"></i>Gestion de
+                        admins
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#!">
+                        <i className="ion-ios-information-outline"></i>
+                        Pagos y deudas
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#!">
+                        <i className="ion-ios-information-outline"></i>
+                        Compras y pedidos
                       </a>
                     </li>
                   </ul>
