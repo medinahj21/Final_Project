@@ -19,10 +19,10 @@ function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
           <div className="photo" style={imageBG}></div>
           <ul className="details">
             <li className="tags">
-              <a href="!">Precio inscripción</a>
+              <a href="#!">Precio inscripción</a>
             </li>
             <li className="tags">
-              <a href="!">$ {price}</a>
+              <a href="#!">$ {price}</a>
             </li>
           </ul>
         </div>

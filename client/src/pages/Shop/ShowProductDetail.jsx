@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,6 +9,15 @@ import { useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import "./ShowProductDetail.css";
+
+const notify = (message) => toast.success(message);
+const notifyError = (message) =>
+  toast.error(message, {
+    hideProgressBar: true,
+    theme: "colored",
+  });
 
 export default function ShowProductDetail() {
   const product = useSelector(
@@ -22,13 +31,14 @@ export default function ShowProductDetail() {
     description,
     filterTags,
     modifiers,
-    // state,
     isOrder,
     stock,
     paymentTerm,
   } = { ...product };
 
   const dispatch = useDispatch();
+
+  const [addToCartAnimation, setAddToCartAnimation] = useState(false);
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
@@ -50,14 +60,22 @@ export default function ShowProductDetail() {
     ) {
       notifyError("Elije algún modificador");
     } else if (productInCart) {
+      setAddToCartAnimation(true);
       dispatch(incrementProductInCart(id, itemToAdd.modifiers));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(
         `Se añadió otro ${name.toLowerCase()} al carrito | cant: ${
           productInCart.quant
         }`
       );
     } else {
+      setAddToCartAnimation(true);
       dispatch(addToCart(itemToAdd));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(`${name} añadido al carrito`);
     }
   };
@@ -71,85 +89,84 @@ export default function ShowProductDetail() {
     });
   };
 
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-    });
-
   return (
-    <div className="detail__container-product">
+    <>
       <ToastContainer />
       {product ? (
         <>
-          <div>
-            {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
-            <h1>{name}</h1>
-            <img alt="imgProduct" src={image} height="300" />
-            <h3>{`Precio: ${price}`}</h3>
-            <h3>Detalles:</h3>
-            <p>{description}</p>
-            <h4>Etiquetas:</h4>
-            <ul>
-              {filterTags?.map((obj) => {
-                return (
-                  <li key={obj.id} value={obj.id}>
-                    {obj["name"]}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="detail__container-modifier">
-            <h3>Modificadores</h3>
-            {modifiers?.map((obj, index) => {
-              if (Object.values(obj)[0] === "") {
-                return (
-                  <label key={index}>
-                    {Object.keys(obj)[0]}:
-                    <input
-                      placeholder={Object.keys(obj)[0]}
-                      name={Object.keys(obj)[0]}
-                      onChange={handleModifiers}
-                    ></input>
-                  </label>
-                );
-              } else {
-                return (
-                  <label key={index}>
-                    {Object.keys(obj)[0]}:
-                    <select
-                      name={Object.keys(obj)[0]}
-                      id={index}
-                      defaultValue={0}
-                      readOnly={true}
-                      onChange={handleModifiers}
-                    >
-                      <option value={0} disabled={true}>
-                        {"selecciona una"}
-                      </option>
-                      {Object.values(obj)[0]?.map(
-                        (option, i) => (
-                          <option value={option} key={i}>
+          {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
+          <h1 className="detail-product-title">{name}</h1>
+          <div className="detail-product-content">
+            <div className="image-price">
+              <img alt="imgProduct" src={image} className="image-detail" />
+              <p className="price-detail">${price}</p>
+            </div>
+            <div className="details-container">
+              <div className="modify_container-detail">
+                {modifiers?.map((obj, index) => {
+                  if (Object.values(obj)[0] === "") {
+                    return (
+                      <div className="modify-container">
+                        <label key={index}>
+                          <input
+                            placeholder={Object.keys(obj)[0]}
+                            name={Object.keys(obj)[0]}
+                            onChange={handleModifiers}
+                          ></input>
+                        </label>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="size-container">
+                        {Object.keys(modifiers[index])[0]}
+                        {Object.values(obj)[0]?.map((option, i) => (
+                          <label className="check__label">
                             {option}
-                          </option>
-                        ) //cambiar a input type radio
-                      )}
-                    </select>
-                  </label>
-                );
-              }
-            })}
-            <h4>Producto bajo {isOrder ? "pedido" : "stock"}</h4>
-            {!isOrder ? <label>Existencias: {stock}</label> : <></>}
-            <h4> Plazo máximo de pago: {paymentTerm} días</h4>
-            <button onClick={handleAddToCart}> Añadir al carrito </button>
+                            <input
+                              name={Object.keys(modifiers[index])}
+                              value={option}
+                              type="radio"
+                              onChange={handleModifiers}
+                            />
+                            <span className="check"></span>
+                          </label>
+                        ))}
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+              <div className="description-content">
+                <span>Descripción:</span>
+                <p>{description}</p>
+                <span className="span-pedido">
+                  Producto bajo {isOrder ? "pedido" : "stock"}
+                </span>
+                {!isOrder ? <label>Existencias: {stock}</label> : <></>}
+                <button
+                  onClick={handleAddToCart}
+                  className={
+                    !addToCartAnimation
+                      ? "button-detail-cart"
+                      : "button-detail-cart loading"
+                  }
+                >
+                  <span>Add to cart</span>
+                  <div className="cart-detail">
+                    <svg viewBox="0 0 36 26">
+                      <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                      <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
           </div>
         </>
       ) : (
         <h2>No hay info</h2>
       )}
-    </div>
+    </>
   );
 }

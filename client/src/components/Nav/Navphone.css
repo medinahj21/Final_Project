@@ -6,6 +6,7 @@
     z-index: 9999;
     -webkit-user-select: none;
     user-select: none;
+    font-size: var(--font-size-p);
 }
 
 #menuToggle a,
@@ -105,7 +106,12 @@
 
 /* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
-@media screen and (max-width: 1124px) {}
+@media screen and (max-width: 1124px) {
+    #menuToggle {
+        font-size: var(--font-size-p-md);
+    }
+
+}
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
@@ -113,5 +119,7 @@
     #menuToggle {
         top: 25px;
         left: 25px;
+        font-size: var(--font-size-p-md);
     }
+
 }

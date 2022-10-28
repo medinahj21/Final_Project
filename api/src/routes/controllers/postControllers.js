@@ -108,7 +108,6 @@ const postGroups = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 
@@ -172,9 +171,9 @@ const postOrders = async (req, res) => {
     value,
     concept,
     description,
-    order_state, //==> revisar obligatoriedad
+    order_state, 
     payment_date,
-    payment_mode, //==> revisar obligatoriedad
+    payment_mode, 
     payment_term,
     product,
     playerId,
@@ -187,31 +186,50 @@ const postOrders = async (req, res) => {
       !description ||
       !payment_date ||
       !payment_term ||
-      !product
-    ) {
-      res.status(412).json({ message: "information is missing" });
-    } else {
-      const newOrder = await Order.create({
-        value,
-        concept,
-        description,
-        order_state,
-        payment_date,
-        payment_mode,
-        payment_term,
-        playerId,
-      });
-      const validateOrderProduc = await newOrder.addProduct(product);
-      // const validateOrderPlayer = await newOrder.addPlayer(player);
-      validateOrderProduc && res.status(200).send("order created successfully");
+      !type_order
+      ) {
+        res.status(412).json({ message: "information is missing" });
+      } else {
+        if(product){
+          const newOrder = await Order.create({
+            value,
+            concept,
+            description,
+            order_state,
+            payment_date,
+            payment_mode,
+            payment_term,
+            type_order,
+            playerId,
+          });
+          
+          const validateOrderProduc = await newOrder.addProduct(product);
+          
+          validateOrderProduc && res.status(200).send("order created successfully");
+        }else{
+          const newOrder = await Order.create({
+            value,
+            concept,
+            description,
+            order_state,
+            payment_date,
+            payment_mode,
+            payment_term,
+            type_order,
+            playerId,
+          });
+          
+          newOrder && res.status(200).send("order created successfully");
+        }
+      }
+    } catch (error) {
+      res.json({ error_DB: error.message });
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const postPlayers = async (req, res) => {
-  const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
+  };
+  
+  /**======================== Players ==========================*/
+  const postPlayers = async (req, res) => {
+    const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
     req.body;
 
   try {
@@ -232,6 +250,7 @@ const postPlayers = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
+    console.log(error.message)
   }
 };
 
@@ -267,6 +286,34 @@ const postFilterTag = async (req, res) => {
   }
 };
 
+
+/**======================== ProductRequest ==========================*/
+const postProductRequest = async (req, res) => {
+  const {
+    infoProduct,
+    productId,
+    playerId
+  } = req.body;
+  try {
+    if (!(infoProduct && productId && playerId)) {
+      res.status(400).json({ msg: "missing information" })
+    } else {
+      const newRequest = await ProductRequest.create({
+        infoProduct,
+        playerId
+      })
+      await newRequest.addProduct(productId)
+      
+      newRequest ?
+        res.json({ msg: "proccess sussessfuly" })
+        : res.json({ msg: "something went wrong" })
+    }
+  } catch (error) {
+    res.json({ error_DB: error.message });
+  }
+}
+
+/**======================== RoleRequest ==========================*/
 const postRoleRequest = async (req, res) => {
   const { id, newRole, userInfo, groupId } = req.body;
   try {
@@ -286,7 +333,6 @@ const postRoleRequest = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 

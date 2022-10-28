@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageNumPrev } from "../../redux/actions/products";
+
+import { setPageNumPrev } from "../../../redux/actions/products";
+
+import ProductCard from "./ProductCard";
+import Paginated from "../Paginated";
+
 import "./ShowProducts.css";
-
-import ProductCard from "../../components/ProductCard/ProductCard";
-import Paginated from "./Paginated";
-import { clearCart } from "../../redux/actions/shoppingCart";
-
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ export default function ShowProducts({ dataFiltered }) {
 
   //paginated
   const [currentPage, setCurrentPage] = useState(prevPage);
-  const productPerPage = 3;
+  const productPerPage = 4;
   const lastProductIndex = currentPage * productPerPage;
   const firstProductIndex = lastProductIndex - productPerPage;
   const currentProduct = dataFiltered.slice(
@@ -33,10 +33,6 @@ export default function ShowProducts({ dataFiltered }) {
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
-  };
-
-  const handleClearCart = () => {
-    dispatch(clearCart());
   };
 
   return (
@@ -59,7 +55,6 @@ export default function ShowProducts({ dataFiltered }) {
           );
         })}
       </div>
-      <button onClick={() => handleClearCart()}>LIMPIAR CART</button>
     </div>
   );
 }

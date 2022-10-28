@@ -6,10 +6,10 @@ import { logout, getUserFirestore } from "../../redux/actions/auth";
 import { validateClick } from "../../utils/validateClick";
 import { onAuthStateChanged} from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
-import {AiOutlineShoppingCart} from "react-icons/ai"
 
 import { updatePlayerCart, getPlayerDetail, clearPlayerDetail} from "../../redux/actions/player";
 import { clearCart, setInitialCart} from "../../redux/actions/shoppingCart";
+import "./Navphone.css";
 
 function Navphone({
   setClickChoice,
@@ -68,24 +68,7 @@ function Navphone({
         <span></span>
         <span></span>
 
-        {
-          productsInCart?.length>0?
-          <div className="nav_cart">
-            <AiOutlineShoppingCart />
-          </div>
-          :
-          <></>
-        }
-
         <ul id="menu">
-        {
-          true?
-          <div className="nav_cart nav_cart_phone" >
-            <AiOutlineShoppingCart />
-          </div>
-          :
-          <></>
-        }
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>
@@ -140,7 +123,9 @@ function Navphone({
               {!userInfoFirestore || userInfoFirestore.name === "" ? (
                 <>
                   {email ? (
-                    <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
+                    <p onClick={() => setShowAlta(true)}>
+                      <li>Alta jugador</li>
+                    </p>
                   ) : (
                     <></>
                   )}
@@ -153,7 +138,7 @@ function Navphone({
                       : "/dashboard-player"
                   }
                 >
-                  Dashboard |
+                  <li>Dashboard</li>
                 </Link>
               )}
               <p href="!">
@@ -165,7 +150,7 @@ function Navphone({
               <p href="!">
                 <li>Nosotros</li>
               </p>
-              <p href="!">
+              <p href="/contacto">
                 <li>Contacto</li>
               </p>
             </>

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100px;
+    padding: 2rem 0;
     width: 100%;
     background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
     position: relative;
@@ -25,7 +25,7 @@
 
 .nav>.nav-links {
     display: flex;
-    gap: .5rem;
+    gap: 2rem;
 }
 
 .nav>.nav-links>b {
@@ -35,27 +35,57 @@
     color: #efefef;
 }
 
-.nav>.nav-links>b:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
 .nav>#nav-check {
     display: none;
 }
 
-@media (max-width:1024px) {
+.nav-links .button-nav {
+    background-color: transparent;
+    font-weight: bolder;
+    color: white;
+    border: 1px solid white;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.nav-links .button-nav:hover {
+    background-color: white;
+    color: rgb(1, 4, 46);
+    border: 1px solid rgb(1, 4, 46);
+    border-radius: 7px;
+}
+
+.tag-list {
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+@media (max-width:1454px) {
     .nav>.nav-btn {
         display: inline-block;
         position: absolute;
         right: 0px;
         top: 0px;
     }
-
+    
+    .nav-title{
+        position: absolute;
+        left: 20px;
+        top: 10px;
+        z-index: 9999999;
+    }
+    
     .nav>.nav-btn>label {
         display: inline-block;
+        cursor: pointer;
         width: 50px;
         height: 50px;
         padding: 13px;
+    }
+
+    .button-nav{
+        padding: .5rem;
     }
 
     .nav>.nav-btn>label:hover,

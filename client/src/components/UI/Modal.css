@@ -15,5 +15,6 @@
     position: absolute;
     top: 0;
     width: 100vw;
-    height: 20vh;
+    height: 100vh;
+    z-index: -1;
 }

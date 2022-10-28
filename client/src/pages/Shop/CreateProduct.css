@@ -1,7 +1,11 @@
-
 .product__image-create {
     width: 200px;
     border-radius: 25%;
+}
+
+.form__user.form-create-product {
+    overflow-y: scroll;
+    max-height: 80vh;
 }
 
 .form__product-inputs {
@@ -11,13 +15,23 @@
     justify-content: space-between;
 }
 
-.create__product-button{
+.create__product-button {
     display: flex;
     gap: 1rem;
 }
 
+.form__btn-alta.add-btn:hover {
+    background-color: green;
+    box-shadow: none;
+}
+
+.form__btn-alta.delete-btn:hover {
+    background-color: red;
+    box-shadow: none;
+}
+
 /*------------------------------MODIFIERS COMPONENT-------------------------------*/
-.product__image-container{
+.product__image-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,6 +51,7 @@
 }
 
 .select_content {
+    text-align: center;
     width: 100%;
     appearance: none;
     cursor: pointer;
@@ -52,8 +67,9 @@
     display: flex;
     width: 20em;
     height: 3em;
-    border-radius: .25em;
+    border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .select_container::after {
@@ -76,5 +92,15 @@
     color: #000;
 }
 
-/*------------------------------LABELS COMPONENT-------------------------------*/
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 624px) {
+    .form__user.form-create-product {
+        overflow-y: scroll;
+        max-height: 100vh;
+        width: 100vw;
+        padding-top: 5rem;
+    }
+}

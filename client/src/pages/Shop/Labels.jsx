@@ -1,8 +1,60 @@
-import React from "react";
+import React, { useState }from "react";
 
-function Labels({ handleTags, filterTags, tags, deleteTag }) {
+function Labels({ 
+  handleTags,
+  filterTags,
+  tags,
+  deleteTag,
+  newProduct,
+  setNewProduct,
+ }) {
+
+  const [addLabel, setAddLabel] = useState(false);
+  const [newLabelValue, setNewLabelValue] = useState("");
+  
+  let lastFilterTagId= filterTags[filterTags.length-1].id;
+
+const newLabelHandler = (e)=> {
+  e.preventDefault();
+  setAddLabel(true);
+}
+
+const addNewLabelHanlder = (labelValue) => {
+  setAddLabel(false);
+  setNewProduct({
+    ...newProduct,
+    filterTags: [...filterTags, {id:++lastFilterTagId, name: labelValue} ]
+});
+}
+
+
+
   return (
     <>
+      <label> Etiquetas: </label>
+      <div>
+        <button onClick= {newLabelHandler} className="modify__button">
+          {" "}
+          Nueva etiqueta ➕
+        </button>
+      </div>
+      {
+        addLabel? (
+          <div>
+          <label>Nombre de etiqueta:</label>
+          <input
+            value={newLabelValue}
+            name= "etiqueta" 
+            type= "text"
+            placeholder="nombre de la etiqueta"
+            onChange={(e) => {
+              setNewLabelValue(e.target.value);
+            }}
+            />
+            <button className="confirm-new-label" onClick={()=> addNewLabelHanlder(newLabelValue)}>Agregar etiqueta</button>
+          </div>
+        ):(<></>)
+      }
       <div className="select_container">
         <select
           className="select_content"

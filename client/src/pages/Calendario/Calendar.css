@@ -1,0 +1,16 @@
+    .fc-timeGridWeek-button.fc-button.fc-button-primary,
+    .fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active,
+    .fc-timeGridDay-button.fc-button.fc-button-primary,
+    .fc-today-button.fc-button.fc-button-primary,
+    .fc-prev-button.fc-button.fc-button-primary,
+    .fc-next-button.fc-button.fc-button-primary,
+    .fc-custom1-button.fc-button.fc-button-primary {
+        background-color: rgb(1, 0, 46) !important;
+    }
+
+
+    @media (max-width: 640px) {
+        .fc-header-toolbar.fc-toolbar.font-size>* {
+            font-size: .7rem !important;
+        }
+    }

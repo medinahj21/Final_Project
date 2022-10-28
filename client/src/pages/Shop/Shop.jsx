@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   cleanProductDetail,
   cleanProducts,
@@ -9,12 +10,15 @@ import {
 } from "../../redux/actions/products";
 import { updatePlayerCart } from "../../redux/actions/player";
 
-import "../Shop/Shop.css";
-import CreateProduct from "./CreateProduct";
-import { handleFilter } from "./utils/filters";
-import ShowProducts from "./ShowProducts";
-import SearchbarProduct from "./SearchbarProduct";
-import Modal from "../../components/UI/Modal";
+import { handleFilter } from "../utils/filter";
+
+import CreateProduct from "../components/Shop/CreateProducts/CreateProduct";
+import ShowProducts from "../components/Shop/ProductCard/ShowProducts";
+import SearchbarProduct from "../components/Shop/navbarshop/SearchbarProduct";
+import Modal from "../components/UI/Modal";
+import ContactForm from "../components/ContactForm/ContactForm";
+
+import "./Shop.css";
 
 function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
@@ -25,12 +29,11 @@ function Shop() {
 
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
-   const { userInfoFirestore } = useSelector(
-    (state) => state.authReducer
-  );
-  useEffect(()=>{
-    dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart))
-  },[dispatch,productsInCart,userInfoFirestore.uid])
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
+  useEffect(() => {
+    if(!userInfoFirestore.isAdmin) dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+  }, [dispatch, productsInCart, userInfoFirestore]);
 
   useEffect(() => {
     async function getTags() {
@@ -96,7 +99,7 @@ function Shop() {
         handleClean={handleClean}
       />
       {creationDiv ? (
-        <Modal>
+        <Modal clickHandler={()=>setCreationDiv(false)}>
           {" "}
           <CreateProduct setCreationDiv={setCreationDiv} isCreate={true} />{" "}
         </Modal>
@@ -104,6 +107,9 @@ function Shop() {
         <></>
       )}
       <ShowProducts dataFiltered={dataFiltered} />
+      <div className="home_footer">
+        <ContactForm />
+      </div>
     </div>
   );
 }
