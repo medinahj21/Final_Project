@@ -81,7 +81,7 @@ const postGroups = async (req, res) => {
     if (
       !name ||
       !genre ||
-      // !adminId ||
+      !adminId ||
       !schedule ||
       !description ||
       !inscription_cost ||
@@ -235,14 +235,13 @@ const postOrders = async (req, res) => {
       res.status(500).json({error:error.message})
       console.log(error);
     }
-  };
-  
-  /**======================== Players ==========================*/
-  const postPlayers = async (req, res) => {
-    const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
-    req.body;
-    
-    try {
+};
+
+const postPlayers = async (req, res) => {
+  const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
+    req.body; 
+
+  try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
     else {
       const newPlayer = await Player.create({

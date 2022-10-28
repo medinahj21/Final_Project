@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/actionsGroup";
+import * as action from "../../../redux/actions/admin";
 import UploadImage from "../../UploadImage/UploadImage";
 import Modal from "../../UI/Modal";
 import InputsCreateForm from "./InputsCreateForm";
-
 import "./FormGroup.css";
 
 export default function FormGroup({ setIsForm }) {
@@ -25,6 +24,8 @@ export default function FormGroup({ setIsForm }) {
     adminId: [],
   });
   const [image, setImage] = useState(null);
+  const admins = useSelector((state) => state.adminReducer.admins)
+
   const handleChange = (e) => {
     setGroupInputs((prevState) => {
       return {
@@ -35,11 +36,27 @@ export default function FormGroup({ setIsForm }) {
     });
   };
 
+  useEffect(() => {
+    dispatch(action.getAdmin())
+  }, [dispatch])
+
+  const handleChangeGroups = (e) => {
+    let valor = e.target.value;
+    if (valor === "") {
+      return alert("Este campo no puede ser vacio");
+    }
+    if (groupInputs.adminId.includes(valor)) {
+      return alert("El admin ya fue añadido a la lista");
+    }
+    setGroupInputs({
+      ...groupInputs,
+      adminId: [...groupInputs.adminId, e.target.value],
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let response = await dispatch(actions.createGroup(groupInputs));
-    console.log(response);
-
     if (response.error) {
       alert(`algo ha salido mal: ${response.error}`);
     } else {
@@ -58,9 +75,16 @@ export default function FormGroup({ setIsForm }) {
         adminId: [],
       });
       setImage("");
-      alert("Product has been created successfully");
+      alert("Group has been created successfully");
     }
   };
+
+  const deleteAdminSelected = (id) => {
+    setGroupInputs({
+      ...groupInputs,
+      adminId: [...groupInputs.adminId.filter((e) => e !== id)]
+    })
+  }
 
   return (
     <Modal>
@@ -69,7 +93,20 @@ export default function FormGroup({ setIsForm }) {
         <InputsCreateForm
           groupInputs={groupInputs}
           handleChange={handleChange}
+          admins={admins}
+          handleChangeGroups={handleChangeGroups}
         />
+        <div>
+          {groupInputs.adminId?.map((a) => {
+            let admin = admins.filter((e) => e.id === a)
+            return (
+              <div>
+                <div>{admin[0].personal_info.name}</div>
+                <span onClick={(e) => deleteAdminSelected(a)}>X</span>
+              </div>
+            )
+          })}
+        </div>
         <div className="container-button-group">
           <button type="submit" className="modify__button add-btn">
             Crear

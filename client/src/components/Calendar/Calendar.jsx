@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../../redux/actions/event";
+import { getGroups } from "../../redux/actions/actionsGroup";
 
 import Modal from "../UI/Modal";
 import FormEvent from "./FormEvent/FormEvent";
@@ -26,6 +27,7 @@ export default function Calendar() {
 
   const events = useSelector((state) => state.eventReducer.events);
 
+  
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
@@ -52,7 +54,9 @@ export default function Calendar() {
 
   useEffect(() => {
     dispatch(getEvents());
+    // dispatch(getGroups());
   }, [dispatch]);
+  console.log(events);
 
   if (modalOn) {
     return (
@@ -92,6 +96,7 @@ export default function Calendar() {
         initialView="dayGridMonth"
         locale={esLocale}
         height={800}
+        handleWindowResize={true}
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",
