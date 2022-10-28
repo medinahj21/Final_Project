@@ -48,14 +48,15 @@ export function getUserFirestore(uid) {
             type: PLAYER__FORM__FIREBASE,
             payload: { ...infoDocu },
           });
-        } 
+        } else {
+          return dispatch({
+            type: PLAYER__FORM__FIREBASE,
+            payload: "",
+          });
+        }
       });
     } catch (error) {
       console.log("Failed to retrieve data from database", error);
-      return dispatch({
-        type: PLAYER__FORM__FIREBASE,
-        payload: "",
-      });
     }
   };
 }

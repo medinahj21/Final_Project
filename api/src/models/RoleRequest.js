@@ -12,17 +12,15 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        userInfo: {
+        userInfo:{
             type: DataTypes.JSON,
             allowNull: false
         },
-        groupId: {
-            type: DataTypes.UUID,
+        groupId:{
+            type: DataTypes.STRING,
             allowNull: true,
         }
-    },
-        {
-            paranoid: true
-        }
-    );
+    },{
+        timestamps:false 
+    });
 };

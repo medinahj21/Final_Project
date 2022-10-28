@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import { toast, ToastContainer } from "react-toastify";
-
 import { loginWhitEmailAndPassword } from "../../../redux/actions/auth";
 
 import Modal from "../../UI/Modal";
