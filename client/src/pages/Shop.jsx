@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FcSearch } from "react-icons/fc";
 
 import {
   cleanProductDetail,
@@ -24,6 +25,8 @@ function Shop() {
   const [creationDiv, setCreationDiv] = useState(false);
   const [tags, setTags] = useState([]);
   const [dataFiltered, setDataFiltered] = useState([]);
+  const [productSearched, setProductSearched] = useState("");
+  const [combinedFilter, setCombinedFilter] = useState([...dataFiltered]);
 
   const dispatch = useDispatch();
 
@@ -48,6 +51,7 @@ function Shop() {
   useEffect(() => {
     if (allProducts) {
       setDataFiltered(allProducts);
+      setCombinedFilter(allProducts);
       return;
     }
     dispatch(getProducts());
@@ -69,13 +73,42 @@ function Shop() {
     if (tags.indexOf(Number(e.target.value)) === -1)
       setTags([...tags, Number(e.target.value)]);
 
-    let aux = handleFilter(
-      allProducts,
-      [...tags, Number(e.target.value)],
-      allTags
-    );
+    let aux = handleFilter(allProducts, [...tags, Number(e.target.value)]);
     setDataFiltered(aux);
+    setCombinedFilter(aux);
     dispatch(setPageNumPrev(1));
+  };
+
+  const handleOrderByPrice = (e) => {
+    if (e.target.value === "cheaper-to") {
+      let orderIncrease = combinedFilter.sort((a, b) => a.price - b.price);
+      setCombinedFilter(orderIncrease);
+    }
+    if (e.target.value === "expensive-to") {
+      let orderDecrease = combinedFilter.sort((a, b) => b.price - a.price);
+      setCombinedFilter(orderDecrease);
+    }
+  };
+
+  const handleSearch = (e) => {
+    setProductSearched(e.target.value);
+
+    let mixFilters = dataFiltered?.filter((product) =>
+      product.name.toLowerCase().includes(productSearched.toLowerCase())
+    );
+    mixFilters && mixFilters !== []
+      ? setCombinedFilter(mixFilters)
+      : setCombinedFilter([]);
+    console.log("Combined_Filter:", combinedFilter);
+
+    if (e.keyCode === 13) {
+      if (productSearched !== "") {
+        let mixFilters = dataFiltered.filter((product) =>
+          product.name.toLowerCase().includes(productSearched.toLowerCase())
+        );
+        setCombinedFilter(mixFilters);
+      }
+    }
   };
 
   const deleteTag = (e) => {
@@ -96,7 +129,26 @@ function Shop() {
         tags={tags}
         deleteTag={deleteTag}
         handleClean={handleClean}
+        handleOrderByPrice={handleOrderByPrice}
       />
+      <div>
+        <input
+          className="searchProduct-input"
+          required
+          type="text"
+          placeholder="Buscar..."
+          value={productSearched}
+          onKeyDown={(e) => handleSearch(e)}
+          onChange={(e) => handleSearch(e)}
+        />
+        <button
+          className="searchBar-button"
+          type="submit"
+          onClick={(e) => handleSearch(e)}
+        >
+          <FcSearch />
+        </button>
+      </div>
       {creationDiv ? (
         <Modal>
           {" "}
@@ -105,7 +157,10 @@ function Shop() {
       ) : (
         <></>
       )}
-      <ShowProducts dataFiltered={dataFiltered} />
+      <ShowProducts
+        combinedFilter={combinedFilter}
+        dataFiltered={dataFiltered}
+      />
       <div className="home_footer">
         <ContactForm />
       </div>

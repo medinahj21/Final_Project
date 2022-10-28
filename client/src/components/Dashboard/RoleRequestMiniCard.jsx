@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import emailjs from "@emailjs/browser";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,7 +47,7 @@ export default function RoleRequestMiniCard(roleRequest) {
 
   const [newPlayerData, setNewPlayerData] = useState({
     debtValue: "",
-    paymentDay: "",
+    paymentDate: "",
     shirtNumber: "",
   });
 
@@ -60,6 +61,7 @@ export default function RoleRequestMiniCard(roleRequest) {
       await dispatch(deleteRoleRequest(id));
       await dispatch(getRoleRequests());
       notify("Solicitud rechazada");
+      sendRejectedEmail();
     } else {
       notifyInfo("Luego decides !");
     }
@@ -72,13 +74,49 @@ export default function RoleRequestMiniCard(roleRequest) {
     });
   };
 
-  const handleConfirm = async () => {
+  const templateParams = {
+    name: userInfo.userInfoFirestore.name,
+    group: groupDetail.name,
+    email: userInfo.userInfoFirestore.email,
+    paymentDate: newPlayerData.paymentDate,
+    debtValue: newPlayerData.debtValue,
+    shirtNumber: newPlayerData.shirtNumber,
+  }
+
+  const sendApprovedEmail = (e) => {
+    e.preventDefault();
+    notify();
+    emailjs
+      .send(
+        "service_etq8sc9",
+        "template_qrytb8s",
+        templateParams,
+        "HiM3xW9AUxaXgJdP3"
+      )
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
+  const sendRejectedEmail = () => {
+    notify();
+    emailjs
+      .send(
+        "service_egxx8pm",
+        "template_5tavzze",
+        templateParams,
+        "epAfsbl4mjKLiu-3p"
+      )
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  }
+
+  const handleConfirm = async (e) => {
     if (window.confirm("¿seguro que desea confirmar esta inscripción?")) {
       let newPlayer = {
         id,
         personalInfo: userInfo.userInfoFirestore,
         debtValue: newPlayerData.debtValue,
-        paymentDay: newPlayerData.paymentDay,
+        paymentDate: newPlayerData.paymentDate,
         shirtNumber: newPlayerData.shirtNumber,
         groupId,
       };
@@ -88,6 +126,7 @@ export default function RoleRequestMiniCard(roleRequest) {
         alert("algo salió mal");
         //jugador no creado
       } else {
+        sendApprovedEmail(e);
         setTimeout(() => {
           notify("Nuevo jugador creado!!");
         }, 2000);
@@ -152,10 +191,10 @@ export default function RoleRequestMiniCard(roleRequest) {
               <input
                 className="forms_field-request-input"
                 type="number"
-                name="paymentDay"
+                name="paymentDate"
                 placeholder="fecha de pago"
                 onChange={(e) => handleChanges(e)}
-                value={newPlayerData.paymentDay}
+                value={newPlayerData.paymentDate}
               />
             </div>
             <div className="forms_field-request">
@@ -171,7 +210,7 @@ export default function RoleRequestMiniCard(roleRequest) {
             <div className="form__request-buttons">
               <button
                 className="form__btn-alta"
-                onClick={() => handleConfirm()}
+                onClick={(e) => handleConfirm(e)}
               >
                 confirmar
               </button>

@@ -8,9 +8,8 @@ import Paginated from "../Paginated";
 
 import "./ShowProducts.css";
 
-import { getPlayerDetail } from "../../../redux/actions/player";
 
-export default function ShowProducts({ dataFiltered }) {
+export default function ShowProducts({ combinedFilter }) {
   const dispatch = useDispatch();
 
   const prevPage = useSelector((state) => {
@@ -22,7 +21,7 @@ export default function ShowProducts({ dataFiltered }) {
   const productPerPage = 4;
   const lastProductIndex = currentPage * productPerPage;
   const firstProductIndex = lastProductIndex - productPerPage;
-  const currentProduct = dataFiltered.slice(
+  const currentProduct = combinedFilter.slice(
     firstProductIndex,
     lastProductIndex
   );
@@ -33,10 +32,6 @@ export default function ShowProducts({ dataFiltered }) {
     }
   }, [currentPage, prevPage]);
 
-  useEffect(() => {
-    dispatch(getPlayerDetail());
-  }, [dispatch]);
-
   const paginatedHandler = (pageNum) => {
     setCurrentPage(pageNum);
     dispatch(setPageNumPrev(pageNum));
@@ -46,7 +41,7 @@ export default function ShowProducts({ dataFiltered }) {
     <div>
       <Paginated
         productPerPage={productPerPage}
-        allProducts={dataFiltered}
+        allProducts={combinedFilter}
         paginatedHandler={paginatedHandler}
       />
       <div className="card__container">

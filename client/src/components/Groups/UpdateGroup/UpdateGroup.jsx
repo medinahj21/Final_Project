@@ -52,6 +52,7 @@ export default function UpdateGroup({
     }
   };
   const handleSuscribe = async () => {
+    console.log("ooooooo",userInfoFirestore, id)
     //debo hacer la validación de si no es jugador
     if (!userInfoFirestore.isAdmin) {
       let newRoleRequest = {

@@ -268,6 +268,7 @@ const postFilterTag = async (req, res) => {
 };
 
 const postRoleRequest = async (req, res) => {
+  console.log("BODY...", req.body)
   const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {

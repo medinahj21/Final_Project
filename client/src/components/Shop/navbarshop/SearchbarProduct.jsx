@@ -19,6 +19,7 @@ function SearchbarProduct(props) {
     deleteTag,
     handleClean,
     handleAllProducts,
+    handleOrderByPrice,
   } = props;
 
   const [showCart, setShowCart] = useState(false);
@@ -68,12 +69,15 @@ function SearchbarProduct(props) {
           <button onClick={handleAllProduct} className="button-nav">
             Todos
           </button>
-          <select defaultValue="title2" className="select_container ">
+          <select 
+            defaultValue="title2" 
+            className="select_container"
+            onChange={(e)=> handleOrderByPrice()}>
             <option value="title2" disabled={true}>
-              Filtar por: Precio
+              Ordenar por: Precio
             </option>
-            <option>Mas económico</option>
-            <option>Mas costoso</option>
+            <option value= "cheaper-to">Mas económico</option>
+            <option value= "expensive-to">Mas costoso</option>
           </select>
           <select
             defaultValue="title"
@@ -81,7 +85,7 @@ function SearchbarProduct(props) {
             className="select_container "
           >
             <option value="title" disabled={true}>
-              Filtar por:
+              Filtrar por:
             </option>
             {allTags?.map((tag) => {
               return (
