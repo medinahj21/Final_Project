@@ -28,7 +28,7 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Femenino",
+        "genre": "Female",
         "category": "Juvenil"
     },
     {
@@ -44,7 +44,7 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Mixto",
+        "genre": "Mix",
         "category": "Juvenil"
     },
     {
@@ -60,7 +60,7 @@
         "contact": "info@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": false,
-        "genre": "Masculino",
+        "genre": "Male",
         "category": "Adultos"
     },
     {
@@ -76,7 +76,7 @@
         "contact": "info@wolves.com",
         "whatsapp": "http:www.link.com",
         "accept_newPlayers": true,
-        "genre": "Masculino",
+        "genre": "Male",
         "category": "Todos"
     }
 ]

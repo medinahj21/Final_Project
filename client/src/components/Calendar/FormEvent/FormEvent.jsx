@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Toast } from "../../../utils/toastSweet";
 import * as action from "../../../redux/actions/event";
-
 import Tags from "../../../components/Tag/Tags";
-
 import s from "../FormEvent/FormEvent.module.css";
 import Swal from "sweetalert2";
 
 export default function FormCalendario({ handleModal, getEvents }) {
+
   const dispatch = useDispatch();
+  
   const [isUpdate, setisUpdate] = useState(false);
   const [isRepetitive, setIsRepetitive] = useState("");
   const [inputs, setInputs] = useState({
@@ -22,9 +22,13 @@ export default function FormCalendario({ handleModal, getEvents }) {
     groups: [],
     start: "",
     end: "",
+    player: [],
   });
+
   const groups = useSelector((state) => state.groupReducer.groups);
-  console.log(groups);
+  
+
+
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
@@ -62,36 +66,55 @@ export default function FormCalendario({ handleModal, getEvents }) {
       groups: [...inputs.groups, e.target.value],
     });
   };
-
+  
   const handleSubmit = async (e) => {
+    // logica de grupos 
+    let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
+    let playersSelected = groupsSelected.map(gr => gr.players).flat()
+    let idPlayers = playersSelected.map(player => player.id)
+
     e.preventDefault();
-    console.log(inputs);
-    let response = await dispatch(action.createEvent(inputs));
-    if (response.error) {
-      handleModal();
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: `Algo salio mal: ${response.error}`,
-      })
-    } else {
-      handleModal();
-      Swal.fire({
-        title: 'Estas seguro que quieres guardar?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-        denyButtonText: `No guardar`,
-      }).then((result) => {
+    Swal.fire({
+      title: 'Estas seguro que quieres guardar?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#01002E',
+      denyButtonText: `No guardar`,
+      target: document.getElementById('formEvent'),
+    })
+      .then(async (result) => {
         if (result.isConfirmed) {
-          Swal.fire(response, '', 'success')
-          setInputs("");
-          dispatch(getEvents());
+          let response = await dispatch(action.createEvent({
+            ...inputs,
+            player: idPlayers
+        }));
+          console.log(response);
+          if (response.error) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Algo salio mal: ${response.error}`,
+              target: document.getElementById('formEvent')
+            })
+          } else {
+            Toast.fire({
+              icon: 'success',
+              title: 'Hecho!',
+              text: `Se ha creado correctamente!`,
+            })
+            handleModal();
+            setInputs("");
+            dispatch(getEvents());
+          }
         } else if (result.isDenied) {
-          Swal.fire('No ha sido creado!', '', 'info')
+          Toast.fire({
+            icon: 'info',
+            title: 'No ha sido creado!',
+            target: document.getElementById('formEvent')
+          })
         }
       })
-    }
   };
 
   const handleRepetitive = (e) => {
@@ -104,9 +127,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setIsRepetitive(false);
   };
 
-  console.log(inputs);
   return (
-    <div className={s.formEventContainer}>
+    <form className={s.formEventContainer} id='formEvent'>
       <section className={s.itemHeaderContainer}>
         <button type="button" onClick={() => handleModal()}>
           X
@@ -269,6 +291,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
       <button className={s.buttonSubmitEvent} onClick={(e) => handleSubmit(e)}>
         Aceptar
       </button>
-    </div>
+    </form>
   );
 }

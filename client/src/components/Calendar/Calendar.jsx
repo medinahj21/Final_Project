@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../../redux/actions/event";
-import { getGroups } from "../../redux/actions/actionsGroup";
+import { getPlayerDetail } from "../../redux/actions/player";
 
 import Modal from "../UI/Modal";
 import FormEvent from "./FormEvent/FormEvent";
@@ -24,10 +24,14 @@ export default function Calendar() {
   const [modalOn, setModalOn] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
   const [detail, setDetail] = useState([]);
+  const [eventPlayer, setEventPlayer] = useState([]);
 
   const events = useSelector((state) => state.eventReducer.events);
-
-  
+  const { playerDetail } = useSelector((state) => state.playerReducer);
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  console.log('player ',playerDetail);
+  console.log('isAdmin ',userInfoFirestore);
+  console.log('eventPlayer',eventPlayer);
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
@@ -54,9 +58,10 @@ export default function Calendar() {
 
   useEffect(() => {
     dispatch(getEvents());
-    // dispatch(getGroups());
+    dispatch(getPlayerDetail(userInfoFirestore.uid));
+    setEventPlayer(playerDetail.events?.map((us) => us.id));
   }, [dispatch]);
-  console.log(events);
+
 
   if (modalOn) {
     return (
@@ -102,14 +107,14 @@ export default function Calendar() {
           center: "title",
           end: "today prev,next",
         }}
-        footerToolbar={{ center: "custom1" }}
-        customButtons={{
+        footerToolbar={userInfoFirestore.isAdmin && { center: "custom1" }}
+        customButtons={userInfoFirestore.isAdmin && {
           custom1: {
             text: "Crear evento",
             click: handleModal,
           },
-        }}
-        events={objectEvent}
+        }} //Si no es admin, mostrar los relacionados al jugador
+        events={userInfoFirestore.isAdmin ? objectEvent : console.log(objectEvent?.filter(ev => eventPlayer?.includes(ev))) }
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);
