@@ -30,6 +30,7 @@ export default function ProductDetail({ id, setShowDetail }) {
     <>
       {!editor && (
         <div className="productDetail__container">
+          <span className="productDetail__container-span"></span>
           <button className="close-detail" onClick={() => setShowDetail(false)}>
             {" "}
             X{" "}

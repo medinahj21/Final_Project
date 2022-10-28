@@ -12,6 +12,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./ShowProductDetail.css";
 
+const notify = (message) => toast.success(message);
+const notifyError = (message) =>
+  toast.error(message, {
+    hideProgressBar: true,
+    theme: "colored",
+  });
+
 export default function ShowProductDetail() {
   const product = useSelector(
     (state) => state.productsReducer.productDetail
@@ -76,18 +83,13 @@ export default function ShowProductDetail() {
   const [modifiersChosen, setModifiersChosen] = useState({});
 
   const handleModifiers = (e) => {
+    console.log("value", e.target.value);
+    console.log("name", e.target.name);
     setModifiersChosen({
       ...modifiersChosen,
       [e.target.name]: e.target.value,
     });
   };
-
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-    });
 
   return (
     <>
@@ -99,9 +101,7 @@ export default function ShowProductDetail() {
           <div className="detail-product-content">
             <div className="image-price">
               <img alt="imgProduct" src={image} className="image-detail" />
-              <p className="price-detail">
-                Precio <span>${price}</span>
-              </p>
+              <p className="price-detail">${price}</p>
             </div>
             <div className="details-container">
               <div className="modify_container-detail">
@@ -121,11 +121,12 @@ export default function ShowProductDetail() {
                   } else {
                     return (
                       <div className="size-container">
+                        {Object.keys(modifiers[index])[0]}
                         {Object.values(obj)[0]?.map((option, i) => (
                           <label className="check__label">
-                            {option}{" "}
+                            {option}
                             <input
-                              name="genre"
+                              name={Object.keys(modifiers[index])}
                               value={option}
                               type="radio"
                               onChange={handleModifiers}
