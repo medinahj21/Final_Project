@@ -9,13 +9,5 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true
         },
-        infoProduct: {
-            type: DataTypes.JSON,
-            allowNull: false
-        }
-    },
-        {
-            paranoid: true
-        }
-    );
+    });
 };

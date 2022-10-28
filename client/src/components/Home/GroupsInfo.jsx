@@ -39,7 +39,7 @@ function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
       </div>
       {showDetail && (
         <Modal>
-          <GroupDetail id={id} setShowDetail={setShowDetail} allowBack={true}/>
+          <GroupDetail id={id} setShowDetail={setShowDetail} />
         </Modal>
       )}
     </>

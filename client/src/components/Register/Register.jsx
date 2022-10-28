@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 import LoginGoogle from "./LoginGoogle";
-
 import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
 
 function Register({ setShowRegister, setShowLogin, setShowAlta }) {

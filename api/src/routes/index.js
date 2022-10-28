@@ -8,7 +8,6 @@ const admin = require("./middlewares/admins");
 const tags = require("./middlewares/tags");
 const product = require("./middlewares/products");
 const rQuest = require("./middlewares/roleRequest");
-const proQuest = require("./middlewares/productRequest");
 
 router
   .use("/admins", admin)
@@ -18,7 +17,6 @@ router
   .use("/players", player)
   .use("/products", product)
   .use("/tags", tags)
-  .use("/roleRequests", rQuest)
-  .use("/productRequests", proQuest)
+  .use("/roleRequests", rQuest);
 
 module.exports = router;
