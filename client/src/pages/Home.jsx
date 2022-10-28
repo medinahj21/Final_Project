@@ -51,8 +51,6 @@ function Home() {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
-
-  console.log(showLogin);
   
   return (
     <div id="home">

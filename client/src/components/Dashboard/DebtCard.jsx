@@ -2,7 +2,6 @@ import React from "react";
 import "./DebtCard.css";
 
 function DebtCard({ month, orders }) {
-  console.log(orders);
   return (
     <>
       <ul className="card__debt">

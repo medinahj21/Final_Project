@@ -10,18 +10,17 @@ export default function PlayerPayments() {
     if (!allOrders.length) {
       const ordersDB = await axios(`${axios.defaults.baseURL}/orders`);
       setAllOrders([...ordersDB.data]);
-      console.log('asdasdas',ordersDB);
       const formated = ordersDB.data.map((order) => {
         return {
           deuda: Number(order.value),
           motivo: order.concept,
-          vto: order.payment_term.toString().split("T")[0],
+          vto: order.payment_term.toString().split("T")[0] ,
         };
       });
       setFormatOrders(formated);
     }
   };
-
+  
   return (
     <>
       <h1>Órdenes</h1>

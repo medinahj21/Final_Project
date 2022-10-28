@@ -83,8 +83,6 @@ export default function ShowProductDetail() {
   const [modifiersChosen, setModifiersChosen] = useState({});
 
   const handleModifiers = (e) => {
-    console.log("value", e.target.value);
-    console.log("name", e.target.name);
     setModifiersChosen({
       ...modifiersChosen,
       [e.target.name]: e.target.value,
