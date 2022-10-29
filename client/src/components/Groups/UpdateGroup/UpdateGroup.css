@@ -30,21 +30,14 @@
     font-size: 1.4rem;
 }
 
-.group__detail-container .inscription-button {
-    position: absolute;
-    bottom: 10vh;
-    left: 15vw;
-}
-
 .group__detail-container p span {
     text-align: center;
     position: relative;
-    left: -10%;
+    left: 25%;
     font-size: 5rem;
     font-family: "Oswald", sans-serif;
     letter-spacing: 0;
     padding: 0.25em 0 0.325em;
-    display: block;
     text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
     background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
     -webkit-background-clip: text;
@@ -65,13 +58,16 @@
     }
 }
 
+.group-detail-first {
+    width: 25%;
+}
 
 .group__detail-container iframe {
     position: absolute;
     height: 350px;
     width: 350px;
     bottom: 0;
-    left: 60%;
+    right: 17vw;
     border: 2px solid transparent;
     border-radius: 50%;
     animation-name: pulseMap;
@@ -99,6 +95,104 @@
     filter: blur(5px);
 }
 
+/**/
+
+.group-btn-container {
+    display: flex;
+    position: relative;
+    left: -10%;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.button-detail-group a.animated-button:link,
+.button-detail-group a.animated-button:visited {
+    position: relative;
+    width: fit-content;
+    display: block;
+    margin: 30px auto 0;
+    padding: 14px 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    border-radius: 0;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.button-detail-group a.animated-button:link:after,
+.button-detail-group a.animated-button:visited:after {
+    content: "";
+    position: absolute;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    z-index: -1;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    -o-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+}
+
+.button-detail-group a.animated-button:link:hover,
+.button-detail-group a.animated-button:visited:hover {
+    color: #FFF;
+    text-shadow: none;
+}
+
+.button-detail-group a.animated-button:link:hover:after,
+.button-detail-group a.animated-button:visited:hover:after {
+    height: 450%;
+}
+
+.button-detail-group a.animated-button:link,
+.button-detail-group a.animated-button:visited {
+    position: relative;
+    display: block;
+    margin: 30px auto 0;
+    padding: 14px 15px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 0;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.button-detail-group a.animated-button.victoria-one {
+    border: 1px solid #eaeaea;
+    position: relative;
+    left: -10%;
+}
+
+.button-detail-group a.animated-button.victoria-one:after {
+    background: rgb(1, 0, 23);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+}
+
+/**/
+
+
 @media screen and (max-width: 1404px) {
     .group__detail-container {
         left: 0;
@@ -107,7 +201,7 @@
     }
 
     .group__detail-container p span {
-        left: 0;
+        left: 30%;
         font-size: 4rem;
     }
 
@@ -117,7 +211,78 @@
         width: 300px;
         left: 75%;
     }
+
+
 }
+
+@media screen and (max-width: 904px) {
+
+    .group__detail-container p span {
+        left: 25%;
+        top: -50px;
+        font-size: 4rem;
+    }
+
+    .group__detail-container iframe {
+        left: 55%;
+    }
+
+    .group-detail-content {
+        gap: 1rem;
+        position: relative;
+        top: -100px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .group__detail-container p span {
+        top: 0;
+        font-size: 2rem;
+    }
+
+    .group__detail-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 0;
+        width: 100vw;
+        height: 100vh;
+        font-size: 1.4rem;
+        color: white;
+        overflow: hidden;
+    }
+
+    .group-detail-content span{
+        font-size: 1rem;
+    }
+    .group-detail-content {
+        display: flex;
+        top: 0;
+        justify-content: center;
+        left: 20px;
+        gap: 2rem;
+        width: auto;
+        margin-left: 0;
+        font-size: .9rem;
+    }
+
+    .button-detail-group a.animated-button.victoria-one {
+        position: relative;
+        left: 30%;
+        top: -50%;
+    }
+
+    .group__detail-container iframe {
+        left: 0;
+        bottom: 0;
+        height: 250px;
+        width: 100%;
+        border-radius: 0;
+        position: relative;
+    }
+}
+
 
 /*
 

@@ -83,16 +83,11 @@ export default function UpdateGroup({
     <>
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       <div className="group__detail-container">
-        {(!playerDetail.id || allowBack) && (
-          <button className="group-button" onClick={() => setShowDetail(false)}>
-            Volver
-          </button>
-        )}
         <p>
           <span>{groupDetail.name}</span>
         </p>
         <div className="group-detail-content">
-          <div>
+          <div className="group-detail-first">
             <span>Genero: </span>
             <p>{inputUpdate.genre}</p>
             <span>Categoria: </span>
@@ -100,7 +95,7 @@ export default function UpdateGroup({
             <span>Descripción: </span>
             <p>{inputUpdate.description}</p>
           </div>
-          <div>
+          <div className="group-detail-second">
             <span>Horario: </span>
             <p>{inputUpdate.schedule}</p>
             <span>Costo de inscripción: </span>
@@ -113,25 +108,44 @@ export default function UpdateGroup({
             <p>{inputUpdate.accept_newPlayers ? "Si" : "No"}</p>
           </div>
         </div>
-        {userInfoFirestore?.uid &&
-          !userInfoFirestore?.isAdmin &&
-          !playerDetail.id && (
+        <div className="group-btn-container">
+          {!userInfoFirestore?.uid && (
             <button
               className="inscription-button"
-              onClick={(e) => handleSuscribe()}
-              disabled={requestSent}
+              onClick={() => setIsForm(true)}
             >
-              Inscribirme
+              Solicitar alta
             </button>
           )}
-        {!userInfoFirestore?.uid && (
-          <button
-            className="inscription-button"
-            onClick={() => setIsForm(true)}
-          >
-            Solicitar alta
-          </button>
-        )}
+          {userInfoFirestore?.uid &&
+            !userInfoFirestore?.isAdmin &&
+            !playerDetail.id && (
+              <>
+                {!requestSent && (
+                  <div
+                    className="button-detail-group"
+                    onClick={(e) => handleSuscribe()}
+                  >
+                    {" "}
+                    <a href="#!" className="animated-button victoria-one">
+                      Inscribirme
+                    </a>{" "}
+                  </div>
+                )}
+              </>
+            )}{" "}
+          {(!playerDetail.id || allowBack) && (
+            <div
+              className="button-detail-group"
+              onClick={() => setShowDetail(false)}
+            >
+              {" "}
+              <a href="#!" className="animated-button victoria-one">
+                Volver
+              </a>{" "}
+            </div>
+          )}
+        </div>
         <iframe title="Ubicación" src={groupDetail.location}></iframe>
       </div>
 
