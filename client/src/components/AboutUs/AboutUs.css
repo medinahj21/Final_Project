@@ -15,8 +15,7 @@
   display: inline-block;
   background-size: cover;
   background-position: center;
-  height: 40vh;
-  display: flex;
+  height: auto;
   font-family: 'Libre Baskerville', serif;
   color: orange;
   align-items: center;
@@ -26,9 +25,9 @@
 .third-section {
   display: flex;
   flex-direction: row-reverse;
-  background-color: rgba(4, 8, 63, 0.877);
+  background-color: rgba(2, 7, 77, 0.877);
   background-size: cover;
-  height: 20vh;
+  height: auto;
 }
 
 .first-section{
@@ -40,6 +39,7 @@
 .image-container1{
   width:45%;
   margin-right: 5px;
+  float:right;
 
 }
 
@@ -69,6 +69,25 @@
   font-size: 150%;
   text-align: justify;
   font-family: 'Raleway', sans-serif;
+}
+
+.fourth-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(245, 206, 77, 0.877);
+  background-size: cover;
+  height: auto;
+}
+
+.fourth-section-container{
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  height: auto;
+  font-family: 'Libre Baskerville', serif;
+  color: black;
+  align-items: center;
+  justify-content: center;
 }
 
 

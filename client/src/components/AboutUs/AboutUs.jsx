@@ -1,6 +1,7 @@
 import React from "react";
 import Bandera from "../../images/Bandera.jpg";
 import foto1 from "../../images/foto1_about.png";
+import edinson from "../../images/edinson.png";
 import "./AboutUs.css";
 
 const AboutUs = () => {
@@ -34,109 +35,68 @@ const AboutUs = () => {
             siguientes valores:
           </h3>
           <ul>
+            <img src={foto1} alt="flag" className="image-container1" />
             <li>
               <p className="third-div-paragraph">
-                Mentalidad comportamiento mental que fija una estructura solida
-                y congruente hacia sus propósitos u objetivos deportivos.{" "}
+                <b>Mentalidad</b> comportamiento mental que fija una estructura
+                solida y congruente hacia sus propósitos u objetivos deportivos.{" "}
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Carácter cualidad natural que distingue el ser humano frente a
-                los demás en donde refleja y direcciona su energía en actitud
-                frente a diferentes situaciones.{" "}
+                <b>Carácter</b> cualidad natural que distingue el ser humano
+                frente a los demás en donde refleja y direcciona su energía en
+                actitud frente a diferentes situaciones.{" "}
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Disciplina es un valor moral que contiene reglas y principios de
-                comportamiento relativos al orden y a la constancia
-                posibilitando un mejor desarrollo del ser.
+                <b>Disciplina</b> es un valor moral que contiene reglas y
+                principios de comportamiento relativos al orden y a la
+                constancia posibilitando un mejor desarrollo del ser.
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Compromiso el sentirnos comprometidos con una disciplina
+                <b>Compromiso</b> el sentirnos comprometidos con una disciplina
                 deportiva significa la capacidad que tenemos para tomar
                 conciencia sobre la importancia de cumplir con lo acordado.{" "}
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Sentido de pertenencia fundamental para la identidad del club.
+                <b>Sentido</b> de pertenencia fundamental para la identidad del
+                club.
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Lealtad obrar con lealtad significa un sentimiento de respeto y
-                fidelidad a los propios principios morales.
+                <b>Lealtad</b> obrar con lealtad significa un sentimiento de
+                respeto y fidelidad a los propios principios morales.
               </p>
             </li>
             <li>
               <p className="third-div-paragraph">
-                Respeto a la ley y normas que rigen el deporte como también sus
-                semejantes.{" "}
+                <b>Respeto</b> a la ley y normas que rigen el deporte como
+                también sus semejantes.{" "}
               </p>
             </li>
           </ul>
-          <img src={foto1} alt="flag" className="image-container1" />
         </div>
-        <div className="third-section">
-          <div className="third-section-container">
-            <h1 className="third-div-text">Nuestros valores</h1>
-            <h3 className="third-div-paragraph">
-              En Club Wolves Volleyball fomentamos en nuestros jugadores los
-              siguientes valores:
-            </h3>
-            <ul>
-              <li>
-                <p className="third-div-paragraph">
-                  Mentalidad comportamiento mental que fija una estructura
-                  solida y congruente hacia sus propósitos u objetivos
-                  deportivos.{" "}
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Carácter cualidad natural que distingue el ser humano frente a
-                  los demás en donde refleja y direcciona su energía en actitud
-                  frente a diferentes situaciones.{" "}
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Disciplina es un valor moral que contiene reglas y principios
-                  de comportamiento relativos al orden y a la constancia
-                  posibilitando un mejor desarrollo del ser.
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Compromiso el sentirnos comprometidos con una disciplina
-                  deportiva significa la capacidad que tenemos para tomar
-                  conciencia sobre la importancia de cumplir con lo acordado.{" "}
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Sentido de pertenencia fundamental para la identidad del club.
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Lealtad obrar con lealtad significa un sentimiento de respeto
-                  y fidelidad a los propios principios morales.
-                </p>
-              </li>
-              <li>
-                <p className="third-div-paragraph">
-                  Respeto a la ley y normas que rigen el deporte como también
-                  sus semejantes.{" "}
-                </p>
-              </li>
-            </ul>
-            <img src={foto1} alt="flag" className="image-container1" />
-          </div>
+      </div>
+      <div className="fourth-section">
+        <div className="fourth-section-container">
+          <h1 className="fourth-div-text">Acerca de nuestro fundador</h1>
+          <p className="fourth-div-paragraph">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum."
+          </p>
+          <img src={edinson} alt="flag" className="image-container1" />
         </div>
       </div>
     </div>
