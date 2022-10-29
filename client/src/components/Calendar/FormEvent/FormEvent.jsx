@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../../../utils/toastSweet";
 import * as action from "../../../redux/actions/event";
-
 import Tags from "../../../components/Tag/Tags";
-
 import s from "../FormEvent/FormEvent.module.css";
 import Swal from "sweetalert2";
 
 export default function FormCalendario({ handleModal, getEvents }) {
 
-
   const dispatch = useDispatch();
+  
   const [isUpdate, setisUpdate] = useState(false);
   const [isRepetitive, setIsRepetitive] = useState("");
   const [inputs, setInputs] = useState({
@@ -24,9 +22,13 @@ export default function FormCalendario({ handleModal, getEvents }) {
     groups: [],
     start: "",
     end: "",
+    player: [],
   });
+
   const groups = useSelector((state) => state.groupReducer.groups);
-  console.log(groups);
+  
+
+
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
@@ -64,10 +66,14 @@ export default function FormCalendario({ handleModal, getEvents }) {
       groups: [...inputs.groups, e.target.value],
     });
   };
-
+  
   const handleSubmit = async (e) => {
+    // logica de grupos 
+    let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
+    let playersSelected = groupsSelected.map(gr => gr.players).flat()
+    let idPlayers = playersSelected.map(player => player.id)
+
     e.preventDefault();
-    console.log(inputs);
     Swal.fire({
       title: 'Estas seguro que quieres guardar?',
       showDenyButton: true,
@@ -79,7 +85,10 @@ export default function FormCalendario({ handleModal, getEvents }) {
     })
       .then(async (result) => {
         if (result.isConfirmed) {
-          let response = await dispatch(action.createEvent(inputs));
+          let response = await dispatch(action.createEvent({
+            ...inputs,
+            player: idPlayers
+        }));
           console.log(response);
           if (response.error) {
             Toast.fire({
@@ -118,7 +127,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setIsRepetitive(false);
   };
 
-  console.log(inputs);
   return (
     <form className={s.formEventContainer} id='formEvent'>
       <section className={s.itemHeaderContainer}>
