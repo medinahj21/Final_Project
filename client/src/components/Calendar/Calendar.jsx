@@ -114,7 +114,7 @@ export default function Calendar() {
             click: handleModal,
           },
         }} //Si no es admin, mostrar los relacionados al jugador
-        events={userInfoFirestore.isAdmin ? objectEvent : console.log(objectEvent?.filter(ev => eventPlayer?.includes(ev))) }
+        events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id)) }
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);
