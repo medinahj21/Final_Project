@@ -27,12 +27,117 @@ const AboutUs = () => {
         </p>
       </div>
       <div className="third-section">
-        <h1 className="third-div-text">Nuestros valores</h1>
-        <h3 className="third-div-paragraph">Club Wolves Volleyball </h3>
-        <ul>
-          <li> </li>
-        </ul>
-        <img src={foto1} alt="flag" className="image-container1" />
+        <div className="third-section-container">
+          <h1 className="third-div-text">Nuestros valores</h1>
+          <h3 className="third-div-paragraph">
+            En Club Wolves Volleyball fomentamos en nuestros jugadores los
+            siguientes valores:
+          </h3>
+          <ul>
+            <li>
+              <p className="third-div-paragraph">
+                Mentalidad comportamiento mental que fija una estructura solida
+                y congruente hacia sus propósitos u objetivos deportivos.{" "}
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Carácter cualidad natural que distingue el ser humano frente a
+                los demás en donde refleja y direcciona su energía en actitud
+                frente a diferentes situaciones.{" "}
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Disciplina es un valor moral que contiene reglas y principios de
+                comportamiento relativos al orden y a la constancia
+                posibilitando un mejor desarrollo del ser.
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Compromiso el sentirnos comprometidos con una disciplina
+                deportiva significa la capacidad que tenemos para tomar
+                conciencia sobre la importancia de cumplir con lo acordado.{" "}
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Sentido de pertenencia fundamental para la identidad del club.
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Lealtad obrar con lealtad significa un sentimiento de respeto y
+                fidelidad a los propios principios morales.
+              </p>
+            </li>
+            <li>
+              <p className="third-div-paragraph">
+                Respeto a la ley y normas que rigen el deporte como también sus
+                semejantes.{" "}
+              </p>
+            </li>
+          </ul>
+          <img src={foto1} alt="flag" className="image-container1" />
+        </div>
+        <div className="third-section">
+          <div className="third-section-container">
+            <h1 className="third-div-text">Nuestros valores</h1>
+            <h3 className="third-div-paragraph">
+              En Club Wolves Volleyball fomentamos en nuestros jugadores los
+              siguientes valores:
+            </h3>
+            <ul>
+              <li>
+                <p className="third-div-paragraph">
+                  Mentalidad comportamiento mental que fija una estructura
+                  solida y congruente hacia sus propósitos u objetivos
+                  deportivos.{" "}
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Carácter cualidad natural que distingue el ser humano frente a
+                  los demás en donde refleja y direcciona su energía en actitud
+                  frente a diferentes situaciones.{" "}
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Disciplina es un valor moral que contiene reglas y principios
+                  de comportamiento relativos al orden y a la constancia
+                  posibilitando un mejor desarrollo del ser.
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Compromiso el sentirnos comprometidos con una disciplina
+                  deportiva significa la capacidad que tenemos para tomar
+                  conciencia sobre la importancia de cumplir con lo acordado.{" "}
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Sentido de pertenencia fundamental para la identidad del club.
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Lealtad obrar con lealtad significa un sentimiento de respeto
+                  y fidelidad a los propios principios morales.
+                </p>
+              </li>
+              <li>
+                <p className="third-div-paragraph">
+                  Respeto a la ley y normas que rigen el deporte como también
+                  sus semejantes.{" "}
+                </p>
+              </li>
+            </ul>
+            <img src={foto1} alt="flag" className="image-container1" />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -6,9 +6,29 @@
   height: 40vh;
   display: flex;
   flex-direction: row;
+  font-family: 'Libre Baskerville', serif;
   color: orange;
   align-items: center;
   justify-content: center;
+}
+.third-section-container{
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  display: flex;
+  font-family: 'Libre Baskerville', serif;
+  color: orange;
+  align-items: center;
+  justify-content: center;
+}
+
+.third-section {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(4, 8, 63, 0.877);
+  background-size: cover;
+  height: 20vh;
 }
 
 .first-section{
@@ -40,13 +60,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Courgette', cursive;
+  font-family: 'Raleway', sans-serif;
   font-size: 250%;
 }
 
-.second-div-paragraph{
+.second-div-paragraph, .third-div-paragraph{
   margin: 5%;
   font-size: 150%;
   text-align: justify;
-  font-family: 'Courgette', cursive;
+  font-family: 'Raleway', sans-serif;
 }
+
+
+
