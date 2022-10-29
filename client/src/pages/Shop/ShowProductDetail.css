@@ -343,6 +343,7 @@
 .toggle {
     position: absolute;
     margin-top: -30px;
+    right: 0;
     display: inline-block;
 }
 
@@ -387,6 +388,7 @@ label.toggle-item:before {
 
 .checkcross .check:before,
 .checkcross .check:after {
+    content: '';
     height: 4px;
     border-radius: 10px;
     background: #fff;
@@ -427,6 +429,14 @@ label.toggle-item:before {
         text-shadow: 0 0 1px black;
     }
 
+    .description-content {
+        font-size: 1.2rem;
+    }
+
+    .price-detail {
+        font-size: 2rem;
+    }
+
     .span-pedido {
         position: absolute;
         left: 70%;
@@ -443,6 +453,7 @@ label.toggle-item:before {
 
     .size-container {
         flex-wrap: wrap;
+        font-size: 1rem;
     }
 
     .image-detail {
@@ -478,6 +489,14 @@ label.toggle-item:before {
         color: rgb(255, 255, 255);
         font-weight: bolder;
         text-shadow: 0 0 1px white;
+    }
+
+    .description-content {
+        font-size: 1rem;
+    }
+
+    .price-detail {
+        font-size: 1.5rem;
     }
 
     .image-detail {
