@@ -1,0 +1,52 @@
+.left-side-aboutUs-text{
+
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  display: flex;
+  flex-direction: row;
+  color: orange;
+  align-items: center;
+  justify-content: center;
+}
+
+.first-section{
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+}
+
+.image-container1{
+  width:45%;
+  margin-right: 5px;
+
+}
+
+
+.first-div-text{
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.second-section {
+  background: linear-gradient(to right, rgb(240, 147, 9), rgb(225, 228, 81));
+}
+
+.second-div-text {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courgette', cursive;
+  font-size: 250%;
+}
+
+.second-div-paragraph{
+  margin: 5%;
+  font-size: 150%;
+  text-align: justify;
+  font-family: 'Courgette', cursive;
+}
