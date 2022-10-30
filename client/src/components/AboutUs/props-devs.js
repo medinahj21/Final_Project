@@ -29,7 +29,7 @@ let devs = [
     imagen: "Hector",
     rol: "Desarrollador Full-Stack (Equipo Front-End)",
     testimonio:
-      '"Soy un ingeniero mecánico que en búsqueda de ampliar sus capacidades y oportunidades laborales encontré en Henry el lugar perfecto para aprender sobre el mundo del desarrollo web. Aunque es una cursada durísima merece toda el esfuerzo y sacrificio ya que considero que se adquieren sólidos conocimientos en muy poco tiempo. También se crea una comunidad muy solidaria y amena entre personas que comparten los mismos intereses. En relacion al proyecto y a manera de reto personal colabore con la parte del Front-End en la implementación de la tienda, carrito de compras, formulario de contacto, envio de notificaciones automáticas por email y en la sección de "Acerca de Nosotros", en una primera instancia del proyecto estuve a cargo de las rutas del CRUD de productos"',
+      '"Soy un ingeniero mecánico que en búsqueda de ampliar sus capacidades y oportunidades laborales <b>encontré en Henry el lugar perfecto para aprender sobre el mundo del desarrollo web</b>. Aunque es una cursada durísima merece toda el esfuerzo y sacrificio ya que considero que se adquieren sólidos conocimientos en muy poco tiempo. También se crea una comunidad muy solidaria y amena entre personas que comparten los mismos intereses. En relacion al proyecto y a manera de reto personal colabore con la parte del Front-End en la implementación de la tienda, carrito de compras, formulario de contacto, envio de notificaciones automáticas por email y en la sección de "Acerca de Nosotros", en una primera instancia del proyecto estuve a cargo de las rutas del CRUD de productos"',
   },
   {
     nombre: "Aquiles Igarzabal",
@@ -45,7 +45,7 @@ let devs = [
     imagen: "Diego",
     rol: "Desarrollador Full-Stack (Equipo Back-End)",
     testimonio:
-      '"Soy ingeniero industrial y ahora, gracias al gran apoyo brindado por HENRY, desarrollador web fullStack. Durante este proyecto mi aporte estuvo principalmente enfocado hacia el backend, en donde tenia una mayor fluidez y conocimiento el cual fue adquirido durante todo el bootcamp, todo esto relacionado hacia mi principal objetivo que es poder comenzar una nueva carrera dentro de mi ambito profesional y asi ejercer de la mejor manera, en mis trabajos futuros, todo lo aprendido y practicado durante estos 6 meses de estudio."'
+      '"Soy ingeniero industrial y ahora, gracias al gran apoyo brindado por HENRY, desarrollador web fullStack. Durante este proyecto mi aporte estuvo principalmente enfocado hacia el backend, en donde tenia una mayor fluidez y conocimiento el cual fue adquirido durante todo el bootcamp, todo esto relacionado hacia <b>mi principal objetivo que es poder comenzar una nueva carrera dentro de mi ambito profesional</b> y asi ejercer de la mejor manera, en mis trabajos futuros, todo lo aprendido y practicado durante estos 6 meses de estudio."'
   },
   {
     nombre: "Andres Darío Córdoba",

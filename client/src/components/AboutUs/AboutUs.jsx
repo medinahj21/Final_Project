@@ -159,7 +159,7 @@ const AboutUs = () => {
             <div>
               {devs.map((dev, index) => {
                 return (
-                  <Developers {...dev} setShowDevs={setShowDevs} key={index} />
+                  <Developers {...dev} key={index} />
                 );
               })}
               <b className="hide-developers" onClick={() => setShowDevs(false)}>

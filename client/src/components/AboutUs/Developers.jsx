@@ -1,5 +1,4 @@
 import React from "react";
-import edinson from "../../images/edinson.png";
 
 const Developers = (devs) => {
 
@@ -7,20 +6,20 @@ const Developers = (devs) => {
     <div>
       
       
-      <div className="contenedor-texto-testimonio">
+      <div className="container-developer">
         <img
-        className="imagen-developer"
+        className="image-developer"
         alt="profile"
         src={require(`../../images/${devs.imagen}.jpg`)}
         />
-        <p className="nombre-testimonio">
+        <p className="name-developer">
           <strong>{devs.nombre}</strong> de {devs.pais}
         </p>
-        <p className="cargo-testimonio">
+        <p className="rol-project">
           <strong>Rol en el proyecto: </strong>{devs.rol}
         </p>
         <p
-          className="texto-testimonio"
+          className="text-developer"
           dangerouslySetInnerHTML={{ __html: devs.testimonio }}
         ></p>
       </div>
