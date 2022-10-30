@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Bandera from "../../images/Bandera.jpg";
 import foto1 from "../../images/foto1_about.png";
 import edinson from "../../images/edinson.png";
+import postobon from "../../images/postobon.png";
+import alcaldia from "../../images/alcaldia.png";
+import molten from "../../images/molten.png";
+import henryLogo from "../../images/soy_henry.png";
+import Developers from "./Developers";
+import devs from "./props-devs";
+
 import "./AboutUs.css";
 
 const AboutUs = () => {
+  const [showDevs, setShowDevs] = useState(false);
+
+  const handleOpenClick = () => {
+    setShowDevs(true);
+  };
+
+  const handleCloseClick= ()=> {
+    setShowDevs(false);
+  }
+
   return (
     <div className="aboutUs-container-main">
       <div className="left-side-aboutUs-text">
@@ -98,6 +115,63 @@ const AboutUs = () => {
           </p>
           <img src={edinson} alt="flag" className="image-container1" />
         </div>
+      </div>
+      <div className="fifth-section">
+        <div className="fifth-section-container">
+          <h1 className="fifth-div-text">Nuestros deportistas opinan...</h1>
+          <p className="fourth-div-paragraph">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum."
+          </p>
+          <strong> Andres F. Valencia</strong>
+          <p className="fourth-div-paragraph">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum."
+          </p>
+          <strong> Maria Jose Cifuentes</strong>
+          <p className="fourth-div-paragraph">
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum."
+          </p>
+          <strong> Jhon Doe</strong>
+        </div>
+      </div>
+      <div className="sixth-section">
+        <div className="sixth-section-container">
+          <h1 className="sixth-div-text">Patrocinadores</h1>
+          <img src={alcaldia} alt="flag" className="image-container1" />
+          <img src={postobon} alt="flag" className="image-container1" />
+          <img src={molten} alt="flag" className="image-container1" />
+          <img src={henryLogo} alt="flag" className="image-container1" />
+        </div>
+      </div>
+      <div className="seventh-section">
+      <b onClick={() => handleOpenClick()}> Sobre los Desarrolladores </b>
+        {showDevs ? (
+          <>            
+            <Developers {...devs[0]} setShowDevs={setShowDevs} isCreate= {true} />
+            <Developers {...devs[1]} setShowDevs={setShowDevs} isCreate= {true} />
+            <Developers {...devs[2]} setShowDevs={setShowDevs} isCreate= {true} />
+            <b onClick={()=> handleCloseClick()} >Ocultar info de desarrolladores</b>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
