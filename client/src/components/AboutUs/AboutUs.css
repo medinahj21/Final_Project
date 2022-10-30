@@ -79,6 +79,23 @@
   height: auto;
 }
 
+.sixth-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(108, 205, 243, 0.877);
+  background-size: cover;
+  height: auto;
+}
+
+.seventh-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(186, 245, 77, 0.877);
+  background-size: cover;
+  height: auto;
+
+}
+
 .fourth-section-container{
   display: inline-block;
   background-size: cover;
@@ -88,6 +105,22 @@
   color: black;
   align-items: center;
   justify-content: center;
+}
+
+.about-developers{
+  cursor:pointer;
+}
+
+.about-developers:hover{
+  color: red;
+}
+
+.hide-developers{
+  cursor: pointer;
+}
+
+.hide-developers:hover{
+  color:red;
 }
 
 

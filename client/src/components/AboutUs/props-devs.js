@@ -1,28 +1,60 @@
-let devs= [
-    {
-        nombre:'Sarah Chima',
-        pais:'Nigeria',
-        imagen:'Sarah',
-        cargo:'Software Engineer',
-        empresa:'ChatDesk',
-        testimonio: '"<b>freeCodeCamp was the gateway to my career</b> as a software developer. The well-structured curriculum took my coding knowledge from a total beginner level to a very confident level. It was everything I needed to land my first dev job at an amazing company."'
-    },
-    {
-        nombre:'Emma Bostian',
-        pais:'Sweden',
-        imagen:'Emma',
-        cargo:'Software Engineer',
-        empresa:'Spotify',
-        testimonio: '"I have always struggled with learning JavaScript. I have taken many courses but freeCodeCamp course was the one which stuck. Studying JavaScript as well as data structures and algorithms on <b>freeCodeCamp gave me the skills</b> and confidence I needed to land my dream job as a software engineer at Spotify"'
-    },
-    {
-        nombre:'Shawn Wang',
-        pais:'Singapore',
-        imagen:'Shawn',
-        cargo:'Software Engineer',
-        empresa:'Amazon',
-        testimonio: '"It is scary to change careers. I only gained confidence that I could code by working through the hundreds of hours of free lessons on freeCodeCamp. Within a year I had a six-figure job as a Software Engineer.<b> freeCodeCamp changed my life</b>"'
-    }
+let devs = [
+  {
+    nombre: "Andres Valencia",
+    pais: "Medellin - Colombia",
+    imagen: "Andy",
+    rol: "Scrum-master",
+    testimonio:
+      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis tincidunt ligula, in dictum urna varius ut. Morbi vitae iaculis nisl. Aenean vitae diam nec justo posuere gravida a a nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ornare vestibulum diam a eleifend. Maecenas sodales tellus sit amet est consectetur, ut rhoncus risus molestie. Vestibulum aliquet vitae ante sed vehicula. Phasellus arcu turpis, bibendum a bibendum a, lobortis ut tellus. Proin sagittis interdum imperdiet. Mauris fermentum lacus ut lectus vehicula rutrum. Sed tellus lacus, volutpat vitae aliquam id, lacinia sed nisi. Vivamus et efficitur massa, a suscipit erat. Donec placerat erat risus, ut suscipit urna varius ut. Suspendisse potenti. Integer sagittis a lectus id congue."',
+  },
+  {
+    nombre: "Lucas Luzzani",
+    pais: "Buenos Aires - Argentina",
+    imagen: "Lucas",
+    rol: "Desarrollador Full-Stack (Equipo Front-End)",
+    testimonio:
+      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis tincidunt ligula, in dictum urna varius ut. Morbi vitae iaculis nisl. Aenean vitae diam nec justo posuere gravida a a nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ornare vestibulum diam a eleifend. Maecenas sodales tellus sit amet est consectetur, ut rhoncus risus molestie. Vestibulum aliquet vitae ante sed vehicula. Phasellus arcu turpis, bibendum a bibendum a, lobortis ut tellus. Proin sagittis interdum imperdiet. Mauris fermentum lacus ut lectus vehicula rutrum. Sed tellus lacus, volutpat vitae aliquam id, lacinia sed nisi. Vivamus et efficitur massa, a suscipit erat. Donec placerat erat risus, ut suscipit urna varius ut. Suspendisse potenti. Integer sagittis a lectus id congue."',
+  },
+  {
+    nombre: "Cesar Rincón",
+    pais: "Cúcuta - Colombia",
+    imagen: "Cesar",
+    rol: "Desarrollador Full-Stack (Equipo Front-End / soporte al equipo Back-End)",
+    testimonio:
+      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis tincidunt ligula, in dictum urna varius ut. Morbi vitae iaculis nisl. Aenean vitae diam nec justo posuere gravida a a nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ornare vestibulum diam a eleifend. Maecenas sodales tellus sit amet est consectetur, ut rhoncus risus molestie. Vestibulum aliquet vitae ante sed vehicula. Phasellus arcu turpis, bibendum a bibendum a, lobortis ut tellus. Proin sagittis interdum imperdiet. Mauris fermentum lacus ut lectus vehicula rutrum. Sed tellus lacus, volutpat vitae aliquam id, lacinia sed nisi. Vivamus et efficitur massa, a suscipit erat. Donec placerat erat risus, ut suscipit urna varius ut. Suspendisse potenti. Integer sagittis a lectus id congue."',
+  },
+  {
+    nombre: "Hector Medina",
+    pais: "Cali - Colombia",
+    imagen: "Hector",
+    rol: "Desarrollador Full-Stack (Equipo Front-End)",
+    testimonio:
+      '"Soy un ingeniero mecánico que en búsqueda de ampliar sus capacidades y oportunidades laborales encontré en Henry el lugar perfecto para aprender sobre el mundo del desarrollo web. Aunque es una cursada durísima merece toda el esfuerzo y sacrificio ya que considero que se adquieren sólidos conocimientos en muy poco tiempo. También se crea una comunidad muy solidaria y amena entre personas que comparten los mismos intereses. En relacion al proyecto y a manera de reto personal colabore con la parte del Front-End en la implementación de la tienda, carrito de compras, formulario de contacto, envio de notificaciones automáticas por email y en la sección de "Acerca de Nosotros", en una primera instancia del proyecto estuve a cargo de las rutas del CRUD de productos"',
+  },
+  {
+    nombre: "Aquiles Igarzabal",
+    pais: "Córdoba - Argentina",
+    imagen: "Aquiles",
+    rol: "Desarrollador Full-Stack (Equipo Front-End / soporte al equipo Back-End)",
+    testimonio:
+      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis tincidunt ligula, in dictum urna varius ut. Morbi vitae iaculis nisl. Aenean vitae diam nec justo posuere gravida a a nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ornare vestibulum diam a eleifend. Maecenas sodales tellus sit amet est consectetur, ut rhoncus risus molestie. Vestibulum aliquet vitae ante sed vehicula. Phasellus arcu turpis, bibendum a bibendum a, lobortis ut tellus. Proin sagittis interdum imperdiet. Mauris fermentum lacus ut lectus vehicula rutrum. Sed tellus lacus, volutpat vitae aliquam id, lacinia sed nisi. Vivamus et efficitur massa, a suscipit erat. Donec placerat erat risus, ut suscipit urna varius ut. Suspendisse potenti. Integer sagittis a lectus id congue."',
+  },
+  {
+    nombre: "Diego Mendoza",
+    pais: "Bogotá - Colombia",
+    imagen: "Diego",
+    rol: "Desarrollador Full-Stack (Equipo Back-End)",
+    testimonio:
+      '"Soy ingeniero industrial y ahora, gracias al gran apoyo brindado por HENRY, desarrollador web fullStack. Durante este proyecto mi aporte estuvo principalmente enfocado hacia el backend, en donde tenia una mayor fluidez y conocimiento el cual fue adquirido durante todo el bootcamp, todo esto relacionado hacia mi principal objetivo que es poder comenzar una nueva carrera dentro de mi ambito profesional y asi ejercer de la mejor manera, en mis trabajos futuros, todo lo aprendido y practicado durante estos 6 meses de estudio."'
+  },
+  {
+    nombre: "Andres Darío Córdoba",
+    pais: "Chocó - Colombia",
+    imagen: "AndresD",
+    rol: "Desarrollador Full-Stack (Equipo Back-End)",
+    testimonio:
+      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lobortis tincidunt ligula, in dictum urna varius ut. Morbi vitae iaculis nisl. Aenean vitae diam nec justo posuere gravida a a nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ornare vestibulum diam a eleifend. Maecenas sodales tellus sit amet est consectetur, ut rhoncus risus molestie. Vestibulum aliquet vitae ante sed vehicula. Phasellus arcu turpis, bibendum a bibendum a, lobortis ut tellus. Proin sagittis interdum imperdiet. Mauris fermentum lacus ut lectus vehicula rutrum. Sed tellus lacus, volutpat vitae aliquam id, lacinia sed nisi. Vivamus et efficitur massa, a suscipit erat. Donec placerat erat risus, ut suscipit urna varius ut. Suspendisse potenti. Integer sagittis a lectus id congue."',
+  },
 ];
 
 export default devs;

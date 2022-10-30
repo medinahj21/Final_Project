@@ -1,21 +1,23 @@
 import React from "react";
 import edinson from "../../images/edinson.png";
 
-const Developers = (devs, setShowDevs, isCreate) => {
-  const handleClick = () => {
-    setShowDevs(!setShowDevs);
-  };
+const Developers = (devs) => {
 
   return (
     <div>
       
       
       <div className="contenedor-texto-testimonio">
+        <img
+        className="imagen-developer"
+        alt="profile"
+        src={require(`../../images/${devs.imagen}.jpg`)}
+        />
         <p className="nombre-testimonio">
-          <strong>{devs.nombre}</strong> en {devs.pais}
+          <strong>{devs.nombre}</strong> de {devs.pais}
         </p>
         <p className="cargo-testimonio">
-          {devs.cargo} en <strong>{devs.empresa}</strong>
+          <strong>Rol en el proyecto: </strong>{devs.rol}
         </p>
         <p
           className="texto-testimonio"

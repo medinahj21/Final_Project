@@ -14,14 +14,6 @@ import "./AboutUs.css";
 const AboutUs = () => {
   const [showDevs, setShowDevs] = useState(false);
 
-  const handleOpenClick = () => {
-    setShowDevs(true);
-  };
-
-  const handleCloseClick= ()=> {
-    setShowDevs(false);
-  }
-
   return (
     <div className="aboutUs-container-main">
       <div className="left-side-aboutUs-text">
@@ -161,17 +153,23 @@ const AboutUs = () => {
         </div>
       </div>
       <div className="seventh-section">
-      <b onClick={() => handleOpenClick()}> Sobre los Desarrolladores </b>
-        {showDevs ? (
-          <>            
-            <Developers {...devs[0]} setShowDevs={setShowDevs} isCreate= {true} />
-            <Developers {...devs[1]} setShowDevs={setShowDevs} isCreate= {true} />
-            <Developers {...devs[2]} setShowDevs={setShowDevs} isCreate= {true} />
-            <b onClick={()=> handleCloseClick()} >Ocultar info de desarrolladores</b>
-          </>
-        ) : (
-          <></>
-        )}
+        <div className="seventh-section-container">
+          <b className= "about-developers" onClick={() => setShowDevs(true)}> Sobre los Desarrolladores </b>
+          {showDevs ? (
+            <div>
+              {devs.map((dev, index) => {
+                return (
+                  <Developers {...dev} setShowDevs={setShowDevs} key={index} />
+                );
+              })}
+              <b className="hide-developers" onClick={() => setShowDevs(false)}>
+                Ocultar info de desarrolladores
+              </b>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );
