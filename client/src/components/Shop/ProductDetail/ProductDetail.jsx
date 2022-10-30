@@ -37,6 +37,7 @@ export default function ProductDetail({ id, setShowDetail }) {
           </button>
           {userInfoFirestore.isAdmin && (
             <button
+              className="close-detail"
               onClick={() => {
                 editMode = !editMode;
                 setEditor(editMode);
@@ -45,29 +46,17 @@ export default function ProductDetail({ id, setShowDetail }) {
               Editar
             </button>
           )}
-          {userInfoFirestore.isAdmin && (
-            <div className="toggle checkcross">
-              <input id="checkcross" type="checkbox" />
-              <label className="toggle-item" htmlFor="checkcross">
-                <div className="check"></div>
-              </label>
-            </div>
-          )}
+
           <ShowProductDetail id={id} />
         </div>
       )}
       {userInfoFirestore.isAdmin && editor && (
         <>
-          <CreateProduct isCreate={false} />
-          <button
-            className="modify__button detail_edit-product"
-            onClick={() => {
-              editMode = !editMode;
-              setEditor(editMode);
-            }}
-          >
-            Ver detalle
-          </button>
+          <CreateProduct
+            isCreate={false}
+            editMode={editMode}
+            setEditor={setEditor}
+          />
         </>
       )}
     </>

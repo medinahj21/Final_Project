@@ -97,6 +97,12 @@ export default function ShowProductDetail() {
       {product ? (
         <>
           {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
+          <span className="label-hab">Habilitar producto: </span>
+          <div className="button-hab r" id="button-hab">
+            <input type="checkbox" className="checkbox-hab" />
+            <div className="knobs"></div>
+            <div className="layer"></div>
+          </div>
           <h1 className="detail-product-title">{name}</h1>
           <div className="detail-product-content">
             <div className="image-price">

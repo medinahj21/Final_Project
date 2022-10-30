@@ -20,7 +20,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./CreateProduct.css";
 
-export default function CreateProduct({ isCreate, setCreationDiv }) {
+export default function CreateProduct({
+  isCreate,
+  setCreationDiv,
+  editMode,
+  setEditor,
+}) {
   const notify = (message) => toast.success(message);
   const notifyError = (message) =>
     toast.error(message, {
@@ -153,11 +158,22 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
     }
   };
 
+  const backDetailHandler = (e) => {
+    e.preventDefault();
+    editMode = !editMode;
+    setEditor(editMode);
+  };
+
   return (
     <>
       <ToastContainer />
-      <form onSubmit={confirmHandler} className="form__user form-create-product">
-        <h3 className="form__title">{isCreate ? 'Crear producto' : 'Editar producto'}</h3>
+      <form
+        onSubmit={confirmHandler}
+        className="form__user form-create-product"
+      >
+        <h3 className="form__title">
+          {isCreate ? "Crear producto" : "Editar producto"}
+        </h3>
         <div className="form__content-alta">
           <div className="form__product-inputs">
             <div>
@@ -193,17 +209,26 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
           </div>
         </div>
         <div className="create__product-button">
+          {!isCreate && (
+            <button className="detail_edit-product" onClick={backDetailHandler}>
+              Ver detalle
+            </button>
+          )}
           <button type="submit" className="form__btn-alta add-btn">
-            {isCreate ? 'Crear' : 'Editar'}
+            {isCreate ? "Crear" : "Editar"}
           </button>
-          {isCreate && <button
-            className="form__btn-alta delete-btn"
-            onClick={() => {
-              setCreationDiv(false);
-            }}
-          >
-            Cancelar
-          </button>}
+          {isCreate && (
+            <>
+              <button
+                className="form__btn-alta delete-btn"
+                onClick={() => {
+                  setCreationDiv(false);
+                }}
+              >
+                Cancelar
+              </button>
+            </>
+          )}
         </div>
       </form>
     </>
