@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import  React  from "react";
 import {
   incrementProductInCart,
   decrementProductInCart,
-  removeProductFromCart,
+  removeProductFromCart
 } from "../../../redux/actions/shoppingCart";
 import { FiTrash2 } from "react-icons/fi";
 
 
-export default function CartProduct({ prod }) {
+export default function CartProduct({ prod, productsInCart }) {
   const dispatch = useDispatch();
 
   const allProducts = useSelector((state) => state.productsReducer.allProducts);
@@ -23,14 +23,15 @@ export default function CartProduct({ prod }) {
   };
 
   const handleDecrementProduct = (id, modifiers) => {
-    dispatch(decrementProductInCart(id, modifiers));    
+    dispatch(decrementProductInCart(id, modifiers));
   };
 
-  const handleConfirm = (id, modifiers)=> {
-    if (window.confirm("¿Seguro desea eliminar este item?")){
+  const handleConfirm = (id, modifiers) => {
+    if (window.confirm("¿Seguro desea eliminar este item?")) {
       dispatch(removeProductFromCart(id, modifiers))
     }
   }
+
 
   return (
     <li className="clearfix">
@@ -44,7 +45,7 @@ export default function CartProduct({ prod }) {
         <button
           className="modify__button modify__button-cart"
           onClick={() => handleDecrementProduct(id, prod.product.modifiers)}
-          disabled= {prod.quant <= 1}
+          disabled={prod.quant <= 1}
         >
           {" "}
           -{" "}
@@ -56,7 +57,7 @@ export default function CartProduct({ prod }) {
           {" "}
           +{" "}
         </button>
-        <div className="button-trash" onClick= {()=> handleConfirm(id, prod.product.modifiers) }>
+        <div className="button-trash" onClick={() => handleConfirm(id, prod.product.modifiers)}>
           <FiTrash2 />
         </div>
       </div>
@@ -71,6 +72,9 @@ export default function CartProduct({ prod }) {
         })}
       </span>
       <hr />
+      <div id="button-checkout">
+
+      </div>
     </li>
   );
 }
