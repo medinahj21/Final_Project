@@ -33,7 +33,6 @@ function Shop() {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const isAdmin = userInfoFirestore.isAdmin;
-  //console.log("isAdmin:::::",isAdmin);
 
   useEffect(() => {
     if (!userInfoFirestore.isAdmin)
@@ -64,7 +63,7 @@ function Shop() {
       return;
     }
     dispatch(getProducts());
-  }, [dispatch, allProducts]);
+  }, [dispatch]);
 
   const handleAllProducts = (e) => {
     dispatch(getProducts());
@@ -89,11 +88,11 @@ function Shop() {
   };
 
   const handleOrderByPrice = (e) => {
-    if (e.target.value === "cheaper-to") {
+    if (e.target.name === "cheaper-to") {
       let orderIncrease = combinedFilter.sort((a, b) => a.price - b.price);
       setCombinedFilter(orderIncrease);
     }
-    if (e.target.value === "expensive-to") {
+    if (e.target.name === "expensive-to") {
       let orderDecrease = combinedFilter.sort((a, b) => b.price - a.price);
       setCombinedFilter(orderDecrease);
     }
@@ -101,14 +100,17 @@ function Shop() {
 
   const handleSearch = (e) => {
     setProductSearched(e.target.value);
+    let mixFilters;
+    if (productSearched === "") setCombinedFilter(dataFiltered);
+    else {
+      mixFilters = dataFiltered?.filter((product) =>
+        product.name.toLowerCase().includes(productSearched.toLowerCase())
+      );
+    }
 
-    let mixFilters = dataFiltered?.filter((product) =>
-      product.name.toLowerCase().includes(productSearched.toLowerCase())
-    );
     mixFilters && mixFilters !== []
       ? setCombinedFilter(mixFilters)
       : setCombinedFilter([]);
-    console.log("Combined_Filter:", combinedFilter);
 
     if (e.keyCode === 13) {
       if (productSearched !== "") {
@@ -126,6 +128,7 @@ function Shop() {
     setTags([...aux]);
     let aux2 = handleFilter(allProducts, aux, allTags);
     setDataFiltered(aux2);
+    setCombinedFilter(aux2);
   };
 
   return (

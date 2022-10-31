@@ -22,9 +22,11 @@ export default function ProductDetail({ id, setShowDetail }) {
   const [editor, setEditor] = useState(false);
   let editMode = false;
 
+
+
   useEffect(() => {
     dispatch(getProductDetail(id));
-  }, [dispatch, id, editor]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     return () => dispatch(cleanProductDetail());

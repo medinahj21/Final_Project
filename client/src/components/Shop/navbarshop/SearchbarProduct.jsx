@@ -72,12 +72,12 @@ function SearchbarProduct(props) {
           <select 
             defaultValue="title2" 
             className="select_container"
-            onChange={(e)=> handleOrderByPrice()}>
+            onChange={(e)=> handleOrderByPrice(e)}>
             <option value="title2" disabled={true}>
               Ordenar por: Precio
             </option>
-            <option value= "cheaper-to">Mas económico</option>
-            <option value= "expensive-to">Mas costoso</option>
+            <option name= "cheaper-to">Mas económico</option>
+            <option name= "expensive-to">Mas costoso</option>
           </select>
           <select
             defaultValue="title"
