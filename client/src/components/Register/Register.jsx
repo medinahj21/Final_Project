@@ -24,6 +24,8 @@ function Register({ setShowRegister, setShowLogin }) {
     });
   };
 
+  
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {

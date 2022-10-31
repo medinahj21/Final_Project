@@ -44,9 +44,6 @@ export default function CreateProduct({
   } = { ...initialState };
 
   const dispatch = useDispatch();
-  const allFilterTags = useSelector(
-    (state) => state.productsReducer.filterTags
-  );
   const [tags, setTags] = useState(
     initialState ? filterTags.map((obj) => obj.id) : []
   );
@@ -188,7 +185,6 @@ export default function CreateProduct({
                 setNewProduct={setNewProduct}
                 newProduct={newProduct}
                 handleTags={handleTags}
-                filterTags={allFilterTags}
                 tags={tags}
                 deleteTag={deleteTag}
               />

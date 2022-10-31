@@ -8,7 +8,9 @@ import { setUserFirestore } from "../../utils/firestore";
 import { notify, notifyError } from "../../utils/toastify";
 import { validateForm } from "../../utils/validateForm";
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
+import "react-toastify/dist/ReactToastify.css";
 
 import Modal from "../UI/Modal";
 
@@ -55,6 +57,20 @@ function FormUser({ setShowAlta, setIsForm }) {
       };
     });
     validateForm(userInput);
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    notify();
+    emailjs
+      .sendForm(
+        "service_etq8sc9",
+        "template_v29tr0g",
+        e.target,
+        "HiM3xW9AUxaXgJdP3"
+      )
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   };
 
   const handleSubmit = async (e) => {
