@@ -11,11 +11,14 @@ import Paginated from "../Paginated";
 
 >>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd:client/src/components/Shop/ProductCard/ShowProducts.jsx
 import "./ShowProducts.css";
+<<<<<<< HEAD:client/src/pages/Shop/ShowProducts.jsx
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Paginated from "./Paginated";
 import { clearCart } from "../../redux/actions/shoppingCart";
 
+=======
+>>>>>>> 50d8dd021f96420a2aff445c9a07bd02c44f9cfd:client/src/components/Shop/ProductCard/ShowProducts.jsx
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
 

@@ -1,14 +1,24 @@
+<<<<<<< HEAD:client/src/components/ShoppingCart/ShoppingCart.jsx
 import { useSelector } from "react-redux";
+=======
+import { useDispatch, useSelector } from "react-redux";
+
+>>>>>>> 50d8dd021f96420a2aff445c9a07bd02c44f9cfd:client/src/components/Shop/ShoppingCart/ShoppingCart.jsx
 import CartProduct from "./CartProduct";
 
 import { ToastContainer, toast } from "react-toastify";
 
 import "./ShoppingCart.css";
 import axios from "axios";
+import { clearCart } from "../../../redux/actions/shoppingCart";
 
 const ShoppingCart = () => {
 <<<<<<< HEAD:client/src/components/ShoppingCart/ShoppingCart.jsx
+<<<<<<< HEAD:client/src/components/ShoppingCart/ShoppingCart.jsx
 =======
+=======
+  const dispatch = useDispatch();
+>>>>>>> 50d8dd021f96420a2aff445c9a07bd02c44f9cfd:client/src/components/Shop/ShoppingCart/ShoppingCart.jsx
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const { allProducts } = useSelector((state) => state.productsReducer);
 >>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd:client/src/components/Shop/ShoppingCart/ShoppingCart.jsx
@@ -35,9 +45,12 @@ const ShoppingCart = () => {
       if (window.confirm("¿Desea confirmar esta compra?")) {
         notify("Empezando proceso de compra, no recargues la página");
         const paymentDate = (product) => {
+          var options = { year: "numeric", month: "2-digit", day: "2-digit" };
           const day = new Date();
           day.setDate(day.getDate() + Number(product.paymentTerm));
-          return day;
+          const array = day.toLocaleDateString("es-US", options).split("/");
+          const formatedDate = [array[2], array[1], array[0]].join("-");
+          return formatedDate;
         };
         const formatModifiers = (mod) => {
           return JSON.stringify(mod) !== "{}"
@@ -112,13 +125,13 @@ const ShoppingCart = () => {
             const product = allProducts.find(
               (products) => products.id === item.product.id
             );
-            let add = Array(item.quant).fill({
+            let add = Array(1).fill({
               name: `pago de ${product.name.toLowerCase()}`,
               location:
                 "Puedes realizar el pago en el dashboard componente de perfil", //modificar a link
               start: "00:00:00",
               end: "23:59:59",
-              date: [paymentDate(product).toString()],
+              date: [paymentDate(product).toString().split("T")[0]],
               description: `Fecha máxima de pago de ${
                 product.name
               } | ${formatModifiers(item.product.modifiers)}`,
@@ -138,6 +151,8 @@ const ShoppingCart = () => {
           notifyError("No se generaron los eventos");
           console.log({ error_events: error });
         }
+        
+        dispatch(clearCart());
       }
     }
   };

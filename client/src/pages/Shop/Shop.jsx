@@ -117,7 +117,7 @@ function Shop() {
         handleClean={handleClean}
       />
       {creationDiv ? (
-        <Modal>
+        <Modal clickHandler={()=>setCreationDiv(false)}>
           {" "}
           <CreateProduct setCreationDiv={setCreationDiv} isCreate={true} />{" "}
         </Modal>

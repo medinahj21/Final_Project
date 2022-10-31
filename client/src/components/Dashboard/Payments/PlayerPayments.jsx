@@ -1,15 +1,18 @@
-import { allowSelection } from "@fullcalendar/react";
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import DebtCard from "../DebtCard";
 
 export default function PlayerPayments() {
+
   const [allOrders, setAllOrders] = useState([]);
   const [formatOrders, setFormatOrders] = useState([]);
 
+  const {playerDetail} = useSelector((state) => state.playerReducer);
+
   const getOrders = async () => {
     if (!allOrders.length) {
-      const ordersDB = await axios(`${axios.defaults.baseURL}/orders`);
+      const ordersDB = await axios(`${axios.defaults.baseURL}/orders/player/${playerDetail.id}`);
       setAllOrders([...ordersDB.data]);
       const formated = ordersDB.data.map((order) => {
         return {
