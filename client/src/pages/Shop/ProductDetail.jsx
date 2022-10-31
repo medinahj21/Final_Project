@@ -10,9 +10,13 @@ import ShowProductDetail from "./ShowProductDetail";
 
 import "./ShowProductDetail.css";
 
+<<<<<<< HEAD:client/src/pages/Shop/ProductDetail.jsx
 export default function ProductDetail({id, setShowDetail}) {
   // let { id } = useParams();
 
+=======
+export default function ProductDetail({ id, setShowDetail }) {
+>>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd:client/src/components/Shop/ProductDetail/ProductDetail.jsx
   const dispatch = useDispatch();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
@@ -28,22 +32,37 @@ export default function ProductDetail({id, setShowDetail}) {
   }, [dispatch]);
 
   return (
-    <div className="productDetail__container">
-      <button onClick={()=>setShowDetail(false)}> X </button>
-
-      {userInfoFirestore.isAdmin ? (
-        <button
-          onClick={() => {
-            editMode = !editMode;
-            setEditor(editMode);
-          }}
-        >
-          {!editor ? "Editar" : "Ver detalle"}
-        </button>
-      ) : (
-        <></>
+    <>
+      {!editor && (
+        <div className="productDetail__container">
+          <button onClick={() => setShowDetail(false)}> X </button>
+          {userInfoFirestore.isAdmin && (
+            <button
+              onClick={() => {
+                editMode = !editMode;
+                setEditor(editMode);
+              }}
+            >
+              Editar
+            </button>
+          )}
+          <ShowProductDetail id={id} />
+        </div>
       )}
-      {editor ? <CreateProduct isCreate={false} /> : <ShowProductDetail />}
-    </div>
+      {userInfoFirestore.isAdmin && editor && (
+        <>
+          <CreateProduct isCreate={false} />
+          <button
+            className="detail_edit-product"
+            onClick={() => {
+              editMode = !editMode;
+              setEditor(editMode);
+            }}
+          >
+            Ver detalle
+          </button>
+        </>
+      )}
+    </>
   );
 }

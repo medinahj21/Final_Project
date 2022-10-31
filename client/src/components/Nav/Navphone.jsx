@@ -1,6 +1,24 @@
 import React, { useEffect }from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
+=======
+
+import { logout, getUserFirestore } from "../../redux/actions/auth";
+import {
+  updatePlayerCart,
+  getPlayerDetail,
+  clearPlayerDetail,
+} from "../../redux/actions/player";
+import { clearCart, setInitialCart } from "../../redux/actions/shoppingCart";
+
+import { validateClick } from "../../utils/validateClick";
+
+import { onAuthStateChanged } from "firebase/auth";
+
+import { auth } from "../../firebase/firebase.config";
+
+>>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd
 import "./Navphone.css";
 import { logout, getUserFirestore } from "../../redux/actions/auth";
 import { validateClick } from "../../utils/validateClick";
@@ -68,6 +86,7 @@ function Navphone({
         <span></span>
         <span></span>
 
+<<<<<<< HEAD
         {
           productsInCart?.length>0?
           <div className="nav_cart">
@@ -86,6 +105,9 @@ function Navphone({
           :
           <></>
         }
+=======
+        <ul id="menu">
+>>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd
           {email === "" || !email ? (
             <div className="nav__login">
               <p onClick={handleRegister}>Registrarse</p>
@@ -140,7 +162,9 @@ function Navphone({
               {!userInfoFirestore || userInfoFirestore.name === "" ? (
                 <>
                   {email ? (
-                    <p onClick={() => setShowAlta(true)}>Alta jugador |</p>
+                    <p onClick={() => setShowAlta(true)}>
+                      <li>Alta jugador</li>
+                    </p>
                   ) : (
                     <></>
                   )}
@@ -153,7 +177,7 @@ function Navphone({
                       : "/dashboard-player"
                   }
                 >
-                  Dashboard |
+                  <li>Dashboard</li>
                 </Link>
               )}
               <p href="!">
@@ -165,7 +189,7 @@ function Navphone({
               <p href="!">
                 <li>Nosotros</li>
               </p>
-              <p href="!">
+              <p href="/contacto">
                 <li>Contacto</li>
               </p>
             </>

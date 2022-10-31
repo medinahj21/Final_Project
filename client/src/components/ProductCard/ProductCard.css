@@ -1,38 +1,23 @@
 .card__content {
     display: flex;
     flex-direction: column;
-    width: 20rem;
-    height: auto;
+    width: 15rem;
+    height: fit-content;
     align-items: center;
     gap: 1rem;
     margin: 0 auto;
     border: 1px solid transparent;
-    border-radius: 2rem;
     padding: 1rem;
-    box-shadow: 0 0 17px 0 black;
+    box-shadow: 3px 3px 10px 0 black;
     transition: all .5s ease-in-out;
     background-color: rgba(255, 255, 255, 0.283);
-}
-
-.card__content:nth-child(odd):hover {
-    background-color: var(--color-light);
-    border: 1px solid #000;
-    border-radius: 5%;
-    transform: rotate(1deg);
-}
-
-.card__content:nth-child(2n):hover {
-    background-color: var(--color-light);
-    border: 1px solid #000;
-    border-radius: 5%;
-    transform: rotate(-1deg);
 }
 
 .card__title {
     margin: 0;
     font-size: var(--font-size-h3);
-    color: var(--color-white);
-    text-shadow: 0 12px 17px var(--color-bg);
+    color: rgb(1, 4, 46);
+    text-shadow: 0 3px 17px var(--color-bg);
 }
 
 .card__title:hover {
@@ -41,20 +26,103 @@
 }
 
 .card__title-product {
-    padding: 1rem;
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
-    text-align: center;
-    background-size: 400% 400%;
-    animation: changeBG 20s ease infinite;
+    width: 130px;
+    height: 40px;
     color: #fff;
-    border-radius: 20px;
-    box-shadow: var(--box-shadow);
-    font-size: 1.5rem;
-    text-shadow: var(--text-shadow);
-    border-radius: 10px;
-    border: 1px solid transparent;
-    padding: .4rem;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+.btn-product {
+    background: linear-gradient(0deg, rgb(5, 7, 75) 0%, rgb(6, 29, 52) 100%);
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+}
+
+.btn-product span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-product:before,
+.btn-product:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0;
+    background: rgb(5, 7, 75);
+    transition: all 0.3s ease;
+}
+
+.btn-product:before {
+    height: 0%;
+    width: 2px;
+}
+
+.btn-product:after {
+    width: 0%;
+    height: 2px;
+}
+
+.btn-product:hover {
+    background: transparent;
+    box-shadow: none;
+}
+
+.btn-product:hover:before {
+    height: 100%;
+}
+
+.btn-product:hover:after {
+    width: 100%;
+}
+
+.btn-product span:hover {
+    color: rgb(5, 7, 75);
+}
+
+.btn-product span:before,
+.btn-product span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    background: rgb(5, 7, 75);
+    transition: all 0.3s ease;
+}
+
+.btn-product span:before {
+    width: 2px;
+    height: 0%;
+}
+
+.btn-product span:after {
+    width: 0%;
+    height: 2px;
+}
+
+.btn-product span:hover:before {
+    height: 100%;
+}
+
+.btn-product span:hover:after {
+    width: 100%;
 }
 
 .card__price {
@@ -64,19 +132,19 @@
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
     color: #fff;
-    border-radius: 20px;
-    box-shadow: var(--box-shadow);
     width: 100%;
     font-size: var(--font-size-p);
     text-align: center;
     padding: .1rem 1rem .1rem 1rem;
-    box-shadow: var(--box-shadow);
-    color: yellowgreen;
+    color: rgb(255, 255, 255);
     background-color: var(--color-bg);
 }
 
 .card__image-product {
     max-width: 100%;
     border-radius: 2rem;
+}
+
+.card__image-product:hover {
     box-shadow: var(--box-shadow);
 }

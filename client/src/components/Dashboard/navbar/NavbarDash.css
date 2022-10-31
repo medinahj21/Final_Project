@@ -11,6 +11,10 @@
     box-shadow: var(--box-shadow);
 }
 
+.menu-icon {
+    cursor: pointer;
+}
+
 .sidebar header {
     background-color: orange;
     width: 100%;
@@ -91,6 +95,15 @@
     transform: translate(-45px);
 }
 
+.sidebar-nav ul li .logout-icon>* {
+    transform: translate(-50px);
+}
+
+.sidebar-nav ul li .reset-icon>* {
+    transform: translate(-22px);
+}
+
+
 .sidebar-nav>ul>li>a:after {
     content: "";
     font-family: ionicons;
@@ -159,7 +172,7 @@
         z-index: 999999999;
     }
 
-    .header-sidebar{
+    .header-sidebar {
         text-align: center;
     }
 }

@@ -47,7 +47,7 @@ const chargeDummyData = async () => {
         years: obj.Edad,
       },
       debtValue: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
-      paymentDate: obj["Marca temporal"],
+      paymentDate: Math.floor(Math.random()*30),
       shirtNumber: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
@@ -66,7 +66,7 @@ const chargeDummyData = async () => {
     await FilterTags.bulkCreate(filtersData);
     //
     await Group.bulkCreate(bulkGroup);
-    // await Player.bulkCreate(bulkPlayers);
+    //await Player.bulkCreate(bulkPlayers);
     //await Order.bulkCreate(ordersData);
     // await Admin.bulkCreate(bulkAdmin);
   } catch (error) {

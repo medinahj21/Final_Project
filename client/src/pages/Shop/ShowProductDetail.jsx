@@ -1,4 +1,8 @@
+<<<<<<< HEAD:client/src/pages/Shop/ShowProductDetail.jsx
 import React from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd:client/src/components/Shop/ProductDetail/ShowProductDetail.jsx
 import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,7 +26,6 @@ export default function ShowProductDetail() {
     description,
     filterTags,
     modifiers,
-    // state,
     isOrder,
     stock,
     paymentTerm,
@@ -79,77 +82,75 @@ export default function ShowProductDetail() {
     });
 
   return (
-    <div className="detail__container-product">
+    <>
       <ToastContainer />
       {product ? (
         <>
-          <div>
-            {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
-            <h1>{name}</h1>
-            <img alt="imgProduct" src={image} height="300" />
-            <h3>{`Precio: ${price}`}</h3>
-            <h3>Detalles:</h3>
-            <p>{description}</p>
-            <h4>Etiquetas:</h4>
-            <ul>
-              {filterTags?.map((obj) => {
-                return (
-                  <li key={obj.id} value={obj.id}>
-                    {obj["name"]}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="detail__container-modifier">
-            <h3>Modificadores</h3>
-            {modifiers?.map((obj, index) => {
-              if (Object.values(obj)[0] === "") {
-                return (
-                  <label key={index}>
-                    {Object.keys(obj)[0]}:
-                    <input
-                      placeholder={Object.keys(obj)[0]}
-                      name={Object.keys(obj)[0]}
-                      onChange={handleModifiers}
-                    ></input>
-                  </label>
-                );
-              } else {
-                return (
-                  <label key={index}>
-                    {Object.keys(obj)[0]}:
-                    <select
-                      name={Object.keys(obj)[0]}
-                      id={index}
-                      defaultValue={0}
-                      readOnly={true}
-                      onChange={handleModifiers}
-                    >
-                      <option value={0} disabled={true}>
-                        {"selecciona una"}
-                      </option>
-                      {Object.values(obj)[0]?.map(
-                        (option, i) => (
-                          <option value={option} key={i}>
-                            {option}
-                          </option>
-                        ) //cambiar a input type radio
-                      )}
-                    </select>
-                  </label>
-                );
-              }
-            })}
-            <h4>Producto bajo {isOrder ? "pedido" : "stock"}</h4>
-            {!isOrder ? <label>Existencias: {stock}</label> : <></>}
-            <h4> Plazo máximo de pago: {paymentTerm} días</h4>
-            <button onClick={handleAddToCart}> Añadir al carrito </button>
+          {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
+          <h1 className="detail-product-title">{name}</h1>
+          <div className="detail-product-content">
+            <div>
+              <img alt="imgProduct" src={image} className="image-detail" />
+              <p className="price-detail">
+                Precio <span>${price}</span>
+              </p>
+            </div>
+            <div className="details-container">
+              <div className="modify_container-detail">
+                {modifiers?.map((obj, index) => {
+                  if (Object.values(obj)[0] === "") {
+                    return (
+                      <div className="modify-container">
+                        <label key={index}>
+                          <input
+                            placeholder={Object.keys(obj)[0]}
+                            name={Object.keys(obj)[0]}
+                            onChange={handleModifiers}
+                          ></input>
+                        </label>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="size-container">
+                        {Object.values(obj)[0]?.map((option, i) => (
+                          <label className="check__label">
+                            {option}{" "}
+                            <input
+                              name="genre"
+                              value={option}
+                              type="radio"
+                              onChange={handleModifiers}
+                            />
+                            <span className="check"></span>
+                          </label>
+                        ))}
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+              <div className="description-content">
+                <span>Descripción:</span>
+                <p>{description}</p>
+                <span className="span-pedido">
+                  Producto bajo {isOrder ? "pedido" : "stock"}
+                </span>
+                {!isOrder ? <label>Existencias: {stock}</label> : <></>}
+                <button
+                  className="card__title-product btn-product"
+                  onClick={handleAddToCart}
+                >
+                  {" "}
+                  <span>Añadir al carrito</span>{" "}
+                </button>
+              </div>
+            </div>
           </div>
         </>
       ) : (
         <h2>No hay info</h2>
       )}
-    </div>
+    </>
   );
 }

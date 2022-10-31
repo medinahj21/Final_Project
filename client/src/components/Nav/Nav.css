@@ -69,6 +69,10 @@
     color: tomato;
 }
 
+.verify-email {
+    color: crimson;
+}
+
 .nav_cart{
     border: 1px solid transparent;
     box-shadow: 0 0 3px 0 white;

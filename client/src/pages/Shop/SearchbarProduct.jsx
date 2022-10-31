@@ -14,6 +14,11 @@ function SearchbarProduct(props) {
 
   const [showCart, setShowCart] = useState(false);
 
+  const handleAllProduct = (e) => {
+    handleClean(e);
+    handleAllProducts(e);
+  };
+
   return (
     <>
       <div className="nav">
@@ -38,19 +43,28 @@ function SearchbarProduct(props) {
             <span></span>
           </label>
         </div>
-        <div className="nav-links">
+        <div className="nav-links nav-links-shop">
           {userInfoFirestore?.isAdmin ? (
             <b
+              className="button-nav"
               onClick={(e) => {
                 setCreationDiv(true);
               }}
             >
-              CREAR PRODUCTO
+              Crear producto
             </b>
           ) : (
             <></>
+<<<<<<< HEAD:client/src/pages/Shop/SearchbarProduct.jsx
           )}
           <select defaultValue="title2" className="select_container">
+=======
+          )}{" "}
+          <button onClick={handleAllProduct} className="button-nav">
+            Todos
+          </button>
+          <select defaultValue="title2" className="select_container ">
+>>>>>>> 33b76f07feb633e6a8ea3716a9827274de1ae5bd:client/src/components/Shop/navbarshop/SearchbarProduct.jsx
             <option value="title2" disabled={true}>
               Filtar por: Precio
             </option>
@@ -60,7 +74,7 @@ function SearchbarProduct(props) {
           <select
             defaultValue="title"
             onChange={(e) => handleTags(e)}
-            className="select_container"
+            className="select_container "
           >
             <option value="title" disabled={true}>
               Filtar por:
@@ -73,7 +87,7 @@ function SearchbarProduct(props) {
               );
             })}
           </select>
-          <ul>
+          <ul className="tag-list">
             {tags?.map((tagId) => {
               return (
                 <li key={tagId} value={tagId} onClick={(e) => deleteTag(e)}>
@@ -82,8 +96,10 @@ function SearchbarProduct(props) {
               );
             })}
           </ul>
-          <button onClick={(e) => handleClean(e)}>LIMPIAR</button>
-          <button onClick={() => setShowCart(!showCart)}>
+          <button
+            className="cart-button-nav"
+            onClick={() => setShowCart(!showCart)}
+          >
             <IoIosCart />
           </button>
           {showCart ? <ShoppingCart /> : <></>}

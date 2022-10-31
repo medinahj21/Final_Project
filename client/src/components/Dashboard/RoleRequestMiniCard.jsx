@@ -46,7 +46,7 @@ export default function RoleRequestMiniCard(roleRequest) {
 
   const [newPlayerData, setNewPlayerData] = useState({
     debtValue: "",
-    paymentDay: "",
+    paymentDate: "",
     shirtNumber: "",
   });
 
@@ -78,7 +78,7 @@ export default function RoleRequestMiniCard(roleRequest) {
         id,
         personalInfo: userInfo.userInfoFirestore,
         debtValue: newPlayerData.debtValue,
-        paymentDay: newPlayerData.paymentDay,
+        paymentDate: newPlayerData.paymentDate,
         shirtNumber: newPlayerData.shirtNumber,
         groupId,
       };
@@ -103,7 +103,7 @@ export default function RoleRequestMiniCard(roleRequest) {
     <>
       <ToastContainer />
       <div className="row">
-        <div className="cell" data-title="iamge">
+        <div className="cell" data-title="image">
           <label>espacio img</label>
         </div>
         <div className="cell" data-title="name">
@@ -119,14 +119,14 @@ export default function RoleRequestMiniCard(roleRequest) {
           {" "}
           <div className="form__request-buttons">
             <button
-              className="form__btn-alta btn__background"
+              className="form__btn-alta btn__background add-btn"
               onClick={() => handleAccept()}
             >
               {" "}
               Aceptar{" "}
             </button>
             <button
-              className="form__btn-alta btn__background"
+              className="form__btn-alta btn__background delete-btn"
               onClick={() => handleDelete(id)}
             >
               {" "}
@@ -152,10 +152,10 @@ export default function RoleRequestMiniCard(roleRequest) {
               <input
                 className="forms_field-request-input"
                 type="number"
-                name="paymentDay"
+                name="paymentDate"
                 placeholder="fecha de pago"
                 onChange={(e) => handleChanges(e)}
-                value={newPlayerData.paymentDay}
+                value={newPlayerData.paymentDate}
               />
             </div>
             <div className="forms_field-request">
