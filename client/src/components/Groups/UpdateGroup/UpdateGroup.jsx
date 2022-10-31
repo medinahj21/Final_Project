@@ -25,8 +25,6 @@ function UpdateGroup({ setIsEdit, groupDetail, id }) {
     });
   };
 
-  console.log(inputUpdate);
-
   const editHandler = () => {
     setIsEdit(false);
   };
