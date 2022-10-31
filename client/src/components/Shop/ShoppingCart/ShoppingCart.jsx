@@ -2,7 +2,8 @@ import { useSelector } from "react-redux";
 
 import CartProduct from "./CartProduct";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShoppingCart.css";
 import axios from "axios";
@@ -14,19 +15,7 @@ const ShoppingCart = () => {
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
 
-  const notify = (message) =>
-    toast.success(message, {
-      position: toast.POSITION.TOP_LEFT,
-    });
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-      position: toast.POSITION.TOP_LEFT,
-    });
-
   const handleCheckout = () => {
-    //console.log("checkouut");
     if (!productsInCart.length) {
       notifyError("No hay productos en el carrito");
     } else {

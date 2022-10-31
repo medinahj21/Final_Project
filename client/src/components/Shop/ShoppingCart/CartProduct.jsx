@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -5,7 +6,6 @@ import {
   decrementProductInCart,
   removeProductFromCart,
 } from "../../../redux/actions/shoppingCart";
-import { useState } from "react";
 
 export default function CartProduct({ prod }) {
   const dispatch = useDispatch();

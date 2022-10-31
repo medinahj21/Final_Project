@@ -78,12 +78,15 @@ export default function GroupDetailCard({
         </div>
         <div className="group-btn-container">
           {!userInfoFirestore?.uid && (
-            <button
-              className="inscription-button"
+            <div
+              className="button-detail-group"
               onClick={() => setIsForm(true)}
             >
-              Solicitar alta
-            </button>
+              {" "}
+              <a href="#!" className="animated-button victoria-one">
+                Solicitar alta
+              </a>{" "}
+            </div>
           )}
           {userInfoFirestore?.uid &&
             !userInfoFirestore?.isAdmin &&
@@ -131,7 +134,7 @@ export default function GroupDetailCard({
         ) : (
           <></>
         )}
-        {isForm ? <FormUser /> : <></>}
+        {isForm ? <FormUser setIsForm={setIsForm} /> : <></>}
       </div>
     </>
   );

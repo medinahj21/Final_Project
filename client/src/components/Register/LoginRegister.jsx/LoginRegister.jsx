@@ -1,10 +1,18 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import {
+  notify,
+  notifyError,
+  notifyLoad,
+  dismissAll,
+} from "../../../utils/toastify";
+
 import { auth } from "../../../firebase/firebase.config";
 
 import { loginWhitEmailAndPassword } from "../../../redux/actions/auth";
+import { firebaseError } from "../../../utils/firebaseErrors";
 
 import Modal from "../../UI/Modal";
 import ForgotPassword from "../ForgotPassword";
@@ -12,26 +20,6 @@ import LoginGoogle from "../LoginGoogle";
 import Register from "../Register";
 
 import "./LoginRegister.css";
-
-const notifyError = (error) =>
-  toast.error(error, {
-    hideProgressBar: true,
-    theme: "colored",
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-const notifyLoad = (message) =>
-  toast.loading(message, {
-    position: toast.POSITION.BOTTOM_RIGHT,
-    autoClose: 5000,
-  });
-
-const notify = (message) =>
-  toast.success(message, {
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-const dismissAll = () => toast.dismiss();
 
 function LoginRegister({
   setShowLogin,
@@ -91,7 +79,7 @@ function LoginRegister({
     } catch (error) {
       //manejo de errores
       console.log(error.message);
-      return notifyError(error.message);
+      return notifyError(firebaseError(error.message));
     }
   };
 
@@ -112,7 +100,7 @@ function LoginRegister({
                   ¿No tienes una cuenta?
                 </h2>
                 <p className="user_unregistered-text">
-                  Registrate y forma parte del Wolves Club - Voleyball !
+                  Registrate y forma parte de Wolves Club - Voleyball !
                 </p>
                 <button
                   onClick={() => setBounceRight(false)}
@@ -128,7 +116,7 @@ function LoginRegister({
                   ¿Ya tienes una cuenta?
                 </h2>
                 <p className="user_registered-text">
-                  Inicia sesión así estaras siempre informado, podras pagar tus
+                  Inicia sesión, así estaras siempre informado, podras pagar tus
                   cuotas y.. comprar indumentaria del club !!
                 </p>
                 <button

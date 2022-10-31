@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 
 import * as action from "../../../redux/actions/event";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
+import { notify } from "../../../utils/toastify";
 
 import Tags from "../../../components/Tag/Tags";
 
@@ -23,11 +24,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     start: "",
     end: "",
   });
-
-  const notify = () =>
-    toast.success("Event has been created successfully", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
 
   const deleteTag = (e) => {
     setInputs({
@@ -60,7 +56,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
     if (response.error) return alert(`algo salio mal: ${response.error}`);
     handleModal();
     setInputs("");
-    notify();
+    notify("Evento creado");
     alert("Event has been created successfully");
     dispatch(getEvents());
   };

@@ -52,8 +52,6 @@ function Home() {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
-  console.log(showLogin);
-  
   return (
     <div id="home">
       {!isDesktop ? (

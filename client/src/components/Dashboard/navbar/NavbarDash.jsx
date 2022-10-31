@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { ResetPassword } from "../../../utils/ResetPassword";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../redux/actions/auth";
 import { Link } from "react-router-dom";
+
 import { validateClick } from "../../../utils/validateClick";
+import { ResetPassword } from "../../../utils/ResetPassword";
 
 import { CgProfile } from "react-icons/cg";
 import { RiAdminLine, RiDeviceRecoverLine } from "react-icons/ri";
@@ -16,12 +16,14 @@ import {
 import { BiLogOut } from "react-icons/bi";
 import { SlHome } from "react-icons/sl";
 
-import "./NavbarDash.css";
+import { logout } from "../../../redux/actions/auth";
 import { clearCart } from "../../../redux/actions/shoppingCart";
 import {
   clearPlayerDetail,
   updatePlayerCart,
 } from "../../../redux/actions/player";
+
+import "./NavbarDash.css";
 
 function NavbarDash({ setClickChoice }) {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import emailjs from "@emailjs/browser";
 
@@ -9,17 +9,10 @@ import { FaPhone, FaWhatsappSquare } from "react-icons/fa";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { AiFillTwitterCircle } from "react-icons/ai";
 
-import "./ContactForm.css";
 import { validateContact } from "../../utils/validateContact";
+import { notify, notifyError } from "../../utils/toastify";
 
-const notify = () =>
-  toast.success("Tu mensaje fue enviado con exito. Gracias por contactarnos!", {
-    position: toast.POSITION.TOP_RIGHT,
-  });
-const notifyError = (error) =>
-  toast.error(error, {
-    position: toast.POSITION.TOP_RIGHT,
-  });
+import "./ContactForm.css";
 
 const ContactForm = () => {
   const [flag, setFlag] = useState(true);
@@ -58,7 +51,7 @@ const ContactForm = () => {
 
     setTimeout(() => {
       setFlag(true);
-      notify();
+      notify("Tu mensaje fue enviado con exito. Gracias por contactarnos!");
     }, 4000);
 
     emailjs.sendForm(

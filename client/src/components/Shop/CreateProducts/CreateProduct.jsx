@@ -9,14 +9,14 @@ import {
 } from "../../../redux/actions/products";
 
 import { validate } from "../../../utils/validate";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 import "./CreateProduct.css";
 
@@ -26,13 +26,6 @@ export default function CreateProduct({
   editMode,
   setEditor,
 }) {
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-    });
-
   const { id } = useParams();
 
   const initialState = useSelector(

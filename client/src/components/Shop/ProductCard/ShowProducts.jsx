@@ -7,6 +7,7 @@ import ProductCard from "./ProductCard";
 import Paginated from "../Paginated";
 
 import "./ShowProducts.css";
+
 export default function ShowProducts({ dataFiltered }) {
   const dispatch = useDispatch();
 
