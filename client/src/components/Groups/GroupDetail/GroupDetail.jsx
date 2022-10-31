@@ -5,14 +5,13 @@ import {
   cleanGroupDetail,
   getGroupDetail,
 } from "../../../redux/actions/actionsGroup";
-import UpdateGroup from "../UpdateGroup/UpdateGroup";
+import GroupDetailCard from "./GroupDetailCard";
 
-export default function GroupDetail({ setShowDetail, id ,allowBack}) {
+export default function GroupDetail({ setShowDetail, id, allowBack }) {
   const dispatch = useDispatch();
 
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
 
-  const [update, setUpdate] = useState(false);
   const [createdSuccess, setCreatedSuccess] = useState(false);
 
   useEffect(() => {
@@ -26,11 +25,9 @@ export default function GroupDetail({ setShowDetail, id ,allowBack}) {
   }
 
   return (
-    <UpdateGroup
+    <GroupDetailCard
       id={id}
       groupDetail={groupDetail}
-      update={update}
-      setUpdate={setUpdate}
       setShowDetail={setShowDetail}
       allowBack={allowBack}
       setCreatedSuccess={setCreatedSuccess}

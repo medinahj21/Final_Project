@@ -113,7 +113,6 @@ const postGroups = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 
@@ -179,9 +178,9 @@ const postOrders = async (req, res) => {
     value,
     concept,
     description,
-    order_state, //==> revisar obligatoriedad
+    order_state, 
     payment_date,
-    payment_mode, //==> revisar obligatoriedad
+    payment_mode, 
     payment_term,
     type_order,
     product,
@@ -328,6 +327,7 @@ const postProductRequest = async (req, res) => {
 
 /**======================== RoleRequest ==========================*/
 const postRoleRequest = async (req, res) => {
+  console.log("BODY...", req.body)
   const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {
@@ -346,7 +346,6 @@ const postRoleRequest = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 
@@ -357,10 +356,16 @@ const pagarProducto = async (req, res) => {
 
   let preference = {
     items: [...datos],
+    /* payers: { 
+      name,
+      surname,
+      email(?),
+      identification,(cc,ti, pasaporte)
+    }, */
     back_urls: {
       success: "http://localhost:3000/products",
       failure: "/failure",
-      pending: "/pending"
+      pending: "/pending" // modificar
     },
     auto_return: "approved",
   };
@@ -372,15 +377,6 @@ const pagarProducto = async (req, res) => {
     console.log(error);
     res.json(error)
   }
-
-  // .then(function (response) {
-  //   console.log(response);
-  //   res.status(200).json(response)
-  // })
-//   .catch (function (error) {
-//   console.log(error);
-// })
-
 }
 
 

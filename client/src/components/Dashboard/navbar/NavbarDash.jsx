@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { ResetPassword } from "../../../utils/ResetPassword";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../redux/actions/auth";
 import { Link } from "react-router-dom";
+
 import { validateClick } from "../../../utils/validateClick";
+import { ResetPassword } from "../../../utils/ResetPassword";
 
 import { CgProfile } from "react-icons/cg";
 import { RiAdminLine, RiDeviceRecoverLine } from "react-icons/ri";
@@ -16,12 +16,14 @@ import {
 import { BiLogOut } from "react-icons/bi";
 import { SlHome } from "react-icons/sl";
 
-import "./NavbarDash.css";
+import { logout } from "../../../redux/actions/auth";
 import { clearCart } from "../../../redux/actions/shoppingCart";
 import {
   clearPlayerDetail,
   updatePlayerCart,
 } from "../../../redux/actions/player";
+
+import "./NavbarDash.css";
 
 function NavbarDash({ setClickChoice }) {
   const dispatch = useDispatch();
@@ -86,16 +88,17 @@ function NavbarDash({ setClickChoice }) {
                           href="pagos"
                           onClick={(e) => onClcikHandler(e, "pagos")}
                         >
-                          <i className="ion-ios-information-outline"></i>Detalle
-                          de pagos
+                          <i className="ion-ios-information-outline"></i>
+                          Historial de gastos
                         </a>
                       </li>
                       <li>
                         <a href="#!">
-                          <i className="ion-android-star-outline"></i>Mis
-                          compras
+                          <i className="ion-android-star-outline"></i>Pagos y
+                          deudas
                         </a>
                       </li>
+                    
                     </>
                   ) : (
                     <></>
@@ -126,17 +129,33 @@ function NavbarDash({ setClickChoice }) {
                       </a>
                     </li>
                     <li>
-                      <a href="#!">
-                        <i className="ion-ios-information-outline"></i>
-                        Contaduria
+                      <a
+                        href="#!"
+                        onClick={() => validateClick("socios", setClickChoice)}
+                      >
+                        <i className="ion-ios-paperplane-outline"></i>Gestion de
+                        admins
                       </a>
                     </li>
                     <li>
                       <a
                         href="#!"
-                        onClick={() => validateClick("socios", setClickChoice)}
+                        onClick={() => validateClick("player", setClickChoice)}
                       >
-                        <i className="ion-ios-paperplane-outline"></i>Gestion de admins
+                        <i className="ion-ios-paperplane-outline"></i>Gestion de
+                        jugadores
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#!">
+                        <i className="ion-ios-information-outline"></i>
+                        Pagos y deudas
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#!">
+                        <i className="ion-ios-information-outline"></i>
+                        Compras y pedidos
                       </a>
                     </li>
                   </ul>

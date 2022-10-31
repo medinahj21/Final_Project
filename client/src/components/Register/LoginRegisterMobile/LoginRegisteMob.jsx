@@ -1,12 +1,20 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { auth } from "../../../firebase/firebase.config";
 
 import { loginWhitEmailAndPassword } from "../../../redux/actions/auth";
 import { registerWhitEmailAndPassword } from "../../../redux/actions/auth";
+
 import { sendVerificationEmail } from "../../../utils/EmailVerification";
+import { firebaseError } from "../../../utils/firebaseErrors";
+import {
+  notifyError,
+  notifyLoad,
+  notify,
+  dismissAll,
+} from "../../../utils/toastify";
 
 import Modal from "../../UI/Modal";
 import ForgotPassword from "../ForgotPassword";
@@ -14,32 +22,7 @@ import LoginGoogle from "../LoginGoogle";
 
 import "./LoginRegisterMob.css";
 
-const notifyError = (error) =>
-  toast.error(error, {
-    hideProgressBar: true,
-    theme: "colored",
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-const notifyLoad = (message) =>
-  toast.loading(message, {
-    position: toast.POSITION.BOTTOM_RIGHT,
-    autoClose: 5000,
-  });
-
-const notify = (message) =>
-  toast.success(message, {
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-const dismissAll = () => toast.dismiss();
-
-function LoginRegisteMob({
-  setShowLogin,
-  setShowRegister,
-  showLogin,
-  setShowAlta,
-}) {
+function LoginRegisteMob({ setShowLogin, setShowRegister, showLogin }) {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(!showLogin);
 
@@ -92,7 +75,7 @@ function LoginRegisteMob({
       }, 6000);
     } catch (error) {
       console.log(error.message);
-      return notifyError(error.message);
+      return notifyError(firebaseError(error.message));
     }
   };
 
@@ -118,7 +101,7 @@ function LoginRegisteMob({
       });
     } catch (error) {
       console.log(error.message);
-      return notifyError(error.message);
+      return notifyError(firebaseError(error.message));
     }
   };
 

@@ -5,13 +5,13 @@
     display: flex;
     gap: 1rem;
     position: relative;
-    left: 110px;
 }
 
 .modify__button.modify__button-cart {
     box-shadow: 0 0 1px 0 black;
     border-radius: 0;
     color: black;
+    height: fit-content;
 }
 
 .modify__button.modify__button-cart:hover {
@@ -62,7 +62,7 @@
     padding: 20px;
     top: 55px;
     right: 65px;
-    z-index: 9999;
+    z-index: 9999999999;
 }
 
 .shopping-cart .shopping-cart-header {
@@ -100,24 +100,6 @@
     top: -20px;
 }
 
-.button-trash {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: rgb(15, 3, 31);
-    cursor: pointer;
-    border: 1px solid transparent;
-    box-shadow: 0 0 1px 0 rgb(15, 3, 31);
-}
-
-.button-trash:hover {
-    background-color: crimson;
-    border-color: white;
-    color: white;
-    box-shadow: 0 0 1px 0 white;
-}
-
 .shopping-cart .shopping-cart-items .item-price {
     color: rgb(15, 3, 31);
     margin-right: 8px;
@@ -143,7 +125,7 @@
 }
 
 .cart-icon {
-    color: #515783;
+    color: rgb(30, 0, 72);
     font-size: 24px;
     margin-right: 7px;
     float: left;
@@ -173,6 +155,204 @@
     content: "";
     display: table;
     clear: both;
+}
+
+/*trash button styles*/
+.button-trash {
+    align-self: center;
+    height: fit-content;
+    --background: rgb(30, 0, 72);
+    --background-hover:rgb(30, 0, 72);
+    --text: #fff;
+    --icon: #fff;
+    display: flex;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    min-width: 113px;
+    line-height: 24px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    overflow: hidden;
+    color: var(--text);
+    background: var(--b, var(--background));
+    transition: transform 0.3s, background 0.4s;
+    transform: scale(var(--scale, 1)) translateZ(0);
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.button-trash:active {
+    --scale: .95;
+}
+
+.button-trash:hover {
+    --b: var(--background-hover);
+}
+
+.button-trash .icon-trash,
+.button-trash span {
+    display: inline-block;
+    vertical-align: top;
+    transform: translateZ(0);
+}
+
+.button-trash .icon-trash {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 1;
+    margin-right: 8px;
+    color: var(--text);
+}
+
+.button-trash .icon-trash svg {
+    width: 96px;
+    height: 96px;
+    display: block;
+    position: absolute;
+    left: -36px;
+    top: -36px;
+    will-change: transform;
+    fill: var(--icon);
+    transform: scale(0.254) translateZ(0);
+    -webkit-animation: var(--name, var(--name-top, none)) 2200ms ease forwards;
+    animation: var(--name, var(--name-top, none)) 2200ms ease forwards;
+}
+
+.button-trash .icon-trash svg.bottom {
+    --name: var(--name-bottom, none);
+}
+
+.button-trash span {
+    -webkit-animation: var(--name-text, none) 2200ms ease forwards;
+    animation: var(--name-text, none) 2200ms ease forwards;
+}
+
+.button-trash.delete-trash {
+    --name-top: trash-top;
+    --name-bottom: trash-bottom;
+    --name-text: text;
+}
+
+@-webkit-keyframes trash-bottom {
+
+    25%,
+    32% {
+        transform: translate(32px, 19px) scale(1) translateZ(0);
+    }
+
+    70%,
+    80% {
+        transform: translate(32px, 0) scale(0.254) translateZ(0);
+    }
+
+    100% {
+        transform: scale(0.254) translateZ(0);
+    }
+}
+
+@keyframes trash-bottom {
+
+    25%,
+    32% {
+        transform: translate(32px, 19px) scale(1) translateZ(0);
+    }
+
+    70%,
+    80% {
+        transform: translate(32px, 0) scale(0.254) translateZ(0);
+    }
+
+    100% {
+        transform: scale(0.254) translateZ(0);
+    }
+}
+
+@-webkit-keyframes trash-top {
+
+    25%,
+    32% {
+        transform: translate(38px, 4px) scale(1) rotate(-20deg) translateZ(0);
+    }
+
+    70%,
+    80% {
+        transform: translate(32px, 0) scale(0.254) translateZ(0);
+    }
+
+    100% {
+        transform: scale(0.254) translateZ(0);
+    }
+}
+
+@keyframes trash-top {
+
+    25%,
+    32% {
+        transform: translate(38px, 4px) scale(1) rotate(-20deg) translateZ(0);
+    }
+
+    70%,
+    80% {
+        transform: translate(32px, 0) scale(0.254) translateZ(0);
+    }
+
+    100% {
+        transform: scale(0.254) translateZ(0);
+    }
+}
+
+@-webkit-keyframes text {
+    25% {
+        transform: translate(-4px, -4px) rotate(-20deg) translateZ(0);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(-12px, 48px) rotate(-80deg) scale(0.2) translateZ(0);
+    }
+
+    71% {
+        opacity: 0;
+    }
+
+    72%,
+    90% {
+        opacity: 0;
+        transform: translateZ(0);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes text {
+    25% {
+        transform: translate(-4px, -4px) rotate(-20deg) translateZ(0);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(-12px, 48px) rotate(-80deg) scale(0.2) translateZ(0);
+    }
+
+    71% {
+        opacity: 0;
+    }
+
+    72%,
+    90% {
+        opacity: 0;
+        transform: translateZ(0);
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @media (max-width:600px) {

@@ -43,10 +43,11 @@ const asyncUpdateProduct = async (req, res) => {
       return res.status(400).json({ error: "Product not found" });
     }
   } catch (error) {
-    console.log(error.message);
+    res.json({ error_DB: error.message });
   }
 };
-// 9284a918-5ffa-4be3-b6ea-478ae2ebb47a
+
+/**========================= putGroups================================*/
 const putGroups = async (req, res) => {
   const { id } = req.params;
   console.log("==>", id);
@@ -67,6 +68,7 @@ const putGroups = async (req, res) => {
   }
 };
 
+/**========================= event ================================*/
 const editEvent = async (req, res) => {
   const { id } = req.params;
   try {
@@ -86,6 +88,7 @@ const editEvent = async (req, res) => {
   }
 };
 
+/**========================= order ================================*/
 const putOrders = async (req, res) => {
   const { id } = req.params;
   try {
@@ -111,6 +114,7 @@ const putOrders = async (req, res) => {
   }
 };
 
+/**========================= Player ================================*/
 const updatePlayers = async(req, res) =>{
   const { id } = req.params;
   try {
@@ -126,9 +130,11 @@ const updatePlayers = async(req, res) =>{
     res.status(401).json({ message: "Not authorized" })
   }
 } catch (error) {
-  console.log(error.message);
+  res.json({ error_DB: error.message });
 }
 }
+
+/**========================= Admins ================================*/
 const updateAdmins = async(req, res) =>{
   const { id } = req.params;
   try {
@@ -144,11 +150,11 @@ const updateAdmins = async(req, res) =>{
     res.status(401).json({ message: "Not authorized" })
   }
 } catch (error) {
-  console.log(error);
+  res.json({ error_DB: error.message });
 }
 }
 
-
+/**========================= RoleRequest ================================*/
 const updateRoleRequest = async (req,res) =>{
   const { id } = req.params;
   try {
@@ -164,7 +170,7 @@ const updateRoleRequest = async (req,res) =>{
     res.status(401).json({ message: "Not authorized" })
   }
 } catch (error) {
-  console.log(error);
+  res.json({ error_DB: error.message });
 }
 }
 

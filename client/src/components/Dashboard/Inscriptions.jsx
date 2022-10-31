@@ -13,14 +13,13 @@ export default function Inscriptions() {
 
   useEffect(() => {
     if (requests?.length === 0) dispatch(getRoleRequests());
-  }, [dispatch]);
+  }, [dispatch, requests]);
 
   useEffect(() => {
     return () => {
       dispatch(cleanRoleRequest());
     };
   }, [dispatch]);
-
   return (
     <>
       <h1>Solicitudes</h1>
@@ -32,10 +31,16 @@ export default function Inscriptions() {
             <div className="cell">Grupo</div>
             <div className="cell">Rol</div>
             <div className="cell"></div>
-          </div>
-          {requests.map((req) => {
-            return <RoleRequestMiniCard key={req.id} roleRequests={req} />;
-          })}
+          </div>{" "}
+          {requests.length !== 0 ? (
+            <>
+              {requests.map((req) => {
+                return <RoleRequestMiniCard key={req.id} roleRequests={req} />;
+              })}
+            </>
+          ) : (
+            <h4 className="no-inscription-request">No hay solicitudes</h4>
+          )}
         </div>
       ) : (
         <h3>No hay inscripciones pendientes</h3>

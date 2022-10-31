@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -7,29 +6,24 @@ import {
   addToCart,
 } from "../../../redux/actions/shoppingCart";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShowProductDetail.css";
 
 export default function ShowProductDetail() {
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
   const product = useSelector(
     (state) => state.productsReducer.productDetail
   )[0];
-  const {
-    id,
-    name,
-    image,
-    price,
-    description,
-    filterTags,
-    modifiers,
-    isOrder,
-    stock,
-    paymentTerm,
-  } = { ...product };
+  const { id, name, image, price, description, modifiers, isOrder, stock } = {
+    ...product,
+  };
 
   const dispatch = useDispatch();
+
+  const [addToCartAnimation, setAddToCartAnimation] = useState(false);
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 
@@ -49,16 +43,24 @@ export default function ShowProductDetail() {
       Object.keys(modifiers).length &&
       !Object.keys(modifiersChosen).length
     ) {
-      notifyError("Elije algún modificador");
+      notifyError("Elije un talle");
     } else if (productInCart) {
+      setAddToCartAnimation(true);
       dispatch(incrementProductInCart(id, itemToAdd.modifiers));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(
         `Se añadió otro ${name.toLowerCase()} al carrito | cant: ${
           productInCart.quant
         }`
       );
     } else {
+      setAddToCartAnimation(true);
       dispatch(addToCart(itemToAdd));
+      setTimeout(() => {
+        setAddToCartAnimation(false);
+      }, 3700);
       notify(`${name} añadido al carrito`);
     }
   };
@@ -72,26 +74,27 @@ export default function ShowProductDetail() {
     });
   };
 
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-    });
-
   return (
     <>
       <ToastContainer />
       {product ? (
         <>
-          {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
+          {userInfoFirestore.isAdmin && (
+            <>
+              {" "}
+              <span className="label-hab">Habilitar producto: </span>
+              <div className="button-hab r" id="button-hab">
+                <input type="checkbox" className="checkbox-hab" />
+                <div className="knobs"></div>
+                <div className="layer"></div>
+              </div>{" "}
+            </>
+          )}
           <h1 className="detail-product-title">{name}</h1>
           <div className="detail-product-content">
-            <div>
+            <div className="image-price">
               <img alt="imgProduct" src={image} className="image-detail" />
-              <p className="price-detail">
-                Precio <span>${price}</span>
-              </p>
+              <p className="price-detail">${price}</p>
             </div>
             <div className="details-container">
               <div className="modify_container-detail">
@@ -111,11 +114,12 @@ export default function ShowProductDetail() {
                   } else {
                     return (
                       <div className="size-container">
+                        {Object.keys(modifiers[index])[0]}
                         {Object.values(obj)[0]?.map((option, i) => (
                           <label className="check__label">
-                            {option}{" "}
+                            {option}
                             <input
-                              name="genre"
+                              name={Object.keys(modifiers[index])}
                               value={option}
                               type="radio"
                               onChange={handleModifiers}
@@ -135,13 +139,24 @@ export default function ShowProductDetail() {
                   Producto bajo {isOrder ? "pedido" : "stock"}
                 </span>
                 {!isOrder ? <label>Existencias: {stock}</label> : <></>}
-                <button
-                  className="card__title-product btn-product"
-                  onClick={handleAddToCart}
-                >
-                  {" "}
-                  <span>Añadir al carrito</span>{" "}
-                </button>
+                {!userInfoFirestore.isAdmin && (
+                  <button
+                    onClick={handleAddToCart}
+                    className={
+                      !addToCartAnimation
+                        ? "button-detail-cart"
+                        : "button-detail-cart loading"
+                    }
+                  >
+                    <span>Agregar al carrito</span>
+                    <div className="cart-detail">
+                      <svg viewBox="0 0 36 26">
+                        <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                        <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                      </svg>
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
           </div>

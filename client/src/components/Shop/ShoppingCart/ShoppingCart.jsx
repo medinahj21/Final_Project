@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
+import { notify, notifyError } from "../../../utils/toastify";
 import { getPreference } from "../../../redux/actions/shoppingCart";
 import CartProduct from "./CartProduct";
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 
 import "./ShoppingCart.css";
 import axios from "axios";
+import { clearCart } from "../../../redux/actions/shoppingCart";
 
 
 
@@ -18,28 +20,19 @@ const ShoppingCart = () => {
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
   const [deleteIcon, setdeleteIcon] = useState(true)
 
-  const notify = (message) =>
-    toast.success(message, {
-      position: toast.POSITION.TOP_LEFT,
-    });
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-      position: toast.POSITION.TOP_LEFT,
-    });
-
   const handleCheckout = () => {
-    //console.log("checkouut");
     if (!productsInCart.length) {
       notifyError("No hay productos en el carrito");
     } else {
       if (window.confirm("¿Desea confirmar esta compra?")) {
         notify("Empezando proceso de compra, no recargues la página");
         const paymentDate = (product) => {
+          var options = { year: "numeric", month: "2-digit", day: "2-digit" };
           const day = new Date();
           day.setDate(day.getDate() + Number(product.paymentTerm));
-          return day;
+          const array = day.toLocaleDateString("es-US", options).split("/");
+          const formatedDate = [array[2], array[1], array[0]].join("-");
+          return formatedDate;
         };
         const formatModifiers = (mod) => {
           return JSON.stringify(mod) !== "{}"
@@ -57,6 +50,7 @@ const ShoppingCart = () => {
             const product = allProducts.find(
               (products) => products.id === item.product.id
             );
+
             const add = Array(item.quant).fill({
               value: product.price,
               concept: `Compra por tienda de ${product.name.toLowerCase()}`,
@@ -72,7 +66,7 @@ const ShoppingCart = () => {
 
             newOrders = [...newOrders, ...add];
           });
-
+          console.log(newOrders);
           newOrders.forEach(async (order) => {
             await axios.post(`${axios.defaults.baseURL}/orders/create`, order);
           });
@@ -115,15 +109,16 @@ const ShoppingCart = () => {
             const product = allProducts.find(
               (products) => products.id === item.product.id
             );
-            let add = Array(item.quant).fill({
+            let add = Array(1).fill({
               name: `pago de ${product.name.toLowerCase()}`,
               location:
                 "Puedes realizar el pago en el dashboard componente de perfil", //modificar a link
               start: "00:00:00",
               end: "23:59:59",
-              date: [paymentDate(product).toString()],
-              description: `Fecha máxima de pago de ${product.name
-                } | ${formatModifiers(item.product.modifiers)}`,
+              date: [paymentDate(product).toString().split("T")[0]],
+              description: `Fecha máxima de pago de ${
+                product.name
+              } | ${formatModifiers(item.product.modifiers)}`,
               repetitive: false,
               state: "Pending",
               player: userInfoFirestore.uid,
@@ -140,6 +135,8 @@ const ShoppingCart = () => {
           notifyError("No se generaron los eventos");
           console.log({ error_events: error });
         }
+
+        dispatch(clearCart());
       }
     }
   };

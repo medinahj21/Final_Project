@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Toast } from "../../../utils/toastSweet";
 import * as action from "../../../redux/actions/event";
+import { Toast } from "../../../utils/toastSweet";
+
+
 import Tags from "../../../components/Tag/Tags";
 import s from "../FormEvent/FormEvent.module.css";
 import Swal from "sweetalert2";
@@ -26,8 +28,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
   });
 
   const groups = useSelector((state) => state.groupReducer.groups);
-  
-
 
   const deleteTag = (e) => {
     setInputs({
@@ -35,7 +35,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
       date: [...inputs.date.filter((tag) => tag !== e)],
     });
   };
-
+console.log(inputs);
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -240,7 +240,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-                <input type="date" name="date" onChange={handleChangeDays} />
+                <input type="date" name="date" onChange={handleChange} />
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>
