@@ -1,4 +1,3 @@
-
 import {
   GET_GROUPS,
   GET_GROUP_DETAIL,
@@ -124,3 +123,4 @@ export const cleanRoleRequest = (id) => {
     dispatch({ type: CLEAN_ROLE_REQUESTS });
   };
 };
+

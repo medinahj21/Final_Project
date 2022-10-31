@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getEvents } from "../../redux/actions/event";
+import { getPlayerDetail } from "../../redux/actions/player";
 
 import Modal from "../UI/Modal";
 import FormEvent from "./FormEvent/FormEvent";
@@ -23,9 +24,14 @@ export default function Calendar() {
   const [modalOn, setModalOn] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
   const [detail, setDetail] = useState([]);
+  const [eventPlayer, setEventPlayer] = useState([]);
 
   const events = useSelector((state) => state.eventReducer.events);
-
+  const { playerDetail } = useSelector((state) => state.playerReducer);
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  console.log('player ',playerDetail);
+  console.log('isAdmin ',userInfoFirestore);
+  console.log('eventPlayer',eventPlayer);
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
@@ -52,7 +58,10 @@ export default function Calendar() {
 
   useEffect(() => {
     dispatch(getEvents());
+    dispatch(getPlayerDetail(userInfoFirestore.uid));
+    setEventPlayer(playerDetail.events?.map((us) => us.id));
   }, [dispatch]);
+
 
   if (modalOn) {
     return (
@@ -92,19 +101,20 @@ export default function Calendar() {
         initialView="dayGridMonth"
         locale={esLocale}
         height={800}
+        handleWindowResize={true}
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",
           end: "today prev,next",
         }}
-        footerToolbar={{ center: "custom1" }}
-        customButtons={{
+        footerToolbar={userInfoFirestore.isAdmin && { center: "custom1" }}
+        customButtons={userInfoFirestore.isAdmin && {
           custom1: {
             text: "Crear evento",
             click: handleModal,
           },
-        }}
-        events={objectEvent}
+        }} //Si no es admin, mostrar los relacionados al jugador
+        events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id)) }
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);

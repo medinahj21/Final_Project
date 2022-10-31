@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import  React  from "react";
 import {
   incrementProductInCart,
   decrementProductInCart,
-  removeProductFromCart,
+  removeProductFromCart
 } from "../../../redux/actions/shoppingCart";
 
-export default function CartProduct({ prod }) {
+export default function CartProduct({ prod, productsInCart }) {
   const dispatch = useDispatch();
   const [isDelete, setIsDelete] = useState(false);
 
@@ -38,6 +38,7 @@ export default function CartProduct({ prod }) {
       }, 2000);
     }
   };
+
 
   return (
     <li className="clearfix">
@@ -109,6 +110,9 @@ export default function CartProduct({ prod }) {
         })}
       </span>
       <hr />
+      <div id="button-checkout">
+
+      </div>
     </li>
   );
 }

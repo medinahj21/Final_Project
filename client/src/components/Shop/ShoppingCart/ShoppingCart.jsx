@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-
-import CartProduct from "./CartProduct";
-
-import { ToastContainer } from "react-toastify";
 import { notify, notifyError } from "../../../utils/toastify";
+import { getPreference } from "../../../redux/actions/shoppingCart";
+import CartProduct from "./CartProduct";
+import React, { useState } from "react";
+import { ToastContainer} from "react-toastify";
 
 import "./ShoppingCart.css";
 import axios from "axios";
 import { clearCart } from "../../../redux/actions/shoppingCart";
+
+
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const ShoppingCart = () => {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
+  const [deleteIcon, setdeleteIcon] = useState(true)
 
   const handleCheckout = () => {
     if (!productsInCart.length) {
@@ -34,11 +37,12 @@ const ShoppingCart = () => {
         const formatModifiers = (mod) => {
           return JSON.stringify(mod) !== "{}"
             ? JSON.stringify(mod)
-                .replace("{", "")
-                .replace("}", "")
-                .replaceAll('"', " ")
+              .replace("{", "")
+              .replace("}", "")
+              .replaceAll('"', " ")
             : " ";
         };
+
         // ---------------- genero las órdenes -----------------------------------
         try {
           let newOrders = [];
@@ -137,44 +141,76 @@ const ShoppingCart = () => {
     }
   };
 
-  return (
-    <>
-      <ToastContainer />
-      <div className="shopping-cart">
-        <div className="shopping-cart-header">
-          <i className="fa fa-shopping-cart cart-icon"></i>
-          <span className="badge">{total}</span>
-          <div className="shopping-cart-total">
-            <span className="lighter-text">Total: </span>
-            <span className="main-color-text">
-              $
-              {productsInCart?.reduce(
-                (a, item) => a + item.product.price * item.quant,
-                0
-              )}
-            </span>
-          </div>
-        </div>
-        {productsInCart?.length ? (
-          <ul className="shopping-cart-items">
-            {productsInCart?.map((prod, index) => {
-              return <CartProduct key={index} prod={prod} />;
-            })}
-          </ul>
-        ) : (
-          <h4 className="main-color-text">
-            Aún no hay productos en el carrito
-          </h4>
-        )}
 
-        {!userInfoFirestore.isAdmin && (
-          <a href="#!" className="button" onClick={() => handleCheckout()}>
-            Comprar
-          </a>
-        )}
+  const handleCheckoutTwo = async () => {
+    let idCart = []
+
+    productsInCart.map((pc) => {
+      let filtered = allProducts.filter((ap) => ap.id === pc.product.id);
+      let fillmap = filtered.map((e) => {
+        return {
+          id: e.id,
+          title: e.name,
+          description: e.description,
+          picture_url: e.image,
+          quantity: pc.quant,
+          unit_price: e.price
+        }
+      })
+      idCart.push(fillmap);
+    })
+      const preference = await dispatch(getPreference(idCart.flat()));
+        const script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = "https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js";
+        script.setAttribute('data-preference-id', preference.data.preferenceId);
+        const button = document.getElementById('checkout');
+        button.innerHTML = "";
+        button.appendChild(script);
+        setdeleteIcon(false)
+  }
+
+return (
+  <>
+    <ToastContainer />
+    <div className="shopping-cart">
+      <div className="shopping-cart-header">
+        <i className="fa fa-shopping-cart cart-icon"></i>
+        <span className="badge">{total}</span>
+        <div className="shopping-cart-total">
+          <span className="lighter-text">Total: </span>
+          <span className="main-color-text">
+            $
+            {productsInCart?.reduce(
+              (a, item) => a + item.product.price * item.quant,
+              0
+            )}
+          </span>
+        </div>
       </div>
-    </>
-  );
+      {productsInCart?.length ? (
+        <ul className="shopping-cart-items">
+          {productsInCart?.map((prod, index) => {
+            return <CartProduct key={index} prod={prod} productsInCart={productsInCart} />;
+          })}
+        </ul>
+      ) : (
+        <h4 className="main-color-text">
+          Aún no hay productos en el carrito
+        </h4>
+      )}
+
+      {!userInfoFirestore.isAdmin && (
+        <div id='checkout'>
+          <a href="#!" className="button" onClick={() => handleCheckoutTwo()}>
+            Solicitar Pago
+          </a>
+
+        </div>
+      )}
+    </div>
+  </>
+);
 };
 
 export default ShoppingCart;

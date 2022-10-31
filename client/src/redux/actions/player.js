@@ -71,3 +71,21 @@ export const clearPlayerDetail = () => {
     });
   };
 };
+
+// export const updatePlayerEvents = (groups,event) => {
+//   return async (dispatch) => {
+//     try {
+//       const event = { events: event };
+//       let response = await axios.put(
+//         `http://localhost:3001/players/update/${id}`,
+//         shoppingCart
+//       );
+//       return dispatch({
+//         type: UPDATE_PLAYER_SHOPPING_CART,
+//         payload: response.data,
+//       });
+//     } catch (error) {
+//       console.log({ error: error.message });
+//     }
+//   };
+// };
