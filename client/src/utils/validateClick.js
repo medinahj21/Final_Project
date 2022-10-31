@@ -1,46 +1,53 @@
 export const validateClick = (value, setClickChoice) => {
   if (value === "perfil") {
     setClickChoice({
-      isPerfil: true,
       isSocios: false,
+      isPagos: false,
+      isGrupos: false,
       isGrupo: false,
       isCalendario: false,
       isRequest: false,
+      isPlayer: false,
+      isPerfil: true,
     });
   }
+
   if (value === "socios") {
     setClickChoice({
       isPerfil: false,
-      isSocios: true,
+      isPagos: false,
+      isGrupos: false,
       isGrupo: false,
       isCalendario: false,
       isRequest: false,
+      isPlayer: false,
+      isSocios: true,
     });
   }
+
   if (value === "grupo") {
     setClickChoice({
       isPerfil: false,
       isSocios: false,
-      isGrupo: true,
+      isPagos: false,
+      isGrupos: false,
       isCalendario: false,
       isRequest: false,
+      isPlayer: false,
+      isGrupo: true,
     });
   }
+
   if (value === "calendario") {
     setClickChoice({
       isPerfil: false,
       isSocios: false,
-      isGrupo: false,
-      isCalendario: true,
-    });
-  }
-  if (value === "perfil") {
-    setClickChoice({
-      isPerfil: true,
-      isSocios: false,
       isPagos: false,
       isGrupos: false,
+      isGrupo: false,
       isRequest: false,
+      isPlayer: false,
+      isCalendario: true,
     });
   }
 
@@ -48,9 +55,12 @@ export const validateClick = (value, setClickChoice) => {
     setClickChoice({
       isPerfil: false,
       isSocios: false,
-      isPagos: true,
+      isGrupo: false,
       isGrupos: false,
+      isPlayer: false,
+      isCalendario: false,
       isRequest: false,
+      isPagos: true,
     });
   }
 
@@ -59,19 +69,11 @@ export const validateClick = (value, setClickChoice) => {
       isPerfil: false,
       isSocios: false,
       isPagos: false,
+      isGrupo: false,
+      isPlayer: false,
+      isRequest: false,
+      isCalendario: false,
       isGrupos: true,
-      isRequest: false,
-    });
-  }
-
-  if (value === "calendario") {
-    setClickChoice({
-      isPerfil: false,
-      isSocios: false,
-      isPagos: false,
-      isGrupos: false,
-      isCalendario: true,
-      isRequest: false,
     });
   }
 
@@ -81,8 +83,23 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isPagos: false,
       isGrupos: false,
+      isGrupo: false,
       isCalendario: false,
+      isPlayer: false,
       isRequest: true,
+    });
+  }
+
+  if (value === "player") {
+    setClickChoice({
+      isPerfil: false,
+      isSocios: false,
+      isPagos: false,
+      isGrupos: false,
+      isGrupo: false,
+      isCalendario: false,
+      isRequest: false,
+      isPlayer: true,
     });
   }
 };

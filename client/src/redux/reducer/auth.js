@@ -12,12 +12,14 @@ const initialState = {
   userInfoFirestore: "",
   allUserFirestore: "",
   clickChoicePersist: {
-    isPerfil: true,
     isSocios: false,
     isPagos: false,
+    isGrupos: false,
     isGrupo: false,
     isCalendario: false,
     isRequest: false,
+    isPlayer: false,
+    isPerfil: true,
   },
 };
 

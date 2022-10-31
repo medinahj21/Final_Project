@@ -98,6 +98,7 @@ function NavbarDash({ setClickChoice }) {
                           deudas
                         </a>
                       </li>
+                    
                     </>
                   ) : (
                     <></>
@@ -134,6 +135,15 @@ function NavbarDash({ setClickChoice }) {
                       >
                         <i className="ion-ios-paperplane-outline"></i>Gestion de
                         admins
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#!"
+                        onClick={() => validateClick("player", setClickChoice)}
+                      >
+                        <i className="ion-ios-paperplane-outline"></i>Gestion de
+                        jugadores
                       </a>
                     </li>
                     <li>

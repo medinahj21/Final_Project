@@ -112,7 +112,6 @@ const postGroups = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 
@@ -178,9 +177,9 @@ const postOrders = async (req, res) => {
     value,
     concept,
     description,
-    order_state, //==> revisar obligatoriedad
+    order_state, 
     payment_date,
-    payment_mode, //==> revisar obligatoriedad
+    payment_mode, 
     payment_term,
     type_order,
     product,
@@ -232,8 +231,7 @@ const postOrders = async (req, res) => {
         }
       }
     } catch (error) {
-      res.status(500).json({error:error.message})
-      console.log(error);
+      res.json({ error_DB: error.message });
     }
   };
   
@@ -321,8 +319,7 @@ const postProductRequest = async (req, res) => {
         : res.json({ msg: "something went wrong" })
     }
   } catch (error) {
-    res.status(500).json({error:error.message})
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 }
 
@@ -346,7 +343,6 @@ const postRoleRequest = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error);
   }
 };
 

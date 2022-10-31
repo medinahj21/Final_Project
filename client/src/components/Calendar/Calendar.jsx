@@ -98,7 +98,7 @@ export default function Calendar() {
           end: "today prev,next",
         }}
         footerToolbar={{ center: "custom1" }}
-        customButtons={true && {
+        customButtons={{
           custom1: {
             text: "Crear evento",
             click: handleModal,
