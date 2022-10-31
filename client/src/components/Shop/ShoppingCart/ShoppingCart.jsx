@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import CartProduct from "./CartProduct";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShoppingCart.css";
 import axios from "axios";
@@ -16,19 +17,7 @@ const ShoppingCart = () => {
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
 
-  const notify = (message) =>
-    toast.success(message, {
-      position: toast.POSITION.TOP_LEFT,
-    });
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-      position: toast.POSITION.TOP_LEFT,
-    });
-
   const handleCheckout = () => {
-    //console.log("checkouut");
     if (!productsInCart.length) {
       notifyError("No hay productos en el carrito");
     } else {
@@ -57,6 +46,7 @@ const ShoppingCart = () => {
             const product = allProducts.find(
               (products) => products.id === item.product.id
             );
+
             const add = Array(item.quant).fill({
               value: product.price,
               concept: `Compra por tienda de ${product.name.toLowerCase()}`,
@@ -72,7 +62,7 @@ const ShoppingCart = () => {
 
             newOrders = [...newOrders, ...add];
           });
-
+          console.log(newOrders);
           newOrders.forEach(async (order) => {
             await axios.post(`${axios.defaults.baseURL}/orders/create`, order);
           });
@@ -141,7 +131,7 @@ const ShoppingCart = () => {
           notifyError("No se generaron los eventos");
           console.log({ error_events: error });
         }
-        
+
         dispatch(clearCart());
       }
     }

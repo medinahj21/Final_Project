@@ -1,155 +1,20 @@
-.group__detail-container {
+.form__user.form-update-group {
+    flex-direction: row;
+    width: 60vw;
+    gap: 5rem;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+.form__user.form-update-group h2 {
     position: absolute;
+    top: 0;
+}
+
+.update-section {
+    margin-top: 10%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    background-color: rgba(4, 0, 43, 0.496);
-    margin-top: -20px;
-    width: 100vw;
-    height: 100%;
-    font-size: 1.4rem;
-    color: white;
+    gap: 1rem;
 }
-
-.group__detail-container .group-button {
-    width: fit-content;
-    align-self: center;
-    position: relative;
-    left: -10%;
-}
-
-.group-detail-content {
-    display: flex;
-    gap: 10rem;
-    width: 100%;
-    margin-left: 10rem;
-    font-size: 1rem;
-}
-
-.group-detail-content span {
-    font-size: 1.4rem;
-}
-
-.group__detail-container .inscription-button {
-    position: absolute;
-    bottom: 10vh;
-    left: 15vw;
-}
-
-.group__detail-container p span {
-    text-align: center;
-    position: relative;
-    left: -10%;
-    font-size: 5rem;
-    font-family: "Oswald", sans-serif;
-    letter-spacing: 0;
-    padding: 0.25em 0 0.325em;
-    display: block;
-    text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
-    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-animation: aitf 80s linear infinite;
-    -webkit-transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-}
-
-@keyframes aitf {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
-
-.group__detail-container iframe {
-    position: absolute;
-    height: 350px;
-    width: 350px;
-    bottom: 0;
-    left: 60%;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    animation-name: pulseMap;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: infinite;
-}
-
-@keyframes pulseMap {
-    0% {
-        box-shadow: 0 0 0 0 rgba(246, 246, 246, 0.5);
-    }
-
-    80% {
-        box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);
-    }
-}
-
-.update__image {
-    width: 100%;
-    height: 100%;
-    right: -5vw;
-    position: fixed;
-    z-index: -1;
-    filter: blur(5px);
-}
-
-@media screen and (max-width: 1404px) {
-    .group__detail-container {
-        left: 0;
-        bottom: 0;
-        font-size: 1.4rem;
-    }
-
-    .group__detail-container p span {
-        left: 0;
-        font-size: 4rem;
-    }
-
-    .group__detail-container iframe {
-        position: absolute;
-        height: 300px;
-        width: 300px;
-        left: 75%;
-    }
-}
-
-/*
-
-.update__container .update__button {
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.update__container span {
-    font-weight: bolder;
-    font-size: 1.4rem;
-}
-
-.update__container input {
-    user-select: text;
-    color: bisque;
-    font-weight: bolder;
-    border: transparent;
-    background-color: transparent;
-}
-
-.update__container textarea {
-    resize: none;
-    color: white;
-
-    background-color: transparent;
-    border: none;
-}
-
-.update__container iframe {
-    width: 30vw;
-    box-shadow: var(--box-shadow);
-    border: 1px solid transparent;
-    border-radius: 20px;
-} */

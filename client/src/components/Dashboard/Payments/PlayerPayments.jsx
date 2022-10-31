@@ -24,6 +24,8 @@ export default function PlayerPayments() {
       setFormatOrders(formated);
     }
   };
+
+  console.log(allOrders);
   
   return (
     <>

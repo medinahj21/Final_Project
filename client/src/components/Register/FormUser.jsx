@@ -5,25 +5,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
 import { setUserFirestore } from "../../utils/firestore";
+import { notify, notifyError } from "../../utils/toastify";
+import { validateForm } from "../../utils/validateForm";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 import Modal from "../UI/Modal";
 
 import "./FormUser.css";
 
-function FormUser({ setShowAlta }) {
-  const notifyError = (error) =>
-    toast.error(error, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      hideProgressBar: true,
-    });
-  const notify = () =>
-    toast.success("Solicitud enviada", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
+function FormUser({ setShowAlta, setIsForm }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -54,6 +45,8 @@ function FormUser({ setShowAlta }) {
     email: "",
   });
 
+  const error = validateForm(userInput);
+
   const changeHandler = (e) => {
     setUserInput((prevState) => {
       return {
@@ -61,17 +54,21 @@ function FormUser({ setShowAlta }) {
         [e.target.name]: e.target.value,
       };
     });
+    validateForm(userInput);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userInput.name === "") {
-      notifyError("must have a name");
+
+    validateForm(userInput);
+
+    if (error !== "") {
+      notifyError(error);
       return;
     }
-    console.log(userInput);
+
     await setUserFirestore({ ...userInput, uid: user.uid, email: user.email });
-    notify();
+    notify("Solicitud enviada");
     setTimeout(() => {
       setShowAlta(false);
     }, 2000);
@@ -79,8 +76,8 @@ function FormUser({ setShowAlta }) {
   };
 
   return (
-    <Modal>
-      <ToastContainer />
+    <Modal clickHandler={() => setIsForm(false)}>
+      <ToastContainer limit={1}/>
       <form onSubmit={handleSubmit} className="form__user">
         <h3 className="form__title">Solicitud de alta</h3>
         <div className="form__content-alta">

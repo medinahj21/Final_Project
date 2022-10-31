@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { notify, notifyError, notifyInfo } from "../../utils/toastify";
 
 import {
   deleteRoleRequest,
@@ -19,23 +19,6 @@ import "./Request.css";
 import "./FormRequest.css";
 
 export default function RoleRequestMiniCard(roleRequest) {
-  const notifyError = (error) =>
-    toast.error(error, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      hideProgressBar: true,
-    });
-
-  const notifyInfo = (message) =>
-    toast.info(message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      hideProgressBar: true,
-    });
-
-  const notify = (message) =>
-    toast.success(message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
 

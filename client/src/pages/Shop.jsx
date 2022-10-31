@@ -29,9 +29,12 @@ function Shop() {
 
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const allProducts = useSelector((state) => state.productsReducer.allProducts);
+  const allTags = useSelector((state) => state.productsReducer.filterTags);
 
   useEffect(() => {
-    if(!userInfoFirestore.isAdmin) dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
+    if (!userInfoFirestore.isAdmin)
+      dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
   }, [dispatch, productsInCart, userInfoFirestore]);
 
   useEffect(() => {
@@ -42,15 +45,13 @@ function Shop() {
     getTags();
   }, [dispatch]);
 
-  const allProducts = useSelector((state) => state.productsReducer.allProducts);
-  const allTags = useSelector((state) => state.productsReducer.filterTags);
-
   useEffect(() => {
     if (allProducts) {
       setDataFiltered(allProducts);
       return;
+    } else {
+      dispatch(getProducts());
     }
-    dispatch(getProducts());
   }, [dispatch, allProducts]);
 
   const handleAllProducts = (e) => {
@@ -98,7 +99,7 @@ function Shop() {
         handleClean={handleClean}
       />
       {creationDiv ? (
-        <Modal clickHandler={()=>setCreationDiv(false)}>
+        <Modal clickHandler={() => setCreationDiv(false)}>
           {" "}
           <CreateProduct setCreationDiv={setCreationDiv} isCreate={true} />{" "}
         </Modal>
