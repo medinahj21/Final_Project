@@ -26,7 +26,6 @@ export default function FormGroup({ setIsForm }) {
   });
   const [image, setImage] = useState(null);
   const admins = useSelector((state) => state.adminReducer.admins);
-  console.log(groupInputs);
 
   const handleChange = (e) => {
     setGroupInputs((prevState) => {
@@ -42,7 +41,7 @@ export default function FormGroup({ setIsForm }) {
     dispatch(action.getAdmin())
   }, [dispatch])
 
-  const handleChangeGroups = (e) => {
+  const handleChangeAdmin = (e) => {
     let valor = e.target.value;
     if (valor === "") {
       return alert("Este campo no puede ser vacio");
@@ -108,7 +107,7 @@ export default function FormGroup({ setIsForm }) {
           groupInputs={groupInputs}
           handleChange={handleChange}
           admins={admins}
-          handleChangeGroups={handleChangeGroups}
+          handleChangeAdmin={handleChangeAdmin}
         />
         <div>
           {groupInputs.adminId?.map((a) => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImage from '../../UploadImage/UploadImage'
 import * as actions from "../../../redux/actions/actionsGroup";
+import * as action from "../../../redux/actions/admin";
 import FormUser from "../../Register/FormUser";
 import Swal from 'sweetalert2'
 
@@ -20,7 +21,7 @@ export default function UpdateGroup({
 
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const { playerDetail } = useSelector((state) => state.playerReducer);
-
+  const admins = useSelector((state) => state.adminReducer.admins);
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
   const [image, setImage] = useState(groupDetail.image)
   const [requestSent, setRequestSent] = useState(false);
@@ -28,8 +29,30 @@ export default function UpdateGroup({
 
   useEffect(() => {
     setInputUpdate(groupDetail);
+    dispatch(action.getAdmin());
   }, [groupDetail]);
 
+  const handleChangeAdmin = (e) => {
+    let valor = e.target.value;
+    if (valor === "") {
+      return alert("Este campo no puede ser vacio");
+    }
+    if (inputUpdate.adminId.includes(valor)) {
+      return alert("El admin ya fue añadido a la lista");
+    }
+    setInputUpdate({
+      ...inputUpdate,
+      adminId: [...inputUpdate.adminId, e.target.value],
+    });
+  };
+
+  const deleteAdminSelected = (id) => {
+    setInputUpdate({
+      ...inputUpdate,
+      adminId: [...inputUpdate.adminId.filter((e) => e !== id)]
+    })
+  }
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,6 +84,11 @@ export default function UpdateGroup({
         [e.target.name]: e.target.value,
       };
     });
+  };
+
+
+  const handleDelete = () => {
+    
   };
 
   useEffect(() => {
@@ -120,7 +148,7 @@ export default function UpdateGroup({
   return (
     <div className="update__container">
       {(!playerDetail.id || allowBack) && (
-        <button className="update__button" onClick={() => setShowDetail(false)}>
+        !update && <button className="update__button" onClick={() => setShowDetail(false)}>
           Volver
         </button>
       )}
@@ -130,9 +158,14 @@ export default function UpdateGroup({
         <img className="update__image" src={groupDetail.image} alt="grupos" />
       }
       {userInfoFirestore.isAdmin ? (
-        <button className="update__button" onClick={() => handleUpdate()}>
-          {update ? "Cancelar" : "Editar"}
-        </button>
+        <div>
+          <button className="update__button" onClick={() => handleUpdate()}>
+            {update ? "Cancelar" : "Editar"}
+          </button>
+          <button className="delete__button" onClick={() => handleDelete()}>
+            Eliminar
+          </button>
+        </div>
       ) : (
         <></>
       )}
@@ -211,14 +244,42 @@ export default function UpdateGroup({
         />
       )}
       <span>Admin: </span>
-      <input
-        type="text"
-        value={inputUpdate.adminId}
-        name="adminId"
-        onChange={handleChange}
-        readOnly={update ? false : "readonly"}
-        tabIndex={update ? "-1" : "0"}
-      />
+      {update ? (
+        <div>
+          <select
+            name="adminId"
+            onChange={handleChangeAdmin}
+            defaultValue="disabled"
+            className="select_container">
+            <option value="disabled" disabled={true}>Selecciona una opción</option>
+            {admins?.map((a) => {
+              return <option key={a.id} value={a.id}>{a.personal_info.name}</option>
+            })}
+          </select>
+
+          <div>
+            {inputUpdate.adminId?.map((a) => {
+              let admin = admins.filter((e) => e.id === a)
+              return (
+                <div>
+                  <div>{admin[0].personal_info.name}</div>
+                  <span onClick={(e) => deleteAdminSelected(a)}>X</span>
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
+      ) : (
+        <input
+          type="text"
+          value={inputUpdate.adminId}
+          name="adminId"
+          onChange={handleChange}
+          readOnly={update ? false : "readonly"}
+          tabIndex={update ? "-1" : "0"}
+        />
+      )}
       <span>Categoria: </span>
       {update ? (
         <select
@@ -258,8 +319,9 @@ export default function UpdateGroup({
           title="Ubicación"
           width="300"
           height="200"
-          src={groupDetail.location}
+          src={inputUpdate.location.split('\"')[1]}
         ></iframe>
+        <iframe src={"https://www.google.com/maps/?hl=es&output=embed"} frameborder="0"></iframe>
       </div>
 
       {userInfoFirestore?.uid &&
