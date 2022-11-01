@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import Shop from "../pages/Shop";
+import AboutUs from "../components/AboutUs/AboutUs";
 
 import ProtectedRoute from "./ProtectedRoutes";
 
@@ -24,6 +25,7 @@ function MainRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/about" element={<AboutUs/>}/>
       <Route
         path="dashboard-player"
         element={
