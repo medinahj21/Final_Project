@@ -1,33 +1,115 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import {
+  filterApply,
+  // cleanFilters,
+  // filterProductByTag,
+  setPageNumPrev,
+} from "../../../redux/actions/products";
 
-import { IoIosCart } from "react-icons/io";
+import { IoIosCart, IoMdSearch } from "react-icons/io";
+// import { FcSearch } from "react-icons/fc";
 
 import "./SearchbarProduct.css";
 
 function SearchbarProduct(props) {
+  const dispatch = useDispatch();
+
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+
+  const { filterTags } = useSelector((state) => state.productsReducer);
+  // const [tags, setTags] = useState([]);
+  // console.log("filtertagsearchbar", filterTags);
 
   const {
     setCreationDiv,
-    handleTags,
-    allTags,
-    tags,
-    deleteTag,
-    handleClean,
-    handleAllProducts,
-    handleOrderByPrice,
+    // handleTags,
+    // allTags,
+    // tags,
+    // deleteTag,
+    // handleClean,
+    // handleAllProducts,
+    // handleOrderByPrice,
+    // handleSearch,
+    // productSearched,
   } = props;
 
   const [showCart, setShowCart] = useState(false);
+  const [filters, setFilters] = useState({
+    name: "",
+    tags: [],
+    isAscend: true,
+    isAdmin: userInfoFirestore.isAdmin,
+  });
 
-  const handleAllProduct = (e) => {
-    handleClean(e);
-    handleAllProducts(e);
+  const addTags = (e) => {
+    if (filters.tags.indexOf(e.target.value) === -1)
+      setFilters((prevState) => {
+        return {
+          ...prevState,
+          tags: [...filters.tags, e.target.value],
+        };
+      });
+    dispatch(setPageNumPrev(1));
+    dispatch(
+      filterApply({ ...filters, tags: [...filters.tags, e.target.value] })
+    );
   };
+
+  const deleteTag = (e) => {
+    let aux = filters.tags;
+    aux.splice(filters.tags.indexOf(e.target.value), 1);
+    setFilters((prevState) => {
+      return {
+        ...prevState,
+        tags: aux,
+      };
+    });
+    dispatch(filterApply({ ...filters, tags: aux }));
+  };
+
+  const filterByName = (e) => {
+    setFilters((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value.trim(),
+      };
+    });
+    dispatch(
+      filterApply({ ...filters, [e.target.name]: e.target.value.trim() })
+    );
+  };
+
+  const orderHandler = (e) => {
+    setFilters((prevState) => {
+      return {
+        ...prevState,
+        isAscend: e.target.value,
+      };
+    });
+    console.log(e.target.value);
+    dispatch(filterApply({ ...filters, isAscend: e.target.value }));
+  };
+
+  useEffect(() => {
+    dispatch(filterApply({ ...filters }));
+  }, []);
+
+  // const filterByName = (e) => {
+  //   dispatch(getProductsByName(e.target.value));
+  // };
+
+  // const deleteTag = (e) => {
+  //   let aux = tags;
+  //   aux.splice(tags.indexOf(Number(e.target.value)), 1);
+  //   setTags([...aux]);
+  //   let aux2 = handleFilter(allProducts, aux, allTags);
+  //   setDataFiltered(aux2);
+  //   setCombinedFilter(aux2);
+  // };
 
   return (
     <>
@@ -66,44 +148,77 @@ function SearchbarProduct(props) {
           ) : (
             <></>
           )}{" "}
-          <button onClick={handleAllProduct} className="button-nav">
+          <div className="search-container">
+            <input
+              id="search-box"
+              type="text"
+              className="search-box"
+              name="name"
+              onChange={filterByName}
+            />
+            <label htmlFor="search-box">
+              <span className="search-icon">
+                <IoMdSearch />
+              </span>
+            </label>
+            <input type="submit" id="search-submit" />
+          </div>
+          {/* <div>
+            <input
+              required
+              type="text"
+              placeholder="Buscar..."
+              value={productSearched}
+              // onKeyDown={(e) => handleSearch(e)}
+              onChange={filterByName}
+            />
+            <button className="" type="submit" onClick={(e) => handleSearch(e)}>
+              <FcSearch />
+            </button>
+          </div> */}
+          {/* <button onClick={handleAllProduct} className="button-nav">
             Todos
-          </button>
-          <select 
-            defaultValue="title2" 
+          </button> */}
+          <select
+            defaultValue="title2"
             className="select_container"
-            onChange={(e)=> handleOrderByPrice(e)}>
+            onChange={orderHandler}
+          >
             <option value="title2" disabled={true}>
-              Ordenar por: Precio
+              Ordenar por precio
             </option>
-            <option name= "cheaper-to">Mas económico</option>
-            <option name= "expensive-to">Mas costoso</option>
+            <option value={true}>Mas costoso</option>
+            <option value={false}>Mas económico</option>
           </select>
           <select
             defaultValue="title"
-            onChange={(e) => handleTags(e)}
+            onChange={addTags}
             className="select_container "
           >
             <option value="title" disabled={true}>
-              Filtrar por:
+              Filtrar por
             </option>
-            {allTags?.map((tag) => {
+            {filterTags?.map((tag) => {
               return (
-                <option value={tag.id} key={tag.id}>
+                <option value={tag.name} key={tag.id}>
                   {tag.name}
                 </option>
               );
             })}
           </select>
-          <ul className="tag-list">
-            {tags?.map((tagId) => {
-              return (
-                <li key={tagId} value={tagId} onClick={(e) => deleteTag(e)}>
-                  {allTags.find((t) => t.id === Number(tagId)).name} ❌
-                </li>
-              );
-            })}
-          </ul>
+          {filters.tags?.length && (
+            <ul className="tag-list">
+              <>
+                {filters.tags.map((tag) => {
+                  return (
+                    <li onClick={deleteTag} key={tag + Math.random() * 500}>
+                      {tag} X
+                    </li>
+                  );
+                })}
+              </>
+            </ul>
+          )}
           <button
             className="cart-button-nav"
             onClick={() => setShowCart(!showCart)}

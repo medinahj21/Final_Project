@@ -8,21 +8,21 @@ import {
   updateProduct,
 } from "../../../redux/actions/products";
 
-import CreateProduct from "../CreateProducts/CreateProduct";
+import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import ShowProductDetail from "./ShowProductDetail";
 
 import "./ShowProductDetail.css";
 
 export default function ProductDetail({ id, setShowDetail }) {
   const dispatch = useDispatch();
+
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  const prodDetail= useSelector((state)=> state.productsReducer.productDetail)[0];
-  //console.log(prodDetail.state)
+
+  const prodDetail = useSelector(
+    (state) => state.productsReducer.productDetail
+  )[0];
 
   const [editor, setEditor] = useState(false);
-  let editMode = false;
-
-
 
   useEffect(() => {
     dispatch(getProductDetail(id));
@@ -32,11 +32,11 @@ export default function ProductDetail({ id, setShowDetail }) {
     return () => dispatch(cleanProductDetail());
   }, [dispatch]);
 
-  const handleSetProductState= (id) => {    
-    dispatch(updateProduct(id, {state: !prodDetail.state}));
-    dispatch(getProducts());
+  const handleSetProductState = (id) => {
+    dispatch(updateProduct(id, { state: !prodDetail.state }));
+    dispatch(getProducts(userInfoFirestore.isAdmin));
     dispatch(getProductDetail(id));
-  }
+  };
 
   return (
     <>
@@ -51,31 +51,18 @@ export default function ProductDetail({ id, setShowDetail }) {
             <button
               className="close-detail"
               onClick={() => {
-                editMode = !editMode;
-                setEditor(editMode);
+                setEditor((prevState) => !prevState);
               }}
             >
               Editar
             </button>
           )}
-          {userInfoFirestore.isAdmin && (
-            <div className="toggle checkcross" onClick={()=> handleSetProductState(id)}>
-              <input id="checkcross" type="checkbox" />
-              <label className="toggle-item" htmlFor="checkcross">
-                <div className="check"></div>
-              </label>
-            </div>
-          )}
-          <ShowProductDetail id={id} />
+          <ShowProductDetail handleSetProductState={handleSetProductState} />
         </div>
       )}
       {userInfoFirestore.isAdmin && editor && (
         <>
-          <CreateProduct
-            isCreate={false}
-            editMode={editMode}
-            setEditor={setEditor}
-          />
+          <UpdateProduct setEditor={setEditor} />
         </>
       )}
     </>

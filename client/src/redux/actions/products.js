@@ -1,41 +1,24 @@
 import axios from "axios";
 import {
   GET_PRODUCTS,
-  GET_PRODUCT_BY_NAME,
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
-  CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
+  APPLY_FILTERS,
 } from "./actions";
 
-export const getProducts = () => {
+export const getProducts = (isAdmin) => {
   return async (dispatch) => {
     try {
       let allProducts = await axios.get(`${axios.defaults.baseURL}/products`);
       return dispatch({
         type: GET_PRODUCTS,
-        payload: allProducts.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getProductsByName = (name) => {
-  return async (dispatch) => {
-    try {
-      let productByName = await axios.get(
-        `${axios.defaults.baseURL}/products?name=${name}`
-      );
-      return dispatch({
-        type: GET_PRODUCT_BY_NAME,
-        payload: productByName.data,
+        payload: { allProducts: allProducts.data, isAdmin },
       });
     } catch (error) {
       console.log(error);
@@ -59,10 +42,16 @@ export const getProductDetail = (id) => {
   };
 };
 
+export function filterApply(filters) {
+  return {
+    type: APPLY_FILTERS,
+    payload: filters,
+  };
+}
+
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
-     
       let response = await axios.post(
         `${axios.defaults.baseURL}/products/create`,
         payload
@@ -72,7 +61,7 @@ export const createProduct = (payload) => {
         payload: response.data,
       });
     } catch (error) {
-      console.log({ error: error.message });
+      console.log({ error });
     }
   };
 };
@@ -94,14 +83,6 @@ export const updateProduct = (id, payload) => {
   };
 };
 
-export const cleanProducts = () => {
-  return async (dispatch) => {
-    dispatch({
-      type: CLEAN_PRODUCTS,
-    });
-  };
-};
-
 export const getFilterTags = () => {
   return async (dispatch) => {
     const filterTags = await axios(`${axios.defaults.baseURL}/tags/`);
@@ -110,14 +91,13 @@ export const getFilterTags = () => {
 };
 
 export const addFilterTags = (payload) => {
-  return (dispatch)=> {
+  return (dispatch) => {
     dispatch({
       type: ADD_FILTER_TAGS,
       payload,
-    })
-  }
-
-}
+    });
+  };
+};
 
 export const modifyProducts = (payload) => {
   return async (dispatch) => {

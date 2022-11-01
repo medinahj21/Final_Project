@@ -13,7 +13,6 @@ const {
 
 const { getProductsFromDB } = require("../controllers/getControllers");
 
-
 /**======================== asyncPostProduct==========================*/
 const asyncPostProduct = async (req, res) => {
   const {
@@ -28,7 +27,6 @@ const asyncPostProduct = async (req, res) => {
     paymentTerm,
     FilterTags,
   } = req.body;
-  console.log(req.body)
   try {
     const existingProducts = await getProductsFromDB();
     if (
@@ -36,7 +34,7 @@ const asyncPostProduct = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
-    if (!name || !price || !description || !isOrder || !paymentTerm ) {
+    if (!name || !price || !description || isOrder === "" || !paymentTerm) {
       res.status(404).json({ message: "missing required fields" });
     } else {
       const newProduct = await Product.create({
@@ -178,9 +176,9 @@ const postOrders = async (req, res) => {
     value,
     concept,
     description,
-    order_state, 
+    order_state,
     payment_date,
-    payment_mode, 
+    payment_mode,
     payment_term,
     type_order,
     product,
@@ -231,11 +229,11 @@ const postOrders = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ error: error.message })
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
+/**======================== Players ==========================*/
 const postPlayers = async (req, res) => {
   const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
     req.body;
@@ -258,7 +256,7 @@ const postPlayers = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error.message)
+    console.log(error.message);
   }
 };
 
@@ -296,37 +294,32 @@ const postFilterTag = async (req, res) => {
   }
 };
 
-
 /**======================== ProductRequest ==========================*/
 const postProductRequest = async (req, res) => {
-  const {
-    infoProduct,
-    productId,
-    playerId
-  } = req.body;
+  const { infoProduct, productId, playerId } = req.body;
   try {
     if (!(infoProduct && productId && playerId)) {
-      res.status(400).json({ msg: "missing information" })
+      res.status(400).json({ msg: "missing information" });
     } else {
       const newRequest = await ProductRequest.create({
         infoProduct,
-        playerId
-      })
-      await newRequest.addProduct(productId)
+        playerId,
+      });
+      await newRequest.addProduct(productId);
 
-      newRequest ?
-        res.json({ msg: "proccess sussessfuly" })
-        : res.json({ msg: "something went wrong" })
+      newRequest
+        ? res.json({ msg: "proccess sussessfuly" })
+        : res.json({ msg: "something went wrong" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message })
     console.log(error);
   }
-}
+};
 
 /**======================== RoleRequest ==========================*/
 const postRoleRequest = async (req, res) => {
-  console.log("BODY...", req.body)
+  console.log("BODY...", req.body);
   const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {

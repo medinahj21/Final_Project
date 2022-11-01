@@ -2,12 +2,9 @@
 
 :root {
 
-  /* --color-bg: rgb(24, 26, 58); */
-  --color-bg: rgb(32, 39, 78);
-  --color-bg-contrast: rgb(104, 205, 50);
+  --color-bg: rgb(1, 0, 61);
+  --color-bg-contrast: rgb(235, 137, 0);
 
-  /* --color-light: rgba(255, 255, 255, 0.625); */
-  ;
   --color-white: #fff;
   --color-black: #000;
 

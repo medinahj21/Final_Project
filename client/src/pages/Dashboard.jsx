@@ -14,11 +14,11 @@ import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
 import Calendar from "../components/Calendar/Calendar";
-
-import "./Dashboard.css";
+import Players from "../components/Dashboard/Players/Players";
 import InfoTable from "../components/Dashboard/Admins/InfoTable";
 import PlayerPayments from "../components/Dashboard/Payments/PlayerPayments";
-import Players from "../components/Dashboard/Players/Players";
+
+import "./Dashboard.css";
 
 function Admin() {
   const dispatch = useDispatch();

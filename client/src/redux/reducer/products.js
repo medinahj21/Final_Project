@@ -1,15 +1,14 @@
 import {
   GET_PRODUCTS,
-  GET_PRODUCT_BY_NAME,
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
-  CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
+  APPLY_FILTERS,
 } from "../actions/actions";
 
 const initialState = {
@@ -17,31 +16,51 @@ const initialState = {
   products: [],
   filterTags: [],
   productDetail: {},
-  error: null,
+  error: "",
   prevPage: 1,
 };
 
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
+      let filterAdminProduct = action.payload.allProducts;
+      if (!action.payload.isAdmin) {
+        filterAdminProduct = filterAdminProduct.filter(
+          (product) => product.state
+        );
+      }
+
       return {
         ...state,
-        allProducts: action.payload,
-        products: action.payload,
+        allProducts: filterAdminProduct,
+        products: filterAdminProduct,
       };
 
-    case GET_PRODUCT_BY_NAME:
-      if (!action.payload) {
-        return {
-          ...state,
-          error: "Product doesn't exist",
-        };
-      } else {
-        return {
-          ...state,
-          products: action.payload,
-        };
+    case APPLY_FILTERS:
+      let filters = action.payload;
+      let filteredData = state.allProducts;
+
+      filteredData = filteredData.filter((data) =>
+        data.name.toLowerCase().includes(filters.name?.toLowerCase())
+      );
+
+      filters.tags?.forEach((tag) => {
+        filteredData = filteredData.filter((product) => {
+          let res = product.filterTags?.find((t) => {
+            return t.name === tag;
+          });
+          return res;
+        });
+      });
+
+      if (filters.isAscend === "false") {
+        filteredData.sort((a, b) => a.price - b.price);
       }
+      if (filters.isAscend === "true") {
+        filteredData.sort((a, b) => b.price - a.price);
+      }
+
+      return { ...state, products: filteredData };
 
     case GET_PRODUCT_DETAIL:
       return {
@@ -61,24 +80,21 @@ export default function productsReducer(state = initialState, action) {
         ...state,
       };
 
-    case CLEAN_PRODUCTS:
-      return {
-        ...state,
-        allProducts: [],
-        products: [],
-      };
-
     case GET_FILTER_TAGS:
+      const filterTag = action.payload.map((filter) => {
+        return { name: filter.name, id: filter.id };
+      });
       return {
         ...state,
-        filterTags: action.payload,
+        filterTags: filterTag,
+        prevPage: 1,
       };
 
     case ADD_FILTER_TAGS:
       return {
         ...state,
-        filterTags: [...state.filterTags, action.payload ]
-      }
+        filterTags: [...state.filterTags, action.payload],
+      };
 
     case MODIFY_PRODUCTS:
       return {
