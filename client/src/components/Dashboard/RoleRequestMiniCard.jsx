@@ -18,6 +18,7 @@ import Modal from "../UI/Modal";
 
 import "./Request.css";
 import "./FormRequest.css";
+import { validateNewPlayer } from "../../utils/validateNewPlayer";
 
 export default function RoleRequestMiniCard(roleRequest) {
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
@@ -35,10 +36,12 @@ export default function RoleRequestMiniCard(roleRequest) {
   });
 
   const [accepted, setAccepted] = useState(false);
+  const error = validateNewPlayer(newPlayerData);
 
   const handleAccept = () => {
     setAccepted(true);
   };
+
   const handleDelete = async (id) => {
     if (window.confirm("¿Seguro que desea rechazar esta solicitud?")) {
       await dispatch(deleteRoleRequest(id));
@@ -55,6 +58,7 @@ export default function RoleRequestMiniCard(roleRequest) {
       ...newPlayerData,
       [e.target.name]: e.target.value,
     });
+    validateNewPlayer(newPlayerData);
   };
 
   const templateParams = {
@@ -159,6 +163,8 @@ export default function RoleRequestMiniCard(roleRequest) {
       </div>
       {accepted ? (
         <Modal>
+          <ToastContainer />
+
           <div className="form__content-request form__request">
             <div className="forms_field-request">
               <input

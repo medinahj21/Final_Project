@@ -42,9 +42,10 @@ function Shop() {
   }, [dispatch, productsInCart, userInfoFirestore]);
 
  useEffect(() => {
-    async function getTags() {
-      await dispatch(getFilterTags());
-      await dispatch(cleanProductDetail());
+    function getTags() {
+      dispatch(getFilterTags());
+      dispatch(cleanProductDetail());
+      dispatch(getProducts());
     }
     getTags();
   }, [dispatch]);
@@ -55,18 +56,16 @@ function Shop() {
 
 
   /* useEffect(() => {
-    if (!allProducts.length) {
+    // if (allProducts.length) {
+      setDataFiltered([...allProducts]);
+      setCombinedFilter([...allProducts]);
+      // } 
+    }, [dispatch, allProducts]); */
+    
+    const handleAllProducts = (e) => {
+      dispatch(getProducts());
       setDataFiltered(allProducts);
-      setCombinedFilter(allProducts);
-    } 
-    else {
-    dispatch(getProducts());
-    }
-  }, [dispatch, allProducts]); */
-
-  const handleAllProducts = (e) => {
-    dispatch(getProducts());
-    setDataFiltered(allProducts);
+      setCombinedFilter([...allProducts]);
   };
 
   const handleClean = () => {
