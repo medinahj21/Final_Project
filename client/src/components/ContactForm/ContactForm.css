@@ -12,16 +12,6 @@
   width: 100%;
 }
 
-.contact-form-title {
-  position: relative;
-  top: -10px;
-  display: block;
-  color: rgb(255, 255, 255);
-  width: 80vw;
-  border: 1px solid white;
-  margin: 0 auto;
-}
-
 .textarea-contact {
   width: 90%;
   background-color: transparent;
@@ -192,6 +182,215 @@
   visibility: visible;
   opacity: 1;
 }
+
+/* send button */
+.activate-send {
+  display: table;
+  background: #030656;
+  box-shadow: 0 0 2px rgba(252, 251, 255);
+  line-height: 20px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 22px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activate-send span {
+  display: inline-block;
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 4px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.activate-send span:before {
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #05003f;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.activate-send span svg {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 50%;
+  top: 50%;
+  margin: -6px 0 0 -6px;
+  z-index: 1;
+}
+
+.activate-send span svg:nth-child(1) {
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  fill: none;
+  margin: 0;
+  stroke: #fff;
+  stroke-width: 1px;
+  stroke-dashoffset: 94.248;
+  stroke-dasharray: 47.124;
+}
+
+.activate-send span svg:nth-child(2) {
+  fill: #5628EE;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.activate-send span svg:nth-child(3) {
+  fill: #5628EE;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+.activate-send:hover {
+  box-shadow: 0 8px 24px rgba(86, 40, 238, 0.15);
+}
+
+.activate-send:hover span svg:nth-child(2) {
+  transform: translateY(-20px);
+}
+
+.activate-send:hover span svg:nth-child(3) {
+  transform: translateY(0);
+}
+
+.activate-send:active {
+  transform: scale(0.94);
+  box-shadow: 0 4px 16px rgba(63, 220, 117, 0.18);
+}
+
+.activate-send.loading-send span {
+  background: none;
+  transition: background 0.1s ease 0.3s;
+}
+
+.activate-send.loading-send span:before {
+  transform: scale(1);
+}
+
+.activate-send.loading-send span svg:nth-child(1) {
+  -webkit-animation: turn 1.6s linear infinite forwards, path 1.6s linear infinite forwards;
+  animation: turn 1.6s linear infinite forwards, path 1.6s linear infinite forwards;
+}
+
+.activate-send.loading-send span svg:nth-child(2) {
+  transform: translateY(-20px);
+}
+
+.activate-send.loading-send span svg:nth-child(3) {
+  opacity: 0;
+  transform: translateY(0) scale(0.6);
+}
+
+.activate-send.loading-send ul {
+  transform: rotateX(90deg);
+}
+
+.activate-send.loading-send.done-send {
+  background: #3FDC75;
+  box-shadow: 0 4px 20px rgba(63, 220, 117, 0.15);
+}
+
+.activate-send.loading-send.done-send span {
+  background: #fff;
+  transition: background 0.1s ease 0s;
+}
+
+.activate-send.loading-send.done-send span:before {
+  background: #3FDC75;
+  transform: scale(0);
+}
+
+.activate-send.loading-send.done-send span svg:nth-child(1) {
+  -webkit-animation: none;
+  animation: none;
+}
+
+.activate-send.loading-send.done-send span svg:nth-child(3) {
+  fill: #3FDC75;
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s, opacity 0.4s ease 0.25s;
+}
+
+.activate-send.loading-send.done-send ul {
+  transform: rotateX(180deg);
+}
+
+.activate-send ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  height: 20px;
+  width: 70px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.activate-send ul li {
+  --rotateX: 0deg;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  transform-origin: 50% 50%;
+  transform: rotateX(var(--rotateX)) translateZ(10px);
+}
+
+.activate-send ul li:nth-child(2) {
+  --rotateX: -90deg;
+}
+
+.activate-send ul li:nth-child(3) {
+  --rotateX: -180deg;
+}
+
+@-webkit-keyframes turn {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes turn {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes path {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes path {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+
 
 @media screen and (max-width: 1024px) {
   .contact-form-global-container {

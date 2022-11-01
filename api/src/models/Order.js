@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     payment_term: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     payment_mode: {

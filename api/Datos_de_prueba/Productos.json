@@ -103,7 +103,7 @@
      "price": 165000,
      "description": "Promoción de uniforme de presentación completo con camisa tipo polo, sudadera y buso ",
      "image": "https://drive.google.com/uc?export=view&id=1_AgLNQonkhpDjJaWBxPcM5cistdRIyuQ",
-     "modifiers": [{"hoodie_size": ["XS","S","M","L","XL","XXL"]},{"shirt_size": ["XS","S","M","L","XL","XXL"]},{"sweater": ["S","M","L","XL"]}],
+     "modifiers": [{"Buso": ["XS","S","M","L","XL","XXL"]},{"Camisa polo": ["XS","S","M","L","XL","XXL"]},{"Sudadera": ["S","M","L","XL"]}],
      "FilterTags": [9,4,13,6,1,2,3],
      "isOrder": true,
      "state": false,

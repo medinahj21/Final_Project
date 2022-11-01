@@ -1,0 +1,127 @@
+.left-side-aboutUs-text{
+
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Libre Baskerville', serif;
+  color: orange;
+  align-items: center;
+  justify-content: center;
+}
+.third-section-container{
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  height: auto;
+  font-family: 'Libre Baskerville', serif;
+  color: orange;
+  align-items: center;
+  justify-content: center;
+}
+
+.third-section {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(2, 7, 77, 0.877);
+  background-size: cover;
+  height: auto;
+}
+
+.first-section{
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+}
+
+.image-container1{
+  width:45%;
+  margin-right: 5px;
+  float:right;
+
+}
+
+
+.first-div-text{
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.second-section {
+  background: linear-gradient(to right, rgb(240, 147, 9), rgb(225, 228, 81));
+}
+
+.second-div-text {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 250%;
+}
+
+.second-div-paragraph, .third-div-paragraph{
+  margin: 5%;
+  font-size: 150%;
+  text-align: justify;
+  font-family: 'Raleway', sans-serif;
+}
+
+.fourth-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(245, 206, 77, 0.877);
+  background-size: cover;
+  height: auto;
+}
+
+.sixth-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(108, 205, 243, 0.877);
+  background-size: cover;
+  height: auto;
+}
+
+.seventh-section{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: rgba(186, 245, 77, 0.877);
+  background-size: cover;
+  height: auto;
+
+}
+
+.fourth-section-container{
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  height: auto;
+  font-family: 'Libre Baskerville', serif;
+  color: black;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-developers{
+  cursor:pointer;
+}
+
+.about-developers:hover{
+  color: red;
+}
+
+.hide-developers{
+  cursor: pointer;
+}
+
+.hide-developers:hover{
+  color:red;
+}
+
+
+

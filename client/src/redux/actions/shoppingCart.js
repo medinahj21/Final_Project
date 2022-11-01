@@ -6,6 +6,7 @@ import {
   CLEAR_CART,
   SET_INITIAL_CART
 } from "./actions";
+import axios from 'axios';
 
 
 export const addToCart = (product) => {
@@ -58,5 +59,16 @@ export const setInitialCart = (cart = [])=>{
       type: SET_INITIAL_CART,
       payload: cart
     })
+  }
+}
+
+export const getPreference = (body) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/products/comprar`, body);
+      return res;
+    } catch (error) {
+      return error;
+    }
   }
 }

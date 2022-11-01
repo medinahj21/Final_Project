@@ -10,7 +10,7 @@ const {
   ProductRequest
 } = require("../../db");
 
-const { Sequelize, Model, Op } = require("sequelize");
+const { Op } = require("sequelize");
 
 const rgExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
@@ -34,7 +34,7 @@ const getProductsFromDB = async () => {
       console.log("No products available");
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
@@ -55,7 +55,7 @@ const asyncGetProducts = async (req, res) => {
       res.status(200).send(products);
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
@@ -87,7 +87,6 @@ const asyncGetProductById = async (req, res) => {
     }
   } catch (error) {
     res.json({ error: error.message });
-    console.log(error);
   }
 };
 
@@ -134,7 +133,7 @@ const getGroups = async (req, res) => {
         : res.status(404).json({ message: "there is not  group now" });
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
@@ -209,6 +208,7 @@ const getPlayerEvents = async (req, res) => {
     res.json({ error_DB: error.message });
   }
 };
+
 
 /**===================== Order ======================== */
 const getOrder = async (req, res) => {
@@ -285,10 +285,57 @@ const getOrder = async (req, res) => {
     }
   } catch (error) {
     res.json(`new error:${error}`);
-    console.log(`new error:${error}`);
   }
 };
 
+
+/**===================== OrdersPlayer ======================== */
+const getOrdersPlayer = async (req, res) => {
+  const { id } = req.params;
+  const { state } = req.query;
+  
+  try {
+    if(!id){
+      res.json({msg:"error"})
+    }else if(id && state){
+      const player = await Player.findOne({
+        where: { id }
+      })
+      
+      if (!player) {
+        res.json({ msg: "player does not exist" })
+      } else {
+        const order = await Order.findAll({
+          where:{ order_state:state},
+            include: [
+              { model: Player, attributes: ["id"] },
+            ]
+        })
+        const result = order.filter(e=> e.player.id === id)
+        result ? res.send(result).status(200) : res.json({ msg: "without order" })
+    
+      }
+    }else{ 
+      const player = await Player.findOne({where: { id }})
+
+      if (!player) {
+        res.json({ msg: "player does not exist" })
+      } else {
+        const order = await Order.findAll({
+          include: [
+            { model: Player, attributes: ["id"] },
+          ],
+    })
+    const result = order.filter(e=> e.player.id === id)
+
+    result ? res.send(result).status(200) : res.json({ msg: "without orders" })
+  
+  }}
+  } catch (error){
+    
+    res.json({ error_DB: error.message })
+  }
+}
 
 /**===================== Player ======================== */
 const getPlayers = async (req, res) => {
@@ -331,7 +378,6 @@ const getPlayers = async (req, res) => {
         : res.send(allPlayers);
     }
   } catch (error) {
-    console.log("string", error);
     res.status(500).json({ error });
   }
 };
@@ -372,7 +418,7 @@ const getAdmins = async (req, res) => {
       !admins ? res.status(400).json({ message: " empty" }) : res.send(admins);
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
@@ -391,7 +437,6 @@ const getRoleRequest = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
-    console.log(error);
   }
 };
 
@@ -419,7 +464,7 @@ const getProductRequest = async (req, res) => {
       !request ? res.status(400).json({ message: " empty" }) : res.send(request);
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 }
 
@@ -438,4 +483,5 @@ module.exports = {
   getRoleRequest,
   getProductRequest,
   getPlayerEvents,
+  getOrdersPlayer
 };

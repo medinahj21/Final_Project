@@ -3,11 +3,17 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index");
+const mercadopago = require("mercadopago");
+require("dotenv").config();
 
 require("./db.js");
 
 const server = express();
 const cors = require("cors");
+
+mercadopago.configure({
+  access_token: process.env.ACCESS_TOKEN,
+});
 
 server.name = "API";
 

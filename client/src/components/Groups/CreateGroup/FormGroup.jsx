@@ -6,6 +6,8 @@ import UploadImage from "../../UploadImage/UploadImage";
 import Modal from "../../UI/Modal";
 import InputsCreateForm from "./InputsCreateForm";
 import "./FormGroup.css";
+import Swal from "sweetalert2";
+import { Toast } from "../../../utils/toastSweet";
 
 export default function FormGroup({ setIsForm }) {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ export default function FormGroup({ setIsForm }) {
     adminId: [],
   });
   const [image, setImage] = useState(null);
-  const admins = useSelector((state) => state.adminReducer.admins)
+  const admins = useSelector((state) => state.adminReducer.admins);
 
   const handleChange = (e) => {
     setGroupInputs((prevState) => {
@@ -40,7 +42,7 @@ export default function FormGroup({ setIsForm }) {
     dispatch(action.getAdmin())
   }, [dispatch])
 
-  const handleChangeGroups = (e) => {
+  const handleChangeAdmin = (e) => {
     let valor = e.target.value;
     if (valor === "") {
       return alert("Este campo no puede ser vacio");
@@ -56,27 +58,56 @@ export default function FormGroup({ setIsForm }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await dispatch(actions.createGroup(groupInputs));
-    if (response.error) {
-      alert(`algo ha salido mal: ${response.error}`);
-    } else {
-      await dispatch(actions.getGroups());
-      setGroupInputs({
-        name: "",
-        location: "",
-        schedule: "",
-        description: "",
-        image: "",
-        inscription_cost: "",
-        contact: "",
-        whatsapp: "",
-        accept_newPlayers: "",
-        genre: "",
-        adminId: [],
-      });
-      setImage("");
-      alert("Group has been created successfully");
-    }
+    Swal.fire({
+      title: 'Estas seguro que quieres crear el grupo?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#01002E',
+      denyButtonText: `No guardar`,
+      target: document.getElementById('formGroups'),
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          let response = await dispatch(actions.createGroup(groupInputs));
+          console.log(response);
+          if (response.error) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Algo salio mal: ${response.error}`,
+              target: document.getElementById('formGroups'),
+            })
+          } else {
+            Toast.fire({
+              icon: 'success',
+              title: 'Hecho!',
+              text: `Se ha creado correctamente!`,
+            })
+            await dispatch(actions.getGroups());
+            setGroupInputs({
+              name: "",
+              location: "",
+              schedule: "",
+              description: "",
+              image: "",
+              inscription_cost: "",
+              contact: "",
+              whatsapp: "",
+              accept_newPlayers: "",
+              genre: "",
+              adminId: [],
+            });
+            setImage("");
+          }
+        } else if (result.isDenied) {
+          Toast.fire({
+            icon: 'info',
+            title: 'Se ha cancelado la creación!',
+            target: document.getElementById('formGroups')
+          })
+        }
+      })
   };
 
   const deleteAdminSelected = (id) => {
@@ -88,13 +119,13 @@ export default function FormGroup({ setIsForm }) {
 
   return (
     <Modal>
-      <form onSubmit={handleSubmit} className="form__user form__create-group">
+      <form id='formGroups' onSubmit={handleSubmit} className="form__user form__create-group">
         <UploadImage image={image} setImage={setImage} />
         <InputsCreateForm
           groupInputs={groupInputs}
           handleChange={handleChange}
           admins={admins}
-          handleChangeGroups={handleChangeGroups}
+          handleChangeAdmin={handleChangeAdmin}
         />
         <div>
           {groupInputs.adminId?.map((a) => {

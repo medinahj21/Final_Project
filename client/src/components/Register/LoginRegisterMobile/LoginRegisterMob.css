@@ -48,8 +48,8 @@
   min-height: 100vh;
 }
 
-[type="checkbox"]:checked,
-[type="checkbox"]:not(:checked) {
+.checkbox[type="checkbox"]:checked,
+.checkbox[type="checkbox"]:not(:checked) {
   position: absolute;
   left: -9999px;
 }
