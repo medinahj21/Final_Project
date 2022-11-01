@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import Swal from "sweetalert2";
+import { Toast } from "../../../utils/toastSweet";
 import * as actions from "../../../redux/actions/actionsGroup";
 import FormUser from "../../Register/FormUser";
 import UpdateGroup from "../UpdateGroup/UpdateGroup";
@@ -47,8 +48,50 @@ export default function GroupDetailCard({
       alert("¿aún no te registras?");
     }
   };
+
+  const deleteGroup = (id) => {
+    Swal.fire({
+      title: 'Estas seguro que quieres eliminar el grupo?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#01002E',
+      denyButtonText: `No Eliminar`,
+      target: document.getElementById('container-group-detail')
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          let response = await dispatch(actions.deleteGroup(id))
+          console.log(response);
+          if (response.error) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Algo salio mal: ${response.error}`,
+              target: document.getElementById('container-group-detail')
+            })
+          } else {
+            Toast.fire({
+              icon: 'success',
+              title: 'Hecho!',
+              text: `Se ha eliminado correctamente!`,
+            })
+            dispatch(actions.getGroups());
+            setShowDetail(false)
+          }
+        } else if (result.isDenied) {
+          Toast.fire({
+            icon: 'info',
+            title: 'La eliminación se ha cancelado!',
+            target: document.getElementById('container-group-detail')
+          })
+        }
+      })
+  }
+
+
   return (
-    <>
+    <div >
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       <div className="group__detail-container">
         <p>
@@ -102,15 +145,26 @@ export default function GroupDetailCard({
               </div>
             )}{" "}
           {userInfoFirestore?.isAdmin && (
-            <div
-              className="button-detail-group"
-              onClick={() => setIsEdit(true)}
-            >
-              {" "}
-              <a href="#!" className="animated-button victoria-one">
-                Editar
-              </a>{" "}
-            </div>
+            <>
+              <div
+                className="button-detail-group"
+                onClick={() => setIsEdit(true)}
+              >
+                {" "}
+                <a href="#!" className="animated-button victoria-one">
+                  Editar
+                </a>{" "}
+              </div>
+              <div
+                className="button-detail-group"
+                onClick={() => deleteGroup(id)}
+              >
+                {" "}
+                <a href="#!" className="animated-button victoria-one">
+                  Eliminar
+                </a>{" "}
+              </div>
+            </>
           )}{" "}
           {(!playerDetail.id || allowBack) && (
             <div
@@ -124,7 +178,7 @@ export default function GroupDetailCard({
             </div>
           )}
         </div>
-        <iframe title="Ubicación" src={groupDetail.location.split('\"')[1]}></iframe>
+        <iframe title="Ubicación" src={groupDetail.location?.split('\"')[1]}></iframe>
         {isEdit ? (
           <UpdateGroup
             setIsEdit={setIsEdit}
@@ -136,6 +190,6 @@ export default function GroupDetailCard({
         )}
         {isForm ? <FormUser setIsForm={setIsForm} /> : <></>}
       </div>
-    </>
+    </div>
   );
 }

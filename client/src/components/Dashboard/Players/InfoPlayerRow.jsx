@@ -32,14 +32,14 @@ export default function InfoPlayerRow({ player }) {
                         Toast.fire({
                             icon: 'success',
                             title: 'Hecho!',
-                            text: `Se ha creado correctamente!`,
+                            text: `Se ha eliminado correctamente!`,
                         })
                         dispatch(getPlayersFromDB())
                     }
                 } else if (result.isDenied) {
                     Toast.fire({
                         icon: 'info',
-                        title: 'No ha sido creado!',
+                        title: 'La eliminación se ha cancelado!',
                         target: document.getElementById('formEvent')
                     })
                 }

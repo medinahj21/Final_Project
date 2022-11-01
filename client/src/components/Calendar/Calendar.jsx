@@ -29,24 +29,27 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  console.log('player ',playerDetail);
-  console.log('isAdmin ',userInfoFirestore);
-  console.log('eventPlayer',eventPlayer);
+  console.log('player ', playerDetail);
+  console.log('isAdmin ', userInfoFirestore);
+  console.log('eventPlayer', eventPlayer);
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
         ? [
-            {
-              title: ev.name,
-              id: ev.id,
-              description: ev.description,
-              state: ev.state,
-              location: ev.location,
-              start: `${ev.date} ${ev.start}`,
-              end: `${ev.date} ${ev.end}`,
-              allDay: false,
-            },
-          ]
+          {
+            title: ev.name,
+            id: ev.id,
+            description: ev.description,
+            state: ev.state,
+            location: ev.location,
+            startTime: ev.repetitive ? ev.start : "",
+            endTime: ev.repetitive ? ev.end : "",
+            start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
+            end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
+            allDay: false,
+            daysOfWeek: ev.repetitive ? ev.date : "",
+          },
+        ]
         : []
     );
     setObjectEvent(eventMap.flat());
@@ -55,7 +58,7 @@ export default function Calendar() {
   const handleModal = () => {
     setModalOn(!modalOn);
   };
-
+console.log(objectEvent);
   useEffect(() => {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
@@ -102,6 +105,7 @@ export default function Calendar() {
         locale={esLocale}
         height={800}
         handleWindowResize={true}
+        navLinks={true}
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",
@@ -114,7 +118,7 @@ export default function Calendar() {
             click: handleModal,
           },
         }} //Si no es admin, mostrar los relacionados al jugador
-        events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id)) }
+        events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id))}
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);

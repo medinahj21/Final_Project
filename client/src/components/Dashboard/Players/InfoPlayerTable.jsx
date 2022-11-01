@@ -12,8 +12,6 @@ export default function InfoPlayerTable() {
         dispatch(getPlayersFromDB())
     }, [dispatch])
 
-    console.log(players[0]);
-
     return (
         <div className="table">
             <div className={"row blue header"}>
