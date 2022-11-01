@@ -41,7 +41,7 @@ function Shop() {
       dispatch(updatePlayerCart(userInfoFirestore.uid, productsInCart));
   }, [dispatch, productsInCart, userInfoFirestore]);
 
-  useEffect(() => {
+ useEffect(() => {
     async function getTags() {
       await dispatch(getFilterTags());
       await dispatch(cleanProductDetail());
@@ -54,15 +54,15 @@ function Shop() {
     : fullProducts.filter((prod) => prod.state === true);
 
 
-  useEffect(() => {
-    if (allProducts) {
+  /* useEffect(() => {
+    if (!allProducts.length) {
       setDataFiltered(allProducts);
       setCombinedFilter(allProducts);
-      return
-    } else {
-      dispatch(getProducts());
+    } 
+    else {
+    dispatch(getProducts());
     }
-  }, [dispatch, allProducts]);
+  }, [dispatch, allProducts]); */
 
   const handleAllProducts = (e) => {
     dispatch(getProducts());

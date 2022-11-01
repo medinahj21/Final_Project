@@ -56,9 +56,8 @@ const ShoppingCart = () => {
               concept: `Compra por tienda de ${product.name.toLowerCase()}`,
               description: formatModifiers(item.product.modifiers), //Revisar formato
               order_state: "Pending", //validar según el caso de la pasarela de pago y método de pago.
-              payment_date: product.paymentTerm,
               payment_mode: "App", //validar según el caso de la pasarela de pago y método de pago.
-              payment_term: paymentDate(product).toString(),
+              payment_term: product.paymentTerm,
               type_order: "product",
               product: product.id,
               playerId: userInfoFirestore.uid,
@@ -66,7 +65,7 @@ const ShoppingCart = () => {
 
             newOrders = [...newOrders, ...add];
           });
-          console.log(newOrders);
+          console.log(JSON.stringify(newOrders));
           newOrders.forEach(async (order) => {
             await axios.post(`${axios.defaults.baseURL}/orders/create`, order);
           });
@@ -202,8 +201,8 @@ return (
 
       {!userInfoFirestore.isAdmin && (
         <div id='checkout'>
-          <a href="#!" className="button" onClick={() => handleCheckoutTwo()}>
-            Solicitar Pago
+          <a href="#!" className="button" onClick={handleCheckout}>
+            Confirmar compra
           </a>
 
         </div>

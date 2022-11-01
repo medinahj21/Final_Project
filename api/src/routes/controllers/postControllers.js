@@ -193,7 +193,6 @@ const postOrders = async (req, res) => {
       !concept ||
       !order_state ||
       !description ||
-      !payment_date ||
       !payment_term ||
       !type_order
     ) {

@@ -29,9 +29,6 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  console.log('player ',playerDetail);
-  console.log('isAdmin ',userInfoFirestore);
-  console.log('eventPlayer',eventPlayer);
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
