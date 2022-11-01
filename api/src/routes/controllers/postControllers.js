@@ -28,7 +28,7 @@ const asyncPostProduct = async (req, res) => {
     paymentTerm,
     FilterTags,
   } = req.body;
-
+  console.log(req.body)
   try {
     const existingProducts = await getProductsFromDB();
     if (
@@ -36,7 +36,7 @@ const asyncPostProduct = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
-    if (!name || !price || !description || !isOrder || !paymentTerm || !state) {
+    if (!name || !price || !description || !isOrder || !paymentTerm ) {
       res.status(404).json({ message: "missing required fields" });
     } else {
       const newProduct = await Product.create({

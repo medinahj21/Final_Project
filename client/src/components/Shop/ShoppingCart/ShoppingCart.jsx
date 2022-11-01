@@ -18,7 +18,7 @@ const ShoppingCart = () => {
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
   const totalInCart = productsInCart?.map((item) => item.quant);
   const total = totalInCart?.length > 0 && totalInCart?.reduce((a, b) => a + b);
-  const [deleteIcon, setdeleteIcon] = useState(true)
+  // const [deleteIcon, setdeleteIcon] = useState(true)
 
   const handleCheckout = () => {
     if (!productsInCart.length) {
@@ -65,7 +65,6 @@ const ShoppingCart = () => {
 
             newOrders = [...newOrders, ...add];
           });
-          console.log(JSON.stringify(newOrders));
           newOrders.forEach(async (order) => {
             await axios.post(`${axios.defaults.baseURL}/orders/create`, order);
           });
@@ -136,12 +135,13 @@ const ShoppingCart = () => {
         }
 
         dispatch(clearCart());
+        //re-direct a pagos y deudas
       }
     }
   };
 
 
-  const handleCheckoutTwo = async () => {
+  /* const handleCheckoutTwo = async () => {
     let idCart = []
 
     productsInCart.map((pc) => {
@@ -167,7 +167,7 @@ const ShoppingCart = () => {
         button.innerHTML = "";
         button.appendChild(script);
         setdeleteIcon(false)
-  }
+  } */
 
 return (
   <>

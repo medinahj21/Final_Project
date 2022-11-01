@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     type_order:{
-      type: DataTypes.ENUM("product", "payment"),
+      type: DataTypes.ENUM("product", "club"),
       allowNull:false,
     }
   },
