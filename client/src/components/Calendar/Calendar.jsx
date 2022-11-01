@@ -29,26 +29,24 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  console.log('player ',playerDetail);
-  console.log('isAdmin ',userInfoFirestore);
-  console.log('eventPlayer',eventPlayer);
+  let eventMap = events?.map((ev) =>
+    ev.state === "Pending"
+      ? [
+          {
+            title: ev.name,
+            id: ev.id,
+            description: ev.description,
+            state: ev.state,
+            location: ev.location,
+            start: `${ev.date} ${ev.start}`,
+            end: `${ev.date} ${ev.end}`,
+            allDay: false,
+            type: ev.type,
+          },
+        ]
+      : []
+  );
   useEffect(() => {
-    let eventMap = events?.map((ev) =>
-      ev.state === "Pending"
-        ? [
-            {
-              title: ev.name,
-              id: ev.id,
-              description: ev.description,
-              state: ev.state,
-              location: ev.location,
-              start: `${ev.date} ${ev.start}`,
-              end: `${ev.date} ${ev.end}`,
-              allDay: false,
-            },
-          ]
-        : []
-    );
     setObjectEvent(eventMap.flat());
   }, [events]);
 
@@ -107,12 +105,44 @@ export default function Calendar() {
           center: "title",
           end: "today prev,next",
         }}
-        footerToolbar={userInfoFirestore.isAdmin && { center: "custom1" }}
-        customButtons={userInfoFirestore.isAdmin && {
+        footerToolbar={userInfoFirestore.isAdmin? {start:"todos entrenamiento,partido,torneo,especial" , center: "custom1" }:
+        {center:"todos entrenamiento,partido,torneo,especial"}}
+        customButtons={{
           custom1: {
             text: "Crear evento",
             click: handleModal,
           },
+          todos: {
+            text: "Todos",
+            click: function() {
+              setObjectEvent(eventMap.flat())
+            },
+          },
+          entrenamiento: {
+            text: "Entenamientos",
+            click: function(){
+              setObjectEvent(eventMap.flat().filter(ev => ev.type === 'Entrenamiento'))
+            },
+          },
+          partido: {
+            text: "Partidos",
+            click: function(){
+              console.log(eventMap.flat())
+              setObjectEvent(eventMap.flat().filter(ev => ev.type === 'Partido'))
+            },
+          },
+          torneo: {
+            text: "Torneos",
+            click: function(){
+              setObjectEvent(eventMap.flat().filter(ev => ev.type === 'Torneo'))
+            },
+          },
+          especial: {
+            text: "Eventos",
+            click: function(){
+              setObjectEvent(eventMap.flat().filter(ev => ev.type === 'Evento Especial'))
+            },
+          },          
         }} //Si no es admin, mostrar los relacionados al jugador
         events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id)) }
         eventClick={function (event) {

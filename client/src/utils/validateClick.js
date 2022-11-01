@@ -33,6 +33,7 @@ export const validateClick = (value, setClickChoice) => {
       isGrupo: false,
       isCalendario: true,
     });
+    
   }
   if (value === "perfil") {
     setClickChoice({

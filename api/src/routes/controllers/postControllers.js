@@ -129,6 +129,7 @@ const createEvent = async (req, res) => {
     repetitive,
     state,
     player,
+    type,
   } = req.body;
   try {
     if (!((name && start && end && location && date) /*&& admin*/)) {
@@ -144,6 +145,7 @@ const createEvent = async (req, res) => {
           state,
           start,
           end,
+          type,
         });
         /*const addAdmin = await newEvent.addAdmin(admin);
         const addPlayer = await newEvent.addPlayer(player);
@@ -160,6 +162,7 @@ const createEvent = async (req, res) => {
             state,
             start,
             end,
+            type
           });
           await newEvent.addAdmin(admin);
           await newEvent.addPlayer(player);
