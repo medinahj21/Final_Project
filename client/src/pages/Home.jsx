@@ -23,6 +23,7 @@ function Home() {
   const dispatch = useDispatch();
 
   const [isDesktop, setDesktop] = useState(false);
+  const [isEventForm, setIsEventForm] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showAlta, setShowAlta] = useState(false);
@@ -127,7 +128,10 @@ function Home() {
         })}
       </div>
       <div className="home_calendar" id="calendar">
-        <Calendar />
+        <Calendar
+        setIsEventForm = {setIsEventForm}
+        isEventForm= {isEventForm}
+        />
       </div>
       <div className="home_footer" id="contact">
         <ContactForm />

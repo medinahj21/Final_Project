@@ -22,6 +22,8 @@ import Players from "../components/Dashboard/Players/Players";
 
 function Admin() {
   const dispatch = useDispatch();
+    const [isEventForm, setIsEventForm] = useState(false);
+
 
   const { allUserFirestore, userInfoFirestore, clickChoicePersist } =
     useSelector((state) => state.authReducer);
@@ -103,7 +105,7 @@ function Admin() {
             <Players />
           </>
         )}
-        {clickChoice.isCalendario && <Calendar />}
+        {clickChoice.isCalendario && <Calendar setIsEventForm= {setIsEventForm} isEventForm={isEventForm}/>}
         {clickChoice.isGrupo && (
           <>
             <Groups />

@@ -17,12 +17,12 @@ import DetailEvent from "./DetailEvent/DetailEvent";
 
 import "./Calendar.css";
 
-export default function Calendar() {
+export default function Calendar(setIsEventForm, isEventForm) {
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
   const [objectEvent, setObjectEvent] = useState([]);
   const [objectEvent2, setObjectEvent2] = useState([]);
-  const [modalOn, setModalOn] = useState(false);
+  //const [modalOn, setModalOn] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
   const [detail, setDetail] = useState([]);
   const [eventPlayer, setEventPlayer] = useState([]);
@@ -56,7 +56,7 @@ export default function Calendar() {
   }, [events]);
 
   const handleModal = () => {
-    setModalOn(!modalOn);
+    setIsEventForm(!isEventForm);
   };
 
 useEffect(() => {
@@ -66,7 +66,7 @@ useEffect(() => {
   }, [dispatch]);
 
 
-  if (modalOn) {
+  if (isEventForm === true) {
     return (
       <Modal>
         <FormEvent
