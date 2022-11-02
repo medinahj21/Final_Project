@@ -1,3 +1,4 @@
+const { URL_MERCADOPAGO } = process.env;
 const mercadopago = require("mercadopago");
 const {
   Player,
@@ -151,7 +152,6 @@ const createEvent = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error_DB: error });
-
   }
 };
 
@@ -196,7 +196,8 @@ const postOrders = async (req, res) => {
 
         const validateOrderProduc = await newOrder.addProduct(product);
 
-        validateOrderProduc && res.status(200).send("order created successfully");
+        validateOrderProduc &&
+          res.status(200).send("order created successfully");
       } else {
         const newOrder = await Order.create({
           value,
@@ -297,7 +298,7 @@ const postProductRequest = async (req, res) => {
         : res.json({ msg: "something went wrong" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message });
     console.log(error);
   }
 };
@@ -327,8 +328,7 @@ const postRoleRequest = async (req, res) => {
 };
 
 const pagarProducto = async (req, res) => {
-  const datos = req.body;
-
+  const { datos, origin, orderId } = req.body;
   //const producto = await Product.findByPk(id);
 
   let preference = {
@@ -340,22 +340,30 @@ const pagarProducto = async (req, res) => {
       identification,(cc,ti, pasaporte)
     }, */
     back_urls: {
-      success: "http://localhost:3000/products",
-      failure: "/failure",
-      pending: "/pending" // modificar
+      success:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player#${orderId}`,
+      failure:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player#${orderId}`,
+      pending:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player`, // modificar
     },
     auto_return: "approved",
   };
   try {
-    const response = await mercadopago.preferences.create(preference)
-    const preferenceId = response.body.id
+    const response = await mercadopago.preferences.create(preference);
+    const preferenceId = response.body.id;
     res.json({ preferenceId });
   } catch (error) {
     console.log(error);
-    res.json(error)
+    res.json(error);
   }
-}
-
+};
 
 module.exports = {
   asyncPostProduct,
@@ -367,5 +375,5 @@ module.exports = {
   postAdmins,
   postRoleRequest,
   postProductRequest,
-  pagarProducto
+  pagarProducto,
 };

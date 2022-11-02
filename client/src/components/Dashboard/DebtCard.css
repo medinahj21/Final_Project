@@ -18,6 +18,7 @@
 	border-right: 1px solid #d7d9e5;
 }
 
+
 .card__debt:last-of-type {
 	border-right: none;
 }
@@ -44,6 +45,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
 	background: #fff;
 	width: 30%;
 	height: 250px;
@@ -55,10 +57,27 @@
 	transition: background-color 0.24s ease;
 }
 
+.card-item.card-widht {
+	width: 100%;
+}
+
 .card-item .mercadopago-button {
 	background-color: var(--color-bg);
 	box-shadow: none;
+	animation: pulsePayment 4.3582s ease-in-out infinite;
 }
+
+
+@keyframes pulsePayment {
+	0% {
+		box-shadow: 0 0 0 0 rgba(63, 63, 148, 0.7);
+	}
+
+	80% {
+		box-shadow: 0 0 0 12px rgba(16, 151, 68, 0);
+	}
+}
+
 
 .card-item .mercadopago-button::after {
 	content: ' ahora';
@@ -72,12 +91,16 @@
 	border-color: #e92e00;
 }
 
+.card-win {
+	border-color: #008500;
+}
+
 .card-loss .card-price {
 	color: #e92e00;
 }
 
 .card-title {
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 300;
 	margin-top: 0;
 }
@@ -96,9 +119,8 @@
 }
 
 .card-price {
-
 	font-weight: bolder;
-	font-size: 3rem;
+	font-size: 2.5rem;
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -128,4 +150,22 @@
 
 .loss {
 	color: #e92e00;
+}
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {
+	.card-price {
+		font-size: 2rem;
+	}
+
+	.card-item {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 250px;
+	}
 }

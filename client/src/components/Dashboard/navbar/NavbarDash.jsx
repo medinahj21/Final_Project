@@ -7,7 +7,6 @@ import { ResetPassword } from "../../../utils/ResetPassword";
 
 import { CgProfile } from "react-icons/cg";
 import { RiAdminLine, RiDeviceRecoverLine } from "react-icons/ri";
-import { BsCalendarEvent } from "react-icons/bs";
 import {
   AiOutlineClose,
   AiOutlineMenu,
@@ -30,8 +29,8 @@ function NavbarDash({ setClickChoice }) {
 
   const [showMenu, setShowMenu] = useState(false);
 
-  const email = useSelector((state) => state.authReducer.email);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const email = useSelector((state) => state.authReducer.email);
   const isPlayer = useSelector((state) => state.playerReducer.playerDetail);
   const productsInCart = useSelector((state) => state.shoppingCartReducer.cart);
 

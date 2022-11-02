@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getPreference } from "../../redux/actions/shoppingCart";
 
@@ -6,6 +6,8 @@ import "./DebtCard.css";
 
 function DebtCard({ orders }) {
   const dispatch = useDispatch();
+
+  const { clickChoicePersist } = useSelector((state) => state.authReducer);
 
   const setMercadoPagoButton = async (order) => {
     let idCart = [
@@ -18,7 +20,7 @@ function DebtCard({ orders }) {
       },
     ];
 
-    const preference = await dispatch(getPreference(idCart.flat()));
+    const preference = await dispatch(getPreference(idCart.flat(), "app",order.id ));
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src =
@@ -33,21 +35,37 @@ function DebtCard({ orders }) {
     <>
       <ul className="card__debt">
         <li className="card-header">
-          <h2 className="card-header-title">Total</h2>
-          <ul className="card-header-status list-inline">
-            <li className="card-price">
-              $ {orders?.map((i) => i.deuda).reduce((a, b) => a + b)}
-            </li>
-          </ul>
+          {!clickChoicePersist.isPagosHistory && (
+            <>
+              <h2 className="card-header-title">Total</h2>
+              <ul className="card-header-status list-inline">
+                <li className="card-price">
+                  $ {orders?.map((i) => i.deuda).reduce((a, b) => a + b)}
+                </li>
+              </ul>
+            </>
+          )}
         </li>
         {orders?.map((debt, i) => {
           setMercadoPagoButton(debt);
           return (
             <>
-              <li className="card-item card-loss" key={i}>
+              <li
+                className={
+                  !clickChoicePersist.isPagosHistory
+                    ? "card-item card-loss"
+                    : "card-item card-win card-widht"
+                }
+                key={i}
+              >
                 <h3 className="card-title">{debt.motivo}</h3>
+                {clickChoicePersist.isPagosHistory && (
+                  <span>Fecha de pago: {debt.payment_date}</span>
+                )}
                 <h4 className="card-price right">$ {debt.deuda}</h4>
-                <div id={debt.id}>Loading...</div>
+                {!clickChoicePersist.isPagosHistory && (
+                  <div id={debt.id}>Loading...</div>
+                )}
               </li>
             </>
           );

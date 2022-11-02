@@ -71,7 +71,6 @@ function SearchbarProduct(props) {
         isAscend: e.target.value,
       };
     });
-    console.log(e.target.value);
     dispatch(filterApply({ ...filters, isAscend: e.target.value }));
   };
 
@@ -189,11 +188,15 @@ function SearchbarProduct(props) {
           )}
           <button
             className="cart-button-nav"
-            onClick={() => setShowCart(!showCart)}
+            onClick={() =>
+              setShowCart((prevState) => {
+                return !prevState;
+              })
+            }
           >
             <IoIosCart />
           </button>
-          {showCart ? <ShoppingCart /> : <></>}
+          {showCart ? <ShoppingCart setShowCart={setShowCart} /> : <></>}
         </div>
       </div>
     </>

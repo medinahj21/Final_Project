@@ -18,6 +18,7 @@ import InfoTable from "../components/Dashboard/Admins/InfoTable";
 import PlayerPayments from "../components/Dashboard/Payments/PlayerPayments";
 
 import "./Dashboard.css";
+import PaymentHistory from "../components/Dashboard/PaymentHistory/PaymentHistory";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ function Admin() {
         )}
         {clickChoice.isPagosHistory && (
           <>
-            <h2>Historial de pagos</h2>
+            <PaymentHistory />
           </>
         )}
         {clickChoice.isRequest && <Inscriptions />}
