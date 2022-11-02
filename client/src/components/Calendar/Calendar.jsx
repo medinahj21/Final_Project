@@ -64,7 +64,7 @@ export default function Calendar() {
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
   }, [dispatch]);
-
+console.log(detail);
 
   if (modalOn) {
     return (
@@ -87,6 +87,7 @@ export default function Calendar() {
           title={detail.title}
           description={detail.extendedProps.description}
           location={detail.extendedProps.location}
+          idE={detail.publicId}
         />
       </Modal>
     );

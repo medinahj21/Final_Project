@@ -12,13 +12,13 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": false,
-        "genre": "Male",
+        "genre": "Masculino",
         "category": "Adultos"
     },
     {
         "Marca temporal": "10\/13\/2022 13:59:50",
         "name": "Libre femenino",
-        "location":"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location":"https://www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
         "days": "Martes, Jueves",
         "start": "7:00:00 PM",
         "end": "10:00:00 PM",
@@ -28,7 +28,7 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Female",
+        "genre": "Femenino",
         "category": "Juvenil"
     },
     {
@@ -44,8 +44,8 @@
         "contact": "profe@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": true,
-        "genre": "Mix",
-        "category": "Juvenil"
+        "genre": "Mixto",
+        "category": "Mixto"
     },
     {
         "Marca temporal": "10\/13\/2022 14:04:14",
@@ -60,8 +60,8 @@
         "contact": "info@wolves.com",
         "whatsapp": "link.com",
         "accept_newPlayers": false,
-        "genre": "Male",
-        "category": "Adultos"
+        "genre": "Masculino",
+        "category": "Juvenil"
     },
     {
         "Marca temporal": "10\/13\/2022 14:06:56",
@@ -76,7 +76,7 @@
         "contact": "info@wolves.com",
         "whatsapp": "http:www.link.com",
         "accept_newPlayers": true,
-        "genre": "Male",
-        "category": "Todos"
+        "genre": "Masculino",
+        "category": "Adultos"
     }
 ]

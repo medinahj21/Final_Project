@@ -206,18 +206,18 @@ export default function FormCalendario({ handleModal, getEvents }) {
                 </div>
               </div>
               <div className={s.inputsRadio}>
-                <label htmlFor="repetitive">Generar Deuda:</label>
+                <label htmlFor="deuda">Generar Deuda:</label>
                 <div className={s.radios}>
                   <input
                     type="radio"
-                    name="repetitive"
+                    name="deuda"
                     value={true}
                     onChange={handleDeuda}
                   />
                   <span>Si</span>
                   <input
                     type="radio"
-                    name="repetitive"
+                    name="deuda"
                     value={false}
                     onChange={handleDeuda}
                   />
