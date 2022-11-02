@@ -1,7 +1,15 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+// import LogoPNG from "../../../public/LogoPNG.png"
+
+import { getPreference } from "../../redux/actions/shoppingCart";
+
+
 import "./DebtCard.css";
 
+
 function DebtCard({ orders }) {
+  const dispatch = useDispatch();
+
   const paymentDate = (term) => {
     var options = { year: "numeric", month: "2-digit", day: "2-digit" };
     const day = new Date();
@@ -10,7 +18,28 @@ function DebtCard({ orders }) {
     const formatedDate = [array[2], array[1], array[0]].join("-");
     return formatedDate;
   };
-  
+
+  const setMercadoPagoButton = async (order) => {
+    let idCart = [
+      {
+        id: order.id,
+        title: order.title,
+        description: order.description,
+        quantity: 1,
+        unit_price: order.unit_price,
+      }
+    ];
+    
+    const preference = await dispatch(getPreference(idCart.flat()));
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js";
+    script.setAttribute("data-preference-id", preference.data.preferenceId);
+    const button = document.getElementById(order.id);
+    button.innerHTML = "";
+    button.appendChild(script);
+  };
 
   return (
     <>
@@ -24,12 +53,15 @@ function DebtCard({ orders }) {
           </ul>
         </li>
         {orders?.map((debt, i) => {
+          setMercadoPagoButton(debt);
           return (
             <>
               <li className="card-item card-loss" key={i}>
                 <h3 className="card-title">{debt.motivo}</h3>
 
-                <p className="card-info card-overdue">Vence: {paymentDate(debt.vto)}</p>
+                <p className="card-info card-overdue">
+                  Vence: {paymentDate(debt.vto)}
+                </p>
 
                 <ul className="list-inline card-menu left">
                   <li className="card-menu-item">Pagar |</li>
@@ -37,6 +69,7 @@ function DebtCard({ orders }) {
                 </ul>
 
                 <h4 className="card-price right">$ {debt.deuda}</h4>
+                <div id={debt.id}>checkout ${debt.id}</div>
               </li>
             </>
           );

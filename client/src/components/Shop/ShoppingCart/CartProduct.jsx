@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import  React  from "react";
+import React from "react";
 import {
   incrementProductInCart,
   decrementProductInCart,
-  removeProductFromCart
+  removeProductFromCart,
 } from "../../../redux/actions/shoppingCart";
 
-export default function CartProduct({ prod, productsInCart }) {
+export default function CartProduct({ prod, checkOut }) {
   const dispatch = useDispatch();
   const [isDelete, setIsDelete] = useState(false);
 
@@ -39,7 +39,6 @@ export default function CartProduct({ prod, productsInCart }) {
     }
   };
 
-
   return (
     <li className="clearfix">
       <div>
@@ -49,36 +48,41 @@ export default function CartProduct({ prod, productsInCart }) {
       <span className="item-price">$ {price}</span>
       <span className="item-quantity">Cantidad: {prod.quant}</span>
       <div className="cart__container-button">
-        <button
-          className="modify__button modify__button-cart"
-          onClick={() => handleDecrementProduct(id, prod.product.modifiers)}
-          disabled={prod.quant <= 1}
-        >
-          {" "}
-          -{" "}
-        </button>
-        <button
-          className="modify__button  modify__button-cart"
-          onClick={() => handleIncrementProduct(id, prod.product.modifiers)}
-        >
-          {" "}
-          +{" "}
-        </button>
-        <button
-          className={isDelete ? "button-trash delete-trash" : "button-trash"}
-          onClick={() => handleConfirm(id, prod.product.modifiers)}
-        >
-          <div className="icon-trash">
-            <svg className="top">
-              <use href="#top" />
-            </svg>
-            <svg className="bottom">
-              <use href="#bottom" />
-            </svg>
-          </div>
-          <span>Eliminar</span>
-        </button>
-
+        {!checkOut && (
+          <>
+            <button
+              className="modify__button modify__button-cart"
+              onClick={() => handleDecrementProduct(id, prod.product.modifiers)}
+              disabled={prod.quant <= 1}
+            >
+              {" "}
+              -{" "}
+            </button>
+            <button
+              className="modify__button  modify__button-cart"
+              onClick={() => handleIncrementProduct(id, prod.product.modifiers)}
+            >
+              {" "}
+              +{" "}
+            </button>
+            <button
+              className={
+                isDelete ? "button-trash delete-trash" : "button-trash"
+              }
+              onClick={() => handleConfirm(id, prod.product.modifiers)}
+            >
+              <div className="icon-trash">
+                <svg className="top">
+                  <use href="#top" />
+                </svg>
+                <svg className="bottom">
+                  <use href="#bottom" />
+                </svg>
+              </div>
+              <span>Eliminar</span>
+            </button>
+          </>
+        )}
         <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
           <symbol
             xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +114,7 @@ export default function CartProduct({ prod, productsInCart }) {
         })}
       </span>
       <hr />
-      <div id="button-checkout">
-
-      </div>
+      <div id="button-checkout"></div>
     </li>
   );
 }

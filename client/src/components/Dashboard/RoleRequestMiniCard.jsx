@@ -123,6 +123,14 @@ export default function RoleRequestMiniCard(roleRequest) {
           let monthName = day.toLocaleDateString("es-CO", options).split("/");
           return monthName;
         };
+        const paymentDate = (term) => {
+          var options = { year: "numeric", month: "2-digit", day: "2-digit" };
+          const day = new Date();
+          day.setDate(day.getDate() + Number(term));
+          const array = day.toLocaleDateString("es-US", options).split("/");
+          const formatedDate = [array[2], array[1], array[0]].join("-");
+          return formatedDate;
+        };
         let newOrders = [
           //inscripción
           {
@@ -154,6 +162,46 @@ export default function RoleRequestMiniCard(roleRequest) {
         notify("Órdenes creadas");
 
         // --------- genero eventos pago de inscripción y mensualidad -----------
+
+        try {
+          let newEvents = [
+            // evento pago inscripción
+            {
+              name: `pago de inscripción`,
+              location:
+                "Puedes realizar el pago en el dashboard componente de perfil",
+              start: "00:00:00",
+              end: "23:59:59",
+              date: [paymentDate(8)],
+              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              repetitive: false,
+              state: "Pending",
+              player: id,
+            }
+              ,
+            // evento pago primera mensualidad
+            {
+              name: `Pago mensualidad-${month()}`,
+              location:
+                "Puedes realizar el pago en el dashboard componente de perfil",
+              start: "00:00:00",
+              end: "23:59:59",
+              date: [paymentDate(30)],//acomodar con respecto al day asignado
+              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              repetitive: true,
+              state: "Pending",
+              player: id,
+            }
+          ];
+
+          newEvents.forEach(async (event) => {
+            await axios.post(`${axios.defaults.baseURL}/events/create`, event);
+          });
+          notify("Eventos creados");
+        } catch (error) {
+          notifyError("No se generaron los eventos");
+          console.log({ error_events: error });
+        }
         
         
         // -------------- envió emailconfirmación y borro datos -----------------
