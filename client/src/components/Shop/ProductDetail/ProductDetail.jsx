@@ -66,7 +66,7 @@ export default function ProductDetail({ id, setShowDetail }) {
               </label>
             </div>
           )}
-          <ShowProductDetail id={id} />
+          <ShowProductDetail id={id} setShowDetail={setShowDetail}/>
         </div>
       )}
       {userInfoFirestore.isAdmin && editor && (

@@ -11,6 +11,8 @@ import {
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
+  DELETE_PRODUCT,
+  ORDER_BY_PRICE,
 } from "./actions";
 
 export const getProducts = () => {
@@ -62,7 +64,6 @@ export const getProductDetail = (id) => {
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
-     
       let response = await axios.post(
         `${axios.defaults.baseURL}/products/create`,
         payload
@@ -94,6 +95,29 @@ export const updateProduct = (id, payload) => {
   };
 };
 
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.delete(
+        `${axios.defaults.baseURL}/products/delete/${id}`
+      );
+      return dispatch({
+        type: DELETE_PRODUCT,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const orderByPrice= (payload)=> {
+  return {
+    type: ORDER_BY_PRICE,
+    payload,
+  }
+}
+
 export const cleanProducts = () => {
   return async (dispatch) => {
     dispatch({
@@ -110,14 +134,13 @@ export const getFilterTags = () => {
 };
 
 export const addFilterTags = (payload) => {
-  return (dispatch)=> {
+  return (dispatch) => {
     dispatch({
       type: ADD_FILTER_TAGS,
       payload,
-    })
-  }
-
-}
+    });
+  };
+};
 
 export const modifyProducts = (payload) => {
   return async (dispatch) => {

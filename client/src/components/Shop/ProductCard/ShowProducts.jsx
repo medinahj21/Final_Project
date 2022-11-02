@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setPageNumPrev } from "../../../redux/actions/products";
+import { getProducts, setPageNumPrev } from "../../../redux/actions/products";
 
 import ProductCard from "./ProductCard";
 import Paginated from "../Paginated";
@@ -21,12 +21,16 @@ export default function ShowProducts({ combinedFilter }) {
   const productPerPage = 4;
   const lastProductIndex = currentPage * productPerPage;
   const firstProductIndex = lastProductIndex - productPerPage;
+
+
   const currentProduct = combinedFilter.slice(
     firstProductIndex,
     lastProductIndex
   );
 
   useEffect(() => {
+    //console.log("Me acabo de renderizar");
+    dispatch(getProducts());
     if (prevPage !== currentPage) {
       setCurrentPage(prevPage);
     }

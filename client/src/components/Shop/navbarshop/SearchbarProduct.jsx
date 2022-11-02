@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
@@ -7,8 +7,10 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import { IoIosCart } from "react-icons/io";
 
 import "./SearchbarProduct.css";
+import { orderByPrice } from "../../../redux/actions/products";
 
 function SearchbarProduct(props) {
+  const dispatch= useDispatch();
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const {
@@ -19,7 +21,6 @@ function SearchbarProduct(props) {
     deleteTag,
     handleClean,
     handleAllProducts,
-    handleOrderByPrice,
   } = props;
 
   const [showCart, setShowCart] = useState(false);
@@ -28,6 +29,11 @@ function SearchbarProduct(props) {
     handleClean(e);
     handleAllProducts(e);
   };
+
+  const handleOrderByPrice=(e)=>{
+    console.log("ordenamiento", e.target.value)
+    dispatch(orderByPrice(e.target.value))
+  }
 
   return (
     <>
@@ -76,8 +82,8 @@ function SearchbarProduct(props) {
             <option value="title2" disabled={true}>
               Ordenar por: Precio
             </option>
-            <option name= "cheaper-to">Mas económico</option>
-            <option name= "expensive-to">Mas costoso</option>
+            <option value= "cheaper-to">Mas económico</option>
+            <option value= "expensive-to">Mas costoso</option>
           </select>
           <select
             defaultValue="title"

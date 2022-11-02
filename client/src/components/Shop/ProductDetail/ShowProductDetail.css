@@ -179,6 +179,11 @@
     --t: 12px;
 }
 
+.delete-button{
+    cursor: pointer;
+    width: 50%;
+}
+
 .button-detail-cart .cart-detail {
     position: absolute;
     left: 50%;

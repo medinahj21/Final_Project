@@ -8,6 +8,7 @@ import {
   getFilterTags,
   getProducts,
   setPageNumPrev,
+  orderByPrice,
 } from "../redux/actions/products";
 import { updatePlayerCart } from "../redux/actions/player";
 
@@ -49,7 +50,7 @@ function Shop() {
     getTags();
   }, [dispatch]);
 
-  const allProducts = isAdmin
+  const allProducts = isAdmin 
     ? fullProducts
     : fullProducts.filter((prod) => prod.state === true);
 
@@ -62,7 +63,7 @@ function Shop() {
     } else {
       dispatch(getProducts());
     }
-  }, [dispatch, allProducts]);
+  }, [dispatch]);
 
   const handleAllProducts = (e) => {
     dispatch(getProducts());
@@ -85,17 +86,7 @@ function Shop() {
     setCombinedFilter(aux);
     dispatch(setPageNumPrev(1));
   };
-
-  const handleOrderByPrice = (e) => {
-    if (e.target.name === "cheaper-to") {
-      let orderIncrease = combinedFilter.sort((a, b) => a.price - b.price);
-      setCombinedFilter(orderIncrease);
-    }
-    if (e.target.name === "expensive-to") {
-      let orderDecrease = combinedFilter.sort((a, b) => b.price - a.price);
-      setCombinedFilter(orderDecrease);
-    }
-  };
+  
 
   const handleSearch = (e) => {
     setProductSearched(e.target.value);
@@ -140,7 +131,6 @@ function Shop() {
         tags={tags}
         deleteTag={deleteTag}
         handleClean={handleClean}
-        handleOrderByPrice={handleOrderByPrice}
       />
       <div>
         <input
@@ -170,7 +160,6 @@ function Shop() {
       )}
       <ShowProducts
         combinedFilter={combinedFilter}
-        dataFiltered={dataFiltered}
       />
       <div className="home_footer">
         <ContactForm />

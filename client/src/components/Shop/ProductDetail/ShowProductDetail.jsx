@@ -6,12 +6,14 @@ import {
   addToCart,
 } from "../../../redux/actions/shoppingCart";
 
+import { deleteProduct, getProducts } from "../../../redux/actions/products";
+
 import { ToastContainer } from "react-toastify";
 import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShowProductDetail.css";
 
-export default function ShowProductDetail() {
+export default function ShowProductDetail({setShowDetail}) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const product = useSelector(
@@ -74,6 +76,15 @@ export default function ShowProductDetail() {
     });
   };
 
+  const handleDeleteProduct = ()=> {
+    if (window.confirm("¿Seguro que desea eliminar este producto?")){
+      dispatch(deleteProduct(id));
+      dispatch(getProducts());
+      setShowDetail(false);
+      alert("Producto eliminado exitosamente")
+    }    
+  }
+
   return (
     <>
       <ToastContainer />
@@ -88,6 +99,10 @@ export default function ShowProductDetail() {
                 <div className="knobs"></div>
                 <div className="layer"></div>
               </div>{" "}
+              <button 
+                className="delete-button"
+                onClick={()=>handleDeleteProduct()}
+                >Eliminar Producto</button>
             </>
           )}
           <h1 className="detail-product-title">{name}</h1>

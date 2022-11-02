@@ -4,6 +4,8 @@ import {
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
+  DELETE_PRODUCT,
+  ORDER_BY_PRICE,
   CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   ADD_FILTER_TAGS,
@@ -67,6 +69,29 @@ export default function productsReducer(state = initialState, action) {
         allProducts: [],
         products: [],
       };
+
+    case DELETE_PRODUCT:
+      return {
+        ...state
+      }
+
+    case ORDER_BY_PRICE:
+      let orderedProducts= state.allProducts;
+      if (action.payload === "cheaper-to"){
+        let orderedDecreasing= orderedProducts.sort((a,b)=> a.price - b.price)
+        return {
+          ...state,
+          products: orderedDecreasing,
+          allProducts: orderedDecreasing,
+        }
+      } else {
+        let orderedIncreasing= orderedProducts.sort((a,b)=> b.price - a.price)
+        return {
+          ...state,
+          products: orderedIncreasing,
+          allProducts: orderedIncreasing,
+        }
+      }
 
     case GET_FILTER_TAGS:
       return {

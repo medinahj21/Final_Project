@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import emailjs from "@emailjs/browser";
 
 import * as actions from "../../../redux/actions/actionsGroup";
 import FormUser from "../../Register/FormUser";
@@ -21,7 +22,26 @@ export default function GroupDetailCard({
   const [isForm, setIsForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const handleSuscribe = async () => {
+  const templateParams = {
+    name: userInfoFirestore.name,
+    group: groupDetail.name,
+    email: userInfoFirestore.email,
+  }
+
+  const sendApprovedEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .send(
+        "service_egxx8pm",
+        "template_7voasxm",
+        templateParams,
+        "UdWAbRvpgxeDwt2fE"
+      )
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
+  const handleSuscribe = async (e) => {
     //debo hacer la validación de si no es jugador
     if (!userInfoFirestore.isAdmin) {
       let newRoleRequest = {
@@ -39,6 +59,7 @@ export default function GroupDetailCard({
         );
       } /* if(response.data) */ else {
         alert("Solicitud de inscripción enviada");
+        sendApprovedEmail(e);
       }
       /* else{
         alert ("algo raro pasó")
@@ -93,7 +114,7 @@ export default function GroupDetailCard({
             !playerDetail.id && (
               <div
                 className="button-detail-group"
-                onClick={(e) => handleSuscribe()}
+                onClick={(e) => handleSuscribe(e)}
               >
                 {" "}
                 <a href="#!" className="animated-button victoria-one">
