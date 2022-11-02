@@ -172,6 +172,8 @@ export default function RoleRequestMiniCard(roleRequest) {
           <div className="form__content-request form__request">
             <div className="forms_field-request">
               <input
+                min="1"
+                pattern="^[0-9]+"
                 className="forms_field-request-input"
                 type="number"
                 name="debtValue"
@@ -192,6 +194,8 @@ export default function RoleRequestMiniCard(roleRequest) {
             </div>
             <div className="forms_field-request">
               <input
+                min="1"
+                pattern="^[0-9]+"
                 className="forms_field-request-input"
                 type="number"
                 name="shirtNumber"
