@@ -76,13 +76,16 @@ export const deletePlayer = (id) => {
   return async (dispatch) => {
     try {
       let response = await axios.delete(`${axios.defaults.baseURL}/players/delete/${id}`)
+      let responseRol = await axios.delete(`${axios.defaults.baseURL}/roleRequests/delete/${id}`)
       if (response.error) {
         return response.error;
+      } else if (responseRol.error) {
+        return responseRol.error;
       } else {
         return response.message;
       }
     } catch (error) {
-       return error
+      return error
     }
   }
 }

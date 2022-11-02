@@ -94,7 +94,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       genre: {
-        type: DataTypes.ENUM("Male", "Female", "Mix"),
+        type: DataTypes.ENUM("Masculino", "Femenino", "Mixto"),
         allowNull: false,
       },
     },

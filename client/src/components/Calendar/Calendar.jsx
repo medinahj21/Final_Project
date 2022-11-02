@@ -29,9 +29,7 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  console.log('player ', playerDetail);
-  console.log('isAdmin ', userInfoFirestore);
-  console.log('eventPlayer', eventPlayer);
+
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"
@@ -44,8 +42,8 @@ export default function Calendar() {
             location: ev.location,
             startTime: ev.repetitive ? ev.start : "",
             endTime: ev.repetitive ? ev.end : "",
-            start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
-            end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
+            start: !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
+            end: !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
             allDay: false,
             daysOfWeek: ev.repetitive ? ev.date : "",
           },
@@ -64,34 +62,6 @@ export default function Calendar() {
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
   }, [dispatch]);
-console.log(detail);
-
-  if (modalOn) {
-    return (
-      <Modal>
-        <FormEvent
-          isCreate={isCreate}
-          setIsCreate={setIsCreate}
-          handleModal={handleModal}
-          getEvents={getEvents}
-        />  
-      </Modal>
-    );
-  }
-
-  if (modalDetail) {
-    return (
-      <Modal>
-        <DetailEvent
-          setModalDetail={setModalDetail}
-          title={detail.title}
-          description={detail.extendedProps.description}
-          location={detail.extendedProps.location}
-          idE={detail.publicId}
-        />
-      </Modal>
-    );
-  }
 
   return (
     <div className="fc-header-toolbar fc-toolbar font-size">
@@ -125,6 +95,28 @@ console.log(detail);
           setDetail(event.event._def);
         }}
       />
+
+      {modalOn &&
+        <Modal>
+          <FormEvent
+            isCreate={isCreate}
+            setIsCreate={setIsCreate}
+            handleModal={handleModal}
+            getEvents={getEvents}
+          />
+        </Modal>}
+
+      {modalDetail &&
+        <Modal>
+          <DetailEvent
+            setModalDetail={setModalDetail}
+            title={detail.title}
+            description={detail.extendedProps.description}
+            location={detail.extendedProps.location}
+            idE={detail.publicId}
+          />
+        </Modal>
+      }
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function Inscriptions() {
 
   useEffect(() => {
     if (requests?.length === 0) dispatch(getRoleRequests());
-  }, [dispatch, requests]);
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {
