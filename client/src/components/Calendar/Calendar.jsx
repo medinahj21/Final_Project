@@ -58,7 +58,7 @@ export default function Calendar() {
   const handleModal = () => {
     setModalOn(!modalOn);
   };
-console.log(objectEvent);
+
   useEffect(() => {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
@@ -74,7 +74,7 @@ console.log(objectEvent);
           setIsCreate={setIsCreate}
           handleModal={handleModal}
           getEvents={getEvents}
-        />
+        />  
       </Modal>
     );
   }
