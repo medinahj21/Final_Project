@@ -14,10 +14,11 @@ import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
 import NavbarDash from "../components/Dashboard/navbar/NavbarDash";
 import Calendar from "../components/Calendar/Calendar";
-
-import "./Dashboard.css";
+import Players from "../components/Dashboard/Players/Players";
 import InfoTable from "../components/Dashboard/Admins/InfoTable";
 import PlayerPayments from "../components/Dashboard/Payments/PlayerPayments";
+
+import "./Dashboard.css";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -43,7 +44,8 @@ function Admin() {
         dispatch(getAllInfoUsers(docs));
       });
     }
-    if(!userInfoFirestore.isAdmin) dispatch(getPlayerDetail(userInfoFirestore.uid));
+    if (!userInfoFirestore.isAdmin)
+      dispatch(getPlayerDetail(userInfoFirestore.uid));
   }, [dispatch, userInfoFirestore]);
 
   const [clickChoice, setClickChoice] = useState({ ...clickChoicePersist });
@@ -83,7 +85,7 @@ function Admin() {
           <>
             {!userInfoFirestore.isAdmin ? (
               <>
-                {/* Mapear deudas por mes --> */}                
+                {/* Mapear deudas por mes --> */}
                 <PlayerPayments />
               </>
             ) : (
@@ -94,6 +96,11 @@ function Admin() {
         {clickChoice.isRequest && (
           <>
             <Inscriptions />
+          </>
+        )}
+        {clickChoice.isPlayer && (
+          <>
+            <Players />
           </>
         )}
         {clickChoice.isCalendario && <Calendar />}

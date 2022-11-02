@@ -1,24 +1,18 @@
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+
+import { ToastContainer } from "react-toastify";
+
+import { notify, notifyError } from "../../../utils/toastify";
 
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { firestore } from "../../../firebase/firebase.config";
 
 import { getAllInfoUsers } from "../../../redux/actions/auth";
-import { useDispatch } from "react-redux";
 
 import "../Request.css";
 import "./InfoTable.css";
-
-const notify = (message) => toast.success(message, { autoClose: 2000 });
-
-const notifyError = (error) =>
-  toast.error(error, {
-    position: toast.POSITION.BOTTOM_RIGHT,
-    hideProgressBar: true,
-  });
 
 function InfoRow({ user }) {
   const dispatch = useDispatch();
@@ -81,7 +75,7 @@ function InfoRow({ user }) {
       <ToastContainer />{" "}
       <div className="row" key={user.uid}>
         <div className="cell" data-title="image">
-          <label>espacio img</label>
+          <label>Espacio img</label>
         </div>
         <div className="cell" data-title="name">
           <p>{user.name}</p>

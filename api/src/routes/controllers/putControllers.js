@@ -14,6 +14,7 @@ const asyncUpdateProduct = async (req, res) => {
     state,
     paymentTerm,
   } = req.body;
+  
   const { id } = req.params;
 
   try {

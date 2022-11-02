@@ -1,6 +1,6 @@
 .tag {
     font-family: Helvetica, Arial, sans-serif;
-    background: #588fe5;
+    background: rgb(1, 0, 46);
     display: inline-block;
     color: #fff;
     position: relative;
@@ -12,7 +12,7 @@
 }
 
 .tag:hover {
-    background-color: #739fe4;
+    cursor: pointer;
 }
 
 .tag span {
@@ -26,7 +26,7 @@
 .tag:after {
     display: inline-block;
     border: 19px solid;
-    border-color: transparent transparent transparent #588fe5;
+    border-color: transparent transparent transparent rgb(1, 0, 46);
     height: 0;
     width: 0;
     position: absolute;
@@ -38,5 +38,5 @@
 
 
 .tag:hover:after {
-    border-color: transparent transparent transparent #739fe4;
+    border-color: transparent transparent transparent rgb(1, 0, 46);
 }

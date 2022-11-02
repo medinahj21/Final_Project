@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
@@ -105,7 +104,7 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
 
           <a href="#oferta">Oferta</a>
           <a href="#calendar">Calendario</a>
-          <a href="#about">Nosotros</a>
+          <a href="/about">Nosotros</a>
           <a href="#contact">Contacto</a>
         </div>
       </div>

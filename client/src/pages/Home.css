@@ -40,7 +40,7 @@
     position: fixed;
     top: 90vh;
     right: 80px;
-    z-index: 999999;
+    z-index: 9999;
     animation-name: pulseBack;
     animation-duration: 1.5s;
     animation-timing-function: ease-out;

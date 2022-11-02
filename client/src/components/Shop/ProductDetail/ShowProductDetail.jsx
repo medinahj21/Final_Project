@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./ShowProductDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -7,34 +6,20 @@ import {
   addToCart,
 } from "../../../redux/actions/shoppingCart";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShowProductDetail.css";
 
-const notify = (message) => toast.success(message);
-const notifyError = (message) =>
-  toast.error(message, {
-    hideProgressBar: true,
-    theme: "colored",
-  });
+export default function ShowProductDetail({ handleSetProductState }) {
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
-export default function ShowProductDetail() {
   const product = useSelector(
     (state) => state.productsReducer.productDetail
   )[0];
-  const {
-    id,
-    name,
-    image,
-    price,
-    description,
-    filterTags,
-    modifiers,
-    isOrder,
-    stock,
-    paymentTerm,
-  } = { ...product };
+  const { id, name, image, price, description, modifiers, isOrder, stock } = {
+    ...product,
+  };
 
   const dispatch = useDispatch();
 
@@ -58,7 +43,7 @@ export default function ShowProductDetail() {
       Object.keys(modifiers).length &&
       !Object.keys(modifiersChosen).length
     ) {
-      notifyError("Elije algún modificador");
+      notifyError("Elije un talle");
     } else if (productInCart) {
       setAddToCartAnimation(true);
       dispatch(incrementProductInCart(id, itemToAdd.modifiers));
@@ -88,13 +73,32 @@ export default function ShowProductDetail() {
       [e.target.name]: e.target.value,
     });
   };
+  console.log(product?.state);
 
   return (
     <>
       <ToastContainer />
       {product ? (
         <>
-          {/* <label>{state ? "habilitado" : "deshabilitado"}</label> */}
+          {userInfoFirestore.isAdmin && (
+            <>
+              {" "}
+              <span className="label-hab">Habilitar producto: </span>
+              <div
+                className="button-hab r"
+                id="button-hab"
+                onClick={() => handleSetProductState(id)}
+              >
+                <input
+                  type="checkbox"
+                  className="checkbox-hab"
+                  checked={!product?.state}
+                />
+                <div className="knobs"></div>
+                <div className="layer"></div>
+              </div>{" "}
+            </>
+          )}
           <h1 className="detail-product-title">{name}</h1>
           <div className="detail-product-content">
             <div className="image-price">
@@ -144,22 +148,24 @@ export default function ShowProductDetail() {
                   Producto bajo {isOrder ? "pedido" : "stock"}
                 </span>
                 {!isOrder ? <label>Existencias: {stock}</label> : <></>}
-                <button
-                  onClick={handleAddToCart}
-                  className={
-                    !addToCartAnimation
-                      ? "button-detail-cart"
-                      : "button-detail-cart loading"
-                  }
-                >
-                  <span>Agregar al carrito</span>
-                  <div className="cart-detail">
-                    <svg viewBox="0 0 36 26">
-                      <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                      <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                    </svg>
-                  </div>
-                </button>
+                {!userInfoFirestore.isAdmin && (
+                  <button
+                    onClick={handleAddToCart}
+                    className={
+                      !addToCartAnimation
+                        ? "button-detail-cart"
+                        : "button-detail-cart loading"
+                    }
+                  >
+                    <span>Agregar al carrito</span>
+                    <div className="cart-detail">
+                      <svg viewBox="0 0 36 26">
+                        <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                        <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                      </svg>
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
           </div>

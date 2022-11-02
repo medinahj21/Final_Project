@@ -1,4 +1,3 @@
-
 import {
   GET_GROUPS,
   GET_GROUP_DETAIL,
@@ -92,6 +91,7 @@ export const getRoleRequests = () => {
 };
 
 export const createNewRoleRequest = (roleRequest) => {
+  
   return async (dispatch) => {
     try {
       let response = await axios.post(
@@ -123,3 +123,4 @@ export const cleanRoleRequest = (id) => {
     dispatch({ type: CLEAN_ROLE_REQUESTS });
   };
 };
+

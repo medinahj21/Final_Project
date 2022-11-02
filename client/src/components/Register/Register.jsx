@@ -1,26 +1,15 @@
 import React, { useState } from "react";
 
-import { toast } from "react-toastify";
+import { notify, notifyError } from "../../utils/toastify";
+import { firebaseError } from "../../utils/firebaseErrors";
+import { sendVerificationEmail } from "../../utils/EmailVerification";
 
 import LoginGoogle from "./LoginGoogle";
 
 import { registerWhitEmailAndPassword } from "../../redux/actions/auth";
-import { sendVerificationEmail } from "../../utils/EmailVerification";
 import { auth } from "../../firebase/firebase.config";
 
-const notifyError = (error) =>
-  toast.error(error, {
-    draggable: true,
-    hideProgressBar: true,
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-const notify = () =>
-  toast.success("Correo de verificación enviado", {
-    position: toast.POSITION.BOTTOM_RIGHT,
-  });
-
-function Register({ setShowRegister, setShowLogin, setShowAlta }) {
+function Register({ setShowRegister, setShowLogin }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -34,6 +23,8 @@ function Register({ setShowRegister, setShowLogin, setShowAlta }) {
       };
     });
   };
+
+  
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -57,7 +48,7 @@ function Register({ setShowRegister, setShowLogin, setShowAlta }) {
       });
     } catch (error) {
       console.log(error.message);
-      return notifyError(error.message);
+      return notifyError(firebaseError(error.message));
     }
   };
 

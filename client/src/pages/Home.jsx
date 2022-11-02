@@ -26,6 +26,7 @@ function Home() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showAlta, setShowAlta] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const groups = useSelector((state) => state.groupReducer.groups);
 
@@ -51,7 +52,19 @@ function Home() {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
-  
+
+  useEffect(() => {
+    const listenToScroll = () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      if (winScroll > 200) isVisible && setIsVisible(false);
+      if (winScroll < 200) !isVisible && setIsVisible(true);
+    };
+
+    window.addEventListener("scroll", listenToScroll);
+    return () => window.removeEventListener("scroll", listenToScroll);
+  }, []);
+
   return (
     <div id="home">
       {!isDesktop ? (
@@ -103,9 +116,11 @@ function Home() {
           )}
         </>
       )}
-      <a href="#home">
-        <span className="back-up"></span>
-      </a>
+      {isVisible && (
+        <a href="#home">
+          <span className="back-up"></span>
+        </a>
+      )}
       <div className="home__carrousel">
         <Carousel />
       </div>

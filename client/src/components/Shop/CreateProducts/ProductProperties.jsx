@@ -8,6 +8,7 @@ function ProductProperties({
   setNewProduct,
 }) {
   const handleOnClick = (e) => {
+    e.preventDefault();
     //Aqui hago el llamado al widget de la cloudinary y que suba la imagen
     const widger_cloudinary = window.cloudinary.createUploadWidget(
       {

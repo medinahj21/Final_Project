@@ -11,7 +11,7 @@ export const createPlayer = (personalInfo) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://localhost:3001/players/create`,
+        `${axios.defaults.baseURL}/players/create`,
         personalInfo
       );
       dispatch({ type: CREATE_PLAYER });
@@ -24,7 +24,7 @@ export const createPlayer = (personalInfo) => {
 
 export const getPlayersFromDB = () => {
   return async (dispatch) => {
-    let players = await axios.get(`http://localhost:3001/players`);
+    let players = await axios.get(`${axios.defaults.baseURL}/players`);
     dispatch({ type: GET_PLAYERS_FROM_DB, payload: players.data });
   };
 };
@@ -32,7 +32,7 @@ export const getPlayersFromDB = () => {
 export const getPlayerDetail = (id) => {
   return async (dispatch) => {
     try {
-      let playerById = await axios.get(`http://localhost:3001/players/${id}`);
+      let playerById = await axios.get(`${axios.defaults.baseURL}/players/${id}`);
       return dispatch({
         type: GET_PLAYER_DETAIL,
         payload: playerById.data,
@@ -51,7 +51,7 @@ export const updatePlayerCart = (id, payload) => {
     try {
       const shoppingCart = { shoppingCart: payload };
       let response = await axios.put(
-        `http://localhost:3001/players/update/${id}`,
+        `${axios.defaults.baseURL}/players/update/${id}`,
         shoppingCart
       );
       return dispatch({
@@ -71,3 +71,21 @@ export const clearPlayerDetail = () => {
     });
   };
 };
+
+// export const updatePlayerEvents = (groups,event) => {
+//   return async (dispatch) => {
+//     try {
+//       const event = { events: event };
+//       let response = await axios.put(
+//         `http://localhost:3001/players/update/${id}`,
+//         shoppingCart
+//       );
+//       return dispatch({
+//         type: UPDATE_PLAYER_SHOPPING_CART,
+//         payload: response.data,
+//       });
+//     } catch (error) {
+//       console.log({ error: error.message });
+//     }
+//   };
+// };

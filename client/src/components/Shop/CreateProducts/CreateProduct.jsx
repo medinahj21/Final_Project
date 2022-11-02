@@ -1,70 +1,44 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   createProduct,
   getFilterTags,
-  updateProduct,
+  getProducts,
 } from "../../../redux/actions/products";
 
 import { validate } from "../../../utils/validate";
+import { notify, notifyError } from "../../../utils/toastify";
 
 import Labels from "./Labels";
 import Modifiers from "./Modifiers";
 import ProductProperties from "./ProductProperties";
 import ProductStock from "./ProductStock";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 import "./CreateProduct.css";
 
-export default function CreateProduct({ isCreate, setCreationDiv }) {
-  const notify = (message) => toast.success(message);
-  const notifyError = (message) =>
-    toast.error(message, {
-      hideProgressBar: true,
-      theme: "colored",
-    });
-
-  const { id } = useParams();
-
-  const initialState = useSelector(
-    (state) => state.productsReducer.productDetail
-  )[0];
-  const {
-    name,
-    image,
-    price,
-    description,
-    filterTags,
-    initialIsOrder,
-    state,
-    paymentTerm,
-    stock,
-  } = { ...initialState };
-
+export default function CreateProduct({ setCreationDiv }) {
   const dispatch = useDispatch();
-  const allFilterTags = useSelector(
-    (state) => state.productsReducer.filterTags
-  );
-  const [tags, setTags] = useState(
-    initialState ? filterTags.map((obj) => obj.id) : []
-  );
+
+  const [tags, setTags] = useState([]);
+
   const [isOrder, setIsOrder] = useState(null);
+
   const [newProduct, setNewProduct] = useState({
-    name: initialState ? name : "",
-    price: initialState ? price : 0,
-    description: initialState ? description : "",
-    image: initialState ? image : "",
+    name: "",
+    price: 0,
+    description: "",
+    image: "",
     modifiers: [],
-    FilterTags: initialState ? filterTags.map((obj) => obj.id) : [],
-    isOrder: initialState ? initialIsOrder : true,
-    stock: initialState ? stock : 0,
-    state: initialState ? state : true,
-    paymentTerm: initialState ? paymentTerm : 0,
+    FilterTags: [],
+    isOrder: true,
+    stock: 0,
+    state: true,
+    paymentTerm: 0,
   });
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     async function getTags() {
@@ -122,31 +96,26 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
     }
 
     try {
-      if (isCreate) {
-        let response = await dispatch(createProduct(newProduct));
-
-        if (response.type) {
-          setNewProduct({
-            name: "",
-            price: "",
-            description: "",
-            image: "",
-            modifiers: [],
-            FilterTags: [],
-            isOrder: true,
-            stock: "",
-            state: true,
-            paymentTerm: "",
-          });
-          setTags([]);
-          setIsOrder(true);
-          setTimeout(() => setCreationDiv(false), 2000);
-
-          notify("Producto creado");
-        }
-      } else {
-        dispatch(updateProduct(id, newProduct));
-        notify("Producto modificado");
+      let response = await dispatch(createProduct(newProduct));
+      console.log("hola", response);
+      if (response.type) {
+        setNewProduct({
+          name: "",
+          price: "",
+          description: "",
+          image: "",
+          modifiers: [],
+          FilterTags: [],
+          isOrder: true,
+          stock: "",
+          state: true,
+          paymentTerm: "",
+        });
+        setTags([]);
+        setIsOrder(true);
+        setTimeout(() => setCreationDiv(false), 2000);
+        dispatch(getProducts(userInfoFirestore.isAdmin));
+        notify("Producto creado");
       }
     } catch (error) {
       notifyError("No se pudo cargar el producto");
@@ -156,8 +125,11 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
   return (
     <>
       <ToastContainer />
-      <form onSubmit={confirmHandler} className="form__user form-create-product">
-        <h3 className="form__title">{isCreate ? 'Crear producto' : 'Editar producto'}</h3>
+      <form
+        onSubmit={confirmHandler}
+        className="form__user form-create-product"
+      >
+        <h3 className="form__title">Crear producto</h3>
         <div className="form__content-alta">
           <div className="form__product-inputs">
             <div>
@@ -179,7 +151,6 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
                 setNewProduct={setNewProduct}
                 newProduct={newProduct}
                 handleTags={handleTags}
-                filterTags={allFilterTags}
                 tags={tags}
                 deleteTag={deleteTag}
               />
@@ -194,16 +165,17 @@ export default function CreateProduct({ isCreate, setCreationDiv }) {
         </div>
         <div className="create__product-button">
           <button type="submit" className="form__btn-alta add-btn">
-            {isCreate ? 'Crear' : 'Editar'}
+            Crear
           </button>
-          {isCreate && <button
+
+          <button
             className="form__btn-alta delete-btn"
             onClick={() => {
               setCreationDiv(false);
             }}
           >
             Cancelar
-          </button>}
+          </button>
         </div>
       </form>
     </>

@@ -1,8 +1,9 @@
 .card__content {
     display: flex;
     flex-direction: column;
-    width: 15rem;
-    height: fit-content;
+    max-width: 15rem;
+    min-width: 250px;
+    height: 400px;
     align-items: center;
     gap: 1rem;
     margin: 0 auto;
@@ -13,9 +14,12 @@
     background-color: rgba(255, 255, 255, 0.283);
 }
 
+.card__title::first-letter {
+    text-transform: capitalize;
+}
 .card__title {
     margin: 0;
-    font-size: var(--font-size-h3);
+    font-size: 1.2rem;
     color: rgb(1, 4, 46);
     text-shadow: 0 3px 17px var(--color-bg);
 }
@@ -51,6 +55,7 @@
     line-height: 42px;
     padding: 0;
     border: none;
+    align-self: bottom;
 }
 
 .btn-product span {
@@ -142,6 +147,7 @@
 
 .card__image-product {
     max-width: 100%;
+    max-height: 250px;
     border-radius: 2rem;
 }
 
