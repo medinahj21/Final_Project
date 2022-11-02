@@ -1,15 +1,63 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Modal from "../../UI/Modal";
-import s from "../DetailEvent/DetailEvent.module.css";
+import Swal from "sweetalert2";
+import { Toast } from "../../../utils/toastSweet";
+import { deleteEvent, editEvent, getEvents } from "../../../redux/actions/event";
 
-export default function DetailEvent({ title, description, setModalDetail, location, }) {
+export default function DetailEvent({ title, description, setModalDetail, location, idE }) {
 
   const [update, setUpdate] = useState(false)
 
+  const dispatch = useDispatch();
+
+  const handleUpdateEvent = () => {
+
+  }
+
+  const handleDeleteEvent = (idEvent) => {
+    Swal.fire({
+      title: 'Estas seguro que quieres eliminar el evento?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#01002E',
+      denyButtonText: `No eliminar`,
+      target: document.getElementById('detailEvent'),
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          let response = await dispatch(deleteEvent(idEvent));
+          if (response.error) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Algo salio mal: ${response.error}`,
+              target: document.getElementById('detailEvent')
+            })
+          } else {
+            Toast.fire({
+              icon: 'success',
+              title: 'Eliminado!',
+              text: `Se ha eliminado correctamente!`,
+            })
+            setModalDetail(false);
+            dispatch(getEvents());
+          }
+        } else if (result.isDenied) {
+          Toast.fire({
+            icon: 'info',
+            title: 'No ha sido eliminado!',
+            target: document.getElementById('detailEvent')
+          })
+        }
+      })
+  };
+
 
   return (
-    <Modal>
-      <div className="detail-event-container form__user">
+    <Modal >
+      <div className="detail-event-container form__user" id="detailEvent">
         <header>
           {update ?
             <span>Nombre: <input type="text" value={title} /></span>
@@ -26,11 +74,11 @@ export default function DetailEvent({ title, description, setModalDetail, locati
             update ?
               <input type="text" value={location} />
               :
-              <iframe src={location?.split('\"')[1]} frameborder="0"></iframe> }</span>
+              <iframe src={location?.split('\"')[1]} frameborder="0"></iframe>}</span>
         </main>
-        <button onClick={() => setModalDetail(false)}>Aceptar</button>
+        <button onClick={() => update ? handleUpdateEvent() : setModalDetail(false)}>Aceptar</button>
         <button onClick={() => setUpdate(!update)}>{update ? "Cancelar" : "Editar"}</button>
-        {!update && <button onClick={() => ""(false)}>Eliminar</button>}
+        {!update && <button onClick={() => handleDeleteEvent(idE)}>Eliminar</button>}
       </div>
     </Modal>
   );

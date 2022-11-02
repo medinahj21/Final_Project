@@ -59,12 +59,12 @@ export default function Calendar(setIsEventForm, isEventForm) {
     setIsEventForm(!isEventForm);
   };
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
   }, [dispatch]);
-
+console.log(detail);
 
   if (isEventForm === true) {
     return (
@@ -74,7 +74,7 @@ useEffect(() => {
           setIsCreate={setIsCreate}
           handleModal={handleModal}
           getEvents={getEvents}
-        />
+        />  
       </Modal>
     );
   }
@@ -87,6 +87,7 @@ useEffect(() => {
           title={detail.title}
           description={detail.extendedProps.description}
           location={detail.extendedProps.location}
+          idE={detail.publicId}
         />
       </Modal>
     );
