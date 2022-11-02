@@ -47,7 +47,7 @@ const chargeDummyData = async () => {
         years: obj.Edad,
       },
       debtValue: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
-      paymentDate: Math.floor(Math.random()*30),
+      paymentDate: Math.floor(Math.random() * 30),
       shirtNumber: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });
@@ -83,8 +83,8 @@ const chargeDummyData = async () => {
 };
 
 // Syncing all the models at once.
-conn.sync({ force:true , alter:false}).then(() => {
-  chargeDummyData();
+conn.sync({ force:false , alter:false}).then(() => {
+  //chargeDummyData();
   server.listen(PORT, () => {
     console.log(`%s listening at ${PORT}`);
   });

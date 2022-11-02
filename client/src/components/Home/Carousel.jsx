@@ -1,18 +1,22 @@
 import { useRef, useState } from "react";
 
+import FOTO2 from "../../images/carousel2.jpeg";
+import FOTO1 from "../../images/carousel3.jpeg";
+import FOTO5 from "../../images/carousel5.jpeg";
+
 import "./Carousel.css";
 
 const data = [
   {
-    src: "https://img.freepik.com/vector-gratis/silueta-voleibol-diseno-plano_23-2149400514.jpg?w=826&t=st=1666637407~exp=1666638007~hmac=c98428f04cd5789f6eb89041ebb6e5aa3740d5e69e21ec81e36a5a3a39c090c7",
-    title: "Voley 1",
+    src: FOTO1,
+    title: "Club Wolves - Voleyball",
   },
   {
-    src: "https://img.freepik.com/vector-gratis/silueta-voleibol-diseno-plano_23-2149400511.jpg?w=826&t=st=1666637407~exp=1666638007~hmac=ce3fceaede6eac5aee73693e9ecb7420eb38246d3d4b2c65c5893dfffeb82cbc",
-    title: "Voley 2",
+    src: FOTO2,
+    title: "Somos una comunidad",
   },
   {
-    src: "https://img.freepik.com/vector-gratis/silueta-voleibol-diseno-plano_23-2149400509.jpg?w=826&t=st=1666637408~exp=1666638008~hmac=ee59771ff0d93d2fba5056f046a0b0aa9c2a831167837d8f73e2ecf0cd9c997f",
+    src: FOTO5,
     title: "Voley 3",
   },
 ];

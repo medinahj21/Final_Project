@@ -145,17 +145,17 @@ function Navphone({
                   <li>Dashboard</li>
                 </Link>
               )}
-              <p href="!">
-                <li>Oferta</li>
+              <p>
+                <a href="#oferta">Oferta</a>
               </p>
-              <p href="!">
-                <li>calendario</li>
+              <p>
+                <a href="#calendar">Calendario</a>
               </p>
-              <p href="!">
-                <li>Nosotros</li>
+              <p>
+                <a href="#about">Nosotros</a>
               </p>
-              <p href="/contacto">
-                <li>Contacto</li>
+              <p>
+                <a href="#contact">Contacto</a>
               </p>
             </>
           )}

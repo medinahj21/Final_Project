@@ -4,10 +4,9 @@ import {
   DECREMENT_QUANT_PRODUCT,
   REMOVE_PRODUCT,
   CLEAR_CART,
-  SET_INITIAL_CART
+  SET_INITIAL_CART,
 } from "./actions";
-import axios from 'axios';
-
+import axios from "axios";
 
 export const addToCart = (product) => {
   return (dispatch) => {
@@ -18,20 +17,20 @@ export const addToCart = (product) => {
   };
 };
 
-export const incrementProductInCart= (id,modifiers)=> {
-  return (dispatch)=> {
+export const incrementProductInCart = (id, modifiers) => {
+  return (dispatch) => {
     dispatch({
       type: INCREMENT_QUANT_PRODUCT,
-      payload:[id,modifiers],
-    })
-  }
-}
+      payload: [id, modifiers],
+    });
+  };
+};
 
-export const decrementProductInCart = (id,modifiers) => {
+export const decrementProductInCart = (id, modifiers) => {
   return (dispatch) => {
     dispatch({
       type: DECREMENT_QUANT_PRODUCT,
-      payload: [id,modifiers],
+      payload: [id, modifiers],
     });
   };
 };
@@ -40,7 +39,7 @@ export const removeProductFromCart = (id, modifiers) => {
   return (dispatch) => {
     dispatch({
       type: REMOVE_PRODUCT,
-      payload: [id, modifiers]
+      payload: [id, modifiers],
     });
   };
 };
@@ -53,22 +52,29 @@ export const clearCart = () => {
   };
 };
 
-export const setInitialCart = (cart = [])=>{
-  return (dispatch)=>{
+export const setInitialCart = (cart = []) => {
+  return (dispatch) => {
     dispatch({
       type: SET_INITIAL_CART,
-      payload: cart
-    })
-  }
-}
+      payload: cart,
+    });
+  };
+};
 
-export const getPreference = (body) => {
+export const getPreference = (datos, origin, orderId) => {
   return async (dispatch) => {
     try {
-      const res = await axios.post(`http://localhost:3001/products/comprar`, body);
+      const res = await axios.post(
+        `${axios.defaults.baseURL}/products/comprar`,
+        {
+          datos,
+          origin,
+          orderId,
+        }
+      );
       return res;
     } catch (error) {
       return error;
     }
-  }
-}
+  };
+};

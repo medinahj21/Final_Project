@@ -1,5 +1,5 @@
 .nav__container {
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), orange);
+    background: var(--linear-gradient);
     text-align: center;
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
@@ -67,23 +67,23 @@
 .alta__jugador:hover,
 .nav__links a:hover,
 .nav__login p:hover {
-    color: tomato;
+    color: var(--color-bg-contrast);
 }
 
 .verify-email {
-    color: crimson;
+    color: #dc143c;
 }
 
 .nav_cart {
     border: 1px solid transparent;
-    box-shadow: 0 0 3px 0 white;
+    box-shadow: 0 0 3px 0 #ffffff;
     border-radius: 3px;
     width: fit-content;
     height: fit-content;
     font-size: 1.5rem;
     padding: 0.2rem;
     position: relative;
-    color: white;
+    color: #ffffff;
 }
 
 .nav_cart::after {
@@ -91,7 +91,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: red;
+    background-color: #dc143c;
     position: absolute;
     top: 0px;
     left: 20px;
@@ -107,8 +107,8 @@
     position: absolute;
     right: 30px;
     bottom: 40px;
-    box-shadow: 0 0 5px 0 rgb(1, 4, 46);
-    color: rgb(1, 4, 46);
+    box-shadow: 0 0 5px 0 var(--color-bg);
+    color: var(--color-bg);
 }
 
 

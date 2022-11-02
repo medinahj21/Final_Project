@@ -5,7 +5,7 @@
     .fc-prev-button.fc-button.fc-button-primary,
     .fc-next-button.fc-button.fc-button-primary,
     .fc-custom1-button.fc-button.fc-button-primary {
-        background-color: rgb(1, 0, 46) !important;
+        background-color: var(--color-bg) !important;
     }
 
 

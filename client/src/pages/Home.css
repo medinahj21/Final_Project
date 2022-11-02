@@ -1,3 +1,7 @@
+#home {
+    background-color: #eee;
+}
+
 .home__gruops {
     padding-top: 6rem;
     background: fixed url(../images/fondogroups.jpg);
@@ -6,7 +10,6 @@
     grid-template-columns: 1fr;
     width: 100vw;
     margin: 0 auto;
-    background-color: #ddd;
 }
 
 .home__carrousel {
@@ -23,6 +26,13 @@
     height: auto;
 }
 
+.home_about {
+    padding-top: 5rem;
+    position: relative;
+    background-color: #eee;
+    height: auto;
+}
+
 .home_footer {
     padding: 2rem;
     color: white;
@@ -33,7 +43,7 @@
 }
 
 .back-up {
-    background-color: rgb(1, 4, 46);
+    background-color: var(--color-bg);
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -48,7 +58,7 @@
 }
 
 .back-up::after {
-    color: white;
+    color: var(--color-bg-contrast);
     height: 0;
     width: 0;
     font-size: 3rem;

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import "react-toastify/dist/ReactToastify.css";
-
-import Nav from "../components/Nav/Nav";
-
 import { getGroups } from "../redux/actions/actionsGroup";
 
+import Nav from "../components/Nav/Nav";
 import Navphone from "../components/Nav/Navphone";
 import FormUser from "../components/Register/FormUser";
-
 import GroupsInfo from "../components/Home/GroupsInfo";
 import LoginRegister from "../components/Register/LoginRegister.jsx/LoginRegister";
 import Carousel from "../components/Home/Carousel";
 import LoginRegisteMob from "../components/Register/LoginRegisterMobile/LoginRegisteMob";
 import ContactForm from "../components/ContactForm/ContactForm";
 import Calendar from "../components/Calendar/Calendar";
+import About from "../components/AboutUs/About";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 
 function Home() {
@@ -57,16 +55,16 @@ function Home() {
     const listenToScroll = () => {
       const winScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
-      if (winScroll > 200) isVisible && setIsVisible(false);
-      if (winScroll < 200) !isVisible && setIsVisible(true);
+      if (winScroll < 200) isVisible && setIsVisible(false);
+      if (winScroll > 200) !isVisible && setIsVisible(true);
     };
 
     window.addEventListener("scroll", listenToScroll);
     return () => window.removeEventListener("scroll", listenToScroll);
-  }, []);
+  }, [isVisible]);
 
   return (
-    <div id="home">
+    <main id="home">
       {!isDesktop ? (
         <Navphone
           setShowLogin={setShowLogin}
@@ -121,10 +119,10 @@ function Home() {
           <span className="back-up"></span>
         </a>
       )}
-      <div className="home__carrousel">
+      <section className="home__carrousel">
         <Carousel />
-      </div>
-      <div className="home__gruops" id="oferta">
+      </section>
+      <section className="home__gruops" id="oferta">
         {groups?.map((group, i) => {
           const alter = i % 2 === 0 ? "alt" : "";
           return (
@@ -140,14 +138,17 @@ function Home() {
             />
           );
         })}
-      </div>
-      <div className="home_calendar" id="calendar">
+      </section>
+      <section className="home_calendar" id="calendar">
         <Calendar />
-      </div>
-      <div className="home_footer" id="contact">
+      </section>
+      <section className="home_about" id="about">
+        <About />
+      </section>
+      <section className="home_footer" id="contact">
         <ContactForm />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 

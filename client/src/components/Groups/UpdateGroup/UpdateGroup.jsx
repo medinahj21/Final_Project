@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateGroup } from "../../../redux/actions/actionsGroup";
+import {
+  getGroupDetail,
+  getGroups,
+  updateGroup,
+} from "../../../redux/actions/actionsGroup";
 import Modal from "../../UI/Modal";
 
 import "./UpdateGroup.css";
 
 function UpdateGroup({ setIsEdit, groupDetail, id }) {
+  // const admins = useSelector((state) => state.adminReducer.admins);
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
 
   const dispatch = useDispatch();
@@ -13,6 +18,10 @@ function UpdateGroup({ setIsEdit, groupDetail, id }) {
   const handleSubmit = (e) => {
     if (window.confirm("Estas seguro quieres guardar?")) {
       dispatch(updateGroup(id, inputUpdate));
+      setTimeout(() => {
+        dispatch(getGroupDetail(id));
+        dispatch(getGroups());
+      }, 2000);
     }
   };
 

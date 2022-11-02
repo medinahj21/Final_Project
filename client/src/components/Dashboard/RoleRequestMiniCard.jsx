@@ -24,7 +24,6 @@ import axios from "axios";
 export default function RoleRequestMiniCard(roleRequest) {
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -82,7 +81,7 @@ export default function RoleRequestMiniCard(roleRequest) {
         templateParams,
         "HiM3xW9AUxaXgJdP3"
       )
-      .then((response) => console.log(response))
+      .then((response) => notify("Inscripción aceptada"))
       .catch((error) => console.log(error));
   };
 
@@ -95,11 +94,15 @@ export default function RoleRequestMiniCard(roleRequest) {
         templateParams,
         "epAfsbl4mjKLiu-3p"
       )
-      .then((response) => console.log(response))
+      .then((response) => notify("Inscripción rechazada"))
       .catch((error) => console.log(error));
   };
 
   const handleConfirm = async (e) => {
+    if (error) {
+      return notifyError(error);
+    }
+
     if (window.confirm("¿seguro que desea confirmar esta inscripción?")) {
       let newPlayer = {
         id,
@@ -173,12 +176,13 @@ export default function RoleRequestMiniCard(roleRequest) {
               start: "00:00:00",
               end: "23:59:59",
               date: [paymentDate(8)],
-              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              description: `Fecha máxima de pago de inscripción ${paymentDate(
+                8
+              )}`,
               repetitive: false,
               state: "Pending",
               player: id,
-            }
-              ,
+            },
             // evento pago primera mensualidad
             {
               name: `Pago mensualidad-${month()}`,
@@ -186,12 +190,14 @@ export default function RoleRequestMiniCard(roleRequest) {
                 "Puedes realizar el pago en el dashboard componente de perfil",
               start: "00:00:00",
               end: "23:59:59",
-              date: [paymentDate(30)],//acomodar con respecto al day asignado
-              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              date: [paymentDate(30)], //acomodar con respecto al day asignado
+              description: `Fecha máxima de pago de inscripción ${paymentDate(
+                8
+              )}`,
               repetitive: true,
               state: "Pending",
               player: id,
-            }
+            },
           ];
 
           newEvents.forEach(async (event) => {
@@ -202,10 +208,9 @@ export default function RoleRequestMiniCard(roleRequest) {
           notifyError("No se generaron los eventos");
           console.log({ error_events: error });
         }
-        
-        
+
         // -------------- envió emailconfirmación y borro datos -----------------
-        
+
         sendApprovedEmail(e);
         await dispatch(deleteRoleRequest(id));
         await dispatch(getRoleRequests());
@@ -258,6 +263,8 @@ export default function RoleRequestMiniCard(roleRequest) {
           <div className="form__content-request form__request">
             <div className="forms_field-request">
               <input
+                min="1"
+                pattern="^[0-9]+"
                 className="forms_field-request-input"
                 type="number"
                 name="debtValue"
@@ -268,6 +275,8 @@ export default function RoleRequestMiniCard(roleRequest) {
             </div>
             <div className="forms_field-request">
               <input
+                min="1"
+                pattern="^[0-9]+"
                 className="forms_field-request-input"
                 type="number"
                 name="paymentDate"
@@ -278,6 +287,8 @@ export default function RoleRequestMiniCard(roleRequest) {
             </div>
             <div className="forms_field-request">
               <input
+                min="1"
+                pattern="^[0-9]+"
                 className="forms_field-request-input"
                 type="number"
                 name="shirtNumber"

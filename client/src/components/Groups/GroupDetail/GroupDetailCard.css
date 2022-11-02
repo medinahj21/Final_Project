@@ -1,13 +1,12 @@
 .group__detail-container {
-    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     background-color: rgba(4, 0, 43, 0.496);
     margin-top: -20px;
     width: 100vw;
-    height: 100%;
-    color: white;
+    height: 100vh;
+    color: #ffffff;
 }
 
 .group__detail-container .group-button {
@@ -27,7 +26,7 @@
 
 .group-detail-content span {
     font-size: 1.4rem;
-    color: orange;
+    color: var(--color-bg-contrast);
 }
 
 .group__detail-container p span {
@@ -150,7 +149,7 @@
 
 .button-detail-group a.animated-button:link:hover,
 .button-detail-group a.animated-button:visited:hover {
-    color: #FFF;
+    color: #fff;
     text-shadow: none;
 }
 
@@ -199,7 +198,7 @@
 
 
 @media screen and (max-width: 1404px) {
-    .group__detail-container p{
+    .group__detail-container p {
         left: 0;
         bottom: 0;
     }
@@ -251,7 +250,7 @@
         width: 100vw;
         height: 100vh;
         font-size: 1.4rem;
-        color: white;
+        color: #ffffff;
         overflow: hidden;
     }
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../../../redux/actions/event";
 import { Toast } from "../../../utils/toastSweet";
-
+import { Days } from "../../../utils/daysWeek";
 
 import Tags from "../../../components/Tag/Tags";
 import s from "../FormEvent/FormEvent.module.css";
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 export default function FormCalendario({ handleModal, getEvents }) {
 
   const dispatch = useDispatch();
-  
+
   const [isUpdate, setisUpdate] = useState(false);
   const [isRepetitive, setIsRepetitive] = useState("");
   const [inputs, setInputs] = useState({
@@ -35,7 +35,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
       date: [...inputs.date.filter((tag) => tag !== e)],
     });
   };
-
+  console.log(inputs);
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -66,7 +66,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
       groups: [...inputs.groups, e.target.value],
     });
   };
-  
+
   const handleSubmit = async (e) => {
     // logica de grupos 
     let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
@@ -88,7 +88,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
           let response = await dispatch(action.createEvent({
             ...inputs,
             player: idPlayers
-        }));
+          }));
           console.log(response);
           if (response.error) {
             Toast.fire({
@@ -186,14 +186,14 @@ export default function FormCalendario({ handleModal, getEvents }) {
               value={true}
               onChange={handleRepetitive}
             />
-            <span>true</span>
+            <span>Si</span>
             <input
               type="radio"
               name="repetitive"
               value={false}
               onChange={handleRepetitive}
             />
-            <span>false</span>
+            <span>No</span>
           </div>
         </div>
         {isRepetitive !== "" ? (
@@ -210,13 +210,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
                     <option selected value="s" disabled={true}>
                       Selecciona una opción
                     </option>
-                    <option value="lunes">Lunes</option>
-                    <option value="martes">Martes</option>
-                    <option value="miercoles">Miercoles</option>
-                    <option value="jueves">Jueves</option>
-                    <option value="viernes">Viernes</option>
-                    <option value="sabado">Sabado</option>
-                    <option value="domingo">Domingo</option>
+                    {Days.map((e) => {
+                      return <option value={e.id}>{e.day}</option>
+                    })}
                   </select>
                 </div>
                 <div className={s.item}>
@@ -231,7 +227,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
               <>
                 <div className={s.containerDays}>
                   {inputs.date?.map((e) => {
-                    return <Tags value={e} deleteTag={deleteTag} />;
+                    let dayName = Days.find((d) => parseInt(d.id) === parseInt(e))
+                    return <Tags value={dayName.day} deleteTag={deleteTag} />;
                   })}
                 </div>
               </>
@@ -240,7 +237,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <div className={s.noRepetitiveInputs}>
               <div className={s.item}>
                 <label htmlFor="date">Fecha: </label>
-                <input type="date" name="date" onChange={handleChangeDays} />
+                <input type="date" name="date" onChange={handleChange} />
               </div>
               <div className={s.item}>
                 <label htmlFor="start">Inicio:</label>

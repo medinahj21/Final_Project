@@ -31,7 +31,7 @@ const deleteGroups = async (req, res) => {
     if (!id) {
       res
         .status(400)
-        .json({ message: "id is require or id is to short, please try again" });
+        .json({ error: "id is require or id is to short, please try again" });
     } else {
       if (rgExp.test(id)) {
         const validateGroup = await Group.findByPk(id);
@@ -41,14 +41,14 @@ const deleteGroups = async (req, res) => {
           });
           res.status(200).json({ message: "Group has been delete" });
         } else {
-          res.status(404).json({ message: "group not found" });
+          res.status(404).json({ error: "group not found" });
         }
       } else {
-        res.status(412).json({ message: "id invalid" });
+        res.status(412).json({ error: "id invalid" });
       }
     }
   } catch (error) {
-    console.log(error);
+    res.status(400).json({error});;
   }
 };
 
