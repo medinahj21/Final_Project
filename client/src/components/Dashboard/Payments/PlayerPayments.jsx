@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DebtCard from "../DebtCard";
 
@@ -31,12 +31,12 @@ export default function PlayerPayments() {
     }
   };
 
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <>
-      <h1>Órdenes</h1>
-      <button onClick={getOrders}> Traer órdenes</button>
-      {/* <h2> Pagar toda la deuda ahora</h2>
-      <button id="checkout"> prueba</button> */}
       {allOrders?.length ? (
         <DebtCard orders={formatOrders} />
       ) : (

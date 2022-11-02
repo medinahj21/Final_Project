@@ -89,16 +89,18 @@ function NavbarDash({ setClickChoice }) {
                           onClick={(e) => onClcikHandler(e, "pagos")}
                         >
                           <i className="ion-ios-information-outline"></i>
-                          Historial de gastos
+                          Pagos y deudas
                         </a>
                       </li>
                       <li>
-                        <a href="#!">
-                          <i className="ion-android-star-outline"></i>Pagos y
-                          deudas
+                        <a
+                          href="#!"
+                          onClick={(e) => onClcikHandler(e, "pagosHistory")}
+                        >
+                          <i className="ion-android-star-outline"></i>Historial
+                          de pagos
                         </a>
                       </li>
-                    
                     </>
                   ) : (
                     <></>
@@ -161,42 +163,6 @@ function NavbarDash({ setClickChoice }) {
                   </ul>
                 </li>
               )}
-              <li>
-                <a href="#!">
-                  <i className="calendar-icon">
-                    <BsCalendarEvent />
-                  </i>{" "}
-                  <span className="">Calendario</span>
-                </a>
-                <ul className="nav-flyout">
-                  <li>
-                    <a
-                      href="#!"
-                      onClick={() =>
-                        validateClick("calendario", setClickChoice)
-                      }
-                    >
-                      <i className="ion-ios-flame-outline"></i>Entrenamiento
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!">
-                      <i className="ion-ios-lightbulb-outline"></i>Partidos
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!">
-                      <i className="ion-ios-location-outline"></i>Torneo
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!">
-                      <i className="ion-ios-locked-outline"></i>Eventos
-                      especiales
-                    </a>
-                  </li>
-                </ul>
-              </li>
               {isPlayer.id ? (
                 <li>
                   <Link to={"/products"}>

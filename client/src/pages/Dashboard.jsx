@@ -8,7 +8,6 @@ import { getPlayerDetail } from "../redux/actions/player";
 import { setInitialCart } from "../redux/actions/shoppingCart";
 import { clickChoiceHandler, getAllInfoUsers } from "../redux/actions/auth";
 
-import DebtCard from "../components/Dashboard/DebtCard";
 import Inscriptions from "../components/Dashboard/Inscriptions";
 import Groups from "../components/Groups/Groups";
 import Perfil from "../components/Dashboard/perfil/Perfil";
@@ -69,51 +68,31 @@ function Admin() {
         {clickChoice.isPerfil && (
           <>
             <Perfil userInfoFirestore={userInfoFirestore} />
-            {!userInfoFirestore.isAdmin ? (
-              <>
-                {/* Mapear deudas por mes --> */}
-                <div className="debts__cards">
-                  <DebtCard month={"octubre"} />
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
+            <Calendar />
           </>
         )}
         {clickChoice.isPagos && (
           <>
             {!userInfoFirestore.isAdmin ? (
-              <>
-                {/* Mapear deudas por mes --> */}
-                <PlayerPayments />
-              </>
+              <PlayerPayments />
             ) : (
               <div>Detalles de pagos admin</div>
             )}
           </>
         )}
-        {clickChoice.isRequest && (
+        {clickChoice.isPagosHistory && (
           <>
-            <Inscriptions />
+            <h2>Historial de pagos</h2>
           </>
         )}
-        {clickChoice.isPlayer && (
-          <>
-            <Players />
-          </>
-        )}
-        {clickChoice.isCalendario && <Calendar />}
-        {clickChoice.isGrupo && (
-          <>
-            <Groups />
-          </>
-        )}
+        {clickChoice.isRequest && <Inscriptions />}
+        {clickChoice.isPlayer && <Players />}
+        {clickChoice.isGrupo && <Groups />}
         {clickChoice.isSocios && (
-          <div>
+          <>
             <InfoTable users={adminUser} admin={true} />
             <InfoTable users={regularUser} admin={false} />
-          </div>
+          </>
         )}
       </div>
     </>

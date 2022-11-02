@@ -16,7 +16,7 @@ const initialState = {
     isPagos: false,
     isGrupos: false,
     isGrupo: false,
-    isCalendario: false,
+    isPagosHistory: false,
     isRequest: false,
     isPlayer: false,
     isPerfil: true,
