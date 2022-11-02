@@ -31,12 +31,12 @@
 .row.header {
     font-weight: 900;
     color: #ffffff;
-    background: orange;
+    background: var(--color-bg-contrast);
 }
 
 
 .row.blue {
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    background: var(--linear-gradient-blue);
 }
 
 @media screen and (max-width: 580px) {

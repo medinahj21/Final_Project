@@ -68,7 +68,7 @@ export default function RoleRequestMiniCard(roleRequest) {
     paymentDate: newPlayerData.paymentDate,
     debtValue: newPlayerData.debtValue,
     shirtNumber: newPlayerData.shirtNumber,
-  }
+  };
 
   const sendApprovedEmail = (e) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ export default function RoleRequestMiniCard(roleRequest) {
         templateParams,
         "HiM3xW9AUxaXgJdP3"
       )
-      .then((response) => console.log(response))
+      .then((response) => notify("Inscripción aceptada"))
       .catch((error) => console.log(error));
   };
 
@@ -93,11 +93,15 @@ export default function RoleRequestMiniCard(roleRequest) {
         templateParams,
         "epAfsbl4mjKLiu-3p"
       )
-      .then((response) => console.log(response))
+      .then((response) => notify("Inscripción rechazada"))
       .catch((error) => console.log(error));
-  }
+  };
 
   const handleConfirm = async (e) => {
+    if (error) {
+      return notifyError(error);
+    }
+
     if (window.confirm("¿seguro que desea confirmar esta inscripción?")) {
       let newPlayer = {
         id,

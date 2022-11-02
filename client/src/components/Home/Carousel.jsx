@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 
 import FOTO2 from "../../images/carousel2.jpeg";
-import FOTO3 from "../../images/carousel1.jpeg";
 import FOTO1 from "../../images/carousel3.jpeg";
 import FOTO5 from "../../images/carousel5.jpeg";
 
@@ -14,7 +13,7 @@ const data = [
   },
   {
     src: FOTO2,
-    title: "Voley 2",
+    title: "Somos una comunidad",
   },
   {
     src: FOTO5,

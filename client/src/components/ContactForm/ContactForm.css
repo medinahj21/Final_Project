@@ -18,9 +18,9 @@
   border: none;
   resize: none;
   align-self: start;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #808080;
   font-size: 1.1rem;
-  color: white;
+  color: #ffffff;
   font-weight: 400;
 }
 

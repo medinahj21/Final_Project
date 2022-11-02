@@ -167,7 +167,7 @@ const ShoppingCart = () => {
           </h4>
         )}
 
-        {!userInfoFirestore.isAdmin && (
+        {!userInfoFirestore.isAdmin && productsInCart?.length && (
           <a href="#!" className="button" onClick={() => handleCheckout()}>
             Comprar
           </a>

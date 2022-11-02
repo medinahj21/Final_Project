@@ -102,10 +102,9 @@ function Nav({ setShowLogin, setShowRegister, setShowAlta }) {
               </Link>
             </>
           )}
-
           <a href="#oferta">Oferta</a>
           <a href="#calendar">Calendario</a>
-          <a href="/about">Nosotros</a>
+          <a href="#about">Nosotros</a>
           <a href="#contact">Contacto</a>
         </div>
       </div>

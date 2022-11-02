@@ -17,7 +17,7 @@
 }
 
 .blog-card a:hover {
-    color: orange;
+    color: var(--color-bg-contrast);
     cursor: default;
 }
 

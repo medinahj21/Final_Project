@@ -20,7 +20,7 @@
 .card__title {
     margin: 0;
     font-size: 1.2rem;
-    color: rgb(1, 4, 46);
+    color: var(--color-bg);
     text-shadow: 0 3px 17px var(--color-bg);
 }
 
@@ -49,7 +49,7 @@
 }
 
 .btn-product {
-    background: linear-gradient(0deg, rgb(5, 7, 75) 0%, rgb(6, 29, 52) 100%);
+    background: var(--linear-gradient-blue);
     width: 130px;
     height: 40px;
     line-height: 42px;
@@ -71,7 +71,7 @@
     content: "";
     right: 0;
     top: 0;
-    background: rgb(5, 7, 75);
+    background: var(--color-bg);
     transition: all 0.3s ease;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .btn-product span:hover {
-    color: rgb(5, 7, 75);
+    color:var(--color-bg);
 }
 
 .btn-product span:before,
@@ -108,7 +108,7 @@
     content: "";
     left: 0;
     bottom: 0;
-    background: rgb(5, 7, 75);
+    background:var(--color-bg);
     transition: all 0.3s ease;
 }
 
@@ -132,7 +132,7 @@
 
 .card__price {
     padding: 1rem;
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    background: var(--linear-gradient-blue);
     text-align: center;
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;

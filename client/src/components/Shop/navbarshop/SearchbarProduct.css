@@ -4,7 +4,7 @@
     align-items: center;
     padding: 2rem 0;
     width: 100%;
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
+    background: var(--linear-gradient-blue);
     position: relative;
 }
 
@@ -16,7 +16,7 @@
     display: inline-block;
     font-size: 22px;
     color: #fff;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
 }
 
 .nav>.nav-btn {
@@ -32,7 +32,7 @@
 
 .nav>.nav-links>b {
     display: inline-block;
-    padding: 13px 10px 13px 10px;
+    padding: 13px 10px;
     text-decoration: none;
     color: #efefef;
 }
@@ -52,19 +52,20 @@
 
 .nav-links .button-nav:hover {
     background-color: white;
-    color: rgb(1, 4, 46);
-    border: 1px solid rgb(1, 4, 46);
+    color: var(--color-bg);
+    border: 1px solid var(--color-bg);
     border-radius: 7px;
 }
 
 .tag-list {
     padding: 0;
     margin: 0;
-    color: white;
+    color: #fff;
 }
 
-
 .search-box {
+    position: relative;
+    left: 45px;
     transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
     width: 40px;
     height: 40px;
@@ -75,17 +76,17 @@
 }
 
 .search-box+label .search-icon {
-    color: rgb(1, 0, 94);
+    color: var(--color-bg);
 }
 
 .search-box:hover {
-    color: white;
+    color: #fff;
     background: #c8c8c8;
     box-shadow: 0 0 0 5px #3d4752;
 }
 
 .search-box:hover+label .search-icon {
-    color: white;
+    color: #fff;
 }
 
 .search-box:focus {
@@ -98,11 +99,11 @@
     width: 300px;
     border-radius: auto;
     background: #ebebeb;
-    color: black;
+    color: #000;
 }
 
 .search-box:focus+label .search-icon {
-    color: black;
+    color: #000;
 }
 
 .search-box:not(:focus) {
@@ -116,7 +117,7 @@
 
 .search-icon {
     position: relative;
-    left: -30px;
+    left: 15px;
     color: white;
     cursor: pointer;
 }
@@ -164,9 +165,8 @@
     .nav>.nav-links {
         position: absolute;
         width: 100%;
-        flex-direction: column;
         align-items: center;
-        background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
+        background: var(--linear-gradient-blue);
         height: 0px;
         transition: all 0.3s ease-in;
         overflow-y: hidden;
@@ -184,8 +184,17 @@
     }
 
     .nav>#nav-check:checked~.nav-links {
-        height: 100vh;
+        height: 40vh;
         overflow-y: auto;
         z-index: 999999999999;
+    }
+}
+
+@media (max-width:600px) {
+    .nav>.nav-links {
+        flex-direction: column;
+    }
+    .nav>#nav-check:checked~.nav-links {
+        height: 40vh;
     }
 }

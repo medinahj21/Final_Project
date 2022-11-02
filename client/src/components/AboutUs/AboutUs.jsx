@@ -20,16 +20,20 @@ const AboutUs = () => {
       <div className="second-section">
         <h2 className="second-div-text">Nuestra historia</h2>
         <p className="second-div-paragraph">
-          La idea nace de la mano del profesor de educación física{" "}
-          <b>Edinson Loaiza Arango</b>. En el año 2018 puso manos a la obra y
+          <b>
+            La vida golpea duro y solo los ganadores aguantan los golpes y se
+            levantan de nuevo.
+          </b>
+          Luego de recibir la dura noticia de no ser mas profesor de educación
+          física, el profesor <b>Edinson Loaiza Arango</b> decidió aguantar el
+          golpe y levantarse de nuevo. En el año 2018 puso manos a la obra y
           seguido por chicos aficionados, abrieron el camino hacia la
           instauración del voleibol en la zona sur-oriental de la ciudad de
-          Medellín. Con el transcurso del tiempo encontro y gracias a su pasión
-          y entrega fueron sumandose mas jugadores a los entrenamientos lo que
-          le permitió organizar diversos grupos clasificados por géneros y
-          edades con un alto nivel de competitividad como para enfrentarse
-          contra equipos más fuertes y de mayor tradición obteniendo buenos
-          resultados. Así pues nace el que será el Club Wolves de Voleibol.
+          Medellín. Con el transcurso del tiempo y gracias a su pasión y entrega
+          fueron sumandose mas jugadores a los entrenamientos lo que nos
+          permitió organizar diversos grupos clasificados por géneros y edades
+          con un alto nivel de competitividad. Así pues nace el{" "}
+          <b>Club Wolves de Voleibol</b>.
         </p>
       </div>
       <div className="third-section">
