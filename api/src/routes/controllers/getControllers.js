@@ -16,7 +16,6 @@ const rgExp =
   /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/;
 
 /**===================== ProductsFromDB ======================== */
-
 const getProductsFromDB = async () => {
   try {
     const allProducts = await Product.findAll({
@@ -106,7 +105,7 @@ const getGroups = async (req, res) => {
   const { name } = req.query;
 
   try {
-    console.log(id, rgExp.test(id));
+   
     if (rgExp.test(id)) {
       const infoGroup = await Group.findByPk(id, {
         include: [
@@ -313,14 +312,15 @@ const getOrdersPlayer = async (req, res) => {
   const { id } = req.params;
   const { state } = req.query;
 
+  console.log(id)
   try {
     if (!id) {
-      res.json({ msg: "error" });
+      res.json({ msg: "error, no id sent" });
     } else if (id && state) {
       const player = await Player.findOne({
         where: { id },
       });
-
+      
       if (!player) {
         res.json({ msg: "player does not exist" });
       } else {
@@ -330,7 +330,7 @@ const getOrdersPlayer = async (req, res) => {
         });
         const result = order.filter((e) => e.player.id === id);
         result
-          ? res.send(result).status(200)
+        ? res.send(result).status(200)
           : res.json({ msg: "without order" });
       }
     } else {
@@ -342,15 +342,14 @@ const getOrdersPlayer = async (req, res) => {
         const order = await Order.findAll({
           include: [{ model: Player, attributes: ["id"] }],
         });
-        const result = order.filter((e) => e.player.id === id);
+        console.log("orders",order)
+        const result = order.filter((e) => e.playerId === id);
 
-        result
-          ? res.send(result).status(200)
-          : res.json({ msg: "without orders" });
-      }
-    }
-  } catch (error) {
-    res.json({ error_DB: error.message });
+    result ? res.send(result).status(200) : res.json({ msg: "without orders" })
+  
+  }}
+  } catch (error){
+    res.json({ error_DB: error.message })
   }
 };
 
@@ -446,11 +445,30 @@ const getRoleRequest = async (req, res) => {
     if (id) {
       const role = await RoleRequest.findByPk(id);
       !role
-        ? res.status(404).json({ message: "roleRequestis not found" })
+        ? res.status(404).json({ message: "roleRequest not found" })
         : res.send(role);
     } else {
       const role = await RoleRequest.findAll();
       !role ? res.status(400).json({ message: "bad request" }) : res.send(role);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+/**===================== RoleRequestPlayer ======================== */
+const getRequestPlayer = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id) {
+      const role = await RoleRequest.findAll({
+        where:{
+          id
+        }
+      });
+
+   role ? res.send(true):res.send(false)
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -501,4 +519,5 @@ module.exports = {
   getProductRequest,
   getPlayerEvents,
   getOrdersPlayer,
+  getRequestPlayer
 };

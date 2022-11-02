@@ -10,6 +10,7 @@ import Modal from "../../UI/Modal";
 import "./UpdateGroup.css";
 
 function UpdateGroup({ setIsEdit, groupDetail, id }) {
+  // const admins = useSelector((state) => state.adminReducer.admins);
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
 
   const dispatch = useDispatch();

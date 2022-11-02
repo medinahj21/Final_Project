@@ -2,7 +2,7 @@
     {
         "Marca temporal": "10\/13\/2022 13:57:52",
         "name": "Libre masculino",
-        "location": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location": "\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
         "days": "Lunes, Miércoles",
         "start": "8:20:00 PM",
         "end": "10:40:00 PM",
@@ -18,7 +18,7 @@
     {
         "Marca temporal": "10\/13\/2022 13:59:50",
         "name": "Libre femenino",
-        "location":"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location":"\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.880609866124!2d-75.5885154!3d6.2346848!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1667362340778!5m2!1ses!2sco",
         "days": "Martes, Jueves",
         "start": "7:00:00 PM",
         "end": "10:00:00 PM",
@@ -34,7 +34,7 @@
     {
         "Marca temporal": "10\/13\/2022 14:02:16",
         "name": "Mixto libre",
-        "location": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location": "\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.880609866124!2d-75.5885154!3d6.2346848!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1667362340778!5m2!1ses!2sco",
         "days": "Martes, Jueves",
         "start": "5:00:00 PM",
         "end": "7:00:00 PM",
@@ -50,7 +50,7 @@
     {
         "Marca temporal": "10\/13\/2022 14:04:14",
         "name": "Juvenil masculino",
-        "location": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location": "\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.880609866124!2d-75.5885154!3d6.2346848!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1667362340778!5m2!1ses!2sco",
         "days": "Lunes, Miércoles",
         "start": "6:00:00 PM",
         "end": "8:00:00 PM",
@@ -66,7 +66,7 @@
     {
         "Marca temporal": "10\/13\/2022 14:06:56",
         "name": "Chikiwolves",
-        "location": "https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3311.1847983882844!2d-75.59018363328549!3d6.234892822729868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429ba3e6cede7%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1665686842794!5m2!1ses!2sco\"",
+        "location": "\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.880609866124!2d-75.5885154!3d6.2346848!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2fe6017523f4d228!2sUnidad%20Deportiva%20de%20Bel%C3%A9n%20Andr%C3%A9s%20Escobar%20Saldarriaga!5e0!3m2!1ses!2sco!4v1667362340778!5m2!1ses!2sco",
         "days": "Lunes, Miércoles",
         "start": "5:00:00 PM",
         "end": "7:00:00 PM",

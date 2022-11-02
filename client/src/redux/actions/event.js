@@ -17,10 +17,10 @@ export function getEvents() {
     }
 }
 
-export const deleteEvent = (id, datos) => {
+export const deleteEvent = (id) => {
     return async (dispatch) => {
         return axios
-            .delete(`${axios.defaults.baseURL}/events/delete/${id}`, datos)
+            .delete(`${axios.defaults.baseURL}/events/delete/${id}`)
             .then((res) => res.data)
             .then((data) => {
                 console.log(data);
@@ -35,7 +35,7 @@ export const createEvent = (datos) => {
             console.log(response);
             return response.data
         } catch (error) {
-            return { error: error.response.data.error }
+            return { error }
         }
     }
 }

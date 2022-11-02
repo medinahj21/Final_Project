@@ -71,3 +71,36 @@ export const clearPlayerDetail = () => {
     });
   };
 };
+
+export const deletePlayer = (id) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.delete(`${axios.defaults.baseURL}/players/delete/${id}`)
+      if (response.error) {
+        return response.error;
+      } else {
+        return response.message;
+      }
+    } catch (error) {
+       return error
+    }
+  }
+}
+
+// export const updatePlayerEvents = (groups,event) => {
+//   return async (dispatch) => {
+//     try {
+//       const event = { events: event };
+//       let response = await axios.put(
+//         `http://localhost:3001/players/update/${id}`,
+//         shoppingCart
+//       );
+//       return dispatch({
+//         type: UPDATE_PLAYER_SHOPPING_CART,
+//         payload: response.data,
+//       });
+//     } catch (error) {
+//       console.log({ error: error.message });
+//     }
+//   };
+// };

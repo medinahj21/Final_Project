@@ -19,10 +19,12 @@ import Modal from "../UI/Modal";
 import "./Request.css";
 import "./FormRequest.css";
 import { validateNewPlayer } from "../../utils/validateNewPlayer";
+import axios from "axios";
 
 export default function RoleRequestMiniCard(roleRequest) {
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
+  const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -114,13 +116,101 @@ export default function RoleRequestMiniCard(roleRequest) {
       let response = await dispatch(createPlayer(newPlayer));
       if (response.error) {
         notifyError("Algo salio mal!");
-        alert("algo salió mal");
         //jugador no creado
       } else {
+        notify("Nuevo jugador creado");
+        // -------------- genero órdenes de inscripción y mensualidad -----------
+        const month = () => {
+          var options = { month: "long" };
+          let day = new Date();
+          day.setDate(day.getDate() + 30);
+          let monthName = day.toLocaleDateString("es-CO", options).split("/");
+          return monthName;
+        };
+        const paymentDate = (term) => {
+          var options = { year: "numeric", month: "2-digit", day: "2-digit" };
+          const day = new Date();
+          day.setDate(day.getDate() + Number(term));
+          const array = day.toLocaleDateString("es-US", options).split("/");
+          const formatedDate = [array[2], array[1], array[0]].join("-");
+          return formatedDate;
+        };
+        let newOrders = [
+          //inscripción
+          {
+            value: groupDetail.inscription_cost,
+            concept: "Inscripción",
+            description: `Deuda por inscripción a ${groupDetail.name.toLowerCase()}`,
+            order_state: "Pending",
+            payment_mode: "App",
+            payment_term: 8, //hardcodeado, dependerá de cada caso
+            type_order: "club",
+            playerId: id,
+          },
+          //primera mensualidad
+          {
+            value: newPlayerData.debtValue,
+            concept: `Mensualidad-${month()}`,
+            description: `Cobro mensualidad-${month()}`,
+            order_state: "Pending",
+            payment_mode: "App",
+            payment_term: 1, //hardcodeado, dependerá de cada caso
+            type_order: "club",
+            playerId: id,
+          },
+        ];
+
+        newOrders.forEach(async (order) => {
+          await axios.post(`${axios.defaults.baseURL}/orders/create`, order);
+        });
+        notify("Órdenes creadas");
+
+        // --------- genero eventos pago de inscripción y mensualidad -----------
+
+        try {
+          let newEvents = [
+            // evento pago inscripción
+            {
+              name: `pago de inscripción`,
+              location:
+                "Puedes realizar el pago en el dashboard componente de perfil",
+              start: "00:00:00",
+              end: "23:59:59",
+              date: [paymentDate(8)],
+              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              repetitive: false,
+              state: "Pending",
+              player: id,
+            }
+              ,
+            // evento pago primera mensualidad
+            {
+              name: `Pago mensualidad-${month()}`,
+              location:
+                "Puedes realizar el pago en el dashboard componente de perfil",
+              start: "00:00:00",
+              end: "23:59:59",
+              date: [paymentDate(30)],//acomodar con respecto al day asignado
+              description: `Fecha máxima de pago de inscripción ${paymentDate(8)}`,
+              repetitive: true,
+              state: "Pending",
+              player: id,
+            }
+          ];
+
+          newEvents.forEach(async (event) => {
+            await axios.post(`${axios.defaults.baseURL}/events/create`, event);
+          });
+          notify("Eventos creados");
+        } catch (error) {
+          notifyError("No se generaron los eventos");
+          console.log({ error_events: error });
+        }
+        
+        
+        // -------------- envió emailconfirmación y borro datos -----------------
+        
         sendApprovedEmail(e);
-        setTimeout(() => {
-          notify("Nuevo jugador creado!!");
-        }, 2000);
         await dispatch(deleteRoleRequest(id));
         await dispatch(getRoleRequests());
       }

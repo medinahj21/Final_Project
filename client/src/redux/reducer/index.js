@@ -5,6 +5,7 @@ import eventReducer from "./event";
 import playerReducer from "./player"
 import productsReducer from "./products";
 import shoppingCartReducer from "./shoppingCartReducer";
+import adminReducer from './admin'
 
 
 import { RESET_REDUX_STATE } from "../actions/actions";
@@ -12,11 +13,11 @@ import { RESET_REDUX_STATE } from "../actions/actions";
 const appReducer = combineReducers({
   authReducer,
   eventReducer,
-  authReducer, 
   groupReducer,
   playerReducer,
   productsReducer,
   shoppingCartReducer,
+  adminReducer,
 });
 
 export function rootReducer(state, action) {

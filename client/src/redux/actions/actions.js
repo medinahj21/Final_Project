@@ -27,6 +27,9 @@ export const CREATE_ORDER = "CREATE_ORDER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 
+//ADMIN
+export const GET_ADMIN = "GET_ADMIN";
+
 //EVENTS
 export const CREATE_EVENT = "CREATE_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";

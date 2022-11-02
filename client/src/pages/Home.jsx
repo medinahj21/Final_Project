@@ -55,13 +55,13 @@ function Home() {
     const listenToScroll = () => {
       const winScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
-      if (winScroll > 200) isVisible && setIsVisible(false);
-      if (winScroll < 200) !isVisible && setIsVisible(true);
+      if (winScroll < 200) isVisible && setIsVisible(false);
+      if (winScroll > 200) !isVisible && setIsVisible(true);
     };
 
     window.addEventListener("scroll", listenToScroll);
     return () => window.removeEventListener("scroll", listenToScroll);
-  }, []);
+  }, [isVisible]);
 
   return (
     <main id="home">

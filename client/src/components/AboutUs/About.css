@@ -62,8 +62,6 @@
     box-shadow: 7px 7px 10px 0 black;
 }
 
-
-
 /* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
 
 @media screen and (max-width: 1224px) {
@@ -98,7 +96,6 @@
     }
 
 }
-
 
 /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
 
