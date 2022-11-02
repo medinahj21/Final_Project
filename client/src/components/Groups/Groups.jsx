@@ -58,7 +58,7 @@ export default function Groups() {
   };
 
   return (
-    <div className="groups__container">
+    <div className="groups__container" id="container-group-detail">
       {playerDetail?.group?.id ? (
         <GroupDetail
           id={playerDetail?.group?.id}

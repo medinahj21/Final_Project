@@ -128,45 +128,30 @@ const createEvent = async (req, res) => {
     state,
     player,
   } = req.body;
+  console.log(req.body);
   try {
     if (!((name && start && end && location && date) /*&& admin*/)) {
       res.status(400).json({ error: "information is missing" });
     } else {
-      if (repetitive === false) {
-        const newEvent = await Event.create({
-          name,
-          location,
-          description,
-          date,
-          repetitive,
-          state,
-          start,
-          end,
-        });
-        /*const addAdmin = await newEvent.addAdmin(admin);
-        const addPlayer = await newEvent.addPlayer(player);
-        addAdmin && addPlayer && */
-        res.status(200).send("the event has been created");
-      } else {
-        for (let i = 0; i < date.length; i++) {
-          const newEvent = await Event.create({
-            name,
-            location,
-            description,
-            date: [date[i]],
-            repetitive,
-            state,
-            start,
-            end,
-          });
-          await newEvent.addAdmin(admin);
-          await newEvent.addPlayer(player);
-        }
-        res.status(200).send("the events has been created successfully");
-      }
+      const newEvent = await Event.create({
+        name,
+        location,
+        description,
+        date: [date],
+        repetitive,
+        state,
+        start,
+        end,
+      });
+      /*const addAdmin = await newEvent.addAdmin(admin);
+      const addPlayer = await newEvent.addPlayer(player);
+      addAdmin && addPlayer && */
+      console.log(newEvent);
+      res.status(200).send("the event has been created");
     }
   } catch (error) {
-    res.status(400).json({ error_DB: error.message });
+    res.status(400).json({ error_DB: error });
+
   }
 };
 
@@ -364,7 +349,7 @@ const pagarProducto = async (req, res) => {
   try {
     const response = await mercadopago.preferences.create(preference)
     const preferenceId = response.body.id
-    res.json({preferenceId});
+    res.json({ preferenceId });
   } catch (error) {
     console.log(error);
     res.json(error)

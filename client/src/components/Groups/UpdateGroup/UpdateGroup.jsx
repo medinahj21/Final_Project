@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateGroup } from "../../../redux/actions/actionsGroup";
+import * as action from "../../../redux/actions/admin";
 import Modal from "../../UI/Modal";
 
 import "./UpdateGroup.css";
 
-function UpdateGroup({ setIsEdit, groupDetail, id }) {
+function UpdateGroup({ setIsEdit, groupDetail, id }) {  
+  const admins = useSelector((state) => state.adminReducer.admins);
   const [inputUpdate, setInputUpdate] = useState(groupDetail);
 
   const dispatch = useDispatch();

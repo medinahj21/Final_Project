@@ -56,13 +56,13 @@ export const updateGroup = (id, datos) => {
   };
 };
 
-export const deleteGroup = (id, datos) => {
+export const deleteGroup = (id) => {
   return async (dispatch) => {
-    return axios
-      .post(`${axios.defaults.baseURL}/groups/delete/${id}`, datos)
+    return await axios
+      .delete(`${axios.defaults.baseURL}/groups/delete/${id}`)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        return data;
       });
   };
 };

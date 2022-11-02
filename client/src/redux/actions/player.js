@@ -72,6 +72,21 @@ export const clearPlayerDetail = () => {
   };
 };
 
+export const deletePlayer = (id) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.delete(`${axios.defaults.baseURL}/players/delete/${id}`)
+      if (response.error) {
+        return response.error;
+      } else {
+        return response.message;
+      }
+    } catch (error) {
+       return error
+    }
+  }
+}
+
 // export const updatePlayerEvents = (groups,event) => {
 //   return async (dispatch) => {
 //     try {

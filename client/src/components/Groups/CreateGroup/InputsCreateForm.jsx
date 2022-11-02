@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeGroups }) {
+function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin }) {
   return (
     <>
       <div className="form__content-alta inputs-container">
@@ -149,7 +149,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeGroup
         <label htmlFor="">
           <select
             name="adminId"
-            onChange={handleChangeGroups}
+            onChange={handleChangeAdmin}
             defaultValue="disabled"
             className="select_container">
             <option value="disabled" disabled={true}>Admins</option>

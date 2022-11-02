@@ -1,7 +1,11 @@
 import React from "react";
+import InfoPlayerTable from "./InfoPlayerTable";
 
 function Players() {
-  return <div>Players</div>;
+
+  return (
+    <InfoPlayerTable/>
+  );
 }
 
 export default Players;
