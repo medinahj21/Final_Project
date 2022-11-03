@@ -2,9 +2,11 @@ import React from "react";
 import InfoPlayerTable from "./InfoPlayerTable";
 
 function Players() {
-
   return (
-    <InfoPlayerTable/>
+    <>
+      <h3>Jugadores</h3>
+      <InfoPlayerTable />
+    </>
   );
 }
 

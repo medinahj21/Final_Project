@@ -72,7 +72,6 @@
   position: fixed;
   top: 35vh;
   left: 20px;
-  z-index: 99999999;
   animation-name: pulse;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;

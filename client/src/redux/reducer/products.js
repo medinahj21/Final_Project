@@ -60,7 +60,7 @@ export default function productsReducer(state = initialState, action) {
         filteredData.sort((a, b) => b.price - a.price);
       }
 
-      return { ...state, products: filteredData };
+      return { ...state, products: filteredData, prevPage: 1 };
 
     case GET_PRODUCT_DETAIL:
       return {

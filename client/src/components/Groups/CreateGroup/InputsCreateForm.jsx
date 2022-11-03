@@ -4,7 +4,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
   return (
     <>
       <div className="form__content-alta inputs-container">
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               value={groupInputs.name}
@@ -16,7 +16,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="text"
@@ -28,7 +28,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="text"
@@ -40,7 +40,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="text"
@@ -52,7 +52,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="number"
@@ -64,7 +64,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="text"
@@ -76,7 +76,7 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             />
           </div>
         </div>
-        <div className="form__content-inputs">
+        <div className="form__content-inputs create-group-input">
           <div className="forms_field">
             <input
               type="text"

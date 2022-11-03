@@ -22,7 +22,7 @@
 }
 
 .home_calendar {
-    padding: 5rem;
+    padding: 5rem 0;
     height: auto;
 }
 
@@ -132,7 +132,7 @@
         height: 40px;
         width: 40px;
         top: 90vh;
-        right: 45%;
+        right:20px;
     }
 
     .back-up::after {

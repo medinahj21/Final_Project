@@ -50,7 +50,7 @@ function NavbarDash({ setClickChoice }) {
     <>
       <span onClick={() => setShowMenu(!showMenu)} className="showAction">
         {showMenu ? (
-          <div className="menu-icon">
+          <div className={!showMenu ? "menu-icon" : "menu-icon-black"}>
             <AiOutlineClose />
           </div>
         ) : (
@@ -121,23 +121,19 @@ function NavbarDash({ setClickChoice }) {
                     <span className="">Administracion</span>
                   </a>
                   <ul className="nav-flyout">
-                    <li>
-                      <a
-                        href="#!"
-                        onClick={(e) => onClcikHandler(e, "request")}
-                      >
-                        <i className="ion-ios-filing-outline"></i>Inscripciones
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#!"
-                        onClick={() => validateClick("socios", setClickChoice)}
-                      >
-                        <i className="ion-ios-paperplane-outline"></i>Gestion de
-                        admins
-                      </a>
-                    </li>
+                    {userInfoFirestore.superAdmin && (
+                      <li>
+                        <a
+                          href="#!"
+                          onClick={() =>
+                            validateClick("socios", setClickChoice)
+                          }
+                        >
+                          <i className="ion-ios-paperplane-outline"></i>Gestion
+                          de admins
+                        </a>
+                      </li>
+                    )}
                     <li>
                       <a
                         href="#!"

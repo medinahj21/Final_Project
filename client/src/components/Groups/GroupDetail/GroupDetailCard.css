@@ -24,6 +24,11 @@
     font-size: 1rem;
 }
 
+.group-detail-content.home-detail-content {
+    gap: 5rem;
+    margin-left: 30rem;
+}
+
 .group-detail-content span {
     font-size: 1.4rem;
     color: var(--color-bg-contrast);
@@ -45,6 +50,10 @@
     -webkit-animation: aitf 80s linear infinite;
     -webkit-transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
+}
+
+.group__detail-container p .home-detail-title {
+    left: 40%;
 }
 
 @keyframes aitf {
@@ -73,8 +82,8 @@
     position: absolute;
     height: 325px;
     width: 325px;
-    top: 1vh;
-    right: 60vw;
+    top: 20px;
+    left: 20%;
     border: 2px solid transparent;
     border-radius: 50%;
     border-top-left-radius: 5%;
@@ -82,6 +91,10 @@
     animation-duration: 1.5s;
     animation-timing-function: ease-out;
     animation-iteration-count: infinite;
+}
+
+.group__detail-container .home-detail-group {
+    left: 5%;
 }
 
 @keyframes pulseMap {
@@ -111,6 +124,10 @@
     left: -10%;
     justify-content: center;
     gap: 2rem;
+}
+
+.group-btn-container.home-btn-container {
+    left: 0;
 }
 
 .button-detail-group a.animated-button:link,
@@ -220,7 +237,7 @@
     }
 }
 
-@media screen and (max-width: 904px) {
+@media screen and (max-width: 1304px) {
 
     .group__detail-container p span {
         left: 25%;
@@ -228,22 +245,31 @@
         font-size: 4rem;
     }
 
-    .group__detail-container iframe {
-        left: 55%;
-    }
-
     .group-detail-content {
         gap: 1rem;
         position: relative;
         top: -100px;
+        left: 20px;
     }
+
+    .group-detail-content.home-detail-content {
+        gap: 5rem;
+        margin-left: 20rem;
+    }
+
+
 
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
     .group__detail-container p span {
         top: 0;
         font-size: 2rem;
+    }
+
+    .group-detail-content.home-detail-content {
+        gap: 5rem;
+        margin-left: 0rem;
     }
 
     .group__detail-container {

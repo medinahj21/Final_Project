@@ -26,34 +26,38 @@ export default function Calendar(setIsEventForm, isEventForm) {
   const [modalDetail, setModalDetail] = useState(false);
   const [detail, setDetail] = useState([]);
   const [eventPlayer, setEventPlayer] = useState([]);
-  
+
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    let eventMap = events.length && events?.map((ev) =>
-      ev.state === "Pending"
-        ? [
-          {
-            title: ev.name,
-            id: ev.id,
-            description: ev.description,
-            state: ev.state,
-            location: ev.location,
-            startTime: ev.repetitive ? ev.start : "",
-            endTime: ev.repetitive ? ev.end : "",
-            start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
-            end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
-            allDay: false,
-            type: ev.type,
-            daysOfWeek: ev.repetitive ? ev.date[0] : "",
-          },
-        ]
-        : []
+    if (events.length) {
+      let eventMap =
+        events.length &&
+        events?.map((ev) =>
+          ev.state === "Pending"
+            ? [
+                {
+                  title: ev.name,
+                  id: ev.id,
+                  description: ev.description,
+                  state: ev.state,
+                  location: ev.location,
+                  startTime: ev.repetitive ? ev.start : "",
+                  endTime: ev.repetitive ? ev.end : "",
+                  start: !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
+                  end: !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
+                  allDay: false,
+                  type: ev.type,
+                  daysOfWeek: ev.repetitive ? ev.date[0] : "",
+                },
+              ]
+            : []
         );
-    setObjectEvent(events?.length && eventMap.flat());
-    setObjectEvent2(events?.length && eventMap.flat());
+      setObjectEvent(events?.length && eventMap.flat());
+      setObjectEvent2(events?.length && eventMap.flat());
+    }
   }, [events]);
 
   const handleModal = () => {
@@ -64,7 +68,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
-  }, [dispatch]); 
+  }, [dispatch]);
 
   return (
     <div className="fc-header-toolbar fc-toolbar font-size">
@@ -85,8 +89,14 @@ export default function Calendar(setIsEventForm, isEventForm) {
           center: "title",
           end: "today prev,next",
         }}
-        footerToolbar={userInfoFirestore.isAdmin? {start:"todos entrenamiento,partido,torneo,especial" , center: "custom1" }:
-        {center:"todos entrenamiento,partido,torneo,especial"}}
+        footerToolbar={
+          userInfoFirestore.isAdmin
+            ? {
+                start: "todos entrenamiento,partido,torneo,especial",
+                center: "custom1",
+              }
+            : { center: "todos entrenamiento,partido,torneo,especial" }
+        }
         customButtons={{
           custom1: {
             text: "Crear evento",
@@ -94,53 +104,64 @@ export default function Calendar(setIsEventForm, isEventForm) {
           },
           todos: {
             text: "Todos",
-            click: function() {
-              setObjectEvent(objectEvent2)
+            click: function () {
+              setObjectEvent(objectEvent2);
             },
           },
           entrenamiento: {
             text: "Entenamientos",
-            click: function(){
-              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Entrenamiento'))
+            click: function () {
+              setObjectEvent(
+                objectEvent2.filter((ev) => ev.type === "Entrenamiento")
+              );
             },
           },
           partido: {
             text: "Partidos",
-            click: function(){
-              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Partido'))
+            click: function () {
+              setObjectEvent(
+                objectEvent2.filter((ev) => ev.type === "Partido")
+              );
             },
           },
           torneo: {
             text: "Torneos",
-            click: function(){
-              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Torneo'))
+            click: function () {
+              setObjectEvent(objectEvent2.filter((ev) => ev.type === "Torneo"));
             },
           },
           especial: {
             text: "Eventos",
-            click: function(){
-              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Evento Especial'))
+            click: function () {
+              setObjectEvent(
+                objectEvent2.filter((ev) => ev.type === "Evento Especial")
+              );
             },
-          },          
+          },
         }} //Si no es admin, mostrar los relacionados al jugador
-        events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id))}
+        events={
+          userInfoFirestore.isAdmin
+            ? objectEvent
+            : objectEvent?.filter((ev) => eventPlayer?.includes(ev.id))
+        }
         eventClick={function (event) {
           setModalDetail(true);
           setDetail(event.event._def);
         }}
       />
 
-      {modalOn &&
-        <Modal>
+      {modalOn && (
+        <Modal clickHandler={handleModal}>
           <FormEvent
             isCreate={isCreate}
             setIsCreate={setIsCreate}
             handleModal={handleModal}
             getEvents={getEvents}
           />
-        </Modal>}
+        </Modal>
+      )}
 
-      {modalDetail &&
+      {modalDetail && (
         <Modal>
           <DetailEvent
             setModalDetail={setModalDetail}
@@ -150,7 +171,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
             idE={detail.publicId}
           />
         </Modal>
-      }
+      )}
     </div>
   );
 }

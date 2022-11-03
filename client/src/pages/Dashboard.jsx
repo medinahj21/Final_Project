@@ -86,8 +86,12 @@ function Admin() {
             <PaymentHistory />
           </>
         )}
-        {clickChoice.isRequest && <Inscriptions />}
-        {clickChoice.isPlayer && <Players />}
+        {clickChoice.isPlayer && (
+          <>
+            <Inscriptions />
+            <Players />
+          </>
+        )}
         {clickChoice.isGrupo && <Groups />}
         {clickChoice.isSocios && (
           <>

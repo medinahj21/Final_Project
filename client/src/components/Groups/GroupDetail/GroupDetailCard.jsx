@@ -13,10 +13,14 @@ export default function GroupDetailCard({
   groupDetail,
   setShowDetail,
   allowBack,
+  setShowLogin,
+  setShowRegister,
 }) {
   const dispatch = useDispatch();
 
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  const { userInfoFirestore, email } = useSelector(
+    (state) => state.authReducer
+  );
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { roleRequests } = useSelector((state) => state.groupReducer);
 
@@ -25,19 +29,21 @@ export default function GroupDetailCard({
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    dispatch(actions.getRoleRequests())
-  }, [dispatch])
+    dispatch(actions.getRoleRequests());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!userInfoFirestore.isAdmin) {
-      const didRequest = roleRequests?.filter((role) => (role.id === userInfoFirestore.uid) && (role.deletedAt === null))
+      const didRequest = roleRequests?.filter(
+        (role) => role.id === userInfoFirestore.uid && role.deletedAt === null
+      );
       if (didRequest.length) {
         setIsDisabled(true);
       } else {
         setIsDisabled(false);
       }
     }
-  }, [roleRequests])
+  }, [roleRequests]);
 
   const handleSuscribe = async () => {
     //debo hacer la validación de si no es jugador
@@ -69,52 +75,67 @@ export default function GroupDetailCard({
 
   const deleteGroup = (id) => {
     Swal.fire({
-      title: 'Estas seguro que quieres eliminar el grupo?',
+      title: "Estas seguro que quieres eliminar el grupo?",
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      confirmButtonColor: '#01002E',
+      confirmButtonText: "Eliminar",
+      confirmButtonColor: "#01002E",
       denyButtonText: `No Eliminar`,
-      target: document.getElementById('container-group-detail')
-    })
-      .then(async (result) => {
-        if (result.isConfirmed) {
-          let response = await dispatch(actions.deleteGroup(id))
-          if (response.error) {
-            Toast.fire({
-              icon: 'error',
-              title: 'Error',
-              text: `Algo salio mal: ${response.error}`,
-              target: document.getElementById('container-group-detail')
-            })
-          } else {
-            Toast.fire({
-              icon: 'success',
-              title: 'Hecho!',
-              text: `Se ha eliminado correctamente!`,
-            })
-            dispatch(actions.getGroups());
-            setShowDetail(false)
-          }
-        } else if (result.isDenied) {
+      target: document.getElementById("container-group-detail"),
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let response = await dispatch(actions.deleteGroup(id));
+        if (response.error) {
           Toast.fire({
-            icon: 'info',
-            title: 'La eliminación se ha cancelado!',
-            target: document.getElementById('container-group-detail')
-          })
+            icon: "error",
+            title: "Error",
+            text: `Algo salio mal: ${response.error}`,
+            target: document.getElementById("container-group-detail"),
+          });
+        } else {
+          Toast.fire({
+            icon: "success",
+            title: "Hecho!",
+            text: `Se ha eliminado correctamente!`,
+          });
+          dispatch(actions.getGroups());
+          setShowDetail(false);
         }
-      })
-  }
+      } else if (result.isDenied) {
+        Toast.fire({
+          icon: "info",
+          title: "La eliminación se ha cancelado!",
+          target: document.getElementById("container-group-detail"),
+        });
+      }
+    });
+  };
 
+  const handleLogin = () => {
+    setShowLogin(true);
+    setShowDetail(false);
+  };
+  const handleRegister = () => {
+    setShowRegister(true);
+    setShowDetail(false);
+  };
 
   return (
-    <div >
+    <div>
       <img className="update__image" src={groupDetail.image} alt="grupos" />
       <div className="group__detail-container">
         <p>
-          <span>{groupDetail.name}</span>
+          <span className={allowBack ? "home-detail-title" : ""}>
+            {groupDetail.name}
+          </span>
         </p>
-        <div className="group-detail-content">
+        <div
+          className={
+            allowBack
+              ? "group-detail-content home-detail-content "
+              : "group-detail-content"
+          }
+        >
           <div className="group-detail-first">
             <span>Genero: </span>
             <p>{groupDetail.genre}</p>
@@ -136,8 +157,14 @@ export default function GroupDetailCard({
             <p>{groupDetail.accept_newPlayers ? "Si" : "No"}</p>
           </div>
         </div>
-        <div className="group-btn-container">
-          {!userInfoFirestore?.uid && (
+        <div
+          className={
+            allowBack
+              ? "group-btn-container home-btn-container"
+              : "group-btn-container"
+          }
+        >
+          {!userInfoFirestore?.uid && email ? (
             <div
               className="button-detail-group"
               onClick={() => setIsForm(true)}
@@ -147,6 +174,21 @@ export default function GroupDetailCard({
                 Solicitar alta
               </a>{" "}
             </div>
+          ) : (
+            <>
+              <div className="button-detail-group" onClick={handleRegister}>
+                {" "}
+                <a href="#!" className="animated-button victoria-one">
+                  Registrarse
+                </a>{" "}
+              </div>
+              <div className="button-detail-group" onClick={handleLogin}>
+                {" "}
+                <a href="#!" className="animated-button victoria-one">
+                  Iniciar sesión
+                </a>{" "}
+              </div>
+            </>
           )}
           {!isDisabled &&
             userInfoFirestore?.uid &&
@@ -196,7 +238,11 @@ export default function GroupDetailCard({
             </div>
           )}
         </div>
-        <iframe title="Ubicación" src={groupDetail.location?.split('\"')[1]}></iframe>
+        <iframe
+          className={allowBack ? "home-detail-group" : ""}
+          title="Ubicación"
+          src={groupDetail.location?.split('"')[1]}
+        ></iframe>
         {isEdit ? (
           <UpdateGroup
             setIsEdit={setIsEdit}
