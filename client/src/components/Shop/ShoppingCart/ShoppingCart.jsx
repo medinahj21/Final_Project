@@ -41,7 +41,7 @@ const ShoppingCart = ({ setShowCart }) => {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src =
-      "https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js";
+      "https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js";
     script.setAttribute("data-preference-id", preference.data.preferenceId);
     const button = document.getElementById("checkout");
     button.innerHTML = "";
