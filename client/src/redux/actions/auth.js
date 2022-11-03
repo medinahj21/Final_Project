@@ -1,0 +1,71 @@
+import {
+  LOGIN_USER_FIREBASE,
+  LOGOUT_USER_FIREBASE,
+  PLAYER__FORM__FIREBASE,
+  ALL_PLAYER__FORM__FIREBASE,
+  CLICK__CHOICE,
+} from "./actions";
+
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+
+import { auth, firestore } from "../../firebase/firebase.config";
+import { doc, getDoc } from "firebase/firestore";
+
+export const login = (email, nickName) => ({
+  type: LOGIN_USER_FIREBASE,
+  payload: { email, nickName },
+});
+
+export const logout = () => {
+  signOut(auth);
+  return {
+    type: LOGOUT_USER_FIREBASE,
+  };
+};
+
+export const loginWhitEmailAndPassword = async (email, password) => {
+  await signInWithEmailAndPassword(auth, email, password);
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
+};
+
+export const registerWhitEmailAndPassword = async (email, password) => {
+  await createUserWithEmailAndPassword(auth, email, password);
+  return { type: LOGIN_USER_FIREBASE, payload: { email, nickName: "" } };
+};
+
+export function getUserFirestore(uid) {
+  return (dispatch) => {
+    try {
+      const docuRef = doc(firestore, `usuarios/${uid}`);
+      getDoc(docuRef).then((consult) => {
+        if (consult.exists()) {
+          const infoDocu = consult.data();
+          return dispatch({
+            type: PLAYER__FORM__FIREBASE,
+            payload: { ...infoDocu },
+          });
+        } 
+      });
+    } catch (error) {
+      console.log("Failed to retrieve data from database", error);
+      return dispatch({
+        type: PLAYER__FORM__FIREBASE,
+        payload: "",
+      });
+    }
+  };
+}
+
+export const getAllInfoUsers = (docs) => {
+  return { type: ALL_PLAYER__FORM__FIREBASE, payload: docs };
+};
+
+export const clickChoiceHandler = (click) => {
+  return { type: CLICK__CHOICE, payload: click };
+};
+
+//action envie al back

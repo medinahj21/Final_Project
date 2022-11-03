@@ -1,0 +1,122 @@
+.nav__container {
+    background: var(--linear-gradient);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    width: 100vw;
+    height: 12vh;
+    background-color: var(--color-bg);
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    box-shadow: var(--box-shadow);
+    z-index: 999;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.nav__logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav__logo img {
+    width: 80px;
+    height: 80px;
+    margin-left: 4rem;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow);
+}
+
+.nav__container-links {
+    margin-right: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.nav__login,
+.nav__links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.alta__jugador {
+    position: relative;
+    top: -15px;
+}
+
+.alta__jugador:hover,
+.nav__links a:hover,
+.nav__login p:hover {
+    color: var(--color-bg-contrast);
+}
+
+.verify-email {
+    color: #dc143c;
+}
+
+.nav_cart {
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0 #ffffff;
+    border-radius: 3px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    position: relative;
+    color: #ffffff;
+}
+
+.nav_cart::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #dc143c;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+
+.nav_cart.nav_cart_phone {
+    position: absolute;
+    right: 50px;
+    top: 30px;
+}
+
+.nav_cart.nav_cart_dash {
+    position: absolute;
+    right: 30px;
+    bottom: 40px;
+    box-shadow: 0 0 5px 0 var(--color-bg);
+    color: var(--color-bg);
+}
+
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {}
+
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 600px) {}

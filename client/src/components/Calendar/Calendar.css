@@ -1,0 +1,22 @@
+.fc-footer-toolbar.fc-toolbar button,
+.fc-header-toolbar.fc-toolbar button {
+    background-color: var(--color-bg);
+}
+
+.fc .fc-toolbar {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .fc-header-toolbar.fc-toolbar.font-size>* {
+        font-size: .8rem !important;
+    }
+
+    .fc .fc-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+}

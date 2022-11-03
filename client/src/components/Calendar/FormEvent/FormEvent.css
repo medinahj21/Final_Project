@@ -1,0 +1,256 @@
+  .form-event {
+    font-family: "Montserrat", sans-serif;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 80vw;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+    background: var(--linear-gradient-blue);
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+  }
+
+  .event-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+
+  }
+
+  .form-event-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgb(235, 228, 228) !important;
+  }
+
+  .form-event-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-event-content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: space-evenly;
+  }
+
+  .form-event-content .forms_field:not(:last-of-type) {
+    margin-bottom: 20px;
+  }
+
+  .form-event-content .forms_field-input {
+    width: 80%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 20px 6px 6px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #808080;
+    letter-spacing: .1rem;
+    transition: border-color .2s ease-in-out;
+  }
+
+  .form-event-content .forms_field-input:focus {
+    border-color: #808080;
+  }
+
+  .form-event-button-accept {
+    background-color: #fff !important;
+  }
+
+
+
+  /* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+  @media screen and (max-width: 1324px) {
+    .form-event {
+      height: 90vh;
+      overflow-y: scroll;
+    }
+
+    .event-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+  }
+
+
+  /* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+  @media screen and (max-width: 600px) {}
+
+
+
+
+
+  /*
+.itemBodyContainer {
+  width: 100%;
+}
+
+.groupsSelected {
+  display: flex;
+}
+
+.groupsSelectedContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.itemHeaderContainer {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.itemHeaderContainer .item {
+  margin-top: 20px;
+}
+
+.itemHeaderContainer button {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: rgb(249, 66, 66);
+  width: 30px;
+  height: 30px;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease all;
+  border-radius: 5px;
+}
+
+.itemHeaderContainer button:hover {
+  background-color: rgb(249, 48, 48);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+}
+
+.item select {
+  border-radius: 8px;
+  width: 220px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-color: #d9d9d9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.item input {
+  width: 220px;
+  height: 25px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #d9d9d9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.inputsRadio {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+}
+
+.inputsRadio input {
+  margin: 8px 4px 0px 10px;
+}
+
+.item textarea {
+  width: 220px;
+  height: 100px;
+  border: none;
+  outline: none;
+  background-color: #d9d9d9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  resize: none;
+}
+
+.noRepetitiveInputs,
+.repetitiveItems {
+  display: flex;
+}
+
+.noRepetitiveInputs input {
+  width: 150px;
+}
+
+.repetitiveInputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.repetitiveInputs input {
+  width: 150px;
+}
+
+.repetitiveInputs input {
+  width: 150px;
+}
+
+.selectDays {
+  width: 90px;
+}
+
+.buttonSubmitEvent {
+  width: 90px;
+  height: 30px;
+  border: 1px;
+  border-radius: 5px;
+  box-shadow: none;
+  background-color: rgb(1, 0, 46);
+  color: white;
+}
+
+.buttonSubmitEvent:hover {
+  background-color: #fafffa;
+  color: #000;
+}
+
+.containerDays {
+  width: 98%;
+  min-height: 50px;
+  max-height: 80px;
+  margin: 5px;
+  background-color: rgb(200, 201, 202);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.itemSide {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemBodyContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionContainer {
+  display: flex;
+} */

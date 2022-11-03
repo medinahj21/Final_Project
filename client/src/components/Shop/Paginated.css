@@ -1,0 +1,42 @@
+
+.paginated__container {
+    padding: 1rem;
+    background: var(--linear-gradient-blue);
+    text-align: center;
+    background-size: 400% 400%;
+    animation: changeBG 20s ease infinite;
+    color: #fff;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    gap: 2rem;
+    padding: .5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+@keyframes changeBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.paginated__number {
+    border-radius: .3rem;
+    box-shadow: var(--box-shadow);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.paginated__isActive {
+    background: var(--linear-gradient-blue);
+    color: #fff;
+    box-shadow: 0 0 3px 0 white;
+}

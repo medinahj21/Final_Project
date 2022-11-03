@@ -1,38 +1,80 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,600;1,300&display=swap');
+
+:root {
+
+  --color-bg: rgb(1, 0, 61);
+  --color-bg-contrast: rgb(235, 137, 0);
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-blue: rgb(1, 0, 72);
+
+  --linear-gradient: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), rgb(1, 4, 46), rgb(235, 137, 0) );
+  --linear-gradient-blue: linear-gradient(-4deg, rgb(3, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
+
+  --font-size-h1: 4rem;
+  --font-size-h2: 2.5rem;
+  --font-size-h3: 1.5rem;
+  --font-size-p: 1.2rem;
+
+  --font-size-h1-md: 3rem;
+  --font-size-h2-md: 2rem;
+  --font-size-h3-md: 1.2rem;
+  --font-size-p-md: 1rem;
+
+  --font-size-h1-sm: 1.9rem;
+  --font-size-h2-sm: 1.5rem;
+  --font-size-h3-sm: 1rem;
+
+
+  --box-shadow: 0 0 7px 0 #000;
+  --text-shadow: 0 0 7px #000;
+}
+
+html {
+  font-family: 'Mali', cursive;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
   text-align: center;
+  color: var(--color-light);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a:hover {
+  color: var(--color-bg-variant);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+ul {
+  list-style-type: none;
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  font-size: var(--font-size-h1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2 {
+  font-size: var(--font-size-h2);
 }
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {}
+
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 600px) {}

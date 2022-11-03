@@ -1,0 +1,48 @@
+.form__request {
+    font-family: "Montserrat", sans-serif;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    width: 50vw;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.25);
+    background: var(--linear-gradient-blue);
+    background-size: 400% 400%;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form__content-request .forms_field-request:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.form__content-request .forms_field-request-input {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 20px 6px 6px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #808080;
+    letter-spacing: .1rem;
+    transition: border-color .2s ease-in-out;
+}
+
+.form__content-request .forms_field-request-input:focus {
+    border-color: #808080;
+}
+
+.form__request-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+.btn__background {
+    font-weight: 600;
+    background: var(--linear-gradient-blue);
+}
+.btn__background:hover {
+    background: #808080;
+}

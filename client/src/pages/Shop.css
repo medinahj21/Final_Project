@@ -1,0 +1,37 @@
+.shop__container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.cart-button-nav {
+  position: absolute;
+  align-self: center;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  height: fit-content;
+  padding: .5rem;
+  right: 100px;
+}
+
+.cart-button-nav:hover {
+  background-color: white;
+  color: rgb(1, 4, 46);
+  border: 1px solid rgb(1, 4, 46);
+  border-radius: 7px;
+}
+
+@media (max-width:1450px) {
+  .cart-button-nav {
+    top: 0;
+    right: 35px;
+  }
+}
+@media (max-width:600px) {
+  .cart-button-nav {
+    top: 16px;
+    right: 35px;
+  }
+}

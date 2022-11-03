@@ -1,0 +1,107 @@
+.product__image-create {
+    width: 200px;
+    border-radius: 25%;
+}
+
+.form__user.form-create-product {
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+
+.form__product-inputs {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.create__product-button {
+    display: flex;
+    gap: 1rem;
+}
+
+.form__btn-alta.add-btn:hover {
+    background-color: #008000;
+    box-shadow: none;
+}
+
+.form__btn-alta.delete-btn:hover {
+    background-color: #ff0000;
+    box-shadow: none;
+}
+
+/*------------------------------MODIFIERS COMPONENT-------------------------------*/
+.product__image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modify__button {
+    padding: .4rem;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 0 3px 0px #fff;
+}
+
+.modify__button:hover {
+    background-color: #808080;
+}
+
+.select_content {
+    text-align: center;
+    width: 100%;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select_content::-ms-expand {
+    display: none;
+}
+
+.select_container {
+    border: 1px solid transparent;
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.select_container::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    border: 1px solid transparent;
+    background-color: transparent;
+    transition: .25s all ease;
+    pointer-events: none;
+}
+
+.select_container:hover::after {
+    color: var(--color-bg);
+}
+
+.select_content option {
+    color: #000;
+}
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 624px) {
+
+    .form__user.form-create-product {
+        overflow-y: scroll;
+        max-height: 100vh;
+        width: 100vw;
+        padding-top: 5rem;
+    }
+}
