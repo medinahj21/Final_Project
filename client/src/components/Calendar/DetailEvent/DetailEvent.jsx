@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import Modal from "../../UI/Modal";
 import Swal from "sweetalert2";
 import { Toast } from "../../../utils/toastSweet";
-import { deleteEvent, editEvent, getEvents } from "../../../redux/actions/event";
+import { deleteEvent, getEvents } from "../../../redux/actions/event";
+
+import './DetailEvent.css'
 
 export default function DetailEvent({ title, description, setModalDetail, location, idE }) {
 
@@ -64,7 +66,7 @@ export default function DetailEvent({ title, description, setModalDetail, locati
             :
             <h1>{title}</h1>}
         </header>
-        <main>
+        <main className="detail-event-content">
           <span>Description:
             {update ?
               <input type="text" value={description} />
@@ -74,11 +76,11 @@ export default function DetailEvent({ title, description, setModalDetail, locati
             update ?
               <input type="text" value={location} />
               :
-              <iframe src={location?.split('\"')[1]} frameborder="0"></iframe>}</span>
+              <iframe title="map" src={location?.split(`\"`)[1]} frameborder="0"></iframe>}</span>
         </main>
-        <button onClick={() => update ? handleUpdateEvent() : setModalDetail(false)}>Aceptar</button>
-        <button onClick={() => setUpdate(!update)}>{update ? "Cancelar" : "Editar"}</button>
-        {!update && <button onClick={() => handleDeleteEvent(idE)}>Eliminar</button>}
+        <button className='button-detail-event' onClick={() => update ? handleUpdateEvent() : setModalDetail(false)}>Aceptar</button>
+        <button className='button-detail-event' onClick={() => setUpdate(!update)}>{update ? "Cancelar" : "Editar"}</button>
+        {!update && <button className='button-detail-event' onClick={() => handleDeleteEvent(idE)}>Eliminar</button>}
       </div>
     </Modal>
   );

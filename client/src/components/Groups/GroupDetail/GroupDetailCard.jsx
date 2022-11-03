@@ -175,6 +175,9 @@ export default function GroupDetailCard({
               </a>{" "}
             </div>
           ) : (
+            <></>
+          )}
+          {!email ? (
             <>
               <div className="button-detail-group" onClick={handleRegister}>
                 {" "}
@@ -189,6 +192,8 @@ export default function GroupDetailCard({
                 </a>{" "}
               </div>
             </>
+          ) : (
+            <></>
           )}
           {!isDisabled &&
             userInfoFirestore?.uid &&
