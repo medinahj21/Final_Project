@@ -31,7 +31,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
-  /* useEffect(() => {
+  useEffect(() => {
     let eventMap = events.length && events?.map((ev) =>
       ev.state === "Pending"
         ? [
@@ -54,7 +54,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
         );
     setObjectEvent(events?.length && eventMap.flat());
     setObjectEvent2(events?.length && eventMap.flat());
-  }, [events]); */
+  }, [events]);
 
   const handleModal = () => {
     setModalOn(!modalOn);
