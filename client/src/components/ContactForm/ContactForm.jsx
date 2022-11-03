@@ -54,12 +54,12 @@ const ContactForm = () => {
       notify("Tu mensaje fue enviado con exito. Gracias por contactarnos!");
     }, 4000);
 
-    /*emailjs.sendForm(
+    emailjs.sendForm(
       "service_etq8sc9",
       "template_v29tr0g",
       e.target,
       "HiM3xW9AUxaXgJdP3"
-    );*/
+    );
 
     setUserInput({ name: "", email: "", issue: "", message: "" })
       .then((response) => console.log(response))
