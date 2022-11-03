@@ -15,6 +15,7 @@ import "./FormGroup.css";
 
 export default function FormGroup({ setIsForm }) {
   const dispatch = useDispatch();
+  
 
   const [groupInputs, setGroupInputs] = useState({
     name: "",
