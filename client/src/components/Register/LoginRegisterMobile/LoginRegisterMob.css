@@ -5,7 +5,7 @@
 }
 
 .link:hover {
-  color: grey;
+  color: #808080;
 }
 
 .section__login-register {
@@ -23,7 +23,7 @@
 
 .section__login-register h4 {
   font-weight: 600;
-  color: white;
+  color: #ffffff;
 }
 
 .section__login-register h6 span {
@@ -34,7 +34,7 @@
 
 
 .section__login-register .login-register {
-  color: white;
+  color: #ffffff;
   display: flex;
   gap: 5rem;
   justify-content: center;
@@ -65,7 +65,7 @@
   padding: 0;
   margin: 10px auto;
   cursor: pointer;
-  background-color: grey;
+  background-color: #808080;
 }
 
 .checkbox:checked+label:before,
@@ -75,8 +75,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  color: grey;
-  background-color: rgb(1, 4, 46);
+  color: #808080;
+  background-color: var(--color-bg);
   content: '↖';
   z-index: 20;
   top: -10px;
@@ -118,7 +118,7 @@
 .card-back {
   width: 100%;
   height: 100%;
-  background-color: rgb(1, 4, 46);
+  background-color: var(--color-bg);
   background-size: 300%;
   position: absolute;
   border-radius: 6px;
@@ -152,6 +152,7 @@
 }
 
 .section-inputs {
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -176,13 +177,13 @@
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 300;
-  color: gray;
+  color: #808080;
   letter-spacing: .1rem;
   transition: border-color .2s ease-in-out;
   background-color: transparent;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #808080;
   outline: 0;
 }
 
@@ -209,7 +210,7 @@
   font-size: 24px;
   line-height: 48px;
   text-align: left;
-  color: grey;
+  color: #808080;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
 }
@@ -291,20 +292,20 @@
   text-align: center;
   border: none;
   background-color: transparent;
-  box-shadow: 0 0 1px 0 white;
-  color: white;
+  box-shadow: 0 0 1px 0 #ffffff;
+  color: #ffffff;
   width: fit-content;
 }
 
 .btn:active,
 .btn:focus {
   background-color: grey;
-  color: white;
+  color: #ffffff;
 }
 
 .btn:hover {
   background-color: grey;
-  color: white;
+  color: #ffffff;
 }
 
 .logo {

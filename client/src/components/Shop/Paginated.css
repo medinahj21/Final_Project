@@ -1,6 +1,7 @@
+
 .paginated__container {
     padding: 1rem;
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    background: var(--linear-gradient-blue);
     text-align: center;
     background-size: 400% 400%;
     animation: changeBG 20s ease infinite;
@@ -35,7 +36,7 @@
 }
 
 .paginated__isActive {
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
+    background: var(--linear-gradient-blue);
     color: #fff;
     box-shadow: 0 0 3px 0 white;
 }

@@ -11,7 +11,7 @@ import { notify, notifyError } from "../../../utils/toastify";
 
 import "./ShowProductDetail.css";
 
-export default function ShowProductDetail() {
+export default function ShowProductDetail({ handleSetProductState }) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const product = useSelector(
@@ -73,6 +73,7 @@ export default function ShowProductDetail() {
       [e.target.name]: e.target.value,
     });
   };
+  console.log(product?.state);
 
   return (
     <>
@@ -83,8 +84,16 @@ export default function ShowProductDetail() {
             <>
               {" "}
               <span className="label-hab">Habilitar producto: </span>
-              <div className="button-hab r" id="button-hab">
-                <input type="checkbox" className="checkbox-hab" />
+              <div
+                className="button-hab r"
+                id="button-hab"
+                onClick={() => handleSetProductState(id)}
+              >
+                <input
+                  type="checkbox"
+                  className="checkbox-hab"
+                  checked={!product?.state}
+                />
                 <div className="knobs"></div>
                 <div className="layer"></div>
               </div>{" "}

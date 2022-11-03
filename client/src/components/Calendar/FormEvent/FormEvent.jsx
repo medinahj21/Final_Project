@@ -68,6 +68,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
     });
   };
 
+  console.log(groups, 'groups');
+
   const handleSubmit = async (e) => {
     // logica de grupos 
     let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))

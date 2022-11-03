@@ -18,9 +18,9 @@
   border: none;
   resize: none;
   align-self: start;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #808080;
   font-size: 1.1rem;
-  color: white;
+  color: #ffffff;
   font-weight: 400;
 }
 
@@ -395,6 +395,7 @@
 @media screen and (max-width: 1024px) {
   .contact-form-global-container {
     flex-direction: column;
+    padding-top: 2rem;
     gap: 2rem;
   }
 
@@ -418,6 +419,12 @@
 }
 
 @media screen and (max-width: 600px) {
+  .contact-form-global-container {
+    flex-direction: column;
+    padding-top: 2rem;
+    gap: 2rem;
+  }
+
   .contact-form-title {
     font-size: var(--font-size-h2-sm);
   }

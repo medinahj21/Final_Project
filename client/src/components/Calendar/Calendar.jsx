@@ -29,7 +29,7 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-
+console.log(objectEvent?.filter(ev => eventPlayer?.includes(ev.id)));
   useEffect(() => {
     let eventMap = events?.map((ev) =>
       ev.state === "Pending"

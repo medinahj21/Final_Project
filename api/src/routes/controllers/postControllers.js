@@ -1,3 +1,4 @@
+const { URL_MERCADOPAGO } = process.env;
 const mercadopago = require("mercadopago");
 const {
   Player,
@@ -13,7 +14,6 @@ const {
 
 const { getProductsFromDB } = require("../controllers/getControllers");
 
-
 /**======================== asyncPostProduct==========================*/
 const asyncPostProduct = async (req, res) => {
   const {
@@ -28,7 +28,6 @@ const asyncPostProduct = async (req, res) => {
     paymentTerm,
     FilterTags,
   } = req.body;
-
   try {
     const existingProducts = await getProductsFromDB();
     if (
@@ -36,7 +35,7 @@ const asyncPostProduct = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Product name already exists" });
     }
-    if (!name || !price || !description || !isOrder || !paymentTerm || !state) {
+    if (!name || !price || !description || isOrder === "" || !paymentTerm) {
       res.status(404).json({ message: "missing required fields" });
     } else {
       const newProduct = await Product.create({
@@ -150,7 +149,6 @@ const createEvent = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error_DB: error });
-
   }
 };
 
@@ -175,7 +173,6 @@ const postOrders = async (req, res) => {
       !concept ||
       !order_state ||
       !description ||
-      !payment_date ||
       !payment_term ||
       !type_order
     ) {
@@ -196,7 +193,8 @@ const postOrders = async (req, res) => {
 
         const validateOrderProduc = await newOrder.addProduct(product);
 
-        validateOrderProduc && res.status(200).send("order created successfully");
+        validateOrderProduc &&
+          res.status(200).send("order created successfully");
       } else {
         const newOrder = await Order.create({
           value,
@@ -214,11 +212,11 @@ const postOrders = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ error: error.message })
-    console.log(error);
+    res.json({ error_DB: error.message });
   }
 };
 
+/**======================== Players ==========================*/
 const postPlayers = async (req, res) => {
   const { personalInfo, debtValue, paymentDate, shirtNumber, groupId } =
     req.body;
@@ -228,10 +226,9 @@ const postPlayers = async (req, res) => {
 
     const existPlayer = await Player.findByPk(personalInfo.uid, { paranoid: false })
     if (existPlayer) {
-      console.log(existPlayer, 'entre en existPlayer');
       const restorePlayer = await Player.restore({
         where: { id: personalInfo.uid }});
-        console.log(restorePlayer);
+        existPlayer.set(req.body).save() 
         restorePlayer
             ? res.json({ message: "Player was created successfully" })
             : res.status(400).json({ message: "newPlayer was  not created" });
@@ -253,7 +250,7 @@ const postPlayers = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error_DB: error.message });
-    console.log(error.message)
+    console.log(error.message);
   }
 };
 
@@ -291,37 +288,32 @@ const postFilterTag = async (req, res) => {
   }
 };
 
-
 /**======================== ProductRequest ==========================*/
 const postProductRequest = async (req, res) => {
-  const {
-    infoProduct,
-    productId,
-    playerId
-  } = req.body;
+  const { infoProduct, productId, playerId } = req.body;
   try {
     if (!(infoProduct && productId && playerId)) {
-      res.status(400).json({ msg: "missing information" })
+      res.status(400).json({ msg: "missing information" });
     } else {
       const newRequest = await ProductRequest.create({
         infoProduct,
-        playerId
-      })
-      await newRequest.addProduct(productId)
+        playerId,
+      });
+      await newRequest.addProduct(productId);
 
-      newRequest ?
-        res.json({ msg: "proccess sussessfuly" })
-        : res.json({ msg: "something went wrong" })
+      newRequest
+        ? res.json({ msg: "proccess sussessfuly" })
+        : res.json({ msg: "something went wrong" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: error.message });
     console.log(error);
   }
-}
+};
 
 /**======================== RoleRequest ==========================*/
 const postRoleRequest = async (req, res) => {
-  console.log("BODY...", req.body)
+  console.log("BODY...", req.body);
   const { id, newRole, userInfo, groupId } = req.body;
   try {
     if (!newRole) {
@@ -354,8 +346,7 @@ const postRoleRequest = async (req, res) => {
 };
 
 const pagarProducto = async (req, res) => {
-  const datos = req.body;
-
+  const { datos, origin, orderId } = req.body;
   //const producto = await Product.findByPk(id);
 
   let preference = {
@@ -367,22 +358,30 @@ const pagarProducto = async (req, res) => {
       identification,(cc,ti, pasaporte)
     }, */
     back_urls: {
-      success: "http://localhost:3000/products",
-      failure: "/failure",
-      pending: "/pending" // modificar
+      success:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player#${orderId}`,
+      failure:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player#${orderId}`,
+      pending:
+        origin === "shop"
+          ? `${URL_MERCADOPAGO}/products`
+          : `${URL_MERCADOPAGO}/dashboard-player`, // modificar
     },
     auto_return: "approved",
   };
   try {
-    const response = await mercadopago.preferences.create(preference)
-    const preferenceId = response.body.id
+    const response = await mercadopago.preferences.create(preference);
+    const preferenceId = response.body.id;
     res.json({ preferenceId });
   } catch (error) {
     console.log(error);
-    res.json(error)
+    res.json(error);
   }
-}
-
+};
 
 module.exports = {
   asyncPostProduct,
@@ -394,5 +393,5 @@ module.exports = {
   postAdmins,
   postRoleRequest,
   postProductRequest,
-  pagarProducto
+  pagarProducto,
 };

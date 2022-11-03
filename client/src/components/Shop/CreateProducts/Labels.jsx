@@ -1,66 +1,12 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useSelector, useDispatch} from "react-redux";
-import { getFilterTags } from "../../../redux/actions/products";
+import { useSelector } from "react-redux";
 
-function Labels({
-  handleTags,
-  tags,
-  deleteTag,
-}) {
-  const [addLabel, setAddLabel] = useState(false);
-  const [newLabelValue, setNewLabelValue] = useState("");
-  const dispatch= useDispatch();
-
-  const newLabelHandler = (e) => {
-    e.preventDefault();
-    setAddLabel(true);
-  };
-
-  const addNewLabelHandler = (labelValue) => {
-    
-    axios
-      .post("http://localhost:3001/tags/create", {name:labelValue})
-      .then((resp) => {console.log(resp)
-      dispatch(getFilterTags());
-      })
-      .catch((err) => console.log(err));
-      setAddLabel(false);  
-  };
-
-  const allFilterTags= useSelector((state)=> state.productsReducer.filterTags)
+function Labels({ handleTags, tags, deleteTag }) {
+  const allFilterTags = useSelector(
+    (state) => state.productsReducer.filterTags
+  );
 
   return (
     <>
-      <label> Etiquetas: </label>
-      <div>
-        <button onClick={newLabelHandler} className="modify__button">
-          {" "}
-          Nueva etiqueta ➕
-        </button>
-      </div>
-      {addLabel ? (
-        <div>
-          <label>Nombre de etiqueta:</label>
-          <input
-            value={newLabelValue}
-            name="etiqueta"
-            type="text"
-            placeholder="nombre de la etiqueta"
-            onChange={(e) => {
-              setNewLabelValue(e.target.value);
-            }}
-          />
-          <button
-            className="confirm-new-label"
-            onClick={() => addNewLabelHandler(newLabelValue)}
-          >
-            Agregar etiqueta
-          </button>
-        </div>
-      ) : (
-        <></>
-      )}
       <div className="select_container">
         <select
           className="select_content"
@@ -70,7 +16,10 @@ function Labels({
             handleTags(e);
           }}
         >
-          <option value="type"> Selecciona etiquetas </option>
+          <option value="type" disabled={true}>
+            {" "}
+            Selecciona etiquetas{" "}
+          </option>
           {allFilterTags?.map((tag) => {
             return (
               <option key={tag.id} value={tag.id}>

@@ -1,0 +1,147 @@
+.about-container {
+    display: flex;
+    background-color: #ddd;
+    font-family: cursive;
+}
+
+.about-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.954);
+    width: 20vw;
+    height: auto;
+}
+
+.about-title {
+    color: #fff;
+    margin: 0;
+    font-size: 3rem;
+    transform: rotate(-90deg);
+    font-family: monospace;
+}
+
+.about-history {
+    width: 80%;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-history h3 {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.about-history h4 {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.about-history p {
+    text-indent: 20px;
+    font-size: 1.3rem;
+    line-height: 2rem;
+    margin: 0 auto;
+    text-align: justify;
+    width: 80%;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+}
+
+.image-history {
+    width: 400px;
+    /*
+    float: right;
+    margin-top: -50px;
+    margin-left: 10px;
+    */
+    box-shadow: 7px 7px 10px 0 black;
+}
+
+/* ------------- MEDIA QUERIES (MEDIUM DEVICES) ------------- */
+
+@media screen and (max-width: 1224px) {
+
+    .about-title {
+        font-size: 2.5rem;
+    }
+
+    .about-history {
+        padding: 0 2rem 2rem;
+    }
+
+    .about-history h3 {
+        font-size: 1.5rem;
+    }
+
+    .about-history h4 {
+        font-size: 1.2rem;
+    }
+
+    .about-history p {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    .about-content {
+        flex-direction: column-reverse;
+    }
+
+    .image-history {
+        width: 300px;
+    }
+
+}
+
+/* ------------- MEDIA QUERIES (SMALL DEVICES) ------------- */
+
+@media screen and (max-width: 750px) {
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-title-container {
+        width: 100%;
+    }
+
+    .about-title {
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        height: 10vh;
+        transform: rotate(0);
+    }
+
+    .about-history {
+        padding: 0 2rem 2rem;
+    }
+
+    .about-history h3 {
+        font-size: 1.3rem;
+    }
+
+    .about-history h4 {
+        font-size: 1.1rem;
+    }
+
+    .about-history p {
+        font-size: 1rem;
+        line-height: 1.3rem;
+        width: 100%;
+    }
+
+    .about-content {
+        gap: 2rem;
+        flex-direction: column-reverse;
+    }
+
+    .image-history {
+        width: 100%;
+        box-shadow: 7px 7px 10px 0 black;
+    }
+
+}

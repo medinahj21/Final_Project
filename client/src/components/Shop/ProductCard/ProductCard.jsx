@@ -6,13 +6,16 @@ import Modal from "../../UI/Modal";
 
 import "./ProductCard.css";
 
-function ProductCard({ id, name, price, image }) {
+function ProductCard({ id, name, price, image, state }) {
   const [showDetail, setShowDetail] = useState(false);
 
   return (
     <>
       <div className="card__content card__hover-effect">
-        <h3 className="card__title">{name}</h3>
+        <h3 className="card__title">
+          {name}
+          {state ? "" : "(Deshab.)"}
+        </h3>
         <span className="card__price">precio: ${price}</span>
         <img className="card__image-product" src={image} alt={name} />
         <button

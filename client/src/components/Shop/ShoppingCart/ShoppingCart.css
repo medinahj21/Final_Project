@@ -15,9 +15,9 @@
 }
 
 .modify__button.modify__button-cart:hover {
-    background: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46));
-    color: white;
-    border: 1px solid white;
+    background: var(--linear-gradient-blue);
+    color: #fff;
+    border: 1px solid #fff;
 }
 
 .image__cart {
@@ -31,7 +31,7 @@
 }
 
 .main-color-text {
-    color: rgb(30, 0, 72);
+    color: var(--color-blue);
 }
 
 .container {
@@ -40,9 +40,9 @@
 }
 
 .badge {
-    background-color: rgb(30, 0, 72);
+    background-color: var(--color-blue);
     border-radius: 10px;
-    color: white;
+    color: #fff;
     display: inline-block;
     font-size: 12px;
     line-height: 1;
@@ -55,14 +55,14 @@
 .shopping-cart {
     margin: 20px 0;
     float: right;
-    background: white;
+    background: #fff;
     width: 320px;
     position: absolute;
     border-radius: 3px;
     padding: 20px;
     top: 55px;
     right: 65px;
-    z-index: 9999999999;
+    z-index: 999999;
 }
 
 .shopping-cart .shopping-cart-header {
@@ -91,7 +91,7 @@
     display: block;
     padding-top: 10px;
     font-size: 16px;
-    color: rgb(15, 3, 31);
+    color: var(--color-blue);
 }
 
 .shopping-cart .name-position {
@@ -101,7 +101,7 @@
 }
 
 .shopping-cart .shopping-cart-items .item-price {
-    color: rgb(15, 3, 31);
+    color: var(--color-blue);
     margin-right: 8px;
     font-weight: bolder;
 }
@@ -119,13 +119,13 @@
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-bottom-color: white;
+    border-bottom-color: #fff;
     border-width: 8px;
     margin-left: -8px;
 }
 
 .cart-icon {
-    color: rgb(30, 0, 72);
+    color: var(--color-blue);
     font-size: 24px;
     margin-right: 7px;
     float: left;
@@ -139,16 +139,16 @@
     border-radius: 3px;
     font-size: 16px;
     margin: 25px 0 15px 0;
-    border: 1px solid rgb(30, 0, 72);
-    color: rgb(30, 0, 72);
-    background: white;
+    border: 1px solid var(--color-blue);
+    color: var(--color-blue);
+    background: #fff;
     transition: all .5s ease;
 }
 
 .button:hover {
     border: 1px solid transparent;
-    background: rgb(30, 0, 72);
-    color: white;
+    background: var(--color-bg);
+    color: #fff;
 }
 
 .clearfix:after {
@@ -158,11 +158,10 @@
 }
 
 /*trash button styles*/
+
 .button-trash {
     align-self: center;
     height: fit-content;
-    --background: rgb(30, 0, 72);
-    --background-hover:rgb(30, 0, 72);
     --text: #fff;
     --icon: #fff;
     display: flex;
@@ -176,12 +175,12 @@
     font-size: 14px;
     overflow: hidden;
     color: var(--text);
-    background: var(--b, var(--background));
+    background: var(--b, var(--color-blue));
     transition: transform 0.3s, background 0.4s;
     transform: scale(var(--scale, 1)) translateZ(0);
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    -webkit-mask-image: -webkit-radial-gradient(#fff, black);
 }
 
 .button-trash:active {
@@ -189,7 +188,7 @@
 }
 
 .button-trash:hover {
-    --b: var(--background-hover);
+    --b: var(--color-bg);
 }
 
 .button-trash .icon-trash,
@@ -205,7 +204,7 @@
     position: relative;
     z-index: 1;
     margin-right: 8px;
-    color: var(--text);
+    color: #fff;
 }
 
 .button-trash .icon-trash svg {
@@ -355,7 +354,7 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width:1450px) {
     .shopping-cart {
         top: 45px;
         right: 7px;
