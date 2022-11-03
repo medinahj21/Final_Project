@@ -138,7 +138,7 @@ const createEvent = async (req, res) => {
         name,
         location,
         description,
-        date,
+        date: (repetitive === true ? date : [date]),
         repetitive,
         state,
         start,

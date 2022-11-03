@@ -29,6 +29,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
   });
 
   const groups = useSelector((state) => state.groupReducer.groups);
+
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
@@ -36,6 +37,12 @@ export default function FormCalendario({ handleModal, getEvents }) {
     });
   };
   
+  const deleteGroup = (e) => {
+    setInputs({
+      ...inputs,
+      groups: [...inputs.groups.filter((group) => group !== e)],
+    });
+  }
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -343,7 +350,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
                 return (
                   <div key={el} className={s.groupsSelected}>
                     <p>{groups.find((gr) => gr.id === el).name} </p>
-                    <div>✖</div>
+                    <div onClick={() => deleteGroup()}>✖</div>
                   </div>
                 );
               })}

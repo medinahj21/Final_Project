@@ -47,7 +47,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
             end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
             allDay: false,
             type: ev.type,
-            daysOfWeek: ev.repetitive ? ev.date : "",
+            daysOfWeek: ev.repetitive ? ev.date[0] : "",
           },
         ]
         : []
