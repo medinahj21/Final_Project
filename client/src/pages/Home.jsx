@@ -21,6 +21,7 @@ function Home() {
   const dispatch = useDispatch();
 
   const [isDesktop, setDesktop] = useState(false);
+  const [isEventForm, setIsEventForm] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showAlta, setShowAlta] = useState(false);

@@ -23,8 +23,11 @@ export const deleteEvent = (id) => {
             .delete(`${axios.defaults.baseURL}/events/delete/${id}`)
             .then((res) => res.data)
             .then((data) => {
-                console.log(data);
-            });
+                return data;
+            })
+            .catch((error) => {
+                return {error: error}
+            })
     };
 };
 
@@ -32,7 +35,6 @@ export const createEvent = (datos) => {
     return async () => {
         try {
             let response = await axios.post(`${axios.defaults.baseURL}/events/create`, datos);
-            console.log(response);
             return response.data
         } catch (error) {
             return { error }

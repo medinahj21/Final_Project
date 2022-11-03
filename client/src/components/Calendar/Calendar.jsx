@@ -17,20 +17,22 @@ import DetailEvent from "./DetailEvent/DetailEvent";
 
 import "./Calendar.css";
 
-export default function Calendar() {
+export default function Calendar(setIsEventForm, isEventForm) {
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
   const [objectEvent, setObjectEvent] = useState([]);
+  const [objectEvent2, setObjectEvent2] = useState([]);
   const [modalOn, setModalOn] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
   const [detail, setDetail] = useState([]);
   const [eventPlayer, setEventPlayer] = useState([]);
-
+  
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  useEffect(() => {
-    let eventMap = events?.map((ev) =>
+
+  /* useEffect(() => {
+    let eventMap = events.length && events?.map((ev) =>
       ev.state === "Pending"
         ? [
           {
@@ -44,50 +46,25 @@ export default function Calendar() {
             start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
             end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
             allDay: false,
-            daysOfWeek: ev.repetitive ? ev.date : "",
+            type: ev.type,
+            daysOfWeek: ev.repetitive ? ev.date[0] : "",
           },
         ]
         : []
-    );
-    setObjectEvent(eventMap.flat());
-  }, [events]);
+        );
+    setObjectEvent(events?.length && eventMap.flat());
+    setObjectEvent2(events?.length && eventMap.flat());
+  }, [events]); */
 
   const handleModal = () => {
     setModalOn(!modalOn);
   };
-// console.log(objectEvent);
+
   useEffect(() => {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
-  }, [dispatch]);
-
-
-  if (modalOn) {
-    return (
-      <Modal>
-        <FormEvent
-          isCreate={isCreate}
-          setIsCreate={setIsCreate}
-          handleModal={handleModal}
-          getEvents={getEvents}
-        />
-      </Modal>
-    );
-  }
-
-  if (modalDetail) {
-    return (
-      <Modal>
-        <DetailEvent
-          setModalDetail={setModalDetail}
-          title={detail.title}
-          description={detail.extendedProps.description}
-          location={detail.extendedProps.location}
-        />
-      </Modal>
-    );
-  }
+  }, [dispatch]); 
 
   return (
     <div className="fc-header-toolbar fc-toolbar font-size">
@@ -108,12 +85,43 @@ export default function Calendar() {
           center: "title",
           end: "today prev,next",
         }}
-        footerToolbar={userInfoFirestore.isAdmin && { center: "custom1" }}
-        customButtons={userInfoFirestore.isAdmin && {
+        footerToolbar={userInfoFirestore.isAdmin? {start:"todos entrenamiento,partido,torneo,especial" , center: "custom1" }:
+        {center:"todos entrenamiento,partido,torneo,especial"}}
+        customButtons={{
           custom1: {
             text: "Crear evento",
             click: handleModal,
           },
+          todos: {
+            text: "Todos",
+            click: function() {
+              setObjectEvent(objectEvent2)
+            },
+          },
+          entrenamiento: {
+            text: "Entenamientos",
+            click: function(){
+              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Entrenamiento'))
+            },
+          },
+          partido: {
+            text: "Partidos",
+            click: function(){
+              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Partido'))
+            },
+          },
+          torneo: {
+            text: "Torneos",
+            click: function(){
+              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Torneo'))
+            },
+          },
+          especial: {
+            text: "Eventos",
+            click: function(){
+              setObjectEvent(objectEvent2.filter(ev => ev.type === 'Evento Especial'))
+            },
+          },          
         }} //Si no es admin, mostrar los relacionados al jugador
         events={userInfoFirestore.isAdmin ? objectEvent : objectEvent?.filter(ev => eventPlayer?.includes(ev.id))}
         eventClick={function (event) {
@@ -121,6 +129,28 @@ export default function Calendar() {
           setDetail(event.event._def);
         }}
       />
+
+      {modalOn &&
+        <Modal>
+          <FormEvent
+            isCreate={isCreate}
+            setIsCreate={setIsCreate}
+            handleModal={handleModal}
+            getEvents={getEvents}
+          />
+        </Modal>}
+
+      {modalDetail &&
+        <Modal>
+          <DetailEvent
+            setModalDetail={setModalDetail}
+            title={detail.title}
+            description={detail.extendedProps.description}
+            location={detail.extendedProps.location}
+            idE={detail.publicId}
+          />
+        </Modal>
+      }
     </div>
   );
 }

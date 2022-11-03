@@ -41,10 +41,8 @@ const getProductsFromDB = async () => {
 /**===================== Products ======================== */
 const asyncGetProducts = async (req, res) => {
   let { name } = req.query;
-  console.log(name);
   try {
     let products = await getProductsFromDB();
-    console.log(products);
     if (name) {
       const searchedProduct = await Product.findAll({
         include: [
@@ -312,7 +310,6 @@ const getOrdersPlayer = async (req, res) => {
   const { id } = req.params;
   const { state } = req.query;
 
-  console.log(id)
   try {
     if (!id) {
       res.json({ msg: "error, no id sent" });
@@ -328,7 +325,7 @@ const getOrdersPlayer = async (req, res) => {
           where: { order_state: state },
           include: [{ model: Player, attributes: ["id"] }],
         });
-        const result = order.filter((e) => e.player.id === id);
+        const result = order.filter((e) => e.playerId === id);
         result
         ? res.send(result).status(200)
           : res.json({ msg: "without order" });
@@ -342,7 +339,6 @@ const getOrdersPlayer = async (req, res) => {
         const order = await Order.findAll({
           include: [{ model: Player, attributes: ["id"] }],
         });
-        console.log("orders",order)
         const result = order.filter((e) => e.playerId === id);
 
     result ? res.send(result).status(200) : res.json({ msg: "without orders" })

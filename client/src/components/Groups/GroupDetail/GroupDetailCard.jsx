@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Toast } from "../../../utils/toastSweet";
@@ -18,9 +18,26 @@ export default function GroupDetailCard({
 
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
   const { playerDetail } = useSelector((state) => state.playerReducer);
+  const { roleRequests } = useSelector((state) => state.groupReducer);
 
   const [isForm, setIsForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    dispatch(actions.getRoleRequests())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (!userInfoFirestore.isAdmin) {
+      const didRequest = roleRequests?.filter((role) => (role.id === userInfoFirestore.uid) && (role.deletedAt === null))
+      if (didRequest.length) {
+        setIsDisabled(true);
+      } else {
+        setIsDisabled(false);
+      }
+    }
+  }, [roleRequests])
 
   const handleSuscribe = async () => {
     //debo hacer la validación de si no es jugador
@@ -40,6 +57,7 @@ export default function GroupDetailCard({
         );
       } /* if(response.data) */ else {
         alert("Solicitud de inscripción enviada");
+        setIsDisabled(true);
       }
       /* else{
         alert ("algo raro pasó")
@@ -62,7 +80,6 @@ export default function GroupDetailCard({
       .then(async (result) => {
         if (result.isConfirmed) {
           let response = await dispatch(actions.deleteGroup(id))
-          console.log(response);
           if (response.error) {
             Toast.fire({
               icon: 'error',
@@ -131,7 +148,8 @@ export default function GroupDetailCard({
               </a>{" "}
             </div>
           )}
-          {userInfoFirestore?.uid &&
+          {!isDisabled &&
+            userInfoFirestore?.uid &&
             !userInfoFirestore?.isAdmin &&
             !playerDetail.id && (
               <div

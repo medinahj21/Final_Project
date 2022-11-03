@@ -82,7 +82,7 @@ export const deletePlayer = (id) => {
         return response.message;
       }
     } catch (error) {
-       return error
+      return error
     }
   }
 }
