@@ -130,7 +130,6 @@ const createEvent = async (req, res) => {
     state,
     player,
   } = req.body;
-  console.log(req.body);
   try {
     if (!((name && start && end && location && date) /*&& admin*/)) {
       res.status(400).json({ error: "information is missing" });
@@ -139,16 +138,14 @@ const createEvent = async (req, res) => {
         name,
         location,
         description,
-        date,
+        date: [date],
         repetitive,
         state,
         start,
         end,
       });
-      /*const addAdmin = await newEvent.addAdmin(admin);
+      //const addAdmin = await newEvent.addAdmin(admin);
       const addPlayer = await newEvent.addPlayer(player);
-      addAdmin && addPlayer && */
-      console.log(newEvent);
       res.status(200).send("the event has been created");
     }
   } catch (error) {

@@ -39,9 +39,6 @@ export default function GroupDetailCard({
     }
   }, [roleRequests])
 
-  console.log('firestore ', userInfoFirestore);
-  console.log('roles ', roleRequests)
-
   const handleSuscribe = async () => {
     //debo hacer la validación de si no es jugador
     if (!userInfoFirestore.isAdmin) {
@@ -83,7 +80,6 @@ export default function GroupDetailCard({
       .then(async (result) => {
         if (result.isConfirmed) {
           let response = await dispatch(actions.deleteGroup(id))
-          console.log(response);
           if (response.error) {
             Toast.fire({
               icon: 'error',

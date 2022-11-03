@@ -45,7 +45,7 @@ export default function Calendar() {
             start: !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
             end: !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
             allDay: false,
-            daysOfWeek: ev.repetitive ? ev.date : "",
+            daysOfWeek: ev.repetitive ? ev.date[0] : "",
           },
         ]
         : []
@@ -61,7 +61,7 @@ export default function Calendar() {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
-  }, [dispatch]);
+  }, [dispatch]); 
 
   return (
     <div className="fc-header-toolbar fc-toolbar font-size">

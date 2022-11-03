@@ -29,13 +29,13 @@ export default function FormCalendario({ handleModal, getEvents }) {
   });
 
   const groups = useSelector((state) => state.groupReducer.groups);
-
   const deleteTag = (e) => {
     setInputs({
       ...inputs,
       date: [...inputs.date.filter((tag) => tag !== e)],
     });
   };
+  
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -73,7 +73,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
     let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
     let playersSelected = groupsSelected.map(gr => gr.players).flat()
     let idPlayers = playersSelected.map(player => player.id)
-
+    console.log(idPlayers, 'idPlayers');
+    console.log(playersSelected, 'playersSelected');
+    console.log(groupsSelected, 'groupsSelected');
     e.preventDefault();
     Swal.fire({
       title: 'Estas seguro que quieres guardar?',
@@ -86,6 +88,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
     })
       .then(async (result) => {
         if (result.isConfirmed) {
+          console.log(idPlayers);
           let response = await dispatch(action.createEvent({
             ...inputs,
             player: idPlayers
@@ -131,7 +134,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
   const handleDeuda = (e) => {
     setDeuda(e.target.value)
   }
-  console.log(deuda);
+  
   return (
     <form className={s.formEventContainer} id='formEvent'>
       <section className={s.itemHeaderContainer}>
