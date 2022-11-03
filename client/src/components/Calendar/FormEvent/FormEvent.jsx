@@ -27,7 +27,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
     end: "",
     player: [],
   });
-
   const groups = useSelector((state) => state.groupReducer.groups);
 
   const deleteTag = (e) => {
@@ -104,7 +103,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
           })
         );
          // ------------- genero deuda asociada ------------
-        if(deuda){
+        if(deuda && !response.error){
           const formatedDebt = {
             concept: newDebt.concept,
             value: newDebt.value,
@@ -112,9 +111,10 @@ export default function FormCalendario({ handleModal, getEvents }) {
             payment_term: 1,
             order_state: "Pending",
             type_order: "club",
-            player: idPlayers
           }
-          await axios.post(`${axios.defaults.baseURL}/orders/create`, formatedDebt)
+          idPlayers.length && idPlayers.forEach(async (id)=>{
+            await axios.post(`${axios.defaults.baseURL}/orders/create`, {...formatedDebt, playerId: id})
+          })
         }
         if (response.error) {
           Toast.fire({
