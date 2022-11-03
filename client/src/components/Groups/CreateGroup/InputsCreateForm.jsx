@@ -120,7 +120,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
           Femenino{" "}
           <input
             name="genre"
-            value="Female"
+            value="Femenino"
             type="radio"
             onChange={handleChange}
           />
@@ -130,7 +130,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
           Masculino{" "}
           <input
             name="genre"
-            value="Male"
+            value="Masculino"
             type="radio"
             onChange={handleChange}
           />
@@ -140,7 +140,7 @@ function InputsCreateForm({ groupInputs, handleChange }) {
           Mixto{" "}
           <input
             name="genre"
-            value="Mix"
+            value="Mixto"
             type="radio"
             onChange={handleChange}
           />

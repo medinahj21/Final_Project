@@ -17,13 +17,13 @@ function SelectGroups({ filtros }) {
           <option key={"all"} value={""}>
             Todos
           </option>
-          <option key={"Male"} value={"Masculino"}>
+          <option key={"Masculino"} value={"Masculino"}>
             Masculino
           </option>
-          <option key={"Female"} value={"Femenino"}>
+          <option key={"Femenino"} value={"Femenino"}>
             Femenino
           </option>
-          <option key={"Mix"} value={"Mixto"}>
+          <option key={"Mixto"} value={"Mixto"}>
             Mixto
           </option>
         </select>

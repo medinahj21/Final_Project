@@ -32,6 +32,7 @@ export const getGroupDetail = (id) => {
 };
 
 export const createGroup = (datos) => {
+  console.log(datos);
   return async () => {
     try {
       var response = await axios.post(
@@ -40,7 +41,7 @@ export const createGroup = (datos) => {
       );
       return response.data;
     } catch (error) {
-      return { error: error.response.data.message };
+      return { error };
     }
   };
 };
@@ -91,7 +92,6 @@ export const getRoleRequests = () => {
 };
 
 export const createNewRoleRequest = (roleRequest) => {
-
   return async (dispatch) => {
     try {
       let response = await axios.post(
@@ -109,9 +109,7 @@ export const createNewRoleRequest = (roleRequest) => {
 export const deleteRoleRequest = (id) => {
   return async (dispatch) => {
     try {
-        await axios.delete(
-        `${axios.defaults.baseURL}/roleRequests/delete/${id}`
-      );
+      await axios.delete(`${axios.defaults.baseURL}/roleRequests/delete/${id}`);
     } catch (error) {
       console.log(error.message);
     }
@@ -123,4 +121,3 @@ export const cleanRoleRequest = (id) => {
     dispatch({ type: CLEAN_ROLE_REQUESTS });
   };
 };
-
