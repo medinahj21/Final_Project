@@ -7,9 +7,9 @@ import { Days } from "../../../utils/daysWeek";
 import Tags from "../../../components/Tag/Tags";
 import s from "../FormEvent/FormEvent.module.css";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default function FormCalendario({ handleModal, getEvents }) {
-
   const dispatch = useDispatch();
 
   const [isUpdate, setisUpdate] = useState(false);
@@ -31,18 +31,19 @@ export default function FormCalendario({ handleModal, getEvents }) {
   const groups = useSelector((state) => state.groupReducer.groups);
 
   const deleteTag = (e) => {
+    const idToDelete = Days.find((d) => d.day === e).id;
     setInputs({
       ...inputs,
-      date: [...inputs.date.filter((tag) => tag !== e)],
+      date: [...inputs.date.filter((tag) => Number(tag) !== idToDelete)],
     });
   };
- 
+
   const deleteGroup = (e) => {
     setInputs({
       ...inputs,
-      groups: [...inputs.groups.filter((group) => group !== e)],
+      groups: [...inputs.groups.filter((group) => group !== e.target.id)],
     });
-  }
+  };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -75,59 +76,71 @@ export default function FormCalendario({ handleModal, getEvents }) {
     });
   };
 
-  console.log(groups, 'groups');
-
   const handleSubmit = async (e) => {
-    // logica de grupos 
-    let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
-    let playersSelected = groupsSelected.map(gr => gr.players).flat()
-    let idPlayers = playersSelected.map(player => player.id)
-    console.log(idPlayers, 'idPlayers');
-    console.log(playersSelected, 'playersSelected');
-    console.log(groupsSelected, 'groupsSelected');
+    // logica de grupos
+   /*  e.preventDefault()
+    let groupsSelected =
+      inputs.groups && groups.filter((gr) => inputs.groups.includes(gr.id));
+    console.log(groupsSelected); */
+    let groupsSelected =
+      inputs.groups && groups.filter((gr) => inputs.groups.includes(gr.id));
+    let playersSelected = groupsSelected.map((gr) => gr.players).flat();
+    let idPlayers = playersSelected.map((player) => player.id);
     e.preventDefault();
     Swal.fire({
-      title: 'Estas seguro que quieres guardar?',
+      title: "Estas seguro que quieres guardar?",
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Guardar',
-      confirmButtonColor: '#01002E',
+      confirmButtonText: "Guardar",
+      confirmButtonColor: "#01002E",
       denyButtonText: `No guardar`,
-      target: document.getElementById('formEvent'),
-    })
-      .then(async (result) => {
-        if (result.isConfirmed) {
-          console.log(idPlayers);
-          let response = await dispatch(action.createEvent({
+      target: document.getElementById("formEvent"),
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let response = await dispatch(
+          action.createEvent({
             ...inputs,
-            player: idPlayers
-          }));
-          console.log(response);
-          if (response.error) {
-            Toast.fire({
-              icon: 'error',
-              title: 'Error',
-              text: `Algo salio mal: ${response.error}`,
-              target: document.getElementById('formEvent')
-            })
-          } else {
-            Toast.fire({
-              icon: 'success',
-              title: 'Hecho!',
-              text: `Se ha creado correctamente!`,
-            })
-            handleModal();
-            setInputs("");
-            dispatch(getEvents());
-          }
-        } else if (result.isDenied) {
-          Toast.fire({
-            icon: 'info',
-            title: 'No ha sido creado!',
-            target: document.getElementById('formEvent')
+            player: idPlayers,
           })
+        );
+         // ------------- genero deuda asociada ------------
+        if(deuda){
+          const formatedDebt = {
+            concept: newDebt.concept,
+            value: newDebt.value,
+            description: newDebt.description,
+            payment_term: 1,
+            order_state: "Pending",
+            type_order: "club",
+            player: idPlayers
+          }
+          await axios.post(`${axios.defaults.baseURL}/orders/create`, formatedDebt)
         }
-      })
+        if (response.error) {
+          Toast.fire({
+            icon: "error",
+            title: "Error",
+            text: `Algo salio mal: ${response.error}`,
+            target: document.getElementById("formEvent"),
+          });
+        } else {
+          Toast.fire({
+            icon: "success",
+            title: "Hecho!",
+            text: `Se ha creado correctamente!`,
+          });
+          handleModal();
+          setInputs("");
+          dispatch(getEvents());
+        }
+      } else if (result.isDenied) {
+        Toast.fire({
+          icon: "info",
+          title: "No ha sido creado!",
+          target: document.getElementById("formEvent"),
+        });
+      }
+    });
   };
 
   const handleRepetitive = (e) => {
@@ -141,11 +154,26 @@ export default function FormCalendario({ handleModal, getEvents }) {
   };
 
   const handleDeuda = (e) => {
-    setDeuda(e.target.value)
-  }
-  
+    setDeuda(e.target.value);
+  };
+
+  const [newDebt, setNewDebt] = useState({
+    concept: "",
+    description: "",
+    value: 0,
+  });
+
+  const handleNewDebt = (e) => {
+    setNewDebt((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   return (
-    <form className={s.formEventContainer} id='formEvent'>
+    <form className={s.formEventContainer} id="formEvent">
       <section className={s.itemHeaderContainer}>
         <button type="button" onClick={() => handleModal()}>
           X
@@ -181,7 +209,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
             <option value="Entrenamiento">Entrenamiento</option>
             <option value="Partido">Partido</option>
             <option value="Torneo">Torneo</option>
-            <option value="Evento Especial">Evento Especial</option>          
+            <option value="Evento Especial">Evento Especial</option>
           </select>
         </div>
       </section>
@@ -189,7 +217,6 @@ export default function FormCalendario({ handleModal, getEvents }) {
         <div>
           <div className={s.sectionContainer}>
             <div>
-
               <div className={s.item}>
                 <label htmlFor="description">Descripción:</label>
                 <textarea
@@ -249,27 +276,32 @@ export default function FormCalendario({ handleModal, getEvents }) {
                 </div>
               </div>
             </div>
-            {deuda === "true" ?
+            {deuda === "true" ? (
               <div className={s.itemSide}>
                 <div className={s.item}>
                   <span> Deuda: </span>
                   <label htmlFor="concepto">Concepto: </label>
-                  <input type="text" />
+                  <input type="text" name="concept" onChange={handleNewDebt} />
                 </div>
                 <div className={s.item}>
                   <label htmlFor="description">Detalle de la deuda: </label>
-                  <textarea name="description" id="" cols="30" rows="10"></textarea>
+                  <textarea
+                    name="description"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    onChange={handleNewDebt}
+                  ></textarea>
                 </div>
                 <div className={s.item}>
                   <label htmlFor="monto">Monto: </label>
-                  <input type="number" />
+                  <input type="number" name="value" onChange={handleNewDebt} />
                 </div>
               </div>
-              :
+            ) : (
               " "
-            }
+            )}
           </div>
-
         </div>
         {isRepetitive !== "" ? (
           isRepetitive ? (
@@ -286,7 +318,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
                       Selecciona una opción
                     </option>
                     {Days.map((e) => {
-                      return <option value={e.id}>{e.day}</option>
+                      return <option value={e.id}>{e.day}</option>;
                     })}
                   </select>
                 </div>
@@ -302,7 +334,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
               <>
                 <div className={s.containerDays}>
                   {inputs.date?.map((e) => {
-                    let dayName = Days.find((d) => parseInt(d.id) === parseInt(e))
+                    let dayName = Days.find(
+                      (d) => parseInt(d.id) === parseInt(e)
+                    );
                     return <Tags value={dayName.day} deleteTag={deleteTag} />;
                   })}
                 </div>
@@ -350,7 +384,9 @@ export default function FormCalendario({ handleModal, getEvents }) {
                 return (
                   <div key={el} className={s.groupsSelected}>
                     <p>{groups.find((gr) => gr.id === el).name} </p>
-                    <div onClick={() => deleteGroup()}>✖</div>
+                    <div id={el} onClick={(e) => deleteGroup(e)}>
+                      ✖
+                    </div>
                   </div>
                 );
               })}

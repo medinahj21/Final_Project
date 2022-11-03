@@ -58,6 +58,9 @@
 }
 
 .group-detail-first {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     width: 25%;
 }
 
@@ -68,12 +71,13 @@
 
 .group__detail-container iframe {
     position: absolute;
-    height: 350px;
-    width: 350px;
-    bottom: 0;
-    right: 17vw;
+    height: 325px;
+    width: 325px;
+    top: 1vh;
+    right: 60vw;
     border: 2px solid transparent;
     border-radius: 50%;
+    border-top-left-radius: 5%;
     animation-name: pulseMap;
     animation-duration: 1.5s;
     animation-timing-function: ease-out;
