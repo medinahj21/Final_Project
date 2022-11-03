@@ -11,9 +11,9 @@ function Paginated({ productPerPage, allProducts, paginatedHandler }) {
     paginatedHandler(num);
   };
 
-  const pageNum = []; 
+  const pageNum = [];
 
-  for (let i = 0; i < Math.ceil(allProducts.length / productPerPage); i++) {
+  for (let i = 0; i < Math.ceil(allProducts?.length / productPerPage); i++) {
     pageNum.push(i + 1);
   }
 

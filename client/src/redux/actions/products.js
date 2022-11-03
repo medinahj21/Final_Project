@@ -1,43 +1,26 @@
 import axios from "axios";
 import {
   GET_PRODUCTS,
-  GET_PRODUCT_BY_NAME,
   GET_PRODUCT_DETAIL,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
-  CLEAN_PRODUCTS,
   GET_FILTER_TAGS,
   ADD_FILTER_TAGS,
   MODIFY_PRODUCTS,
   CLEAN_PRODUCT_DETAIL,
   RETURN_PAGE,
   DELETE_PRODUCT,
-  ORDER_BY_PRICE,
+  APPLY_FILTERS,
+
 } from "./actions";
 
-export const getProducts = () => {
+export const getProducts = (isAdmin) => {
   return async (dispatch) => {
     try {
       let allProducts = await axios.get(`${axios.defaults.baseURL}/products`);
       return dispatch({
         type: GET_PRODUCTS,
-        payload: allProducts.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const getProductsByName = (name) => {
-  return async (dispatch) => {
-    try {
-      let productByName = await axios.get(
-        `${axios.defaults.baseURL}/products?name=${name}`
-      );
-      return dispatch({
-        type: GET_PRODUCT_BY_NAME,
-        payload: productByName.data,
+        payload: { allProducts: allProducts.data, isAdmin },
       });
     } catch (error) {
       console.log(error);
@@ -61,6 +44,13 @@ export const getProductDetail = (id) => {
   };
 };
 
+export function filterApply(filters) {
+  return {
+    type: APPLY_FILTERS,
+    payload: filters,
+  };
+}
+
 export const createProduct = (payload) => {
   return async (dispatch) => {
     try {
@@ -73,7 +63,7 @@ export const createProduct = (payload) => {
         payload: response.data,
       });
     } catch (error) {
-      console.log({ error: error.message });
+      console.log({ error });
     }
   };
 };
@@ -95,6 +85,7 @@ export const updateProduct = (id, payload) => {
   };
 };
 
+
 export const deleteProduct = (id) => {
   return async (dispatch) => {
     try {
@@ -108,21 +99,6 @@ export const deleteProduct = (id) => {
     } catch (error) {
       console.log(error);
     }
-  };
-};
-
-export const orderByPrice= (payload)=> {
-  return {
-    type: ORDER_BY_PRICE,
-    payload,
-  }
-}
-
-export const cleanProducts = () => {
-  return async (dispatch) => {
-    dispatch({
-      type: CLEAN_PRODUCTS,
-    });
   };
 };
 

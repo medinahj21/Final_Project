@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 import "./CreateProduct.css";
 
@@ -8,10 +7,6 @@ function Modifiers({
   newProduct,
   handleSetNewProductProperties,
 }) {
-  const initialState = useSelector(
-    (state) => state.productsReducer.productDetail
-  )[0];
-
   const [addModifier, setAddModifier] = useState(false);
   const [newModifierType, setNewModifierType] = useState("");
   const [newModifierProperty, setNewModifierProperty] = useState("");
@@ -19,9 +14,7 @@ function Modifiers({
   const [newModifierValue, setNewModifierValue] = useState("");
   const [newModifier, setNeWModifier] = useState([]);
   const [disableAddModifier, setDisableAddModifier] = useState(true);
-  const [modifiers, setModifiers] = useState(
-    initialState ? [...initialState.modifiers] : []
-  );
+  const [modifiers, setModifiers] = useState([]);
 
   const newModifierHanlder = (e) => {
     e.preventDefault();
@@ -84,7 +77,6 @@ function Modifiers({
 
   return (
     <>
-      <label> Modificadores: </label>
       <div>
         <button onClick={newModifierHanlder} className="modify__button">
           {" "}
@@ -179,7 +171,7 @@ function Modifiers({
         </>
       ) : newModifierType === "campoDeTexto" ? (
         <>
-          <h2>Agregados</h2>
+          <h3>Agregados</h3>
           <div className="forms_field">
             <input
               type="text"

@@ -59,7 +59,7 @@ function FormUser({ setShowAlta, setIsForm }) {
     validateForm(userInput);
   };
 
-  const sendEmail = (e) => {
+  /* const sendEmail = (e) => {
     e.preventDefault();
     notify();
     emailjs
@@ -71,7 +71,7 @@ function FormUser({ setShowAlta, setIsForm }) {
       )
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
-  };
+  }; */
 
   const handleSubmit = async (e) => {
     e.preventDefault();

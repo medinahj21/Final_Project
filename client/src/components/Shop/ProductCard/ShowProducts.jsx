@@ -8,9 +8,9 @@ import Paginated from "../Paginated";
 
 import "./ShowProducts.css";
 
-
-export default function ShowProducts({ combinedFilter }) {
+export default function ShowProducts() {
   const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.productsReducer);
 
   const prevPage = useSelector((state) => {
     return state.productsReducer.prevPage;
@@ -21,12 +21,7 @@ export default function ShowProducts({ combinedFilter }) {
   const productPerPage = 4;
   const lastProductIndex = currentPage * productPerPage;
   const firstProductIndex = lastProductIndex - productPerPage;
-
-
-  const currentProduct = combinedFilter.slice(
-    firstProductIndex,
-    lastProductIndex
-  );
+  const currentProduct = products?.slice(firstProductIndex, lastProductIndex);
 
   useEffect(() => {
     //console.log("Me acabo de renderizar");
@@ -45,21 +40,26 @@ export default function ShowProducts({ combinedFilter }) {
     <div>
       <Paginated
         productPerPage={productPerPage}
-        allProducts={combinedFilter}
+        allProducts={products}
         paginatedHandler={paginatedHandler}
       />
       <div className="card__container">
-        {currentProduct?.map((p) => {
-          return (
-            <ProductCard
-              key={p.id}
-              id={p.id}
-              image={p.image}
-              name={p.name}
-              price={p.price}
-            />
-          );
-        })}
+        {currentProduct.length ? (
+          currentProduct?.map((p) => {
+            return (
+              <ProductCard
+                key={p.id}
+                id={p.id}
+                image={p.image}
+                name={p.name}
+                price={p.price}
+                state={p.state}
+              />
+            );
+          })
+        ) : (
+          <h3 className="product-not-found">Producto no encontrado</h3>
+        )}
       </div>
     </div>
   );

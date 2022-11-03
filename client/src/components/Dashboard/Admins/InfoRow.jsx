@@ -75,7 +75,7 @@ function InfoRow({ user }) {
       <ToastContainer />{" "}
       <div className="row" key={user.uid}>
         <div className="cell" data-title="image">
-          <label>espacio img</label>
+          <label>Espacio img</label>
         </div>
         <div className="cell" data-title="name">
           <p>{user.name}</p>
