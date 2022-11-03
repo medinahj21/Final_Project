@@ -136,6 +136,8 @@ function Home() {
               id={group.id}
               img={group.image}
               genre={group.genre}
+              setShowLogin={setShowLogin}
+              setShowRegister={setShowRegister}
             />
           );
         })}

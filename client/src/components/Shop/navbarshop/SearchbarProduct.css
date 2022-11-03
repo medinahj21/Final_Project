@@ -6,6 +6,7 @@
     width: 100%;
     background: var(--linear-gradient-blue);
     position: relative;
+    z-index: 9;
 }
 
 .nav>.nav-header {

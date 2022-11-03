@@ -111,10 +111,14 @@
     right: -50px;
     width: 60vmin;
     height: 100%;
-    padding: 3vmin 4vmin;
-    background: #fff;
+    padding: 0 4vmin;
+    background-color: #faebd7;
     box-shadow: inset 1px 1px 15px 0 rgba(0 0 0 / .4);
     overflow-y: scroll;
+}
+
+.text p {
+    margin: .5rem;
 }
 
 .wrap:hover .overlay {

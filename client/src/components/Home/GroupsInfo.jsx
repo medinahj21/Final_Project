@@ -3,14 +3,24 @@ import GroupDetail from "../Groups/GroupDetail/GroupDetail";
 import Modal from "../UI/Modal";
 import "./GroupsInfo.css";
 
-function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
+function GroupsInfo({
+  position,
+  img,
+  name,
+  schedule,
+  genre,
+  price,
+  id,
+  setShowLogin,
+  setShowRegister,
+}) {
   const [showDetail, setShowDetail] = useState(false);
 
   const imageBG = {
     background: `url(${img})`,
     backgroundSize: "cover",
   };
-  
+
   const positionCard = position === "alt" ? "left" : "right";
 
   return (
@@ -40,7 +50,13 @@ function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
       </div>
       {showDetail && (
         <Modal>
-          <GroupDetail id={id} setShowDetail={setShowDetail} allowBack={true}/>
+          <GroupDetail
+            id={id}
+            setShowDetail={setShowDetail}
+            allowBack={true}
+            setShowRegister={setShowRegister}
+            setShowLogin={setShowLogin}
+          />
         </Modal>
       )}
     </>
@@ -48,4 +64,3 @@ function GroupsInfo({ position, img, name, schedule, genre, price, id }) {
 }
 
 export default GroupsInfo;
-

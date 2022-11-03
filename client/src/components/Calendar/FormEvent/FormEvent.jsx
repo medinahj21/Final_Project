@@ -5,9 +5,12 @@ import { Toast } from "../../../utils/toastSweet";
 import { Days } from "../../../utils/daysWeek";
 
 import Tags from "../../../components/Tag/Tags";
-import s from "../FormEvent/FormEvent.module.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+
+import "./FormEvent.css";
+import InputsFormEvents from "./InputsFormEvents";
+import RepetitiveInputs from "./RepetitiveInputs";
 
 export default function FormCalendario({ handleModal, getEvents }) {
   const dispatch = useDispatch();
@@ -77,7 +80,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
 
   const handleSubmit = async (e) => {
     // logica de grupos
-   /*  e.preventDefault()
+    /*  e.preventDefault()
     let groupsSelected =
       inputs.groups && groups.filter((gr) => inputs.groups.includes(gr.id));
     console.log(groupsSelected); */
@@ -102,8 +105,8 @@ export default function FormCalendario({ handleModal, getEvents }) {
             player: idPlayers,
           })
         );
-         // ------------- genero deuda asociada ------------
-        if(deuda && !response.error){
+        // ------------- genero deuda asociada ------------
+        if (deuda && !response.error) {
           const formatedDebt = {
             concept: newDebt.concept,
             value: newDebt.value,
@@ -111,16 +114,20 @@ export default function FormCalendario({ handleModal, getEvents }) {
             payment_term: 1,
             order_state: "Pending",
             type_order: "club",
-          }
-          idPlayers.length && idPlayers.forEach(async (id)=>{
-            await axios.post(`${axios.defaults.baseURL}/orders/create`, {...formatedDebt, playerId: id})
-          })
+          };
+          idPlayers.length &&
+            idPlayers.forEach(async (id) => {
+              await axios.post(`${axios.defaults.baseURL}/orders/create`, {
+                ...formatedDebt,
+                playerId: id,
+              });
+            });
         }
         if (response.error) {
           Toast.fire({
             icon: "error",
             title: "Error",
-            text: `Algo salio mal: ${response.error}`,
+            text: `Algo salio mal`,
             target: document.getElementById("formEvent"),
           });
         } else {
@@ -173,232 +180,65 @@ export default function FormCalendario({ handleModal, getEvents }) {
   };
 
   return (
-    <form className={s.formEventContainer} id="formEvent">
-      <section className={s.itemHeaderContainer}>
-        <button type="button" onClick={() => handleModal()}>
-          X
-        </button>
-        <div className={s.item}>
-          <label htmlFor="name">Nombre:</label>
-          <input type="text" name="name" onChange={handleChange} />
-        </div>
-        <div className={s.item}>
-          <label htmlFor="state">Estado:</label>
-          <select name="state" onChange={handleChange}>
-            <option value="s" selected={true} disabled={true}>
-              Selecciona una opción
-            </option>
-            <option value="Pending">Pendiente</option>
-            {isUpdate ? (
-              <>
-                <option value="Canceled">Cancelado</option>
-                <option value="Postponed">Aplazado</option>
-                <option value="Finished">Finalizado</option>
-              </>
-            ) : (
-              ""
-            )}
-          </select>
-        </div>
-        <div className={s.item}>
-          <label htmlFor="type">Tipo de evento:</label>
-          <select name="type" onChange={handleChange}>
-            <option value="s" selected={true} disabled={true}>
-              Selecciona una opción
-            </option>
-            <option value="Entrenamiento">Entrenamiento</option>
-            <option value="Partido">Partido</option>
-            <option value="Torneo">Torneo</option>
-            <option value="Evento Especial">Evento Especial</option>
-          </select>
-        </div>
-      </section>
-      <section className={s.itemBodyContainer}>
-        <div>
-          <div className={s.sectionContainer}>
-            <div>
-              <div className={s.item}>
-                <label htmlFor="description">Descripción:</label>
-                <textarea
-                  name="description"
-                  cols="30"
-                  rows="10"
-                  placeholder="Escribe aquí"
-                  onChange={handleChange}
-                ></textarea>
-              </div>
-              <div className={s.item}>
-                <label htmlFor="location">Ubicación:</label>
-                <input
-                  name="location"
-                  cols="30"
-                  rows="10"
-                  placeholder="Escribe aquí"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={s.inputsRadio}>
-                <label htmlFor="repetitive">Repetitivo:</label>
-                <div className={s.radios}>
-                  <input
-                    type="radio"
-                    name="repetitive"
-                    value={true}
-                    onChange={handleRepetitive}
-                  />
-                  <span>Si</span>
-                  <input
-                    type="radio"
-                    name="repetitive"
-                    value={false}
-                    onChange={handleRepetitive}
-                  />
-                  <span>No</span>
-                </div>
-              </div>
-              <div className={s.inputsRadio}>
-                <label htmlFor="deuda">Generar Deuda:</label>
-                <div className={s.radios}>
-                  <input
-                    type="radio"
-                    name="deuda"
-                    value={true}
-                    onChange={handleDeuda}
-                  />
-                  <span>Si</span>
-                  <input
-                    type="radio"
-                    name="deuda"
-                    value={false}
-                    onChange={handleDeuda}
-                  />
-                  <span>No</span>
-                </div>
-              </div>
-            </div>
-            {deuda === "true" ? (
-              <div className={s.itemSide}>
-                <div className={s.item}>
-                  <span> Deuda: </span>
-                  <label htmlFor="concepto">Concepto: </label>
-                  <input type="text" name="concept" onChange={handleNewDebt} />
-                </div>
-                <div className={s.item}>
-                  <label htmlFor="description">Detalle de la deuda: </label>
-                  <textarea
-                    name="description"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    onChange={handleNewDebt}
-                  ></textarea>
-                </div>
-                <div className={s.item}>
-                  <label htmlFor="monto">Monto: </label>
-                  <input type="number" name="value" onChange={handleNewDebt} />
-                </div>
-              </div>
-            ) : (
-              " "
-            )}
-          </div>
-        </div>
-        {isRepetitive !== "" ? (
-          isRepetitive ? (
-            <div className={s.repetitiveInputs}>
-              <div className={s.repetitiveItems}>
-                <div className={s.item}>
-                  <label htmlFor="date">Días</label>
-                  <select
-                    className={s.selectDays}
-                    name="date"
-                    onChange={(e) => handleChangeDays(e)}
-                  >
-                    <option selected value="s" disabled={true}>
-                      Selecciona una opción
-                    </option>
-                    {Days.map((e) => {
-                      return <option value={e.id}>{e.day}</option>;
-                    })}
-                  </select>
-                </div>
-                <div className={s.item}>
-                  <label htmlFor="start">Inicio:</label>
-                  <input type="time" name="start" onChange={handleChange} />
-                </div>
-                <div className={s.item}>
-                  <label htmlFor="end">Final: </label>
-                  <input type="time" name="end" onChange={handleChange} />
-                </div>
-              </div>
-              <>
-                <div className={s.containerDays}>
-                  {inputs.date?.map((e) => {
-                    let dayName = Days.find(
-                      (d) => parseInt(d.id) === parseInt(e)
-                    );
-                    return <Tags value={dayName.day} deleteTag={deleteTag} />;
-                  })}
-                </div>
-              </>
-            </div>
-          ) : (
-            <div className={s.noRepetitiveInputs}>
-              <div className={s.item}>
-                <label htmlFor="date">Fecha: </label>
-                <input type="date" name="date" onChange={handleChange} />
-              </div>
-              <div className={s.item}>
-                <label htmlFor="start">Inicio:</label>
-                <input type="time" name="start" onChange={handleChange} />
-              </div>
-              <div className={s.item}>
-                <label htmlFor="end">Final: </label>
-                <input type="time" name="end" onChange={handleChange} />
-              </div>
-            </div>
-          )
-        ) : (
-          ""
-        )}
-        <div className={s.item}>
-          <label htmlFor="groups">Grupos Convocados</label>
-          <select name="groups" onChange={(e) => handleChangeGroups(e)}>
-            <option selected value="s" disabled={true}>
-              Selecciona una opción
-            </option>
-            {groups.map((group) => {
-              return (
-                <option value={group.id} key={group.id}>
-                  {group.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        {inputs.groups.length ? (
+    <>
+      <form id="formEvent" className="form-event">
+        <div className="event-container">
+          {" "}
+          <button
+            type="button"
+            className="form-event-close"
+            onClick={() => handleModal()}
+          >
+            X
+          </button>
+          <InputsFormEvents handleChange={handleChange} isUpdate={isUpdate} />
+          <RepetitiveInputs
+            deuda={deuda}
+            setDeuda={setDeuda}
+            handleChange={handleChange}
+            setNewDebt={setNewDebt}
+            inputs={inputs}
+            setInputs={setInputs}
+          />
           <div>
-            <h4>Has seleccionado estos grupos: </h4>
-            <div className={s.groupsSelectedContainer}>
-              {inputs.groups?.map((el) => {
+            <select name="groups" onChange={(e) => handleChangeGroups(e)}>
+              <option selected value="s" disabled={true}>
+                Grupos Convocados
+              </option>
+              {groups.map((group) => {
                 return (
-                  <div key={el} className={s.groupsSelected}>
-                    <p>{groups.find((gr) => gr.id === el).name} </p>
-                    <div id={el} onClick={(e) => deleteGroup(e)}>
-                      ✖
-                    </div>
-                  </div>
+                  <option value={group.id} key={group.id}>
+                    {group.name}
+                  </option>
                 );
               })}
-            </div>
+            </select>
+            {inputs.groups.length > 0 && (
+              <div>
+                <h4>Has seleccionado estos grupos: </h4>
+                <div>
+                  {inputs.groups?.map((el) => {
+                    return (
+                      <div key={el}>
+                        <p>{groups.find((gr) => gr.id === el).name} </p>
+                        <div id={el} onClick={(e) => deleteGroup(e)}>
+                          ✖
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        ) : (
-          <br></br>
-        )}
-      </section>
-      <button className={s.buttonSubmitEvent} onClick={(e) => handleSubmit(e)}>
-        Aceptar
-      </button>
-    </form>
+        </div>
+        <button
+          className="form-event-button-accept"
+          onClick={(e) => handleSubmit(e)}
+        >
+          Aceptar
+        </button>
+      </form>
+    </>
   );
 }

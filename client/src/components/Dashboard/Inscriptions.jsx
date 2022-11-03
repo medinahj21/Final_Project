@@ -22,7 +22,7 @@ export default function Inscriptions() {
   }, [dispatch]);
   return (
     <>
-      <h1>Solicitudes</h1>
+      <h3>Solicitudes</h3>
       {requests ? (
         <div className="table">
           <div className="row blue header">

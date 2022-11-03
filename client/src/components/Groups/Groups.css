@@ -45,10 +45,10 @@
 
 @media screen and (max-width: 600px) {
 
+
     .groups__container .selects__container {
         flex-direction: column;
-        border-radius:0;
-        gap: 2rem;
+        border-radius: 0;
         width: 100vw;
         height: 15vh;
         justify-content: space-evenly;
@@ -59,6 +59,11 @@
 
     .groups__container .selects__container button {
         width: fit-content;
+        margin: 0 auto;
+    }
+
+    .select_container {
+        position: relative;
         margin: 0 auto;
     }
 }

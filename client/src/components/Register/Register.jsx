@@ -28,6 +28,7 @@ function Register({ setShowRegister, setShowLogin }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     try {
       await registerWhitEmailAndPassword(
         credentials.email,
@@ -54,7 +55,7 @@ function Register({ setShowRegister, setShowLogin }) {
 
   return (
     <>
-      <div className="user_forms-signup">
+      <div className="user_forms-signup" id="register">
         <h2 className="forms_title">Registrarse</h2>
         <form className="forms_form" onSubmit={submitHandler}>
           <div className="forms_field">

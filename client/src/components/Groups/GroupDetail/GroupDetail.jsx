@@ -7,7 +7,13 @@ import {
 } from "../../../redux/actions/actionsGroup";
 import GroupDetailCard from "./GroupDetailCard";
 
-export default function GroupDetail({ setShowDetail, id, allowBack }) {
+export default function GroupDetail({
+  setShowDetail,
+  id,
+  allowBack,
+  setShowLogin,
+  setShowRegister,
+}) {
   const dispatch = useDispatch();
 
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
@@ -21,7 +27,7 @@ export default function GroupDetail({ setShowDetail, id, allowBack }) {
 
   if (createdSuccess) {
     dispatch(getGroupDetail(id));
-    setCreatedSuccess(false)
+    setCreatedSuccess(false);
   }
 
   return (
@@ -31,6 +37,8 @@ export default function GroupDetail({ setShowDetail, id, allowBack }) {
       setShowDetail={setShowDetail}
       allowBack={allowBack}
       setCreatedSuccess={setCreatedSuccess}
+      setShowRegister={setShowRegister}
+      setShowLogin={setShowLogin}
     />
   );
 }

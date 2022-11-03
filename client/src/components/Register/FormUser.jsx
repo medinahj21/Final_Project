@@ -93,7 +93,7 @@ function FormUser({ setShowAlta, setIsForm }) {
 
   return (
     <Modal clickHandler={() => setIsForm(false)}>
-      <ToastContainer limit={1}/>
+      <ToastContainer limit={1} />
       <form onSubmit={handleSubmit} className="form__user">
         <h3 className="form__title">Solicitud de alta</h3>
         <div className="form__content-alta">

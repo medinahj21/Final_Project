@@ -97,6 +97,7 @@
 @media screen and (max-width: 1024px) {}
 
 @media screen and (max-width: 624px) {
+
     .form__user.form-create-product {
         overflow-y: scroll;
         max-height: 100vh;
