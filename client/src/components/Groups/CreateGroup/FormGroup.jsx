@@ -15,8 +15,7 @@ import "./FormGroup.css";
 
 export default function FormGroup({ setIsForm }) {
   const dispatch = useDispatch();
-
-  const { userInfoFirestore } = useSelector((state) => state.authReducer);
+  
 
   const [groupInputs, setGroupInputs] = useState({
     name: "",
@@ -29,7 +28,7 @@ export default function FormGroup({ setIsForm }) {
     whatsapp: "",
     accept_newPlayers: "",
     genre: "",
-    adminId: userInfoFirestore?.uid,
+    adminId: "uiq13LoUZmgKbiHKnyhjTWIieom2",
   });
 
   const [image, setImage] = useState(null);
