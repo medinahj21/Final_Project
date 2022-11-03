@@ -165,6 +165,18 @@ export default function FormCalendario({ handleModal, getEvents }) {
             )}
           </select>
         </div>
+        <div className={s.item}>
+          <label htmlFor="type">Tipo de evento:</label>
+          <select name="type" onChange={handleChange}>
+            <option value="s" selected={true} disabled={true}>
+              Selecciona una opción
+            </option>
+            <option value="Entrenamiento">Entrenamiento</option>
+            <option value="Partido">Partido</option>
+            <option value="Torneo">Torneo</option>
+            <option value="Evento Especial">Evento Especial</option>          
+          </select>
+        </div>
       </section>
       <section className={s.itemBodyContainer}>
         <div>
