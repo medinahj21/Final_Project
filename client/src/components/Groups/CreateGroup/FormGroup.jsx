@@ -88,7 +88,6 @@ export default function FormGroup({ setIsForm }) {
             whatsapp: "",
             accept_newPlayers: "",
             genre: "",
-            adminId: [],
           });
           setImage("");
         }
@@ -99,13 +98,6 @@ export default function FormGroup({ setIsForm }) {
           target: document.getElementById("formGroups"),
         });
       }
-    });
-  };
-
-  const deleteAdminSelected = (id) => {
-    setGroupInputs({
-      ...groupInputs,
-      adminId: [...groupInputs.adminId.filter((e) => e !== id)],
     });
   };
 
@@ -122,17 +114,6 @@ export default function FormGroup({ setIsForm }) {
           handleChange={handleChange}
           admins={admins}
         />
-        <div>
-          {groupInputs.adminId?.map((a) => {
-            let admin = admins.filter((e) => e.id === a);
-            return (
-              <div>
-                <div>{admin[0].personal_info.name}</div>
-                <span onClick={(e) => deleteAdminSelected(a)}>X</span>
-              </div>
-            );
-          })}
-        </div>
         <div className="container-button-group">
           <button type="submit" className="modify__button add-btn">
             Crear
