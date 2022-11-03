@@ -25,8 +25,10 @@ import axios from "axios";
 export default function RoleRequestMiniCard(roleRequest) {
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
-  const {groups} = useSelector((state) => state.groupReducer);
-  const groupName = groups.find((g)=> g.id === groupId).name;
+
+  const { groups } = useSelector((state) => state.groupReducer);
+  const groupName = groups.find((g) => g.id === groupId).name;
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -170,20 +172,37 @@ export default function RoleRequestMiniCard(roleRequest) {
         // --------- genero eventos pago de inscripción y mensualidad -----------
 
         try {
-          function quitarAcentos(cadena){
-            const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
-            return cadena.split('').map( letra => acentos[letra] || letra).join('').toString();	
+          function quitarAcentos(cadena) {
+            const acentos = {
+              á: "a",
+              é: "e",
+              í: "i",
+              ó: "o",
+              ú: "u",
+              Á: "A",
+              É: "E",
+              Í: "I",
+              Ó: "O",
+              Ú: "U",
+            };
+            return cadena
+              .split("")
+              .map((letra) => acentos[letra] || letra)
+              .join("")
+              .toString();
           }
-          const formatedDateRepetitive = ()=>{
-            const scheduleSplit = groupDetail.schedule.split("|")
-            const arrayDays = scheduleSplit[0].split(",").map((e)=>{ 
-              return Days.find((d)=> d.day === quitarAcentos(e.toString().trim())).id.toString()
-            })
-            const startHour = scheduleSplit[1].split("-")[0].toString().trim()
-            const endHour = scheduleSplit[1].split("-")[1].toString().trim()
-            return [arrayDays,startHour,endHour]
-          }
-          const arrayFormatedDates =  formatedDateRepetitive()
+          const formatedDateRepetitive = () => {
+            const scheduleSplit = groupDetail.schedule.split("|");
+            const arrayDays = scheduleSplit[0].split(",").map((e) => {
+              return Days.find(
+                (d) => d.day === quitarAcentos(e.toString().trim())
+              ).id.toString();
+            });
+            const startHour = scheduleSplit[1].split("-")[0].toString().trim();
+            const endHour = scheduleSplit[1].split("-")[1].toString().trim();
+            return [arrayDays, startHour, endHour];
+          };
+          const arrayFormatedDates = formatedDateRepetitive();
           let newEvents = [
             // evento pago inscripción
             {
@@ -207,7 +226,7 @@ export default function RoleRequestMiniCard(roleRequest) {
                 "Puedes realizar el pago en el dashboard componente de perfil",
               start: "00:00:00",
               end: "23:59:59",
-              date:[paymentDate(30)], //acomodar con respecto al day asignado
+              date: [paymentDate(30)], //acomodar con respecto al day asignado
               description: `Fecha máxima de pago de inscripción ${paymentDate(
                 30
               )}`,
@@ -221,13 +240,13 @@ export default function RoleRequestMiniCard(roleRequest) {
               location: groupDetail.location,
               start: arrayFormatedDates[1],
               end: arrayFormatedDates[2],
-              date:[arrayFormatedDates[0]], //acomodar con respecto al day asignado
+              date: [arrayFormatedDates[0]], //acomodar con respecto al day asignado
               description: `Entrenamiento-${groupDetail.name.toLowerCase()}, traer hidratación`,
               repetitive: true,
               state: "Pending",
               type: "Entrenamiento",
-              player: id, 
-            }
+              player: id,
+            },
           ];
 
           newEvents.forEach(async (event) => {
@@ -261,7 +280,9 @@ export default function RoleRequestMiniCard(roleRequest) {
           <p>{userInfo.userInfoFirestore.name}</p>
         </div>
         <div className="cell" data-title="group">
-          {/*groupDetail.name*/ groupName }
+
+          {groupName}
+
         </div>
         <div className="cell" data-title="role">
           {newRole}
