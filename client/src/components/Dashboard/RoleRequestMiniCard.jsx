@@ -25,6 +25,8 @@ import axios from "axios";
 export default function RoleRequestMiniCard(roleRequest) {
   const { id, userInfo, groupId, newRole } = { ...roleRequest.roleRequests };
   const groupDetail = useSelector((state) => state.groupReducer.groupDetail);
+  const {groups} = useSelector((state) => state.groupReducer);
+  const groupName = groups.find((g)=> g.id === groupId).name;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -259,7 +261,7 @@ export default function RoleRequestMiniCard(roleRequest) {
           <p>{userInfo.userInfoFirestore.name}</p>
         </div>
         <div className="cell" data-title="group">
-          {groupDetail.name}
+          {/*groupDetail.name*/ groupName }
         </div>
         <div className="cell" data-title="role">
           {newRole}
