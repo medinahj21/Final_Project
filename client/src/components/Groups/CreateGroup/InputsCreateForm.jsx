@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin }) {
+function InputsCreateForm({ groupInputs, handleChange }) {
   return (
     <>
       <div className="form__content-alta inputs-container">
@@ -145,18 +145,6 @@ function InputsCreateForm({ groupInputs, handleChange, admins, handleChangeAdmin
             onChange={handleChange}
           />
           <span className="check"></span>
-        </label>
-        <label htmlFor="">
-          <select
-            name="adminId"
-            onChange={handleChangeAdmin}
-            defaultValue="disabled"
-            className="select_container">
-            <option value="disabled" disabled={true}>Admins</option>
-            {admins?.map((a) => {
-              return <option key={a.id} value={a.id}>{a.personal_info.name}</option>
-            })}
-          </select>
         </label>
       </div>
     </>

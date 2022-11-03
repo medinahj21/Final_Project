@@ -138,7 +138,7 @@ const createEvent = async (req, res) => {
         name,
         location,
         description,
-        date: (repetitive === true ? date : [date]),
+        date: repetitive === true ? date : [date],
         repetitive,
         state,
         start,
@@ -226,18 +226,19 @@ const postPlayers = async (req, res) => {
   try {
     if (!personalInfo) res.status(400).json({ error: "missing info" });
 
-    const existPlayer = await Player.findByPk(personalInfo.uid, { paranoid: false })
+    const existPlayer = await Player.findByPk(personalInfo.uid, {
+      paranoid: false,
+    });
     if (existPlayer) {
       const restorePlayer = await Player.restore({
-        where: { id: personalInfo.uid }});
-        existPlayer.set(req.body).save() 
-        restorePlayer
-            ? res.json({ message: "Player was created successfully" })
-            : res.status(400).json({ message: "newPlayer was  not created" });
-          }
-            
-    else {
-      console.log('entre en nuevo');
+        where: { id: personalInfo.uid },
+      });
+      existPlayer.set(req.body).save();
+      restorePlayer
+        ? res.json({ message: "Player was created successfully" })
+        : res.status(400).json({ message: "newPlayer was  not created" });
+    } else {
+      console.log("entre en nuevo");
       const newPlayer = await Player.create({
         id: personalInfo.uid,
         personalInfo,
@@ -245,7 +246,7 @@ const postPlayers = async (req, res) => {
         paymentDate,
         shirtNumber,
         groupId,
-      })
+      });
       !newPlayer
         ? res.status(400).json({ message: "newPlayer was  not created" })
         : res.json({ message: "Player was created successfully" });
@@ -320,12 +321,11 @@ const postRoleRequest = async (req, res) => {
   try {
     if (!newRole) {
       res.status(400).json({ error: "No role send" });
-    }
-    else {
+    } else {
       const existRole = await RoleRequest.findByPk(id, { paranoid: false });
       if (existRole) {
         const restoreRol = await RoleRequest.restore({
-          where: { id: id }
+          where: { id: id },
         });
         existRole.set(req.body).save()
           ? res.json({ message: "procces successfully" })
