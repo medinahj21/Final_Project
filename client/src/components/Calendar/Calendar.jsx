@@ -31,6 +31,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
+
   useEffect(() => {
     if (events.length) {
       let eventMap =
@@ -59,6 +60,7 @@ export default function Calendar(setIsEventForm, isEventForm) {
       setObjectEvent2(events?.length && eventMap.flat());
     }
   }, [events]);
+
 
   const handleModal = () => {
     setModalOn(!modalOn);
