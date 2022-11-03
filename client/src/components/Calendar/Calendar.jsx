@@ -17,7 +17,7 @@ import DetailEvent from "./DetailEvent/DetailEvent";
 
 import "./Calendar.css";
 
-export default function Calendar() {
+export default function Calendar(setIsEventForm, isEventForm) {
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
   const [objectEvent, setObjectEvent] = useState([]);
@@ -30,67 +30,41 @@ export default function Calendar() {
   const events = useSelector((state) => state.eventReducer.events);
   const { playerDetail } = useSelector((state) => state.playerReducer);
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
-  useEffect(() => {
+
+  /* useEffect(() => {
     let eventMap = events.length && events?.map((ev) =>
       ev.state === "Pending"
-      ? [
-        {
-          title: ev.name,
-          id: ev.id,
-          description: ev.description,
-          state: ev.state,
-          location: ev.location,
-          startTime: ev.repetitive ? ev.start : "",
-          endTime: ev.repetitive ? ev.end : "",
-          start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
-          end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
-          allDay: false,
-          type: ev.type,
-          daysOfWeek: ev.repetitive ? ev.date : "",
-            },
-          ]
+        ? [
+          {
+            title: ev.name,
+            id: ev.id,
+            description: ev.description,
+            state: ev.state,
+            location: ev.location,
+            startTime: ev.repetitive ? ev.start : "",
+            endTime: ev.repetitive ? ev.end : "",
+            start:  !ev.repetitive ? `${ev.date[0]} ${ev.start}` : "",
+            end:  !ev.repetitive ? `${ev.date[0]} ${ev.end}` : "",
+            allDay: false,
+            type: ev.type,
+            daysOfWeek: ev.repetitive ? ev.date[0] : "",
+          },
+        ]
         : []
         );
     setObjectEvent(events.length && eventMap.flat());
     setObjectEvent2(events.length && eventMap.flat());
-  }, [events]);
+  }, [events]); */
 
   const handleModal = () => {
     setModalOn(!modalOn);
   };
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(getEvents());
     dispatch(getPlayerDetail(userInfoFirestore.uid));
     setEventPlayer(playerDetail.events?.map((us) => us.id));
-  }, [dispatch]);
-
-
-  if (modalOn) {
-    return (
-      <Modal>
-        <FormEvent
-          isCreate={isCreate}
-          setIsCreate={setIsCreate}
-          handleModal={handleModal}
-          getEvents={getEvents}
-        />
-      </Modal>
-    );
-  }
-
-  if (modalDetail) {
-    return (
-      <Modal>
-        <DetailEvent
-          setModalDetail={setModalDetail}
-          title={detail.title}
-          description={detail.extendedProps.description}
-          location={detail.extendedProps.location}
-        />
-      </Modal>
-    );
-  }
+  }, [dispatch]); 
 
   return (
     <div className="fc-header-toolbar fc-toolbar font-size">
@@ -155,6 +129,28 @@ useEffect(() => {
           setDetail(event.event._def);
         }}
       />
+
+      {modalOn &&
+        <Modal>
+          <FormEvent
+            isCreate={isCreate}
+            setIsCreate={setIsCreate}
+            handleModal={handleModal}
+            getEvents={getEvents}
+          />
+        </Modal>}
+
+      {modalDetail &&
+        <Modal>
+          <DetailEvent
+            setModalDetail={setModalDetail}
+            title={detail.title}
+            description={detail.extendedProps.description}
+            location={detail.extendedProps.location}
+            idE={detail.publicId}
+          />
+        </Modal>
+      }
     </div>
   );
 }

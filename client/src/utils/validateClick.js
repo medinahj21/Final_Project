@@ -5,7 +5,7 @@ export const validateClick = (value, setClickChoice) => {
       isPagos: false,
       isGrupos: false,
       isGrupo: false,
-      isCalendario: false,
+      isPagosHistory: false,
       isRequest: false,
       isPlayer: false,
       isPerfil: true,
@@ -15,10 +15,10 @@ export const validateClick = (value, setClickChoice) => {
   if (value === "socios") {
     setClickChoice({
       isPerfil: false,
+      isPagosHistory: false,
       isPagos: false,
       isGrupos: false,
       isGrupo: false,
-      isCalendario: false,
       isRequest: false,
       isPlayer: false,
       isSocios: true,
@@ -28,35 +28,13 @@ export const validateClick = (value, setClickChoice) => {
   if (value === "grupo") {
     setClickChoice({
       isPerfil: false,
+      isPagosHistory: false,
       isSocios: false,
       isPagos: false,
       isGrupos: false,
-      isCalendario: false,
       isRequest: false,
       isPlayer: false,
       isGrupo: true,
-    });
-  }
-
-  if (value === "calendario") {
-    setClickChoice({
-      isPerfil: false,
-      isSocios: false,
-      isGrupo: false,
-      isCalendario: true,
-    });
-    
-  }
-  if (value === "perfil") {
-    setClickChoice({
-      isPerfil: true,
-      isSocios: false,
-      isPagos: false,
-      isGrupos: false,
-      isGrupo: false,
-      isRequest: false,
-      isPlayer: false,
-      isCalendario: true,
     });
   }
 
@@ -66,8 +44,8 @@ export const validateClick = (value, setClickChoice) => {
       isSocios: false,
       isGrupo: false,
       isGrupos: false,
+      isPagosHistory: false,
       isPlayer: false,
-      isCalendario: false,
       isRequest: false,
       isPagos: true,
     });
@@ -78,10 +56,10 @@ export const validateClick = (value, setClickChoice) => {
       isPerfil: false,
       isSocios: false,
       isPagos: false,
+      isPagosHistory: false,
       isGrupo: false,
       isPlayer: false,
       isRequest: false,
-      isCalendario: false,
       isGrupos: true,
     });
   }
@@ -89,11 +67,11 @@ export const validateClick = (value, setClickChoice) => {
   if (value === "request") {
     setClickChoice({
       isPerfil: false,
+      isPagosHistory: false,
       isSocios: false,
       isPagos: false,
       isGrupos: false,
       isGrupo: false,
-      isCalendario: false,
       isPlayer: false,
       isRequest: true,
     });
@@ -106,9 +84,21 @@ export const validateClick = (value, setClickChoice) => {
       isPagos: false,
       isGrupos: false,
       isGrupo: false,
-      isCalendario: false,
       isRequest: false,
+      isPagosHistory: false,
       isPlayer: true,
+    });
+  }
+  if (value === "pagosHistory") {
+    setClickChoice({
+      isPerfil: false,
+      isSocios: false,
+      isPagos: false,
+      isGrupos: false,
+      isGrupo: false,
+      isRequest: false,
+      isPlayer: false,
+      isPagosHistory: true,
     });
   }
 };

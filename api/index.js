@@ -47,7 +47,7 @@ const chargeDummyData = async () => {
         years: obj.Edad,
       },
       debtValue: isNaN(obj["Tarifa Wolves"]) ? 0 : obj["Tarifa Wolves"],
-      paymentDate: Math.floor(Math.random()*30),
+      paymentDate: Math.floor(Math.random() * 30),
       shirtNumber: isNaN(obj["Número camisa"]) ? 99 : obj["Número camisa"],
     };
   });

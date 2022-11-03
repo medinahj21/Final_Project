@@ -21,12 +21,12 @@
 }
 
 .form__btn-alta.add-btn:hover {
-    background-color: green;
+    background-color: #008000;
     box-shadow: none;
 }
 
 .form__btn-alta.delete-btn:hover {
-    background-color: red;
+    background-color: #ff0000;
     box-shadow: none;
 }
 
@@ -41,13 +41,13 @@
 .modify__button {
     padding: .4rem;
     background-color: transparent;
-    color: white;
+    color: #fff;
     border: 1px solid transparent;
-    box-shadow: 0 0 3px 0px white;
+    box-shadow: 0 0 3px 0px #fff;
 }
 
 .modify__button:hover {
-    background-color: grey;
+    background-color: #808080;
 }
 
 .select_content {
@@ -85,7 +85,7 @@
 }
 
 .select_container:hover::after {
-    color: rgb(30, 0, 72);
+    color: var(--color-bg);
 }
 
 .select_content option {

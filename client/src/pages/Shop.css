@@ -23,6 +23,12 @@
   border-radius: 7px;
 }
 
+@media (max-width:1450px) {
+  .cart-button-nav {
+    top: 0;
+    right: 35px;
+  }
+}
 @media (max-width:600px) {
   .cart-button-nav {
     top: 16px;

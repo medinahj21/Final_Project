@@ -143,3 +143,15 @@
   align-items: center;
   gap: 20px;
 }
+
+.itemSide {
+  display: flex;
+  flex-direction: column;
+}
+.itemBodyContainer {
+  display: flex;
+  flex-direction: column;
+}
+.sectionContainer {
+  display: flex;
+}

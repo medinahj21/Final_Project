@@ -7,6 +7,10 @@
 
   --color-white: #fff;
   --color-black: #000;
+  --color-blue: rgb(1, 0, 72);
+
+  --linear-gradient: linear-gradient(-4deg, rgb(30, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46), rgb(1, 4, 46), rgb(235, 137, 0) );
+  --linear-gradient-blue: linear-gradient(-4deg, rgb(3, 0, 72), rgb(1, 4, 46), rgb(1, 4, 46));
 
   --font-size-h1: 4rem;
   --font-size-h2: 2.5rem;

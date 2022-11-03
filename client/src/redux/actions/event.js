@@ -23,8 +23,11 @@ export const deleteEvent = (id) => {
             .delete(`${axios.defaults.baseURL}/events/delete/${id}`)
             .then((res) => res.data)
             .then((data) => {
-                console.log(data);
-            });
+                return data;
+            })
+            .catch((error) => {
+                return {error: error}
+            })
     };
 };
 

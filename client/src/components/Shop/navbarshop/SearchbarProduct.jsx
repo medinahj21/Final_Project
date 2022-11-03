@@ -3,15 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
-import {
-  filterApply,
-  // cleanFilters,
-  // filterProductByTag,
-  setPageNumPrev,
-} from "../../../redux/actions/products";
+import { filterApply, setPageNumPrev } from "../../../redux/actions/products";
 
 import { IoIosCart, IoMdSearch } from "react-icons/io";
-// import { FcSearch } from "react-icons/fc";
 
 import "./SearchbarProduct.css";
 
@@ -21,21 +15,8 @@ function SearchbarProduct(props) {
   const { userInfoFirestore } = useSelector((state) => state.authReducer);
 
   const { filterTags } = useSelector((state) => state.productsReducer);
-  // const [tags, setTags] = useState([]);
-  // console.log("filtertagsearchbar", filterTags);
 
-  const {
-    setCreationDiv,
-    // handleTags,
-    // allTags,
-    // tags,
-    // deleteTag,
-    // handleClean,
-    // handleAllProducts,
-    // handleOrderByPrice,
-    // handleSearch,
-    // productSearched,
-  } = props;
+  const { setCreationDiv } = props;
 
   const [showCart, setShowCart] = useState(false);
   const [filters, setFilters] = useState({
@@ -90,26 +71,12 @@ function SearchbarProduct(props) {
         isAscend: e.target.value,
       };
     });
-    console.log(e.target.value);
     dispatch(filterApply({ ...filters, isAscend: e.target.value }));
   };
 
   useEffect(() => {
     dispatch(filterApply({ ...filters }));
   }, []);
-
-  // const filterByName = (e) => {
-  //   dispatch(getProductsByName(e.target.value));
-  // };
-
-  // const deleteTag = (e) => {
-  //   let aux = tags;
-  //   aux.splice(tags.indexOf(Number(e.target.value)), 1);
-  //   setTags([...aux]);
-  //   let aux2 = handleFilter(allProducts, aux, allTags);
-  //   setDataFiltered(aux2);
-  //   setCombinedFilter(aux2);
-  // };
 
   return (
     <>
@@ -206,7 +173,7 @@ function SearchbarProduct(props) {
               );
             })}
           </select>
-          {filters.tags?.length && (
+          {filters.tags?.length > 0 && (
             <ul className="tag-list">
               <>
                 {filters.tags.map((tag) => {
@@ -221,11 +188,15 @@ function SearchbarProduct(props) {
           )}
           <button
             className="cart-button-nav"
-            onClick={() => setShowCart(!showCart)}
+            onClick={() =>
+              setShowCart((prevState) => {
+                return !prevState;
+              })
+            }
           >
             <IoIosCart />
           </button>
-          {showCart ? <ShoppingCart /> : <></>}
+          {showCart ? <ShoppingCart setShowCart={setShowCart} /> : <></>}
         </div>
       </div>
     </>

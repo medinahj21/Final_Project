@@ -12,8 +12,8 @@ export default function Inscriptions() {
   const requests = useSelector((state) => state.groupReducer.roleRequests);
 
   useEffect(() => {
-    if (requests?.length === 0) dispatch(getRoleRequests()); // validar cuando acabe de aceptar inscripciones
-  }, [dispatch, requests]);
+    if (requests?.length === 0) dispatch(getRoleRequests());
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {

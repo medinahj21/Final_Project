@@ -13,7 +13,6 @@ import { RESET_REDUX_STATE } from "../actions/actions";
 const appReducer = combineReducers({
   authReducer,
   eventReducer,
-  authReducer, 
   groupReducer,
   playerReducer,
   productsReducer,

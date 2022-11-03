@@ -14,6 +14,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
 
   const [isUpdate, setisUpdate] = useState(false);
   const [isRepetitive, setIsRepetitive] = useState("");
+  const [deuda, setDeuda] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
     state: "",
@@ -35,6 +36,14 @@ export default function FormCalendario({ handleModal, getEvents }) {
       date: [...inputs.date.filter((tag) => tag !== e)],
     });
   };
+ 
+  const deleteGroup = (e) => {
+    setInputs({
+      ...inputs,
+      groups: [...inputs.groups.filter((group) => group !== e)],
+    });
+  }
+
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
@@ -66,12 +75,16 @@ export default function FormCalendario({ handleModal, getEvents }) {
     });
   };
 
+  console.log(groups, 'groups');
+
   const handleSubmit = async (e) => {
     // logica de grupos 
     let groupsSelected = inputs.groups && groups.filter(gr => inputs.groups.includes(gr.id))
     let playersSelected = groupsSelected.map(gr => gr.players).flat()
     let idPlayers = playersSelected.map(player => player.id)
-
+    console.log(idPlayers, 'idPlayers');
+    console.log(playersSelected, 'playersSelected');
+    console.log(groupsSelected, 'groupsSelected');
     e.preventDefault();
     Swal.fire({
       title: 'Estas seguro que quieres guardar?',
@@ -84,6 +97,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
     })
       .then(async (result) => {
         if (result.isConfirmed) {
+          console.log(idPlayers);
           let response = await dispatch(action.createEvent({
             ...inputs,
             player: idPlayers
@@ -126,6 +140,10 @@ export default function FormCalendario({ handleModal, getEvents }) {
     setIsRepetitive(false);
   };
 
+  const handleDeuda = (e) => {
+    setDeuda(e.target.value)
+  }
+  
   return (
     <form className={s.formEventContainer} id='formEvent'>
       <section className={s.itemHeaderContainer}>
@@ -168,44 +186,90 @@ export default function FormCalendario({ handleModal, getEvents }) {
         </div>
       </section>
       <section className={s.itemBodyContainer}>
-        <div className={s.item}>
-          <label htmlFor="description">Descripción:</label>
-          <textarea
-            name="description"
-            cols="30"
-            rows="10"
-            placeholder="Escribe aquí"
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className={s.item}>
-          <label htmlFor="location">Ubicación:</label>
-          <input
-            name="location"
-            cols="30"
-            rows="10"
-            placeholder="Escribe aquí"
-            onChange={handleChange}
-          />
-        </div>
-        <div className={s.inputsRadio}>
-          <label htmlFor="repetitive">Repetitivo:</label>
-          <div className={s.radios}>
-            <input
-              type="radio"
-              name="repetitive"
-              value={true}
-              onChange={handleRepetitive}
-            />
-            <span>Si</span>
-            <input
-              type="radio"
-              name="repetitive"
-              value={false}
-              onChange={handleRepetitive}
-            />
-            <span>No</span>
+        <div>
+          <div className={s.sectionContainer}>
+            <div>
+
+              <div className={s.item}>
+                <label htmlFor="description">Descripción:</label>
+                <textarea
+                  name="description"
+                  cols="30"
+                  rows="10"
+                  placeholder="Escribe aquí"
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              <div className={s.item}>
+                <label htmlFor="location">Ubicación:</label>
+                <input
+                  name="location"
+                  cols="30"
+                  rows="10"
+                  placeholder="Escribe aquí"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={s.inputsRadio}>
+                <label htmlFor="repetitive">Repetitivo:</label>
+                <div className={s.radios}>
+                  <input
+                    type="radio"
+                    name="repetitive"
+                    value={true}
+                    onChange={handleRepetitive}
+                  />
+                  <span>Si</span>
+                  <input
+                    type="radio"
+                    name="repetitive"
+                    value={false}
+                    onChange={handleRepetitive}
+                  />
+                  <span>No</span>
+                </div>
+              </div>
+              <div className={s.inputsRadio}>
+                <label htmlFor="deuda">Generar Deuda:</label>
+                <div className={s.radios}>
+                  <input
+                    type="radio"
+                    name="deuda"
+                    value={true}
+                    onChange={handleDeuda}
+                  />
+                  <span>Si</span>
+                  <input
+                    type="radio"
+                    name="deuda"
+                    value={false}
+                    onChange={handleDeuda}
+                  />
+                  <span>No</span>
+                </div>
+              </div>
+            </div>
+            {deuda === "true" ?
+              <div className={s.itemSide}>
+                <div className={s.item}>
+                  <span> Deuda: </span>
+                  <label htmlFor="concepto">Concepto: </label>
+                  <input type="text" />
+                </div>
+                <div className={s.item}>
+                  <label htmlFor="description">Detalle de la deuda: </label>
+                  <textarea name="description" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div className={s.item}>
+                  <label htmlFor="monto">Monto: </label>
+                  <input type="number" />
+                </div>
+              </div>
+              :
+              " "
+            }
           </div>
+
         </div>
         {isRepetitive !== "" ? (
           isRepetitive ? (
@@ -286,7 +350,7 @@ export default function FormCalendario({ handleModal, getEvents }) {
                 return (
                   <div key={el} className={s.groupsSelected}>
                     <p>{groups.find((gr) => gr.id === el).name} </p>
-                    <div>✖</div>
+                    <div onClick={() => deleteGroup()}>✖</div>
                   </div>
                 );
               })}
