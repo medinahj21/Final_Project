@@ -333,7 +333,7 @@ const postRoleRequest = async (req, res) => {
         const restoreRol = await RoleRequest.restore({
           where: { id: id }
         });
-        restoreRol
+        existRole.set(req.body).save()
           ? res.json({ message: "procces successfully" })
           : res.status(400).json({ error: "bad request" });
       } else {
