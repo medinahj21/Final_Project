@@ -130,6 +130,7 @@ function NavbarDash({ setClickChoice }) {
                       </a>
                     </li>
                     {userInfoFirestore.superAdmin && (
+                    <li>
                       <a
                         href="#!"
                         onClick={() => validateClick("socios", setClickChoice)}
