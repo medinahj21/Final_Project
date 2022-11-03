@@ -60,7 +60,7 @@ function FormUser({ setShowAlta, setIsForm }) {
   };
 
   const sendEmail = (e) => {
-    e.preventDefault();
+   e.preventDefault();
     notify();
     emailjs
       .sendForm(
