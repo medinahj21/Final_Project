@@ -48,7 +48,7 @@ export default function RoleRequestMiniCard(roleRequest) {
       await dispatch(deleteRoleRequest(id));
       await dispatch(getRoleRequests());
       notify("Solicitud rechazada");
-      sendRejectedEmail();
+      //sendRejectedEmail();
     } else {
       notifyInfo("Luego decides !");
     }
@@ -211,7 +211,7 @@ export default function RoleRequestMiniCard(roleRequest) {
 
         // -------------- envió emailconfirmación y borro datos -----------------
 
-        sendApprovedEmail(e);
+        //sendApprovedEmail(e);
         await dispatch(deleteRoleRequest(id));
         await dispatch(getRoleRequests());
       }
