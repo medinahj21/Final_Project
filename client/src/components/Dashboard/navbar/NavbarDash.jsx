@@ -129,7 +129,7 @@ function NavbarDash({ setClickChoice }) {
                         <i className="ion-ios-filing-outline"></i>Inscripciones
                       </a>
                     </li>
-                    <li>
+                    {userInfoFirestore.superAdmin && (
                       <a
                         href="#!"
                         onClick={() => validateClick("socios", setClickChoice)}
@@ -137,7 +137,7 @@ function NavbarDash({ setClickChoice }) {
                         <i className="ion-ios-paperplane-outline"></i>Gestion de
                         admins
                       </a>
-                    </li>
+                    </li>}
                     <li>
                       <a
                         href="#!"
