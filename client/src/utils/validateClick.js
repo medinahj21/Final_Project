@@ -42,6 +42,15 @@ export const validateClick = (value, setClickChoice) => {
     setClickChoice({
       isPerfil: false,
       isSocios: false,
+      isGrupo: false,
+      isCalendario: true,
+    });
+    
+  }
+  if (value === "perfil") {
+    setClickChoice({
+      isPerfil: true,
+      isSocios: false,
       isPagos: false,
       isGrupos: false,
       isGrupo: false,

@@ -127,6 +127,7 @@ const createEvent = async (req, res) => {
     repetitive,
     state,
     player,
+    type,
   } = req.body;
   console.log(req.body);
   try {
