@@ -59,7 +59,7 @@ export default function FormGroup({ setIsForm }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     Swal.fire({
-      title: 'Estas seguro que quieres crear el grupo?',
+      title: '¿Estas seguro que quieres crear el grupo?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
@@ -83,6 +83,7 @@ export default function FormGroup({ setIsForm }) {
               icon: 'success',
               title: 'Hecho!',
               text: `Se ha creado correctamente!`,
+              target: document.getElementById('formGroups')
             })
             await dispatch(actions.getGroups());
             setGroupInputs({

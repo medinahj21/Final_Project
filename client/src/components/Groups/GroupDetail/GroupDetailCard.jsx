@@ -52,18 +52,33 @@ export default function GroupDetailCard({
         actions.createNewRoleRequest(newRoleRequest)
       );
       if (response.error) {
-        alert(
-          "Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D"
-        );
+        Toast.fire({
+          icon: 'info',
+          title: 'Ya has enviado una socilicitud a un grupo, se paciente!',
+          target: document.getElementById('container-group-detail')
+        })
+        // alert(
+        //   "Tu solicitud de inscripción ya ha sido enviada, espera a que un admin te acepte :D"
+        // );
       } /* if(response.data) */ else {
-        alert("Solicitud de inscripción enviada");
+        Toast.fire({
+          icon: 'success',
+          title: 'Hecho!',
+          text: `Solicitud de inscripción enviada!`,
+          target: document.getElementById('container-group-detail')
+        })
         setIsDisabled(true);
       }
       /* else{
         alert ("algo raro pasó")
       } */
     } else {
-      alert("¿aún no te registras?");
+      Toast.fire({
+        icon: 'info',
+        title: '¿Aún no te registras?',
+        target: document.getElementById('container-group-detail')
+      })
+      // alert("¿aún no te registras?");
     }
   };
 

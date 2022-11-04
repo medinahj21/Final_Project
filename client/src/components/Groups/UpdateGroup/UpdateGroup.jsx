@@ -6,7 +6,8 @@ import {
   updateGroup,
 } from "../../../redux/actions/actionsGroup";
 import Modal from "../../UI/Modal";
-
+import Swal from "sweetalert2";
+import { Toast } from "../../../utils/toastSweet";
 import "./UpdateGroup.css";
 
 function UpdateGroup({ setIsEdit, groupDetail, id }) {
@@ -16,13 +17,48 @@ function UpdateGroup({ setIsEdit, groupDetail, id }) {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    if (window.confirm("Estas seguro quieres guardar?")) {
-      dispatch(updateGroup(id, inputUpdate));
-      setTimeout(() => {
-        dispatch(getGroupDetail(id));
-        dispatch(getGroups());
-      }, 2000);
-    }
+    Toast.fire({
+      title: '¿Guardar los cambios?',
+      showDenyButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Guardar',
+      confirmButtonColor: '#01002E',
+      denyButtonText: `No guardar`,
+      timerProgressBar: false,
+      target: document.getElementById('detail'),
+      width: "300px"
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          let response = await dispatch(updateGroup(id, inputUpdate));
+          if (response.error) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Algo salio mal: ${response.error}`,
+              target: document.getElementById('detail'),
+              
+            })
+          } else {
+            Toast.fire({
+              icon: 'success',
+              title: 'Hecho!',
+              text: `Se ha guardado correctamente!`,
+              target: document.getElementById('detail')
+            })
+            setTimeout(() => {
+              dispatch(getGroupDetail(id));
+              dispatch(getGroups());
+            }, 2000);
+          }
+        } else if (result.isDenied) {
+          Toast.fire({
+            icon: 'info',
+            title: 'Se ha cancelado la edición!',
+            target: document.getElementById('detail')
+          })
+        }
+      })
   };
 
   const handleChange = (e) => {
@@ -39,8 +75,8 @@ function UpdateGroup({ setIsEdit, groupDetail, id }) {
   };
 
   return (
-    <Modal clickHandler={editHandler}>
-      <div className="form__user form-update-group">
+    <Modal clickHandler={editHandler} >
+      <div className="form__user form-update-group" id="detail">
         <h2>Editar</h2>
         <div className="update-section">
           <select

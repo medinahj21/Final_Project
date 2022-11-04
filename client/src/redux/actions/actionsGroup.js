@@ -40,7 +40,7 @@ export const createGroup = (datos) => {
       );
       return response.data;
     } catch (error) {
-      return { error: error.response.data.message };
+      return { error: error };
     }
   };
 };
@@ -51,8 +51,10 @@ export const updateGroup = (id, datos) => {
       .put(`${axios.defaults.baseURL}/groups/update/${id}`, datos)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
-      });
+        return data;
+      }).catch((error) => {
+        return {error: error}
+      })
   };
 };
 
